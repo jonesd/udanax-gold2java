@@ -9,33 +9,35 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
+import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
+import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.transform.tokenmatcher.MatchAny;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformDOTCalls extends AbstractMethodBodyTransformation {
+public class TransformDOThashForEqual extends AbstractMethodBodyTransformation {
 
-	public TransformDOTCalls() {
+	public TransformDOThashForEqual() {
 		super();
 	}
-	public TransformDOTCalls(TokenMatcherFactory factory) {
+	public TransformDOThashForEqual(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		MatchAny matchAny = new MatchAny();
-		matchAny.add(factory.token(JavaCallStart.class, "DOTasLong"));
-		matchAny.add(factory.token(JavaCallStart.class, "DOTasInt"));
-		matchAny.add(factory.token(JavaCallStart.class, "DOTasInt32"));
-		matchAny.add(factory.token(JavaCallStart.class, "DOTasUInt32"));
-		return factory.seq(matchAny, factory.token(JavaCallEnd.class));
+		return factory.seq(
+			factory.token(JavaIdentifier.class),
+			factory.token(JavaCallStart.class, "DOThashForEqual"),
+			factory.token(JavaCallEnd.class));
 	}
 
 	protected void transform(JavaMethod javaMethod, List tokens, int i) {
-		tokens.remove(i + 1);
-		tokens.remove(i);
+		tokens.remove(i+1);
+		tokens.add(i, new JavaIdentifier("HashHelper"));
+		tokens.add(i + 1, new JavaCallKeywordStart("hashForEqual"));
 	}
 }

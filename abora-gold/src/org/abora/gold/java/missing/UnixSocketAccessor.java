@@ -9,17 +9,15 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.filter.Joint;
-import org.abora.gold.spaces.basic.XnRegion;
+import org.abora.gold.xpp.basic.Heaper;
 
-public class PropJoint extends Joint {
+public class UnixSocketAccessor extends Heaper {
 
-	public PropJoint(XnRegion unioned, XnRegion intersected) {
-		super(unioned, intersected);
+	public UnixSocketAccessor() {
+		super();
 	}
-
-	public PropJoint join(PropJoint propJoint) {
+	
+	public static int newTCPserverAtPort(int address) {
 		throw new UnsupportedOperationException();
 	}
-
 }

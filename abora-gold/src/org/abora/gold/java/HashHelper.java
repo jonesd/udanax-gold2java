@@ -15,4 +15,8 @@ public class HashHelper {
 	public static int hashForEqual(Class clazz) {
 		throw new UnsupportedOperationException();
 	}
+	
+	public static int hashForEqual(int value) {
+		throw new UnsupportedOperationException();
+	}
 }

@@ -91,6 +91,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("Stamp", "org.abora.gold.java.missing");
 		packageLookup.put("TransclusionRecorder", "org.abora.gold.java.missing");
 		packageLookup.put("TwoStepper", "org.abora.gold.java.missing");
+		packageLookup.put("UnixSocketAccessor", "org.abora.gold.java.missing");
 		packageLookup.put("Urdi", "org.abora.gold.java.missing");
 		packageLookup.put("UrdiView", "org.abora.gold.java.missing");
 		packageLookup.put("VoidStar", "org.abora.gold.java.missing");

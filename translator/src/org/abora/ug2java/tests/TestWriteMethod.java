@@ -232,6 +232,22 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\none ^ 7;\n}\n", java);
 	}
 
+	public void testBitShift() {
+		String smalltalk = "test\none bitShift: 7!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\none << 7;\n}\n", java);
+	}
+
+	public void testBitShiftRight() {
+		String smalltalk = "test\none bitShiftRight: 7!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\none >> 7;\n}\n", java);
+	}
+
 	public void testBlast() {
 		String smalltalk = "test\nHeaper BLAST: #TestBlah!";
 
@@ -536,6 +552,14 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals("public void test() {\n12;\n}\n", java);
 	}
+	
+	public void testDOhashForEqual() {
+		String smalltalk = "test\nblah DOThashForEqual!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nHashHelper.hashForEqual(blah);\n}\n", java);
+	}
 
 	public void testDouble() {
 		String smalltalk = "test\n187.123!";
@@ -602,6 +626,16 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals(
 			"public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos )stomp1.fetch();\nfor (Stepper stomp2 = blah ; stomp2.hasValue() ; stomp2.step()) {\nRealPos element2 = (RealPos )stomp2.fetch();\nelement + element2;\n}\n}\n}\n",
+			java);
+	}
+
+	public void testForPositions() {
+		String smalltalk = "test\nfred forPositions: [:key {IntegerPos} :value {IntegerRegion}| element]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals(
+			"public void test() {\nfor (TableStepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos key = (IntegerPos )stomp1.position();\nIntegerRegion value = (IntegerRegion )stomp1.fetch();\nelement;\n}\n}\n",
 			java);
 	}
 
@@ -675,6 +709,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nif ((a.blah(b)) != 98) {\nreturn one;\n}\n}\n", java);
+	}
+
+	public void testInt32Min() {
+		String smalltalk = "test\nInt32Min + 2!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n0x80000000 + 2;\n}\n", java);
 	}
 
 	public void testInt32Zero() {

@@ -44,6 +44,7 @@ public class ClassParser {
 	
 	public static final String HEAPER_CLASS = "Heaper";
 	public static final String STEPPER_CLASS = "Stepper";
+	public static final String TABLE_STEPPER_CLASS = "TableStepper";
 	
 	static final Map LOOKUP_TYPES;
 	static {
@@ -461,7 +462,10 @@ public class ClassParser {
 		boolean endOfExpression = false;
 		JavaCallKeywordStart existingKeyword = null;
 		boolean hasIf = false;
-		boolean hasFor = false;
+		
+		//TODO move this to a transform
+		boolean hasForEach = false;
+		boolean hasForPositions = false;
 
 		while (!endOfUnit && scanner.token.tokenType != ScannerToken.TOKEN_END) {
 			switch (scanner.token.tokenType) {
@@ -548,7 +552,7 @@ public class ClassParser {
 						scanner.advance();
 						boolean needsForEnd = false;
 						if (scanner.token.tokenType == ScannerToken.TOKEN_BLOCK_TEMP) {
-							if (hasFor) {
+							if (hasForEach) {
 								needsForEnd = true;
 								String tempName = scanner.token.tokenString;
 								scanner.advance();
@@ -568,6 +572,43 @@ public class ClassParser {
 								stompLevel++;
 								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
 								scanner.advance();
+							} else if (hasForPositions) { 
+								needsForEnd = true;
+								String tempName = scanner.token.tokenString;
+								scanner.advance();
+								String tempType = parseType(scanner, HEAPER_CLASS);
+								expression.add(new JavaType(tempType));
+								expression.add(new JavaIdentifier(tempName));
+								expression.add(new JavaKeyword("="));
+								if (!tempType.equals(HEAPER_CLASS)) {
+									expression.add(new JavaParenthesisStart());
+									expression.add(new JavaType(tempType));
+									expression.add(new JavaParenthesisEnd());
+								}
+								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+								expression.add(new JavaCallStart("position"));
+								expression.add(new JavaCallEnd());
+								expression.add(new JavaStatementTerminator());
+								
+								tempName = scanner.token.tokenString;
+								scanner.advance();
+								tempType = parseType(scanner, HEAPER_CLASS);
+								expression.add(new JavaType(tempType));
+								expression.add(new JavaIdentifier(tempName));
+								expression.add(new JavaKeyword("="));
+								if (!tempType.equals(HEAPER_CLASS)) {
+									expression.add(new JavaParenthesisStart());
+									expression.add(new JavaType(tempType));
+									expression.add(new JavaParenthesisEnd());
+								}
+								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+								expression.add(new JavaCallStart("fetch"));
+								expression.add(new JavaCallEnd());
+								expression.add(new JavaStatementTerminator());
+								stompLevel++;
+								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
+								scanner.advance();
+
 							} else {
 								expression.addAll(parseTemps(scanner));
 							}
@@ -636,6 +677,14 @@ public class ClassParser {
 //								expression.add(new JavaIdentifier("IntegerVar"));
 //								expression.add(new JavaCallStart("zero"));
 //								expression.add(new JavaCallEnd());
+							} else if (word.equals("Int32Min") || word.equals("UInt32Min")) {
+								//TODO use Integer.MIN_VALUE
+								expression.add(new JavaLiteral("0x80000000"));
+							} else if (word.equals("Int32Max") || word.equals("UInt32Max")) {
+								//TODO use Integer.MAX_VALUE
+								expression.add(new JavaLiteral("0x7fffffff"));
+							} else if (word.equals("UInt8Max")) {
+								expression.add(new JavaLiteral("0xff"));
 							} else {
 								expression.add(new JavaIdentifier(word));
 							}
@@ -666,7 +715,7 @@ public class ClassParser {
 								hasIf = true;
 							}
 						} else if (wordTrimmed.equals("forEach")) {
-							hasFor = true;
+							hasForEach = true;
 							int startIndex = findStartOfExpression(expression);
 							expression.add(startIndex, new JavaKeyword("for"));
 							expression.add(startIndex + 1, new JavaParenthesisStart());
@@ -683,6 +732,24 @@ public class ClassParser {
 							expression.add(new JavaCallEnd());
 							expression.add(new JavaParenthesisEnd());
 
+						} else if (wordTrimmed.equals("forPositions")) {
+							hasForPositions = true;
+							int startIndex = findStartOfExpression(expression);
+							expression.add(startIndex, new JavaKeyword("for"));
+							expression.add(startIndex + 1, new JavaParenthesisStart());
+							expression.add(startIndex + 2, new JavaType(TABLE_STEPPER_CLASS));
+							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+							expression.add(startIndex + 4, new JavaKeyword("="));
+							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+							expression.add(new JavaCallStart("hasValue"));
+							expression.add(new JavaCallEnd());
+							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+							expression.add(new JavaCallStart("step"));
+							expression.add(new JavaCallEnd());
+							expression.add(new JavaParenthesisEnd());
+							
 						} else {
 							if (existingKeyword != null) {
 								existingKeyword.value = appendKeyword(existingKeyword.value, word);
@@ -777,7 +844,8 @@ public class ClassParser {
 				atExpressionStart = true;
 				existingKeyword = null;
 				hasIf = false;
-				hasFor = false;
+				hasForEach = false;
+				hasForPositions = false;
 			}
 		}
 		return new MethodBody(tokens);

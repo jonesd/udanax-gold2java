@@ -48,7 +48,6 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformCritical());
 		transformers.add(new TransformValueNowOrOnOnUnwindDo());
 		transformers.add(new TransformAtCalls());
-		transformers.add(new TransformBitAndOrXor());
 		transformers.add(new TransformBlast());
 		transformers.add(new TransformIsKindOf());
 		transformers.add(new TransformStar());
@@ -56,9 +55,11 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformAlmostTo());
 		transformers.add(new TransformSubclassResponsibility());
 		transformers.add(new TransformDOTCalls());
+		transformers.add(new TransformDOThashForEqual());
 		transformers.add(new TransformCAThashForEqual());
 		transformers.add(new TransformIntegerIntegerVar());
 		transformers.add(new TransformPrint());
+		transformers.add(new TransformBitAndOrXor());
 		transformers.add(new TransformDiskManagerConsistent());
 		transformers.add(new TransformCategoryName());
 		transformers.add(new TransformReceiverReceiveHeaper());

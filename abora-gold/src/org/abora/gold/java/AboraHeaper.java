@@ -9,6 +9,8 @@
 
 package org.abora.gold.java;
 
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.fluid.FluidVar;
 
@@ -26,17 +28,24 @@ public class AboraHeaper {
 	public static FluidVar CurrentSession;
 	public static FluidVar CurrentSessions;
 	public static FluidVar CurrentTrace;
+	public static FluidVar GrandConnection;
 	public static FluidVar InitialEditClub;
 	public static FluidVar InitialOwner;
 	public static FluidVar InitialReadClub;
 	public static FluidVar InitialSponsor;
 	public static FluidVar InsideTransactionFlag;
+	
+	public static Recipe BootCuisine;
+	public static Recipe CalcCuisine;
 
 	/**
 	 * Constructor for AboraHeaper.
 	 */
 	public AboraHeaper() {
 		super();
+	}
+	public AboraHeaper(Rcvr receiver) {
+		throw new UnsupportedOperationException();
 	}
 
 	public static void knownBug() {
