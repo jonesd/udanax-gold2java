@@ -87,8 +87,16 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nfred = harry.kill();\n}\n", java);
 	}
 
+	public void testAtStore() {
+		String smalltalk = "test\na < b ifTrue: [table at: 1 store: NULL. a := a + 1]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (a < b) {\ntable.store(1, null);\na = a + 1;\n}\n}\n", java);
+	}
+
 	public void testAtStoreValue() {
-		String smalltalk = "test\ntable at: 1 storeValue: value)!";
+		String smalltalk = "test\ntable at: 1 storeValue: value!";
 
 		String java = writeInstanceMethod(smalltalk);
 
@@ -264,6 +272,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\napple = (Peter) (blah.able(george));\n}\n", java);
 	}
 
+	public void testCAThashForEquals() {
+		String smalltalk = "test\n^#cat.U.Test hashForEqual!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nreturn HashHelper.hashForEqual(this.getClass());\n}\n", java);
+	}
+
 	public void testCharacter() {
 		String smalltalk = "test\n$a.$-!";
 
@@ -341,7 +357,15 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public  Test(Object blah) {\nsuper(blah);\n}\n", java);
+		assertEquals("public Test(Object blah) {\nsuper(blah);\n}\n", java);
+	}
+
+	public void testCreateSuperWithDeclarations() {
+		String smalltalk = "create\n| blah |\nsuper create: 2. blah := 1!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public Test() {\nsuper(2);\nObject blah;\nblah = 1;\n}\n", java);
 	}
 
 	public void testCritical() {
@@ -350,6 +374,46 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nsynchronized (mutex) {\nblah;\n}\n}\n", java);
+	}
+
+	public void testDiv() {
+		String smalltalk = "test\n11 // 2!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n11 / 2;\n}\n", java);
+	}
+
+	public void testDOTasLong() {
+		String smalltalk = "test\n12 DOTasLong!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n12;\n}\n", java);
+	}
+
+	public void testDOTasInt() {
+		String smalltalk = "test\n12 DOTasInt!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n12;\n}\n", java);
+	}
+
+	public void testDOTasInt32() {
+		String smalltalk = "test\n12 DOTasInt32!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n12;\n}\n", java);
+	}
+
+	public void testDOTasUInt32() {
+		String smalltalk = "test\n12 DOTasUInt32!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n12;\n}\n", java);
 	}
 
 	public void testDouble() {
@@ -442,6 +506,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nif (one == (two + 2)) {\nreturn one;\n}\n}\n", java);
 	}
 
+	public void testIfTrueMissingTestParenthesesMoreComplicated() {
+		String smalltalk = "test\n(a blah: b) ~~ 98 ifTrue: [^one]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif ((a.blah(b)) != 98) {\nreturn one;\n}\n}\n", java);
+	}
+
 	public void testInt32Zero() {
 		String smalltalk = "test\nInt32Zero + 2!";
 
@@ -487,7 +559,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nblah = IntegerVar.zero();\n}\n", java);
+		assertEquals("public void test() {\nblah = 0;\n}\n", java);
 	}
 
 	public void testIntegerVarZero() {
@@ -495,7 +567,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nblah = IntegerVar.zero();\n}\n", java);
+		assertEquals("public void test() {\nblah = 0;\n}\n", java);
 	}
 
 	public void testIsKindOf() {
@@ -595,6 +667,38 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\none || (two);\n}\n", java);
+	}
+
+	public void testOverrideReturnType() {
+		String smalltalk = "make\n^blah!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public Heaper make() {\nreturn blah;\n}\n", java);
+	}
+
+	public void testOverrideReturnType2() {
+		String smalltalk = "{TableStepper} make\n^blah!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public Heaper make() {\nreturn blah;\n}\n", java);
+	}
+
+	public void testOverrideVoidReturnType() {
+		String smalltalk = "{TableStepper} stepper\n^blah!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public TableStepper stepper() {\nreturn blah;\n}\n", java);
+	}
+
+	public void testOverrideVoidReturnType2() {
+		String smalltalk = "stepper\n^blah!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public Stepper stepper() {\nreturn blah;\n}\n", java);
 	}
 
 	public void testQuickCast() {

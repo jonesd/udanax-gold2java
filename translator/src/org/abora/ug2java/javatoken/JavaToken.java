@@ -6,6 +6,7 @@
 package org.abora.ug2java.javatoken;
 
 import org.abora.ug2java.JavaWriter;
+import org.abora.ug2java.util.ToStringGenerator;
 
 public class JavaToken {
 	//FIXME:
@@ -25,9 +26,9 @@ public class JavaToken {
 	}
 
 	public String toString() {
-		String className = getClass().getName();
-		className = className.substring(className.lastIndexOf('.') + 1);
-		return className + "[" + value + "]";
+		ToStringGenerator generator = new ToStringGenerator(this);
+		generator.add(value);
+		return generator.end();
 	}
 
 	public void write(JavaWriter buffer) {

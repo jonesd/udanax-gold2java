@@ -38,15 +38,14 @@ public class ClassParser {
 	
 	private JavaClass javaClass;
 	
-	//FIXME just create one of these for all classes
-	private TransformMethod methodTransformer = new TransformMethod();
-
 	
 	static final Hashtable LOOKUP_TYPES = new Hashtable();
 	{
 		LOOKUP_TYPES.put("BooleanVar", "boolean");
 		LOOKUP_TYPES.put("Boolean", "boolean");
-		LOOKUP_TYPES.put("IntegerVar", "IntegerVar");
+		LOOKUP_TYPES.put("Integer", "int");
+		LOOKUP_TYPES.put("IntegerVar", "int");
+//TODO		LOOKUP_TYPES.put("IntegerVar", "IntegerVar");
 		LOOKUP_TYPES.put("UInt32", "int");
 		LOOKUP_TYPES.put("Int32", "int");
 		LOOKUP_TYPES.put("UInt8", "byte");
@@ -59,7 +58,7 @@ public class ClassParser {
 		LOOKUP_TYPES.put("IEEEFloatVar", "float");
 		LOOKUP_TYPES.put("IEEE64", "double");
 		LOOKUP_TYPES.put("IEEE32", "float");
-		
+				
 		// total guess work		
 		LOOKUP_TYPES.put("size_U_t", "int");
 		LOOKUP_TYPES.put("size", "int");
@@ -103,6 +102,11 @@ public class ClassParser {
 		OVERRIDE_RETURN_TYPE.put("exportName", "String");
 	}
 
+	static final Hashtable OVERRIDE_VOID_RETURN_TYPE = new Hashtable();
+	{
+		OVERRIDE_VOID_RETURN_TYPE.put("stepper", "Stepper");
+	}
+
 	static final Set OVERRIDE_STATIC = new HashSet();
 	{
 		OVERRIDE_STATIC.add("asOop");
@@ -112,8 +116,6 @@ public class ClassParser {
 	}
 
 	public static final Map OVERRIDE_CALLS = new HashMap();
-
-	static final String CATEGORY_SEPARATOR = "-";
 	{
 		OVERRIDE_CALLS.put("atStore", "store");
 		OVERRIDE_CALLS.put("atStoreInt", "storeInt");
@@ -124,6 +126,11 @@ public class ClassParser {
 		OVERRIDE_CALLS.put("atStoreValue", "storeValue");
 		OVERRIDE_CALLS.put("atStoreUInt", "storeUInt");
 	}
+
+	static final String CATEGORY_SEPARATOR = "-";
+
+	//FIXME just create one of these for all classes
+	private TransformMethod methodTransformer = new TransformMethod();
 
 	public void setJavaClass(JavaClass javaClass) {
 		this.javaClass = javaClass;
@@ -161,6 +168,9 @@ public class ClassParser {
 	protected String overrideReturnType(String methodName, String returnType) {
 		if (OVERRIDE_RETURN_TYPE.containsKey(methodName)) {
 			returnType = (String) OVERRIDE_RETURN_TYPE.get(methodName);
+			returnType = lookupType(returnType);
+		} else if (returnType.equals("void") && OVERRIDE_VOID_RETURN_TYPE.containsKey(methodName)) {
+			returnType = (String) OVERRIDE_VOID_RETURN_TYPE.get(methodName);
 			returnType = lookupType(returnType);
 		}
 		return returnType;
@@ -473,6 +483,9 @@ public class ClassParser {
 							//TODO this is not technically accurate as \\ truncates to negative infinity
 							// while C % truncates to zero
 							binary = "%";
+						} else if (binary.equals("//")) {
+							//TODO what about truncation?
+							binary = "/";
 						} else if (binary.equals("<<")) {
 							//TODO not good enough
 							binary = ".print()";
@@ -576,9 +589,11 @@ public class ClassParser {
 							if (word.equals("UInt32Zero") || word.equals("Int32Zero") || word.equals("Int0")) {
 								expression.add(new JavaLiteral("0"));
 							} else if ((word.equals("IntegerVar0")) || word.equals("IntegerVarZero")) {
-								expression.add(new JavaIdentifier("IntegerVar"));
-								expression.add(new JavaCallStart("zero"));
-								expression.add(new JavaCallEnd());
+								//TODO IntegerVar choice!!
+								expression.add(new JavaLiteral("0"));
+//								expression.add(new JavaIdentifier("IntegerVar"));
+//								expression.add(new JavaCallStart("zero"));
+//								expression.add(new JavaCallEnd());
 							} else {
 								expression.add(new JavaIdentifier(word));
 							}
@@ -596,6 +611,10 @@ public class ClassParser {
 								expression.add(new JavaKeyword("else"));
 							} else {
 								int startIndex = findStartOfExpression(expression);
+								if (!(expression.lastElement() instanceof JavaParenthesisEnd)) {
+									expression.add(startIndex, new JavaParenthesisStart());
+									expression.add(new JavaParenthesisEnd());
+								}
 								expression.add(startIndex, new JavaKeyword("if"));
 								if (wordTrimmed.equals("ifFalse")) {
 									expression.add(startIndex + 1, new JavaParenthesisStart());

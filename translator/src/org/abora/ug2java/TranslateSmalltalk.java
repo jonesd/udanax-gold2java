@@ -62,6 +62,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("FeIndirectWrapperMaker", "org.abora.gold.java.missing");
 		packageLookup.put("FeWrapperSpecHolder", "org.abora.gold.java.missing");
 		packageLookup.put("FHash", "org.abora.gold.java.missing");
+		packageLookup.put("GrandHashSetStepper", "org.abora.gold.java.missing");
 		//	packageLookup.put("Heaper", "org.abora.gold.java.missing");
 		packageLookup.put("HRoot", "org.abora.gold.java.missing");
 		//BAD	packageLookup.put("IDRegio", "org.abora.gold.java.missing");
@@ -122,8 +123,9 @@ public class TranslateSmalltalk {
 		
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");
 		packageLookup.put("AboraRuntimeException", "org.abora.gold.java");
-		packageLookup.put("SubclassResponsibilityException", "org.abora.gold.java");
 		packageLookup.put("Abstract", "org.abora.gold.java");
+		packageLookup.put("HashHelper", "org.abora.gold.java");
+		packageLookup.put("SubclassResponsibilityException", "org.abora.gold.java");
 
 		packageLookup.put("PrintWriter", "java.io");
 		packageLookup.put("Iterator", "java.util");

@@ -24,6 +24,12 @@ public class ToStringGenerator {
 		return this;
 	}
 
+	public ToStringGenerator add(String value) {
+		appendSeparator();
+		buffer.append(value);
+		return this;
+	}
+
 	public ToStringGenerator add(String name, long value) {
 		add(name, Long.toString(value));
 		return this;

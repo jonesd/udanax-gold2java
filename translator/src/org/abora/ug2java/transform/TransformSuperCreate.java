@@ -10,6 +10,7 @@ import java.util.List;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
@@ -34,5 +35,13 @@ public class TransformSuperCreate extends AbstractMethodBodyTransformation {
 		JavaCallStart call = (JavaCallStart) tokens.get(i + 1);
 		call.value = "super";
 		tokens.remove(i);
+		int end = javaMethod.methodBody.findClosingCallEnd(i)+/*assumed ); next*/2;
+		// Also must ensure that super() is the first thing in the method.
+		for (int j = i - 1; j >= 0; j--) {
+			JavaToken preToken = (JavaToken)tokens.get(j);
+			tokens.add(end, preToken);
+			tokens.remove(j);
+			end--;
+		}
 	}
 }

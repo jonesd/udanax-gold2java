@@ -49,6 +49,8 @@ public class TransformMethod implements MethodTransformation {
 		transformers.add(new TransformCast());
 		transformers.add(new TransformAlmostTo());
 		transformers.add(new TransformSubclassResponsibility());
+		transformers.add(new TransformDOTCalls());
+		transformers.add(new TransformCAThashForEqual());
 		transformers.add(new TransformStaticCall());
 		transformers.add(new TransformReturnVoid());
 		transformers.add(new TransformClassReference());

@@ -128,6 +128,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String ONLY_REMOVE_UNCHANGED_FLOCKS = "OnlyRemoveUnchangedFlocks";
 	public static final String ORIGINAL_CONTEXT_MUST_BE_FROZEN = "OriginalContextMustBeFrozen";
 	public static final String OUT_OF_BOUNDS = "OutOfBounds";
+	public static final String OUT_OF_DOMAIN = "OutOfDomain";
 	public static final String READ_CLUB_IRREVOCABLY_REMOVED = "ReadClubIrrevocablyRemoved";
 	public static final String READ_CLUB_REMOVED = "ReadClubRemoved";
 	public static final String RECORDERS_STILL_OUTSTANDING = "RecordersStillOutstanding";

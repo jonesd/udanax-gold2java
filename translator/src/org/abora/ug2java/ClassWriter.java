@@ -77,7 +77,13 @@ public class ClassWriter {
 			writeAsJavadocComment(writer, javaMethod.comment);			
 		}
 	
-		writer.println("public " + javaMethod.modifiers + javaMethod.returnType + " " + javaMethod.name + "(" + javaMethod.params + ") {");
+		writer.print("public ");
+		writer.print(javaMethod.modifiers);
+		writer.print(javaMethod.returnType);
+		if (javaMethod.modifiers.length() > 0 || javaMethod.returnType.length() > 0) {
+			writer.print(" ");
+		}
+		writer.println(javaMethod.name + "(" + javaMethod.params + ") {");
 		
 		if (INCLUDE_METHOD_BODIES) {
 			writeMethodBody(javaMethod.methodBody, writer);
