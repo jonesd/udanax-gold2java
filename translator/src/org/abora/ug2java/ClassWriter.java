@@ -23,6 +23,7 @@ public class ClassWriter {
 
 	private final JavaClass javaClass;
 	public boolean quoteSmalltalk = true;
+	public boolean shouldIndent = true;
 
 	private int JAVADOC_MARGIN = 90;
 	
@@ -40,12 +41,27 @@ public class ClassWriter {
 	}
 
 	protected void writeMethodBody(MethodBody methodBody, PrintWriter writer) {
-			StringBuffer buffer = new StringBuffer();
+		Indentation indentation = getIndenter();
+		indentation.increase();
+		StringWriter stringWriter = new StringWriter();
+		JavaWriter javaWriter = new JavaWriter(new PrintWriter(stringWriter), indentation);
+		
 			for (Iterator e = methodBody.tokens.iterator(); e.hasNext();) {
 				JavaToken token = (JavaToken) e.next();
-				token.write(buffer);
+				token.write(javaWriter);
 			}
-			writer.print(buffer.toString());
+			javaWriter.flush();
+			writer.print(stringWriter.toString());
+	}
+
+	private Indentation getIndenter() {
+		Indentation indentation;
+		if (shouldIndent) {
+			indentation = new SimpleIndenter();
+		} else {
+			indentation = new FlushIndentation();
+		}
+		return indentation;
 	}
 
 	private void writeMethods(PrintWriter writer) {

@@ -39,6 +39,7 @@ public class TestWriteMethod extends TestCase {
 		javaClass.className = "Test";
 		classWriter = new ClassWriter(javaClass);
 		classWriter.quoteSmalltalk = false;
+		classWriter.shouldIndent = false;
 	}
 
 	public static Test suite() {

@@ -5,16 +5,18 @@
  */
 package org.abora.ug2java.javatoken;
 
+import org.abora.ug2java.JavaWriter;
+
 public class JavaCallStart extends JavaToken {
 
 	public JavaCallStart(String value) {
 		super(value);
 	}
 
-	public void write(StringBuffer buffer) {
+	public void write(JavaWriter buffer) {
 		// handling required after this identifires have been trimmed
-		char c;
-		if (buffer.length() > 0 && (Character.isJavaIdentifierPart(c = buffer.charAt(buffer.length() - 1)) || c == ')')) {
+		char c = buffer.getLastCharacter();
+		if (Character.isJavaIdentifierPart(c) || c == ')') {
 			buffer.append(".");
 		}
 		super.write(buffer);

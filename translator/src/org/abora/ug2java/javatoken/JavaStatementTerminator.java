@@ -5,7 +5,7 @@
  */
 package org.abora.ug2java.javatoken;
 
-import org.abora.ug2java.JavaClass;
+import org.abora.ug2java.JavaWriter;
 
 public class JavaStatementTerminator extends JavaToken {
 
@@ -13,7 +13,8 @@ public class JavaStatementTerminator extends JavaToken {
 		super();
 	}
 
-	public void write(StringBuffer buffer) {
-		buffer.append(";" + JavaClass.lineSeparator());
+	public void write(JavaWriter buffer) {
+		buffer.append(";");
+		buffer.newLine();
 	}
 }

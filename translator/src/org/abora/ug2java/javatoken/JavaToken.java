@@ -5,12 +5,14 @@
  */
 package org.abora.ug2java.javatoken;
 
+import org.abora.ug2java.JavaWriter;
+
 public class JavaToken {
 	//FIXME:
-	public String value = "";
+	public String value;
 
 	public JavaToken() {
-		super();
+		this("");
 	}
 
 	public JavaToken(String value) {
@@ -28,13 +30,8 @@ public class JavaToken {
 		return className + "[" + value + "]";
 	}
 
-	public void write(StringBuffer buffer) {
+	public void write(JavaWriter buffer) {
 		buffer.append(value);
 	}
 
-	protected void writeLeadingSpaceIfRequired(StringBuffer buffer) {
-		if (buffer.length() > 0 && !Character.isWhitespace(buffer.charAt(buffer.length() - 1))) {
-			buffer.append(' ');
-		}
-	}
 }

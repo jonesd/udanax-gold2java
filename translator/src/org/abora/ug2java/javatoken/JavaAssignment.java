@@ -5,13 +5,15 @@
  */
 package org.abora.ug2java.javatoken;
 
+import org.abora.ug2java.JavaWriter;
+
 public class JavaAssignment extends JavaToken {
 
 	public JavaAssignment() {
 		super();
 	}
 
-	public void write(StringBuffer buffer) {
+	public void write(JavaWriter buffer) {
 		buffer.append(" = ");
 	}
 }
