@@ -104,4 +104,9 @@ public class AboraHeaper {
 	public void destructor() {
 		throw new UnsupportedOperationException();
 	}
+	
+	// Temp replace Heaper implementation
+	public static boolean isDestructed(AboraHeaper h) {
+		throw new UnsupportedOperationException();
+	}
 }

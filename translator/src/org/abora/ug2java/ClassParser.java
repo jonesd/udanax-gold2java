@@ -40,6 +40,7 @@ public class ClassParser {
 	
 	private JavaClass javaClass;
 	private TransformMethodBody methodTransformer = new TransformMethodBody();
+	private int stompLevel = 1;
 	
 	public static final String HEAPER_CLASS = "Heaper";
 	public static final String STEPPER_CLASS = "Stepper";
@@ -417,6 +418,7 @@ public class ClassParser {
 			javaMethod.comment = scanner.token.tokenString;
 			scanner.advance();
 		}
+		stompLevel = 1;/*hack*/
 		javaMethod.methodBody = readMethodUnit(scanner);
 		methodTransformer.transform(javaMethod);
 		javaClass.includeAnyReferencedTypes(javaMethod.methodBody);
@@ -559,10 +561,11 @@ public class ClassParser {
 									expression.add(new JavaType(tempType));
 									expression.add(new JavaParenthesisEnd());
 								}
-								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
+								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 								expression.add(new JavaCallStart("fetch"));
 								expression.add(new JavaCallEnd());
 								expression.add(new JavaStatementTerminator());
+								stompLevel++;
 								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
 								scanner.advance();
 							} else {
@@ -668,14 +671,14 @@ public class ClassParser {
 							expression.add(startIndex, new JavaKeyword("for"));
 							expression.add(startIndex + 1, new JavaParenthesisStart());
 							expression.add(startIndex + 2, new JavaType(STEPPER_CLASS));
-							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
+							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(startIndex + 4, new JavaKeyword("="));
 							expression.add(new JavaKeyword(";"));
-							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
+							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(new JavaCallStart("hasValue"));
 							expression.add(new JavaCallEnd());
 							expression.add(new JavaKeyword(";"));
-							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
+							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(new JavaCallStart("step"));
 							expression.add(new JavaCallEnd());
 							expression.add(new JavaParenthesisEnd());

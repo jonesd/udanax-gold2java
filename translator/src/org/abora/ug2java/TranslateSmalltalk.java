@@ -126,14 +126,17 @@ public class TranslateSmalltalk {
 		packageLookup.put("Symbol", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("TypeDescription", "org.abora.gold.java.missing.smalltalk");
 		
-		packageLookup.put("AboraAssertionException", "org.abora.gold.java");
+		packageLookup.put("AboraBlockSupport", "org.abora.gold.java");
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");
-		packageLookup.put("AboraRuntimeException", "org.abora.gold.java");
 		packageLookup.put("Abstract", "org.abora.gold.java");
 		packageLookup.put("HashHelper", "org.abora.gold.java");
-		packageLookup.put("PasseException", "org.abora.gold.java");
-		packageLookup.put("SubclassResponsibilityException", "org.abora.gold.java");
-		packageLookup.put("UnimplementedException", "org.abora.gold.java");
+
+		packageLookup.put("AboraAssertionException", "org.abora.gold.java.exception");
+		packageLookup.put("AboraRuntimeException", "org.abora.gold.java.exception");
+		packageLookup.put("PasseException", "org.abora.gold.java.exception");
+		packageLookup.put("ShouldImplementException", "org.abora.gold.java.exception");
+		packageLookup.put("SubclassResponsibilityException", "org.abora.gold.java.exception");
+		packageLookup.put("UnimplementedException", "org.abora.gold.java.exception");
 
 		packageLookup.put("PrintWriter", "java.io");
 		packageLookup.put("Iterator", "java.util");

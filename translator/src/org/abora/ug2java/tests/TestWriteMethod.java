@@ -401,6 +401,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nblah;\n}\n", java);
 	}
 
+	public void testDiskManagerConsistent() {
+		String smalltalk = "test\nDiskManager consistent: 2 with: [self diskUpdate]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraBlockSupport.enterConsistent(2);\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitConsistent();\n}\n}\n", java);
+	}
+
 	public void testCreateCall() {
 		String smalltalk = "test\nBlah create: 12!";
 
@@ -513,7 +521,7 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals(
-			"public void test() {\nfor (Stepper stomp = fred ; stomp.hasValue() ; stomp.step()) {\nIntegerPos element = (IntegerPos )stomp.fetch();\nelement;\n}\n}\n",
+			"public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos )stomp1.fetch();\nelement;\n}\n}\n",
 /*			"public void test() {\nfor (Stepper stepper = fred ; stepper.hasValue() ; stepper.step()) {\nIntegerPos element = (IntegerPos )stepper.fetch();\nelement;\n}\nstepper.destroy();\n}\n",*/
 			java);
 	}
@@ -524,7 +532,17 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals(
-			"public void test() {\nfor (Stepper stomp = fred ; stomp.hasValue() ; stomp.step()) {\nHeaper element = stomp.fetch();\nelement;\n}\n}\n",
+			"public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nHeaper element = stomp1.fetch();\nelement;\n}\n}\n",
+			java);
+	}
+
+	public void testForEachNested() {
+		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| blah forEach: [:element2 {RealPos} | element + element2]]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals(
+			"public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos )stomp1.fetch();\nfor (Stepper stomp2 = blah ; stomp2.hasValue() ; stomp2.step()) {\nRealPos element2 = (RealPos )stomp2.fetch();\nelement + element2;\n}\n}\n}\n",
 			java);
 	}
 
@@ -948,6 +966,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nkill();\none(2);\n}\n", java);
+	}
+
+	public void testShouldImplement() {
+		String smalltalk = "test\n^Someone shouldImplement!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nthrow new ShouldImplementException(\"Someone\");\n}\n", java);
 	}
 
 	public void testSignals() {

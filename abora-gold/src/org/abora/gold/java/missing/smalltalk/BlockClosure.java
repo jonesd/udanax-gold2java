@@ -9,8 +9,11 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import org.abora.gold.xpp.basic.Heaper;
+
 public interface BlockClosure {
 
-	public void value();
+	
+	public Heaper value();
 
 }

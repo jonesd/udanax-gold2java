@@ -59,11 +59,13 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformCAThashForEqual());
 		transformers.add(new TransformIntegerIntegerVar());
 		transformers.add(new TransformPrint());
+		transformers.add(new TransformDiskManagerConsistent());
 		transformers.add(new TransformCategoryName());
 		transformers.add(new TransformReceiverReceiveHeaper());
 		transformers.add(new TransformCastIntoOthers());
 		transformers.add(new TransformIntegerCall());
 		transformers.add(new TransformSignals());
+		transformers.add(new TransformShouldImplement());
 		transformers.add(new TransformStrcmp());
 		transformers.add(new TransformStrlen());
 		transformers.add(new TransformMinMax());

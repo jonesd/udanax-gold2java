@@ -1,4 +1,4 @@
-package org.abora.gold.java;
+package org.abora.gold.java.exception;
 
 
 

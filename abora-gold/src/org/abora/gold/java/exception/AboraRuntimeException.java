@@ -7,7 +7,7 @@
  * Copyright 1979-1999 Udanax.com. All rights reserved
  */
 
-package org.abora.gold.java;
+package org.abora.gold.java.exception;
 
 public class AboraRuntimeException extends RuntimeException {
 

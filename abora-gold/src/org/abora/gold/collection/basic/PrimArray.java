@@ -11,8 +11,8 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
-import org.abora.gold.java.AboraRuntimeException;
 import org.abora.gold.java.Heap;
+import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xpp.basic.Heaper;

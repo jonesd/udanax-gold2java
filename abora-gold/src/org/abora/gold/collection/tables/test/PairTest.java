@@ -1,7 +1,7 @@
 package org.abora.gold.collection.tables.test;
 
 import org.abora.gold.collection.tables.Pair;
-import org.abora.gold.java.AboraRuntimeException;
+import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.xpp.basic.Heaper;
 
 import junit.framework.TestCase;
