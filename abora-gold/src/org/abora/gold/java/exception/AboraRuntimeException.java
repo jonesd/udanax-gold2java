@@ -26,6 +26,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String BOGUS_START_INDEX = "BogusStartIndex";
 	public static final String CANNOT = "Cannot";
 	public static final String CANNOT_U_HAVE_U_MULTIPLE_U_SERVER_U_LOOPS = "CannotHaveMultipleServerLoops";
+	public static final String CANNOTUHAVEUMULTIPLEUSERVERULOOPS = "CannotHaveMultipleServerLoops";
 	public static final String CANNOT_WRAP = "CannotWrap";
 	public static final String CANT_CONVERT = "CantConvert";
 	public static final String CANT_INFORM = "CantInform";
@@ -78,6 +79,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String MUST_BE_FINITE = "MustBeFinite";
 	public static final String MUST_BE_FROZEN = "MustBeFrozen";
 	public static final String MUST_BE_INITIALIZED = "MustBeInitialized";
+	public static final String MUST_BE_INSTANTIATED = "MustBeInstantiated";
 	public static final String MUST_BE_INSIDE_TRANSACTION = "MustBeInsideTransaction";
 	public static final String MUST_BE_OWNER = "MustBeOwner";
 	public static final String MUST_BE_REAL_DISK_MANAGER = "MustBeRealDiskManager";
@@ -107,6 +109,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String NEVER_ADDED_REVISION_WATCHER = "NeverAddedRevisionWatcher";
 	public static final String NEVER_ADDED_WATCHER = "NeverAddedWatcher";
 	public static final String NEVER_REGISTERED_KEY_MASTER = "NeverRegisteredKeyMaster";
+	public static final String NEW_FLOCK_INDEX_DOES_NOT_MATCH = "NewFlockIndexDoesNotMatch";
 	public static final String NEW_SHEPHERD_MUST_NOT_HAVE_INFO = "NewShepherdMustNotHaveInfo";
 	public static final String NO_AUTHOR = "NoAuthor";
 	public static final String NO_BIT_COUNT_LIMIT = "NoBitCountLimit";
@@ -138,6 +141,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String NOT_SIMPLE_ENOUGH = "NotSimpleEnough";
 	public static final String NOT_YET_IMPLEMENTED = "NotYetImplemented";
 	public static final String NULL_INSERTION = "NullInsertion";
+	public static final String NULL_RESPONSE_RESULT = "NullResponseResult";
 	public static final String NULL_SHEPHERD = "NullShepherd";
 	public static final String NULL_VALUE = "NullValue";
 	public static final String NULLFLUID = "NullFluid";
@@ -159,13 +163,18 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String SANITY_VIOLATION = "SanityViolation";
 	public static final String SERVERLOOP = "Serverloop";
 	public static final String SERVERLOOP_U_IS_U_NULL = "ServerloopIsNull";
+	public static final String SERVERLOOPUISUNULL = "ServerloopIsNull";
+	public static final String SHEPHERD_MUST_NOT_HAVE_NULL_FLOCK_INFO = "ShepherdMustNotHaveNullFlockInfo";
+	public static final String SHOULD_HAVE_DONE_DISK_UPDATE_ON_CHANGED_SHEPHERD = "ShouldHaveDoneDiskUpdateOnChangedShepherd";
 	public static final String SIGNATURE_CLUB_IRREVOCABLY_REMOVED = "SignatureClubIrrevocablyRemoved";
+	public static final String TEST_PACKER_DOES_NOT_FORWARD = "TestPackerDoesNotForward";
 	public static final String TOO_MANY_STEPPERS_RELEASED = "TooManySteppersReleased";
 	public static final String TOO_MANY_ZEROS = "TooManyZeros";
 	public static final String TURTLE_NOT_MATURE = "TurtleNotMature";
 	public static final String UNENCODED_CATEGORY = "UnencodedCategory";
 	public static final String UNKNOWN_COOKBOOK = "UnknownCookbook";
 	public static final String UNINITIALIZED_PACKER = "UninitializedPacker";
+	public static final String UNRECOGNIZED_PRECISION = "UnrecognizedPrecision";
 	public static final String WORK_MUST_BE_GRABBED = "WorkMustBeGrabbed";
 	public static final String WORK_IS_LOCKED_BY_SOMEONE_ELSE = "WorkIsLockedBySomeoneElse";
 	public static final String WHO_SAYS = "WhoSays";

@@ -353,12 +353,44 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\napple = (Peter) (blah.able(george));\n}\n", java);
 	}
 
+	public void testCastInto() {
+		String smalltalk = "test\nblah cast: Pair into: [:pair | pair left]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (blah instanceof Pair) {\nPair pair = (Pair) blah;\npair.left();\n}\n}\n", java);
+	}
+
 	public void testCastIntoOthers() {
 		String smalltalk = "test\nblah cast: Pair into: [:pair | pair left] others: [1]!";
 
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nif (blah instanceof Pair) {\nPair pair = (Pair) blah;\npair.left();\n}\nelse {\n1;\n}\n}\n", java);
+	}
+
+	public void testCastIntoCastIntoOthers() {
+		String smalltalk = "test\nblah cast: Pair into: [:pair | pair left] cast: Region into: [:region | region size] others: [1]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (blah instanceof Pair) {\nPair pair = (Pair) blah;\npair.left();\n}\nelse if (blah instanceof Region) {\nRegion region = (Region) blah;\nregion.size();\n}\nelse {\n1;\n}\n}\n", java);
+	}
+
+	public void testCastIntoCastInto() {
+		String smalltalk = "test\nblah cast: Pair into: [:pair | pair left] cast: Region into: [:region | region size]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (blah instanceof Pair) {\nPair pair = (Pair) blah;\npair.left();\n}\nelse if (blah instanceof Region) {\nRegion region = (Region) blah;\nregion.size();\n}\n}\n", java);
+	}
+
+	public void testCastExpressionIntoOthers() {
+		String smalltalk = "test\none blah cast: Pair into: [:pair | pair left] others: [1]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nHeaper cast1 = one.blah();\nif (cast1 instanceof Pair) {\nPair pair = (Pair) cast1;\npair.left();\n}\nelse {\n1;\n}\n}\n", java);
 	}
 
 	public void testCategoryName() {
@@ -645,6 +677,16 @@ public class TestWriteMethod extends TestCase {
 			java);
 	}
 
+	public void testForIndices() {
+		String smalltalk = "test\nfred forIndices: [:i {IntegerVar} :value {IntegerRegion}| element]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals(
+			"public void test() {\nfor (TableStepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nint i = (int )stomp1.index();\nIntegerRegion value = (IntegerRegion )stomp1.fetch();\nelement;\n}\n}\n",
+			java);
+	}
+
 	public void testForPositions() {
 		String smalltalk = "test\nfred forPositions: [:key {IntegerPos} :value {IntegerRegion}| element]!";
 
@@ -907,19 +949,27 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testMethodNameFullStop() {
-		String smalltalk = "test.extra!";
+		String smalltalk = "test.Extra!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\n}\n", java);
+		assertEquals("public void testExtra() {\n}\n", java);
+	}
+
+	public void testMethodNameFullStopCreate() {
+		String smalltalk = "create.Extra!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public Test() {\n}\n", java);
 	}
 
 	public void testMethodNameFullStopKeyword() {
-		String smalltalk = "test\nself blah.extra: 1!";
+		String smalltalk = "test\nself blah.Extra: 1!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nblah(1);\n}\n", java);
+		assertEquals("public void test() {\nblahExtra(1);\n}\n", java);
 	}
 
 	public void testMultipleStatements() {
@@ -1266,6 +1316,14 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals("public void test() {\nArray.new();\n}\n", java);
 	}
+	public void testSymbolWithColons() {
+		String smalltalk = "test\n#IDSpace.U.newIDs.U.N2:with:!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nIDSPACE_UNEW_IDS_UN2_WITH_;\n}\n", java);
+	}
+	
 
 	public void testTemps() {
 		String smalltalk = "test\n| one two {Test}|!";

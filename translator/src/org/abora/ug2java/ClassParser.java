@@ -71,6 +71,7 @@ public class ClassParser {
 				
 		// total guess work		
 		table.put("size_U_t", "int");
+		table.put("sizeUt", "int");
 //		table.put("size", "int");
 		table.put("UNKNOWN", "Object");
 
@@ -141,7 +142,14 @@ public class ClassParser {
 	static {
 		Set set  = new HashSet();
 		set.add("make");
+		//TODO support "make*"
+		set.add("makeIntegerVar");
+		set.add("makeCoordinateSpace");
+		set.add("makeScruSet");
+		set.add("makeJoint");
+		set.add("makeXnRegion");
 		OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS = Collections.unmodifiableSet(set);
+		
 	}
 
 	static final Set OVERRIDE_STATIC;
@@ -476,6 +484,7 @@ public class ClassParser {
 		//TODO move this to a transform
 		boolean hasForEach = false;
 		boolean hasForPositions = false;
+		boolean hasForIndices = false;
 
 		while (!endOfUnit && scanner.token.tokenType != ScannerToken.TOKEN_END) {
 			switch (scanner.token.tokenType) {
@@ -619,6 +628,43 @@ public class ClassParser {
 								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
 								scannerAdvance(scanner);
 
+							} else if (hasForIndices) { 
+								needsForEnd = true;
+								String tempName = scanner.token.tokenString;
+								scannerAdvance(scanner);
+								String tempType = parseType(scanner, HEAPER_CLASS);
+								expression.add(new JavaType(tempType));
+								expression.add(new JavaIdentifier(tempName));
+								expression.add(new JavaKeyword("="));
+								if (!tempType.equals(HEAPER_CLASS)) {
+									expression.add(new JavaParenthesisStart());
+									expression.add(new JavaType(tempType));
+									expression.add(new JavaParenthesisEnd());
+								}
+								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+								expression.add(new JavaCallStart("index"));
+								expression.add(new JavaCallEnd());
+								expression.add(new JavaStatementTerminator());
+								
+								tempName = scanner.token.tokenString;
+								scannerAdvance(scanner);
+								tempType = parseType(scanner, HEAPER_CLASS);
+								expression.add(new JavaType(tempType));
+								expression.add(new JavaIdentifier(tempName));
+								expression.add(new JavaKeyword("="));
+								if (!tempType.equals(HEAPER_CLASS)) {
+									expression.add(new JavaParenthesisStart());
+									expression.add(new JavaType(tempType));
+									expression.add(new JavaParenthesisEnd());
+								}
+								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+								expression.add(new JavaCallStart("fetch"));
+								expression.add(new JavaCallEnd());
+								expression.add(new JavaStatementTerminator());
+								stompLevel++;
+								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
+								scannerAdvance(scanner);
+								
 							} else {
 								expression.addAll(parseTemps(scanner));
 							}
@@ -758,6 +804,24 @@ scannerAdvance(scanner);
 							expression.add(new JavaCallEnd());
 							expression.add(new JavaParenthesisEnd());
 							
+						} else if (wordTrimmed.equals("forIndices")) {
+							hasForIndices = true;
+							int startIndex = findStartOfExpression(expression);
+							expression.add(startIndex, new JavaKeyword("for"));
+							expression.add(startIndex + 1, new JavaParenthesisStart());
+							expression.add(startIndex + 2, new JavaType(TABLE_STEPPER_CLASS));
+							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+							expression.add(startIndex + 4, new JavaKeyword("="));
+							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+							expression.add(new JavaCallStart("hasValue"));
+							expression.add(new JavaCallEnd());
+							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
+							expression.add(new JavaCallStart("step"));
+							expression.add(new JavaCallEnd());
+							expression.add(new JavaParenthesisEnd());
+
 						} else {
 							if (existingKeyword != null) {
 								existingKeyword.value = appendKeyword(existingKeyword.value, word);
@@ -804,7 +868,11 @@ scannerAdvance(scanner);
 								if (i > 0 && Character.isUpperCase(c) && Character.isLowerCase(value.charAt(i - 1))) {
 									buffer.append('_');
 								}
-								buffer.append(Character.toUpperCase(c));
+								if (c == ':') {
+									buffer.append("_");
+								} else {
+									buffer.append(Character.toUpperCase(c));
+								}
 							}
 							expression.add(new JavaIdentifier(buffer.toString()));
 						}
@@ -853,6 +921,7 @@ scannerAdvance(scanner);
 				hasIf = false;
 				hasForEach = false;
 				hasForPositions = false;
+				hasForIndices = false;
 			}
 		}
 		return new MethodBody(tokens);

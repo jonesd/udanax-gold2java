@@ -27,7 +27,10 @@ public class TransformCAThashForEqual extends AbstractMethodBodyTransformation {
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.seq(factory.token(JavaIdentifier.class, "CAT"), factory.token(JavaCallStart.class, "hashForEqual"), factory.token(JavaCallEnd.class));
+		return factory.seq(
+				factory.token(JavaIdentifier.class, "CAT.*"),
+				factory.token(JavaCallStart.class, "hashForEqual"),
+				factory.token(JavaCallEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {

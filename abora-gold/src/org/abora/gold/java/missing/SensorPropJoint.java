@@ -9,6 +9,7 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.id.IDRegion;
 import org.abora.gold.spaces.basic.XnRegion;
 
 
@@ -18,6 +19,12 @@ public class SensorPropJoint extends PropJoint /*GUESS*/ {
 		super(unioned, intersected);
 	}
 	public boolean isPartial() {
+		throw new UnsupportedOperationException();
+	}
+	public IDRegion relevantPermissions() {
+		throw new UnsupportedOperationException();
+	}
+	public IDRegion relevantEndorsements() {
 		throw new UnsupportedOperationException();
 	}
 }

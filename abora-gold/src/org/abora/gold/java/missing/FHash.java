@@ -16,7 +16,7 @@ public class FHash extends Heaper {
 	public FHash() {
 		super();
 	}
-	public static int fastHash_UInt32(int i) {
+	public static int fastHashUInt32(int i) {
 		throw new UnsupportedOperationException();
 	}
 	

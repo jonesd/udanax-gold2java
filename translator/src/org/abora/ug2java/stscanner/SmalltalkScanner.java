@@ -166,14 +166,17 @@ public class SmalltalkScanner {
 
 		String value = contents.substring(start, index);
 		if (value.indexOf('.') != -1) {
-			boolean isKeyword = value.endsWith(":");
-			value = value.substring(0, value.indexOf('.'));
-			//FIXMEvalue = value.replaceAll("\\.", "");
-			if (isKeyword) {
-				value = value + ":";
+			if (value.startsWith("create.")) {
+				boolean isKeyword = value.endsWith(":");
+				value = value.substring(0, value.indexOf('.'));
+				//FIXMEvalue = value.replaceAll("\\.", "");
+				if (isKeyword) {
+					value = value + ":";
+				}
 			}
 		}
 		//	value = value.replace('.', '_');
+		value = value.replaceAll("\\.", "");
 
 		if (value.endsWith(":")) {
 			return new ScannerToken(ScannerToken.TOKEN_KEYWORD, value);

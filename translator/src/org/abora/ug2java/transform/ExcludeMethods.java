@@ -18,6 +18,7 @@ public class ExcludeMethods implements MethodTransformation {
 		List list = new ArrayList();
 		list.add("IntegerPos.IntegerVar");
 		list.add("IntegerPos.basicCast");
+		list.add("MuTable.test");
 
 		REMOVE = Collections.unmodifiableList(list);
 	}

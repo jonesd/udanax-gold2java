@@ -6,6 +6,8 @@
 package org.abora.ug2java.transform.tokenmatcher;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.util.ToStringGenerator;
@@ -15,7 +17,7 @@ import org.abora.ug2java.util.ToStringGenerator;
 public class MatchToken implements TokenMatcher {
 
 	private final Class tokenClass;
-	private final String tokenValue;
+	private final Pattern tokenValue;
 	
 	
 	public MatchToken(Class tokenClass) {
@@ -24,12 +26,16 @@ public class MatchToken implements TokenMatcher {
 	
 	public MatchToken(Class tokenClass, String tokenValue) {
 		this.tokenClass = tokenClass;
-		this.tokenValue = tokenValue;
+		if (tokenValue != null) {
+			this.tokenValue = Pattern.compile(tokenValue);
+		} else {
+			this.tokenValue = null;
+		}
 	}
 	
 	public boolean doesMatch(List tokens, int i) {
 		JavaToken javaToken = (JavaToken)tokens.get(i);
-		return (tokenClass.isAssignableFrom(javaToken.getClass())) && (tokenValue == null || tokenValue.equals(javaToken.value));
+		return (tokenClass.isAssignableFrom(javaToken.getClass())) && (tokenValue == null || tokenValue.matcher(javaToken.value).matches());
 	}
 
 	public String toString() {

@@ -65,7 +65,6 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformDiskManagerConsistent());
 		transformers.add(new TransformCategoryName());
 		transformers.add(new TransformReceiverReceiveHeaper());
-		transformers.add(new TransformCastIntoOthers());
 		transformers.add(new TransformIntegerCall());
 		transformers.add(new TransformSignals());
 		transformers.add(new TransformShouldImplement());
@@ -77,6 +76,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformNot());
 		transformers.add(new TransformAssert());
 		transformers.add(new TransformConditionalOperator());
+		transformers.add(new TransformCastIntoOthers());
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new TransformCompilerFodder());
