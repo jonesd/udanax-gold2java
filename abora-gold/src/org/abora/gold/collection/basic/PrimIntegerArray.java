@@ -37,12 +37,12 @@ public class PrimIntegerArray extends PrimDataArray {
 	 * If canModify, then returns a newly created array only if the value will
 	 * not fit into this one, otherwise will always return a new array.
 	 */
-	public PrimIntegerArray hold(int index, IntegerVar value, BooleanVar canModify) {
+	public PrimIntegerArray hold(int index, IntegerVar value, boolean canModify) {
 		throw new UnsupportedOperationException();
 	}
 
 	public PrimIntegerArray hold(int index, IntegerVar value) {
-		this(index, value, false);
+		return hold(index, value, false);
 	}
 
 	/** Store an integer value */

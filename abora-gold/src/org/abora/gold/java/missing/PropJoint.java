@@ -10,11 +10,12 @@
 package org.abora.gold.java.missing;
 
 import org.abora.gold.filter.Joint;
+import org.abora.gold.spaces.basic.XnRegion;
 
 public class PropJoint extends Joint {
 
-	public PropJoint() {
-		super();
+	public PropJoint(XnRegion unioned, XnRegion intersected) {
+		super(unioned, intersected);
 	}
 
 	public void join(PropJoint propJoint) {

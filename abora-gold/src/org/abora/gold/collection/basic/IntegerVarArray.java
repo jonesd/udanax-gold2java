@@ -9,6 +9,7 @@
 
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.java.missing.IntegerVar;
 import org.abora.gold.java.missing.smalltalk.Stream;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xcvr.Rcvr;
@@ -20,10 +21,12 @@ public class IntegerVarArray extends PrimIntegerArray {
 	//	IntegerVarArray (Int32 count, TCSJ);
 
 	protected IntegerVarArray(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
 	protected IntegerVarArray(int count, int[] buffer) {
+		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 

@@ -31,10 +31,12 @@ public class IEEE32Array extends PrimFloatArray {
 	//	IEEE32Array (Int32 count, TCSJ);
 
 	protected IEEE32Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+		this(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
 	protected IEEE32Array(int count, int[] buffer) {
+		this(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 

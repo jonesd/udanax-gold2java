@@ -18,13 +18,17 @@ import org.abora.gold.xpp.basic.Heaper;
 
 public class PtrArray extends PrimArray {
 
-	//	protected PtrArray (Int32 count, TCSJ);
+	protected PtrArray (int count, int TCSJ) {
+		super(-1, -1);
+	}
 
 	protected PtrArray(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
 	protected PtrArray(int count, int[] buffer) {
+		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
@@ -197,7 +201,7 @@ public class PtrArray extends PrimArray {
 	}
 
 	/** for bulk methods that need checking and for migration */
-	public Heaper "*" unsafeFetch(int index) {
+	public Heaper unsafeFetch(int index) {
 		throw new UnsupportedOperationException();
 	}
 

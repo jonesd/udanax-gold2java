@@ -21,10 +21,12 @@ public class UInt8Array extends PrimIntArray {
 	//	protected UInt8Array (Int32 count, TCSJ);
 
 	protected UInt8Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
 	protected UInt8Array(int count, int[] buffer) {
+		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 

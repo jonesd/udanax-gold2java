@@ -19,11 +19,11 @@ public class Heap {
 	/** start of contiguous space at end */
 	private int[] myEndSpace;
 	/** table of live PrimArrays on this heap */
-	PrimArray "**" myPrimArrayTable;
+	PrimArray  myPrimArrayTable;
 	/** Last word in heap */
 	int[] myLastWord;
 	/** PrimArray table entry after first hole in heap or NULL */
-	PrimArray "**" myFirstAfterHole;
+	PrimArray myFirstAfterHole;
 	/* the actual heap storage */
 	int[] myHeapStore;
 

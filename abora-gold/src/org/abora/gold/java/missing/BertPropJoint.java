@@ -9,10 +9,12 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.spaces.basic.XnRegion;
+
 public class BertPropJoint extends PropJoint {
 
-	public BertPropJoint() {
-		super();
+	public BertPropJoint(XnRegion unioned, XnRegion intersected) {
+		super(unioned, intersected);
 	}
 	public PropJoint permissionsJoint() {
 		throw new UnsupportedOperationException();

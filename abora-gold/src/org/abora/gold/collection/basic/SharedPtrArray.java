@@ -18,10 +18,12 @@ public class SharedPtrArray extends PtrArray {
 	//	protected SharedPtrArray (Int32 count, TCSJ);
 
 	protected SharedPtrArray(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
 	protected SharedPtrArray(int count, int[] buffer) {
+		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
@@ -31,24 +33,24 @@ public class SharedPtrArray extends PtrArray {
 	}
 
 	/** create a SharedPtrArray filled with the indicated data in 'from' */
-	public static SharedPtrArray make(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+	public static PtrArray make(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		throw new UnsupportedOperationException();
 	}
 
-	public static SharedPtrArray make(int size, PrimArray from, int sourceOffset, int count) {
+	public static PtrArray make(int size, PrimArray from, int sourceOffset, int count) {
 		return make(size, from, sourceOffset, count, 0);
 	}
 
-	public static SharedPtrArray make(int size, PrimArray from, int sourceOffset) {
+	public static PtrArray make(int size, PrimArray from, int sourceOffset) {
 		return make(size, from, sourceOffset, -1);
 	}
 
-	public static SharedPtrArray make(int size, PrimArray from) {
+	public static PtrArray make(int size, PrimArray from) {
 		return make(size, from, 0);
 	}
 
 	/** create a PtrArray filled with the data from 'buffer' */
-	public static SharedPtrArray make(int count, int[] buffer) {
+	public static PtrArray make(int count, int[] buffer) {
 		throw new UnsupportedOperationException();
 	}
 

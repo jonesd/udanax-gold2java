@@ -10,4 +10,7 @@
 package org.abora.gold.collection.basic;
 
 public class WeakPtrArray extends PtrArray {
+	protected WeakPtrArray(int count, int size) {
+		super(-1, -1);
+	}
 }

@@ -22,10 +22,12 @@ public class IEEE64Array extends PrimFloatArray {
 	//	IEEE64Array (Int32 count, TCSJ);
 
 	protected IEEE64Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+		this(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
 	protected IEEE64Array(int count, int[] buffer) {
+		this(-1, -1);
 		throw new UnsupportedOperationException();
 	}
 
