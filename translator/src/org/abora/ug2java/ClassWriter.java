@@ -39,14 +39,14 @@ public class ClassWriter {
 		LOOKUP_TYPES.put("UInt8", "byte");
 		LOOKUP_TYPES.put("Int8", "byte");
 		//		LOOKUP_TYPES.put("UInt8Array", "byte[]");
+		LOOKUP_TYPES.put("Uint3", "byte");
 		LOOKUP_TYPES.put("UInt4", "byte");
 		LOOKUP_TYPES.put("Int4", "byte");
 		LOOKUP_TYPES.put("IEEEDoubleVar", "double");
 		LOOKUP_TYPES.put("IEEEFloatVar", "float");
 		LOOKUP_TYPES.put("IEEE64", "double");
 		LOOKUP_TYPES.put("IEEE32", "float");
-		LOOKUP_TYPES.put("size", "int");
-
+		
 		// total guess work		
 		LOOKUP_TYPES.put("size_U_t", "int");
 		LOOKUP_TYPES.put("size", "int");
@@ -87,6 +87,7 @@ public class ClassWriter {
 		OVERRIDE_RETURN_TYPE.put("isEqual", "boolean");
 		OVERRIDE_RETURN_TYPE.put("isUnlocked", "boolean");
 		OVERRIDE_RETURN_TYPE.put("displayString", "String");
+		OVERRIDE_RETURN_TYPE.put("exportName", "String");
 	}
 
 	static final Set OVERRIDE_STATIC = new HashSet();

@@ -97,6 +97,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("Behavior", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("BlockClosure", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Collection", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("CompiledMethod", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Context", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Dictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("EntView", "org.abora.gold.java.missing.smalltalk");
@@ -105,13 +106,17 @@ public class TranslateSmalltalk {
 		packageLookup.put("IdentityDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("IdentitySet", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("InspectorView", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("MethodDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("OrderedCollection", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("ParseNode", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Sensor", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("Selector", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Set", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Smalltalk", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Stream", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Symbol", "org.abora.gold.java.missing.smalltalk");
-
+		packageLookup.put("TypeDescription", "org.abora.gold.java.missing.smalltalk");
+		
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");
 		packageLookup.put("AboraRuntimeException", "org.abora.gold.java");
 		packageLookup.put("Abstract", "org.abora.gold.java");
