@@ -127,6 +127,6 @@ The translator is written by David G Jones and the code is released
 under the MIT open-source licence.
 
 
-Copyright 2003 David G Jones
+Copyright 2003-2005 David G Jones
 mailto:david_jones@night.dircon.co.uk
 http://www.abora.org
