@@ -1,0 +1,64 @@
+<project name="ug2java-translator" default="translate" basedir=".">
+    <description>
+    	Translate Udanax-Gold Smalltalk source into approximate Java
+    </description>
+
+  <!-- set global properties for this build -->
+  <property name="name" value="ug2java-translator"/>
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="lib.dir" location="lib"/>
+  
+  <property name="udanaxgold.dir" location="../udanax-gold"/>
+  <property name="translated.dir" location="../abora-gold/src-gen"/>
+  
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <javac srcdir="${src}" destdir="${build}" extdirs="${lib.dir}" />
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+    <mkdir dir="${dist}/lib"/>
+    <jar jarfile="${dist}/lib/${name}-${DSTAMP}.jar" basedir="${build}"/>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+  
+  <target name="translate" depends="compile">
+  	<delete dir="${translated.dir}"/>
+  	<java classname="org.abora.ug2java.TranslateSmalltalk">
+  		<arg value="${translated.dir}"/>
+  		<arg value="${udanaxgold.dir}/udanax-top.st"/>
+  		<arg value="${udanaxgold.dir}/Xanadu-wparray.st"/>
+  		<arg value="${udanaxgold.dir}/Xanadu-Xpp-Basic.st"/>
+  		<arg value="${udanaxgold.dir}/Xanadu-Xpp-Become.st"/>
+  		<arg value="${udanaxgold.dir}/Xanadu-Xpp-Converters.st"/>
+  		<arg value="${udanaxgold.dir}/Xanadu-Xpp-fluid.st"/>
+  		<arg value="${udanaxgold.dir}/Xanadu-Xpp-Packages.st"/>
+  		<classpath>
+  			<pathelement path="${build}"/>
+  		</classpath>
+  	</java>
+  </target>
+
+  <target name="test" depends="compile">
+  	<junit printsummary="true">
+  		<test name="org.abora.ug2java.tests.TestWriteMethod"/>
+  		<classpath>
+  			<pathelement path="${build}"/>
+  		</classpath>
+  	</junit>
+  </target>
+
+</project>
