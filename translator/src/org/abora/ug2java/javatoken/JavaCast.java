@@ -4,7 +4,7 @@
  * Copyright 2003 David G Jones
  */
 
-package org.abora.ug2java;
+package org.abora.ug2java.javatoken;
 
 public class JavaCast extends JavaToken {
 

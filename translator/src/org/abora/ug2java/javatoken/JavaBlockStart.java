@@ -4,7 +4,9 @@
  * Copyright 2003 David G Jones
  */
 
-package org.abora.ug2java;
+package org.abora.ug2java.javatoken;
+
+import org.abora.ug2java.ClassWriter;
 
 public class JavaBlockStart extends JavaToken {
 

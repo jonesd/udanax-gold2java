@@ -4,11 +4,11 @@
  * Copyright 2003 David G Jones
  */
 
-package org.abora.ug2java;
+package org.abora.ug2java.javatoken;
 
-public class JavaCallEnd extends JavaToken {
+public class JavaIdentifier extends JavaToken {
 
-	public JavaCallEnd() {
-		super(")");
+	public JavaIdentifier(String value) {
+		super(value);
 	}
 }

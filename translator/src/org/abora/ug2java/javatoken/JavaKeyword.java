@@ -4,15 +4,16 @@
  * Copyright 2003 David G Jones
  */
 
-package org.abora.ug2java;
+package org.abora.ug2java.javatoken;
 
-public class JavaType extends JavaToken {
+public class JavaKeyword extends JavaToken {
 
-	public JavaType(String value) {
+	public JavaKeyword(String value) {
 		super(value);
 	}
 
 	public void write(StringBuffer buffer) {
+		writeLeadingSpaceIfRequired(buffer);
 		super.write(buffer);
 		buffer.append(" ");
 	}

@@ -4,7 +4,7 @@
  * Copyright 2003 David G Jones
  */
 
-package org.abora.ug2java;
+package org.abora.ug2java.stscanner;
 
 public class SmalltalkScanner {
 	private String contents;

@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.Hashtable;
 
 import org.abora.ug2java.*;
+import org.abora.ug2java.stscanner.ChunkDetails;
 
 import junit.framework.*;
 

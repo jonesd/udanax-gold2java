@@ -9,6 +9,18 @@ package org.abora.ug2java;
 import java.util.Enumeration;
 import java.util.Vector;
 
+import org.abora.ug2java.javatoken.JavaAssignment;
+import org.abora.ug2java.javatoken.JavaBlockEnd;
+import org.abora.ug2java.javatoken.JavaBlockStart;
+import org.abora.ug2java.javatoken.JavaCallEnd;
+import org.abora.ug2java.javatoken.JavaCallKeywordStart;
+import org.abora.ug2java.javatoken.JavaCallStart;
+import org.abora.ug2java.javatoken.JavaKeyword;
+import org.abora.ug2java.javatoken.JavaParenthesisEnd;
+import org.abora.ug2java.javatoken.JavaParenthesisStart;
+import org.abora.ug2java.javatoken.JavaStatementTerminator;
+import org.abora.ug2java.javatoken.JavaToken;
+
 public class MethodBody {
 	public Vector tokens;
 
@@ -17,7 +29,7 @@ public class MethodBody {
 		this.tokens = tokens;
 	}
 
-	protected int findClosingCallEnd(int callStart) {
+	public int findClosingCallEnd(int callStart) {
 		int earlyCalls = 0;
 		for (int i = callStart + 1; i < tokens.size(); i++) {
 			JavaToken token = (JavaToken) tokens.elementAt(i);
@@ -33,7 +45,7 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find closing callend");
 	}
 
-	protected JavaToken findExistingJavaCallKeyword(Vector expression) {
+	public JavaToken findExistingJavaCallKeyword(Vector expression) {
 		JavaToken existingKeyword = null;
 		for (Enumeration e = expression.elements(); e.hasMoreElements();) {
 			JavaToken token = (JavaToken) e.nextElement();
@@ -45,7 +57,7 @@ public class MethodBody {
 		return existingKeyword;
 	}
 
-	protected int findEndOfBlock(int blockStart) {
+	public int findEndOfBlock(int blockStart) {
 		int earlyParentheses = 0;
 		int earlyBlocks = 0;
 		for (int i = blockStart + 1; i < tokens.size(); i++) {
@@ -67,7 +79,7 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find closing block");
 	}
 
-	protected int findStartOfBlock(int blockEnd) {
+	public int findStartOfBlock(int blockEnd) {
 		int earlyBlocks = 0;
 		for (int i = blockEnd - 1; i >= 0; i--) {
 			JavaToken token = (JavaToken) tokens.elementAt(i);
@@ -84,7 +96,7 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find starting block");
 	}
 
-	protected int findStartOfExpression(int endIndex) {
+	public int findStartOfExpression(int endIndex) {
 		int laterParentheses = 0;
 		int laterBlocks = 0;
 		for (int i = endIndex; i >= 0; i--) {
@@ -115,7 +127,7 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find start of expression");
 	}
 
-	protected int findNextTokenOfType(int startIndex, Class aClass) {
+	public int findNextTokenOfType(int startIndex, Class aClass) {
 		for (int i = startIndex; i < tokens.size(); i++) {
 			JavaToken token = (JavaToken) tokens.elementAt(i);
 			if (aClass.isAssignableFrom(token.getClass())) {

@@ -4,10 +4,11 @@
  * Copyright 2003 David G Jones
  */
 
-package org.abora.ug2java;
+package org.abora.ug2java.javatoken;
 
 public class JavaToken {
-	protected String value = "";
+	//fixme:
+	public String value = "";
 
 	public JavaToken() {
 		super();

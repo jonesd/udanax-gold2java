@@ -9,6 +9,9 @@ package org.abora.ug2java;
 import java.util.*;
 import java.io.*;
 
+import org.abora.ug2java.stscanner.ChunkDetails;
+import org.abora.ug2java.stscanner.ChunkParser;
+
 public class TranslateSmalltalk {
 	private static final char CHUNK_SEPARATOR = '!';
 
@@ -193,14 +196,6 @@ public class TranslateSmalltalk {
 			isChar = c == '$';
 		}
 		return buffer.toString().trim();
-	}
-	private void skipWhiteSpace(LineNumberReader reader) throws IOException {
-		int c;
-		do {
-			reader.mark(10);
-			c = reader.read();
-		} while (c != -1 && Character.isWhitespace((char) c));
-		reader.reset();
 	}
 	public void translate(String[] sources, String outputDirectoryName) throws Exception {
 

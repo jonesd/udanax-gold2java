@@ -4,15 +4,15 @@
  * Copyright 2003 David G Jones
  */
 
-package org.abora.ug2java;
+package org.abora.ug2java.javatoken;
 
-public class JavaBlockEnd extends JavaToken {
+public class JavaAssignment extends JavaToken {
 
-	public JavaBlockEnd() {
+	public JavaAssignment() {
 		super();
 	}
 
 	public void write(StringBuffer buffer) {
-		buffer.append("}" + ClassWriter.lineSeparator());
+		buffer.append(" = ");
 	}
 }
