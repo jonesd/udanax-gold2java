@@ -1,6 +1,7 @@
 package org.abora.ug2java;
 
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,100 +38,111 @@ import org.abora.ug2java.transform.TransformMethod;
 public class ClassParser {
 	
 	private JavaClass javaClass;
+	private TransformMethod methodTransformer = new TransformMethod();
 	
 	
-	static final Hashtable LOOKUP_TYPES = new Hashtable();
-	{
-		LOOKUP_TYPES.put("BooleanVar", "boolean");
-		LOOKUP_TYPES.put("Boolean", "boolean");
-		LOOKUP_TYPES.put("Integer", "int");
-		LOOKUP_TYPES.put("IntegerVar", "int");
-//TODO		LOOKUP_TYPES.put("IntegerVar", "IntegerVar");
-		LOOKUP_TYPES.put("UInt32", "int");
-		LOOKUP_TYPES.put("Int32", "int");
-		LOOKUP_TYPES.put("UInt8", "byte");
-		LOOKUP_TYPES.put("Int8", "byte");
-		//		LOOKUP_TYPES.put("UInt8Array", "byte[]");
-		LOOKUP_TYPES.put("Uint3", "byte");
-		LOOKUP_TYPES.put("UInt4", "byte");
-		LOOKUP_TYPES.put("Int4", "byte");
-		LOOKUP_TYPES.put("IEEEDoubleVar", "double");
-		LOOKUP_TYPES.put("IEEEFloatVar", "float");
-		LOOKUP_TYPES.put("IEEE64", "double");
-		LOOKUP_TYPES.put("IEEE32", "float");
+	static final Map LOOKUP_TYPES;
+	static {
+		Map table = new Hashtable();
+		table.put("BooleanVar", "boolean");
+		table.put("Boolean", "boolean");
+		table.put("Integer", "int");
+		table.put("IntegerVar", "int");
+//TODO		table.put("IntegerVar", "IntegerVar");
+		table.put("UInt32", "int");
+		table.put("Int32", "int");
+		table.put("UInt8", "byte");
+		table.put("Int8", "byte");
+		//		table.put("UInt8Array", "byte[]");
+		table.put("Uint3", "byte");
+		table.put("UInt4", "byte");
+		table.put("Int4", "byte");
+		table.put("IEEEDoubleVar", "double");
+		table.put("IEEEFloatVar", "float");
+		table.put("IEEE64", "double");
+		table.put("IEEE32", "float");
 				
 		// total guess work		
-		LOOKUP_TYPES.put("size_U_t", "int");
-		LOOKUP_TYPES.put("size", "int");
-		LOOKUP_TYPES.put("UNKNOWN", "Object");
+		table.put("size_U_t", "int");
+		table.put("size", "int");
+		table.put("UNKNOWN", "Object");
 
-		LOOKUP_TYPES.put("ostream", "PrintWriter");
+		table.put("ostream", "PrintWriter");
+		LOOKUP_TYPES = Collections.unmodifiableMap(table);
 	}
 
-	static final Set JAVA_KEYWORDS = new HashSet();
-	{
-		JAVA_KEYWORDS.add("import");
-		JAVA_KEYWORDS.add("class");
-		JAVA_KEYWORDS.add("int");
-		JAVA_KEYWORDS.add("package");
-		JAVA_KEYWORDS.add("extends");
-		JAVA_KEYWORDS.add("byte");
-		JAVA_KEYWORDS.add("char");
-		JAVA_KEYWORDS.add("float");
-		JAVA_KEYWORDS.add("double");
-		JAVA_KEYWORDS.add("long");
-		JAVA_KEYWORDS.add("instanceof");
-		JAVA_KEYWORDS.add("final");
-		JAVA_KEYWORDS.add("public");
-		JAVA_KEYWORDS.add("protected");
-		JAVA_KEYWORDS.add("private");
-		JAVA_KEYWORDS.add("static");
-		JAVA_KEYWORDS.add("abstract");
-		JAVA_KEYWORDS.add("interface");
-		JAVA_KEYWORDS.add("synchonized");
+	static final Set JAVA_KEYWORDS;
+	static {
+		Set set = new HashSet();
+		set.add("import");
+		set.add("class");
+		set.add("int");
+		set.add("package");
+		set.add("extends");
+		set.add("byte");
+		set.add("char");
+		set.add("float");
+		set.add("double");
+		set.add("long");
+		set.add("instanceof");
+		set.add("final");
+		set.add("public");
+		set.add("protected");
+		set.add("private");
+		set.add("static");
+		set.add("abstract");
+		set.add("interface");
+		set.add("synchonized");
 
-		JAVA_KEYWORDS.add("do");
+		set.add("do");
+		JAVA_KEYWORDS = Collections.unmodifiableSet(set);
 	}
 
-	static final Hashtable OVERRIDE_RETURN_TYPE = new Hashtable();
-	{
-		OVERRIDE_RETURN_TYPE.put("actualHashForEqual", "int");
-		OVERRIDE_RETURN_TYPE.put("make", "Heaper");
-		OVERRIDE_RETURN_TYPE.put("isEqual", "boolean");
-		OVERRIDE_RETURN_TYPE.put("isUnlocked", "boolean");
-		OVERRIDE_RETURN_TYPE.put("displayString", "String");
-		OVERRIDE_RETURN_TYPE.put("exportName", "String");
+	static final Map OVERRIDE_RETURN_TYPE;
+	static {
+		Map table = new Hashtable();
+		table.put("actualHashForEqual", "int");
+		table.put("make", "Heaper");
+		table.put("isEqual", "boolean");
+		table.put("isUnlocked", "boolean");
+		table.put("displayString", "String");
+		table.put("exportName", "String");
+		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
-	static final Hashtable OVERRIDE_VOID_RETURN_TYPE = new Hashtable();
-	{
-		OVERRIDE_VOID_RETURN_TYPE.put("stepper", "Stepper");
+	static final Map OVERRIDE_VOID_RETURN_TYPE;
+	static {
+		Map table  = new Hashtable();
+		table.put("stepper", "Stepper");
+		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
-	static final Set OVERRIDE_STATIC = new HashSet();
-	{
-		OVERRIDE_STATIC.add("asOop");
-		OVERRIDE_STATIC.add("getCategory");
-		OVERRIDE_STATIC.add("passe");
-		OVERRIDE_STATIC.add("unimplemented");
+	static final Set OVERRIDE_STATIC;
+	static {
+		Set set  = new HashSet();
+		set.add("asOop");
+		set.add("getCategory");
+		set.add("passe");
+		set.add("unimplemented");
+		OVERRIDE_STATIC = Collections.unmodifiableSet(set);
 	}
 
-	public static final Map OVERRIDE_CALLS = new HashMap();
-	{
-		OVERRIDE_CALLS.put("atStore", "store");
-		OVERRIDE_CALLS.put("atStoreInt", "storeInt");
-		OVERRIDE_CALLS.put("atStoreInteger", "storeInteger");
-		OVERRIDE_CALLS.put("atStoreIntegerVar", "storeIntegerVar");
-		OVERRIDE_CALLS.put("atStoreMany", "storeMany");
-		OVERRIDE_CALLS.put("atStoreValue", "storeValue");
-		OVERRIDE_CALLS.put("atStoreValue", "storeValue");
-		OVERRIDE_CALLS.put("atStoreUInt", "storeUInt");
+	public static final Map OVERRIDE_CALLS;
+	static {
+		Map table  = new HashMap();
+		table.put("atStore", "store");
+		table.put("atStoreInt", "storeInt");
+		table.put("atStoreInteger", "storeInteger");
+		table.put("atStoreIntegerVar", "storeIntegerVar");
+		table.put("atStoreMany", "storeMany");
+		table.put("atStoreValue", "storeValue");
+		table.put("atStoreValue", "storeValue");
+		table.put("atStoreUInt", "storeUInt");
+		OVERRIDE_CALLS = Collections.unmodifiableMap(table);
 	}
 
 	static final String CATEGORY_SEPARATOR = "-";
 
-	//FIXME just create one of these for all classes
-	private TransformMethod methodTransformer = new TransformMethod();
 
 	public void setJavaClass(JavaClass javaClass) {
 		this.javaClass = javaClass;
