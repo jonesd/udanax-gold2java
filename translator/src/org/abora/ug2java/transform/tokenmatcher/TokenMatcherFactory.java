@@ -56,6 +56,16 @@ public class TokenMatcherFactory {
 		return matchAll;
 	}
 
+	public TokenMatcher seq(TokenMatcher matcher1, TokenMatcher matcher2, TokenMatcher matcher3, TokenMatcher matcher4, TokenMatcher matcher5) {
+		MatchSequence matchAll = new MatchSequence();
+		matchAll.add(matcher1);
+		matchAll.add(matcher2);
+		matchAll.add(matcher3);
+		matchAll.add(matcher4);
+		matchAll.add(matcher5);
+		return matchAll;
+	}
+
 	public TokenMatcher token(Class clazz) {
 		return new MatchToken(clazz);
 	}

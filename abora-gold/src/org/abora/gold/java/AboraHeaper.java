@@ -75,7 +75,7 @@ public class AboraHeaper {
 	public void halt() {
 		throw new UnsupportedOperationException();
 	}
-	public void inspect() {
+	public Object inspect() {
 		throw new UnsupportedOperationException();
 	}
 	public void basicInspect() {

@@ -18,7 +18,7 @@ public class TransformReceiverConstructor implements ClassTransformer {
 			return;
 		}
 		boolean foundEmptyConstructor = false;
-		for (Iterator iter = javaClass.methodBodies.iterator(); iter.hasNext();) {
+		for (Iterator iter = javaClass.methods.iterator(); iter.hasNext();) {
 			JavaMethod method = (JavaMethod) iter.next();
 			if (method.name.equals(javaClass.className) && method.params.equals("")) {
 				foundEmptyConstructor = true;
@@ -28,9 +28,9 @@ public class TransformReceiverConstructor implements ClassTransformer {
 			}
 		}
 		if (!foundEmptyConstructor) {
-			javaClass.methodBodies.add(createEmptyConstructor(javaClass));
+			javaClass.methods.add(createEmptyConstructor(javaClass));
 		}
-		javaClass.methodBodies.add(createReceiverConstructor(javaClass));
+		javaClass.methods.add(createReceiverConstructor(javaClass));
 	}
 
 	private JavaMethod createReceiverConstructor(JavaClass javaClass) {

@@ -9,6 +9,7 @@ package org.abora.ug2java;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -28,7 +29,7 @@ public class JavaClass {
 	public Vector instanceMethods = new Vector();
 	public Vector classMethods = new Vector();
 	final List fields = new ArrayList();
-	final List methodBodies = new ArrayList();
+	final List methods = new ArrayList();
 
 	SortedSet importedPackages = new TreeSet();
 	public Hashtable packageLookup = new Hashtable();
@@ -43,6 +44,16 @@ public class JavaClass {
 		this.packageLookup = packageLookup;
 	}
 
+	public String findTypeOfVariable(String name) {
+		for (Iterator iter = fields.iterator(); iter.hasNext();) {
+			JavaField javaField = (JavaField) iter.next();
+			if (javaField.name.equals(name)) {
+				return javaField.type;
+			}
+		}
+		return null;
+	}
+	
 	protected String getPackage() {
 		return classCategory;
 	}
@@ -82,6 +93,6 @@ public class JavaClass {
 	}
 	
 	public List getMethodBodies() {
-		return methodBodies;
+		return methods;
 	}
 }

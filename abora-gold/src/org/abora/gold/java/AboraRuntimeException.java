@@ -25,6 +25,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String CANT_CONVERT = "CantConvert";
 	public static final String CANT_INFORM = "CantInform";
 	public static final String CANT_MAKE_IDENTICAL = "CantMakeIdentical";
+	public static final String CANT_MIX_COORDINATE_SPACES = "CantMixCoordinateSpaces";
 	public static final String CAST_FAILED = "CastFailed";
 	public static final String CLUB_ALREADY_NAMED = "ClubAlreadyNamed";
 	public static final String CLUB_NAME_IN_USE = "ClubNameInUse";

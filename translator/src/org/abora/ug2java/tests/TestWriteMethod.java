@@ -87,6 +87,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nfred = harry.kill();\n}\n", java);
 	}
 
+	public void testAtMethod() {
+		String smalltalk = "atBlahGo\n!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void blahGo() {\n}\n", java);
+	}
+
 	public void testAtStore() {
 		String smalltalk = "test\na < b ifTrue: [table at: 1 store: NULL. a := a + 1]!";
 
@@ -272,6 +280,22 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\napple = (Peter) (blah.able(george));\n}\n", java);
 	}
 
+	public void testCastIntoOthers() {
+		String smalltalk = "test\nblah cast: Pair into: [:pair | pair left] others: [1]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (blah instanceof Pair) {\nPair pair = (Pair) blah;\npair.left();\n}\nelse {\n1;\n}\n}\n", java);
+	}
+
+	public void testCategoryName() {
+		String smalltalk = "test\n^self getCategory name!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nreturn getClass().getName();\n}\n", java);
+	}
+
 	public void testCAThashForEquals() {
 		String smalltalk = "test\n^#cat.U.Test hashForEqual!";
 
@@ -334,6 +358,22 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nfred = 1\n/* Hello There */\n;\n}\n", java);
+	}
+
+	public void testCompileFodder() {
+		String smalltalk = "test\nblah. ^false \"compiler fodder\"!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nblah;\n}\n", java);
+	}
+
+	public void testCompileFodder2() {
+		String smalltalk = "test\nblah. ^false \"fodder\"!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nblah;\n}\n", java);
 	}
 
 	public void testCreateCall() {
@@ -581,6 +621,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nblah = 0;\n}\n", java);
 	}
 
+	public void testIntegerIntegerVar() {
+		String smalltalk = "test\nblah _ Integer IntegerVar: tally!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nblah = tally;\n}\n", java);
+	}
+
 	public void testIntegerVarZero() {
 		String smalltalk = "test\nblah _ IntegerVarZero!";
 
@@ -742,6 +790,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test(PrintWriter aStream) {\naStream.print(blah(34));\n}\n", java);
+	}
+
+	public void testPrintPrint() {
+		String smalltalk = "test: aStream { ostream }\naStream << 12 + 1 << 13 + 2 << 14 + 3!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test(PrintWriter aStream) {\naStream.print(12 + 1);\naStream.print(13 + 2);\naStream.print(14 + 3);\n}\n", java);
 	}
 
 	public void testQuickCast() {

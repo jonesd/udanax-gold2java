@@ -14,5 +14,9 @@ public class OrderedCollection {
 	public OrderedCollection() {
 		super();
 	}
+	
+	public static OrderedCollection with(Object a, Object b) {
+		throw new UnsupportedOperationException();
+	}
 
 }

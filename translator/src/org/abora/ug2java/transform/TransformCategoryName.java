@@ -9,35 +9,34 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
-import org.abora.ug2java.javatoken.JavaCallKeywordStart;
-import org.abora.ug2java.javatoken.JavaIdentifier;
-import org.abora.ug2java.javatoken.JavaToken;
+import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformIntegerIntegerVar extends AbstractMethodBodyTransformation {
+public class TransformCategoryName extends AbstractMethodBodyTransformation {
 
 
-	public TransformIntegerIntegerVar() {
+	public TransformCategoryName() {
 		super();
 	}
-	public TransformIntegerIntegerVar(TokenMatcherFactory factory) {
+	public TransformCategoryName(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaIdentifier.class, "Integer"), 
-				factory.token(JavaCallKeywordStart.class, "IntegerVar"),
-				factory.token(JavaToken.class),
+				factory.token(JavaCallStart.class, "getCategory"),
+				factory.token(JavaCallEnd.class),
+				factory.token(JavaCallStart.class, "name"),
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected void transform(JavaMethod javaMethod, List tokens, int i) {
-		tokens.remove(i+3);
-		tokens.remove(i+1);
-		tokens.remove(i);
+		JavaCallStart category = (JavaCallStart)tokens.get(i);
+		category.value = "getClass";
+		JavaCallStart name = (JavaCallStart)tokens.get(i+2);
+		name.value = "getName";
 	}
 }

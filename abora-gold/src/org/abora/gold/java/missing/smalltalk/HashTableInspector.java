@@ -14,5 +14,9 @@ public class HashTableInspector {
 	public HashTableInspector() {
 		super();
 	}
+	
+	public static HashTableInspector inspect(Object a) {
+		throw new UnsupportedOperationException();
+	}
 
 }

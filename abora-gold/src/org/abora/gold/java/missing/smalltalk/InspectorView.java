@@ -15,7 +15,7 @@ public class InspectorView {
 		super();
 	}
 	
-	public static void open(Object object) {
+	public static Object open(Object object) {
 		throw new UnsupportedOperationException();
 	}
 

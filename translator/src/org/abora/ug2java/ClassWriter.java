@@ -65,35 +65,40 @@ public class ClassWriter {
 	}
 
 	private void writeMethods(PrintWriter writer) {
-		for (Iterator iter = javaClass.methodBodies.iterator(); iter.hasNext();) {
+		for (Iterator iter = javaClass.methods.iterator(); iter.hasNext();) {
 			JavaMethod javaMethod = (JavaMethod) iter.next();
 			writeMethod(javaMethod, writer);
 		}
 	}
 
 	public void writeMethod(JavaMethod javaMethod, PrintWriter writer) {
-	
-		if (javaMethod.comment != null) {
-			writeAsJavadocComment(writer, javaMethod.comment);			
-		}
-	
-		writer.print("public ");
-		writer.print(javaMethod.modifiers);
-		writer.print(javaMethod.returnType);
-		if (javaMethod.modifiers.length() > 0 || javaMethod.returnType.length() > 0) {
-			writer.print(" ");
-		}
-		writer.println(javaMethod.name + "(" + javaMethod.params + ") {");
+		boolean ignoreMethod = javaMethod.name.startsWith("inspect");
 		
-		if (INCLUDE_METHOD_BODIES) {
-			writeMethodBody(javaMethod.methodBody, writer);
-		} else {
-			writer.write("throw new UnsupportedOperationException();");
+		if (!ignoreMethod) {
+			if (javaMethod.comment != null) {
+				writeAsJavadocComment(writer, javaMethod.comment);			
+			}
+		
+			writer.print("public ");
+			writer.print(javaMethod.modifiers);
+			writer.print(javaMethod.returnType);
+			if (javaMethod.modifiers.length() > 0 || javaMethod.returnType.length() > 0) {
+				writer.print(" ");
+			}
+			writer.println(javaMethod.name + "(" + javaMethod.params + ") {");
+			
+			if (INCLUDE_METHOD_BODIES) {
+				writeMethodBody(javaMethod.methodBody, writer);
+			} else {
+				writer.write("throw new UnsupportedOperationException();");
+			}
 		}
 		if (quoteSmalltalk) {
 			writeAsQuote(writer, javaMethod.smalltalkSource.context, javaMethod.smalltalkSource.text);
 		}
-		writer.println("}");
+		if (!ignoreMethod) {
+			writer.println("}");
+		}
 	}
 
 	private void writeImports(PrintWriter writer) {

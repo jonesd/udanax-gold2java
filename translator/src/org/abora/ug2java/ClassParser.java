@@ -98,7 +98,7 @@ public class ClassParser {
 		JAVA_KEYWORDS = Collections.unmodifiableSet(set);
 	}
 
-	static final Map OVERRIDE_RETURN_TYPE;
+	public static final Map OVERRIDE_RETURN_TYPE;
 	static {
 		Map table = new Hashtable();
 		table.put("actualHashForEqual", "int");
@@ -106,17 +106,19 @@ public class ClassParser {
 		table.put("isUnlocked", "boolean");
 		table.put("displayString", "String");
 		table.put("exportName", "String");
+		table.put("inspect", "Object");
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
-	static final Map OVERRIDE_VOID_RETURN_TYPE;
+	public static final Map OVERRIDE_VOID_RETURN_TYPE;
 	static {
 		Map table  = new Hashtable();
 		table.put("stepper", "Stepper");
+		table.put("ScruTable.stepper", "TableStepper");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
-	static final Set OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS;
+	public static final Set OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS;
 	static {
 		Set set  = new HashSet();
 		set.add("make");
@@ -133,19 +135,6 @@ public class ClassParser {
 		OVERRIDE_STATIC = Collections.unmodifiableSet(set);
 	}
 
-	public static final Map OVERRIDE_CALLS;
-	static {
-		Map table  = new HashMap();
-		table.put("atStore", "store");
-		table.put("atStoreInt", "storeInt");
-		table.put("atStoreInteger", "storeInteger");
-		table.put("atStoreIntegerVar", "storeIntegerVar");
-		table.put("atStoreMany", "storeMany");
-		table.put("atStoreValue", "storeValue");
-		table.put("atStoreValue", "storeValue");
-		table.put("atStoreUInt", "storeUInt");
-		OVERRIDE_CALLS = Collections.unmodifiableMap(table);
-	}
 
 	static final String CATEGORY_SEPARATOR = "-";
 
@@ -182,19 +171,6 @@ public class ClassParser {
 			type = "Object";
 		}
 		return type;
-	}
-
-	protected String overrideReturnType(String methodName, String returnType) {
-		if (OVERRIDE_RETURN_TYPE.containsKey(methodName)) {
-			returnType = (String) OVERRIDE_RETURN_TYPE.get(methodName);
-			returnType = lookupType(returnType);
-		} else if (returnType.equals("void") && OVERRIDE_VOID_RETURN_TYPE.containsKey(methodName)) {
-			returnType = (String) OVERRIDE_VOID_RETURN_TYPE.get(methodName);
-			returnType = lookupType(returnType);
-		} else if (returnType.equals("void") && OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS.contains(methodName)) {
-			returnType = javaClass.className;
-		}
-		return returnType;
 	}
 
 	protected String parseJavaSafeVarNameDeclaration(SmalltalkScanner scanner) {
@@ -334,7 +310,7 @@ public class ClassParser {
 			ChunkDetails methodDetails = (ChunkDetails) e.nextElement();
 			JavaMethod javaMethod = parseMethod(methodDetails, modifiers);
 			if (javaMethod != null) {
-				javaClass.methodBodies.add(javaMethod);
+				javaClass.methods.add(javaMethod);
 			} else {
 				System.out.println("-- Warning: Missing method");
 			}
@@ -388,7 +364,6 @@ public class ClassParser {
 		}
 		methodName = getJavaSafeWord(methodName);
 	
-		returnType = overrideReturnType(methodName, returnType);
 		if (methodName.equals("create") && modifiers.indexOf("static") == -1) {
 			modifiers = "";
 			returnType = "";
@@ -397,7 +372,6 @@ public class ClassParser {
 		if (OVERRIDE_STATIC.contains(methodName) && modifiers.indexOf("static") == -1) {
 			modifiers = "static " + modifiers;
 		}
-	
 	
 		JavaMethod javaMethod = new JavaMethod();
 		javaMethod.modifiers = modifiers;
@@ -413,6 +387,7 @@ public class ClassParser {
 		javaMethod.methodBody = readMethodUnit(scanner);
 		methodTransformer.transform(javaMethod);
 		javaClass.includeAnyReferencedTypes(javaMethod.methodBody);
+		lookupType(javaMethod.returnType);
 
 			SmalltalkSource smalltalkSource = new SmalltalkSource();
 			smalltalkSource.context = methodDetails.context;
