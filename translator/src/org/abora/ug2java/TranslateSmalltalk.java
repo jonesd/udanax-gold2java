@@ -127,6 +127,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("Abstract", "org.abora.gold.java");
 		packageLookup.put("HashHelper", "org.abora.gold.java");
 		packageLookup.put("SubclassResponsibilityException", "org.abora.gold.java");
+		packageLookup.put("UnimplementedException", "org.abora.gold.java");
 
 		packageLookup.put("PrintWriter", "java.io");
 		packageLookup.put("Iterator", "java.util");

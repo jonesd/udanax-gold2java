@@ -357,7 +357,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nfred = 1\n/* Hello There */\n;\n}\n", java);
+		assertEquals("public void test() {\nfred = 1;\n/* Hello There */\n}\n", java);
 	}
 
 	public void testCompileFodder() {
@@ -867,6 +867,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nkill();\none(2);\n}\n", java);
 	}
 
+	public void testSignals() {
+		String smalltalk = "test\n^self signals: #(NotInTable)!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.NOT_IN_TABLE);\n}\n", java);
+	}
+
 	public void testSmalltalkOnly() {
 		String smalltalk = "test\n[one blah] smalltalkOnly!";
 
@@ -897,6 +905,22 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\n\"hi there\\n\"+\n\"and here\\n\"+\n\"\";\n}\n", java);
+	}
+
+	public void testStatementTerminationEmpty() {
+		String smalltalk = "test\n!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n}\n", java);
+	}
+
+	public void testStatementTerminationTrailingComment() {
+		String smalltalk = "test\nself blah \"hello\"!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nblah();\n/* hello */\n}\n", java);
 	}
 
 	public void testSubclassResponsibility() {
@@ -1025,6 +1049,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nharry.one().two().three();\n}\n", java);
+	}
+
+	public void testUnimplemented() {
+		String smalltalk = "test\nself unimplemented!";
+		
+		String java = writeInstanceMethod(smalltalk);
+		
+		assertEquals("public void test() {\nthrow new UnimplementedException();\n}\n", java);
 	}
 
 	public void testUnreachableCodeReturnFodder() {

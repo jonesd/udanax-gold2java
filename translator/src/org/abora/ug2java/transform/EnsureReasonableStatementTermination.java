@@ -10,6 +10,7 @@ import java.util.List;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
+import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.javatoken.JavaToken;
 
@@ -23,8 +24,14 @@ public class EnsureReasonableStatementTermination implements MethodTransformatio
 		if (tokens.isEmpty()) {
 			return;
 		}
-		if (!(tokens.get(tokens.size() - 1) instanceof JavaStatementTerminator) || !(tokens.get(tokens.size() - 1) instanceof JavaBlockEnd)) {
-			tokens.add(new JavaStatementTerminator());
+		for (int i = tokens.size() - 1; i >= 0; i-- ) {
+			JavaToken token = (JavaToken)tokens.get(i);
+			if (!(token instanceof JavaComment)) {
+				if (!(token instanceof JavaStatementTerminator) || !(token instanceof JavaBlockEnd)) {
+					tokens.add(i+1, new JavaStatementTerminator());
+				}
+				break;
+			}
 		}
 		for (int i = tokens.size() - 1; i >= 1; i--) {
 			JavaToken token = (JavaToken) tokens.get(i);

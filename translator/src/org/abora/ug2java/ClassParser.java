@@ -41,6 +41,8 @@ public class ClassParser {
 	private JavaClass javaClass;
 	private TransformMethodBody methodTransformer = new TransformMethodBody();
 	
+	public static final String HEAPER_CLASS = "Heaper";
+	public static final String STEPPER_CLASS = "Stepper";
 	
 	static final Map LOOKUP_TYPES;
 	static {
@@ -114,8 +116,9 @@ public class ClassParser {
 	public static final Map OVERRIDE_VOID_RETURN_TYPE;
 	static {
 		Map table  = new Hashtable();
-		table.put("stepper", "Stepper");
+		table.put("stepper", STEPPER_CLASS);
 		table.put("ScruTable.stepper", "TableStepper");
+		table.put("SetTable.stepper", "TableStepper");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -140,6 +143,7 @@ public class ClassParser {
 	static final String CATEGORY_SEPARATOR = "-";
 
 	private static final String FOR_EACH_STEPPER_VARIABLE = "stomp";
+	public static final String ABORA_RUNTIME_EXCEPTION_CLASS = "AboraRuntimeException";
 
 	public void setJavaClass(JavaClass javaClass) {
 		this.javaClass = javaClass;
@@ -525,11 +529,11 @@ public class ClassParser {
 								needsForEnd = true;
 								String tempName = scanner.token.tokenString;
 								scanner.advance();
-								String tempType = parseType(scanner, "Heaper");
+								String tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));
 								expression.add(new JavaIdentifier(tempName));
 								expression.add(new JavaKeyword("="));
-								if (!tempType.equals("Heaper")) {
+								if (!tempType.equals(HEAPER_CLASS)) {
 									expression.add(new JavaParenthesisStart());
 									expression.add(new JavaType(tempType));
 									expression.add(new JavaParenthesisEnd());
@@ -642,7 +646,7 @@ public class ClassParser {
 							int startIndex = findStartOfExpression(expression);
 							expression.add(startIndex, new JavaKeyword("for"));
 							expression.add(startIndex + 1, new JavaParenthesisStart());
-							expression.add(startIndex + 2, new JavaType("Stepper"));
+							expression.add(startIndex + 2, new JavaType(STEPPER_CLASS));
 							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
 							expression.add(startIndex + 4, new JavaKeyword("="));
 							expression.add(new JavaKeyword(";"));

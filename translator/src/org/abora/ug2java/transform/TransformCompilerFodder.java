@@ -31,11 +31,11 @@ public class TransformCompilerFodder extends AbstractMethodBodyTransformation {
 		return factory.seq(
 				factory.token(JavaKeyword.class, "return"),
 				factory.token(JavaToken.class),
+				factory.token(JavaStatementTerminator.class),
 				factory.any(
 						factory.token(JavaComment.class, "compiler fodder"),
 						factory.token(JavaComment.class, "fodder")
-				),
-				factory.token(JavaStatementTerminator.class));
+				));
 	}
 
 	protected void transform(JavaMethod javaMethod, List tokens, int i) {

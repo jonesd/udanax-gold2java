@@ -60,6 +60,8 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformReceiverReceiveHeaper());
 		transformers.add(new TransformCastIntoOthers());
 		transformers.add(new TransformIntegerCall());
+		transformers.add(new TransformSignals());
+		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformCompilerFodder());
 				
 		transformers.add(new TransformStaticCall());

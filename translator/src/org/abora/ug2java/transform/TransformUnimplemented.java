@@ -7,43 +7,36 @@ package org.abora.ug2java.transform;
 
 import java.util.List;
 
-import org.abora.ug2java.ClassParser;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
-import org.abora.ug2java.javatoken.JavaCallKeywordStart;
-import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformBlast extends AbstractMethodBodyTransformation {
+public class TransformUnimplemented extends AbstractMethodBodyTransformation {
 
 	
-public TransformBlast() {
+public TransformUnimplemented() {
 		super();
 	}
-	public TransformBlast(TokenMatcherFactory factory) {
+	public TransformUnimplemented(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaIdentifier.class, "Heaper"), 
-				factory.token(JavaCallKeywordStart.class, "BLAST"),
-				factory.token(JavaIdentifier.class), 
+				factory.token(JavaCallStart.class, "unimplemented"),
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected void transform(JavaMethod javaMethod, List tokens, int i) {
-		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i + 1);
-		JavaIdentifier message = (JavaIdentifier)tokens.get(i + 2);
-		tokens.remove(i);
+		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));
-		call.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS;
-		javaMethod.javaClass.includeImportForType(call.value);
-		message.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS+"." + message.value;
+		call.value = "UnimplementedException";
+		javaMethod.javaClass.includeImportForType("UnimplementedException");
 	}
 }
