@@ -66,10 +66,12 @@ public class ClassParser {
 		table.put("IEEEFloatVar", "float");
 		table.put("IEEE64", "double");
 		table.put("IEEE32", "float");
+		
+//		table.put("Category", "Class");
 				
 		// total guess work		
 		table.put("size_U_t", "int");
-		table.put("size", "int");
+//		table.put("size", "int");
 		table.put("UNKNOWN", "Object");
 
 		table.put("ostream", "PrintWriter");
@@ -162,12 +164,17 @@ public class ClassParser {
 		this.javaClass = javaClass;
 	}
 	
-	protected String lookupType(String xanaduType) {
-
+	protected String overrideTypeIfNecessary(String xanaduType) {
 		String type = (String) LOOKUP_TYPES.get(xanaduType);
 		if (type == null) {
 			type = xanaduType;
 		}
+		return type;
+	}
+	
+	protected String lookupType(String xanaduType) {
+
+		String type = overrideTypeIfNecessary(xanaduType);
 
 		//TODO ugly double duty
 		javaClass.includeImportForType(type);
@@ -194,12 +201,12 @@ public class ClassParser {
 	protected String parseJavaSafeVarNameDeclaration(SmalltalkScanner scanner) {
 		scanner.token.checkType(ScannerToken.TOKEN_WORD);
 		String varName = scanner.token.tokenString;
-		scanner.advance();
+		scannerAdvance(scanner);
 		while (scanner.token.tokenType == ScannerToken.TOKEN_STATEMENT_END) {
 			// work around the . separated names in x++
 			scanner.advanceAndCheckType(ScannerToken.TOKEN_WORD);
 			varName = varName + scanner.token.tokenString;
-			scanner.advance();
+			scannerAdvance(scanner);
 		}
 		return getJavaSafeWord(varName);
 	}
@@ -221,44 +228,44 @@ public class ClassParser {
 
 		while (scanner.token.tokenType != ScannerToken.TOKEN_TEMPS) {
 			String tempName = scanner.token.tokenString;
-			scanner.advance();
+			scannerAdvance(scanner);
 
 			String tempType = parseParameterType(scanner);
 			tokens.add(new JavaType(tempType));
 			tokens.add(new JavaIdentifier(tempName));
 			tokens.add(new JavaStatementTerminator());
 		}
-		scanner.advance();
+		scannerAdvance(scanner);
 		return tokens;
 	}
 
 	protected void parseTemps(SmalltalkScanner scanner, PrintWriter writer) {
 		while (scanner.token.tokenType != ScannerToken.TOKEN_TEMPS) {
 			String tempName = scanner.token.tokenString;
-			scanner.advance();
+			scannerAdvance(scanner);
 			String tempType = parseParameterType(scanner);
 			writer.println(tempType + " " + tempName + ";");
 		}
-		scanner.advance();
+		scannerAdvance(scanner);
 	}
 
 	protected String parseType(SmalltalkScanner scanner, String missingType) {
 		String type = missingType;
 
 		if (scanner.token.tokenType == ScannerToken.TOKEN_TYPE_START) {
-			scanner.advance();
+			scannerAdvance(scanner);
 			if (scanner.token.tokenType == ScannerToken.TOKEN_BRACKET_START) {
-				scanner.advance();
+				scannerAdvance(scanner);
 			}
 			scanner.token.checkType(ScannerToken.TOKEN_WORD, ScannerToken.TOKEN_SYMBOL);
 			type = scanner.token.tokenString;
 			if (type.equals("void")) {
-				scanner.advance();
+				scannerAdvance(scanner);
 				if (scanner.token.tokenType == ScannerToken.TOKEN_WORD && scanner.token.tokenString.equals("star")) {
 					type = "Heaper";
 				}
 			} else if (type.equals("Character") || type.equals("char")) {
-				scanner.advance();
+				scannerAdvance(scanner);
 				if (scanner.token.tokenType == ScannerToken.TOKEN_WORD
 					&& (scanner.token.tokenString.equals("star") || scanner.token.tokenString.equals("vector"))) {
 					type = "String";
@@ -266,9 +273,9 @@ public class ClassParser {
 			}
 			type = lookupType(type);
 			while (scanner.token.tokenType != ScannerToken.TOKEN_TYPE_END) {
-				scanner.advance();
+				scannerAdvance(scanner);
 			}
-			scanner.advance();
+			scannerAdvance(scanner);
 		}
 		return type;
 	}
@@ -376,7 +383,7 @@ public class ClassParser {
 			while (scanner.token.tokenType == ScannerToken.TOKEN_KEYWORD) {
 				methodName = appendKeyword(methodName, scanner.token.tokenString);
 	
-				scanner.advance();
+				scannerAdvance(scanner);
 				String varName = parseJavaSafeVarNameDeclaration(scanner);
 				String type = parseParameterType(scanner);
 	
@@ -392,7 +399,7 @@ public class ClassParser {
 			}
 		} else {
 			methodName = scanner.token.tokenString;
-			scanner.advance();
+			scannerAdvance(scanner);
 			if (methodName.equals("=")) {
 				String varName = parseJavaSafeVarNameDeclaration(scanner);
 				String type = parseParameterType(scanner);
@@ -420,7 +427,7 @@ public class ClassParser {
 
 		if (scanner.token.tokenType == ScannerToken.TOKEN_COMMENT) {
 			javaMethod.comment = scanner.token.tokenString;
-			scanner.advance();
+			scannerAdvance(scanner);
 		}
 		stompLevel = 1;/*hack*/
 		javaMethod.methodBody = readMethodUnit(scanner);
@@ -474,7 +481,7 @@ public class ClassParser {
 			switch (scanner.token.tokenType) {
 				case ScannerToken.TOKEN_TEMPS :
 					{
-						scanner.advance();
+						scannerAdvance(scanner);
 						if (atExpressionStart) {
 							expression.addAll(parseTemps(scanner));
 						} else {
@@ -490,20 +497,20 @@ public class ClassParser {
 							throw new IllegalStateException("Return must be first token in expression");
 						}
 						expression.add(new JavaKeyword("return"));
-						scanner.advance();
+						scannerAdvance(scanner);
 						break;
 					}
 				case ScannerToken.TOKEN_STATEMENT_END :
 					{
 						expression.add(new JavaStatementTerminator());
 						endOfExpression = true;
-						scanner.advance();
+						scannerAdvance(scanner);
 						break;
 					}
 				case ScannerToken.TOKEN_ASSIGNMENT :
 					{
 						expression.add(new JavaAssignment());
-						scanner.advance();
+						scannerAdvance(scanner);
 						atExpressionStart = true;
 						break;
 					}
@@ -529,18 +536,18 @@ public class ClassParser {
 //							binary = ".print()";
 						}
 						expression.add(new JavaKeyword(binary));
-						scanner.advance();
+						scannerAdvance(scanner);
 						atExpressionStart = true;
 						break;
 					}
 				case ScannerToken.TOKEN_BRACKET_START :
 					{
 						expression.add(new JavaParenthesisStart());
-						scanner.advance();
+						scannerAdvance(scanner);
 						expression.addAll(readMethodUnit(scanner).tokens);
 						scanner.token.checkType(ScannerToken.TOKEN_BRACKET_END);
 						expression.add(new JavaParenthesisEnd());
-						scanner.advance();
+						scannerAdvance(scanner);
 						atExpressionStart = false;
 						break;
 					}
@@ -552,13 +559,13 @@ public class ClassParser {
 				case ScannerToken.TOKEN_BLOCK_START :
 					{
 						expression.add(new JavaBlockStart());
-						scanner.advance();
+						scannerAdvance(scanner);
 						boolean needsForEnd = false;
 						if (scanner.token.tokenType == ScannerToken.TOKEN_BLOCK_TEMP) {
 							if (hasForEach) {
 								needsForEnd = true;
 								String tempName = scanner.token.tokenString;
-								scanner.advance();
+								scannerAdvance(scanner);
 								String tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));
 								expression.add(new JavaIdentifier(tempName));
@@ -574,11 +581,11 @@ public class ClassParser {
 								expression.add(new JavaStatementTerminator());
 								stompLevel++;
 								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
-								scanner.advance();
+								scannerAdvance(scanner);
 							} else if (hasForPositions) { 
 								needsForEnd = true;
 								String tempName = scanner.token.tokenString;
-								scanner.advance();
+								scannerAdvance(scanner);
 								String tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));
 								expression.add(new JavaIdentifier(tempName));
@@ -594,7 +601,7 @@ public class ClassParser {
 								expression.add(new JavaStatementTerminator());
 								
 								tempName = scanner.token.tokenString;
-								scanner.advance();
+								scannerAdvance(scanner);
 								tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));
 								expression.add(new JavaIdentifier(tempName));
@@ -610,7 +617,7 @@ public class ClassParser {
 								expression.add(new JavaStatementTerminator());
 								stompLevel++;
 								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
-								scanner.advance();
+								scannerAdvance(scanner);
 
 							} else {
 								expression.addAll(parseTemps(scanner));
@@ -619,13 +626,7 @@ public class ClassParser {
 						expression.addAll(readMethodUnit(scanner).tokens);
 						scanner.token.checkType(ScannerToken.TOKEN_BLOCK_END);
 						expression.add(new JavaBlockEnd());
-//						if (needsForEnd) {
-//							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
-//							expression.add(new JavaCallStart("destroy"));
-//							expression.add(new JavaCallEnd());
-//							expression.add(new JavaStatementTerminator());
-//						}
-						scanner.advance();
+scannerAdvance(scanner);
 						atExpressionStart = true;
 						break;
 					}
@@ -649,7 +650,7 @@ public class ClassParser {
 						}
 						expression.add(new JavaLiteral(value));
 						atExpressionStart = false;
-						scanner.advance();
+						scannerAdvance(scanner);
 						break;
 					}
 				case ScannerToken.TOKEN_DOUBLE :
@@ -657,7 +658,7 @@ public class ClassParser {
 						String value = Double.toString(scanner.token.tokenDouble);
 						expression.add(new JavaLiteral(value));
 						atExpressionStart = false;
-						scanner.advance();
+						scannerAdvance(scanner);
 						break;
 					}
 				case ScannerToken.TOKEN_WORD :
@@ -668,6 +669,8 @@ public class ClassParser {
 						} else if (word.equals("self")) {
 							word = "this";
 						}
+						word = getJavaSafeWord(word);
+						word = overrideTypeIfNecessary(word);
 						if (!atExpressionStart) {
 							expression.add(new JavaCallStart(word));
 							expression.add(new JavaCallEnd());
@@ -692,7 +695,7 @@ public class ClassParser {
 								expression.add(new JavaIdentifier(word));
 							}
 						}
-						scanner.advance();
+						scannerAdvance(scanner);
 						atExpressionStart = false;
 						break;
 					}
@@ -700,6 +703,8 @@ public class ClassParser {
 					{
 						String word = scanner.token.tokenString;
 						String wordTrimmed = word.substring(0, word.length() - 1);
+						word = getJavaSafeWord(word);
+
 						if (wordTrimmed.equals("ifTrue") || wordTrimmed.equals("ifFalse")) {
 							if (hasIf) {
 								expression.add(new JavaKeyword("else"));
@@ -762,7 +767,7 @@ public class ClassParser {
 								expression.add(existingKeyword);
 							}
 						}
-						scanner.advance();
+						scannerAdvance(scanner);
 						atExpressionStart = true;
 						break;
 					}
@@ -772,26 +777,26 @@ public class ClassParser {
 						safeString = stringReplaceWith(safeString, "\n", "\\n\"+\n\"");
 						safeString = "\"" + safeString + "\"";
 						expression.add(new JavaLiteral(safeString));
-						scanner.advance();
+						scannerAdvance(scanner);
 						atExpressionStart = false;
 						break;
 					}
 				case ScannerToken.TOKEN_COMMENT :
 					{
 						expression.add(new JavaComment(scanner.token.tokenString));
-						scanner.advance();
+						scannerAdvance(scanner);
 						break;
 					}
 				case ScannerToken.TOKEN_SYMBOL :
 					{
 						String value = scanner.token.tokenString;
-						scanner.advance();
+						scannerAdvance(scanner);
 						if (value.equals("(") && scanner.token.tokenType == ScannerToken.TOKEN_BRACKET_END) {
 							//TODO special case for #()
 							expression.add(new JavaIdentifier("Array"));
 							expression.add(new JavaCallStart("new"));
 							expression.add(new JavaCallEnd());
-							scanner.advance();
+							scannerAdvance(scanner);
 						} else {
 							StringBuffer buffer = new StringBuffer();
 							for (int i = 0; i < value.length(); i++) {
@@ -810,19 +815,18 @@ public class ClassParser {
 					{
 						String value = "'" + scanner.token.tokenString + "'";
 						expression.add(new JavaLiteral(value));
-						scanner.advance();
+						scannerAdvance(scanner);
 						atExpressionStart = false;
 						break;
 					}
 				case ScannerToken.TOKEN_CASCADE :
 					{
-						//TODO not  really good enough
-						scanner.advance();
+						scannerAdvance(scanner);
 						break;
 					}
 				case ScannerToken.TOKEN_CHUNK :
 					{
-						scanner.advance();
+						scannerAdvance(scanner);
 						endOfUnit = true;
 						break;
 					}
@@ -854,6 +858,10 @@ public class ClassParser {
 		return new MethodBody(tokens);
 	}
 	
+	private void scannerAdvance(SmalltalkScanner scanner) {
+		scanner.advance();
+	}
+
 	protected void parseVariables(ChunkParser parser, String modifiers) throws Exception {
 		if (!parser.nextWord().equals("'")) {
 			throw new Exception("Expected variables");

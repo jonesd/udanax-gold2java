@@ -337,6 +337,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\n(Peter) happy();\n}\n", java);
 	}
 
+	public void testCastShouldOverrideType() {
+		String smalltalk = "test\nblah cast: UInt32!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n(int) blah;\n}\n", java);
+	}
+
 	public void testCastMore() {
 		String smalltalk = "test\napple _ (blah able: george) cast: Peter!";
 
@@ -406,7 +414,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nHeaper.getCategory();\n}\n", java);
+		assertEquals("public void test() {\nAboraSupport.findCategory(Heaper.class);\n}\n", java);
 	}
 
 	public void testClassReference2() {
@@ -414,7 +422,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\ntable.storeValue(1, Heaper.getCategory());\n}\n", java);
+		assertEquals("public void test() {\ntable.storeValue(1, AboraSupport.findCategory(Heaper.class));\n}\n", java);
 	}
 
 	public void testComment() {
@@ -442,11 +450,11 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testConditionalOperator() {
-		String smalltalk = "test\nreturn (one = two) ifTrue: [one] ifFalse: [two]!";
+		String smalltalk = "test\n^ (one = two) ifTrue: [one] ifFalse: [two]!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nreturn(one == two) ? one : two;\n}\n", java);
+		assertEquals("public void test() {\nreturn (one == two) ? one : two;\n}\n", java);
 	}
 
 	public void testDiskManagerConsistentDefaultDirty() {
@@ -654,7 +662,7 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals("public static void getCategory() {\n}\n", java);
 	}
-
+	
 	public void testIfFalse() {
 		String smalltalk = "test\n(one = two) ifFalse: [^one]!";
 
@@ -1009,6 +1017,20 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals("public Stepper stepper() {\nreturn blah;\n}\n", java);
 	}
+
+	public void testParameterNamedSize() {
+		String smalltalk = "test: size {IntegerVar}\nsize > 4 ifTrue: [\nsize] ifFalse: [size - 4]!";
+		
+		String java = writeInstanceMethod(smalltalk);
+		
+		assertEquals("public void test(int size) {\nif (size > 4) {\nsize;\n}\nelse {\nsize - 4;\n}\n}\n", java);
+	}
+//	create.IntegerVar: size {IntegerVar} 
+//	"The optional argument just hints at the number of elements
+//	 to eventually be added.  It makes no difference semantically."
+//	| newSize {UInt32} |
+//	super create.
+//	size > 4 ifTrue: [newSize _ size DOTasLong] ifFalse: [newSize _ 4].
 
 	public void testPasse() {
 		String smalltalk = "test\nself passe!";

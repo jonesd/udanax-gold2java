@@ -27,7 +27,7 @@ public class TransformStaticCall extends AbstractMethodBodyTransformation {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaCallStart.class, "class"), 
+				factory.token(JavaCallStart.class, "classx"), 
 				factory.token(JavaCallEnd.class),
 				factory.token(JavaCallStart.class));
 	}

@@ -77,6 +77,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String MUST_BE_CONCRETE_WRAPPER_SPEC = "MustBeConcreteWrapperSpec";
 	public static final String MUST_BE_FINITE = "MustBeFinite";
 	public static final String MUST_BE_FROZEN = "MustBeFrozen";
+	public static final String MUST_BE_INITIALIZED = "MustBeInitialized";
 	public static final String MUST_BE_INSIDE_TRANSACTION = "MustBeInsideTransaction";
 	public static final String MUST_BE_OWNER = "MustBeOwner";
 	public static final String MUST_BE_REAL_DISK_MANAGER = "MustBeRealDiskManager";

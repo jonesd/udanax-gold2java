@@ -37,6 +37,8 @@ public class AboraHeaper {
 	
 	public static Recipe BootCuisine;
 	public static Recipe CalcCuisine;
+	public static Recipe DiskCuisine;
+	public static Recipe FebeCuisine;
 	public static Recipe XppCuisine;
 
 	/**

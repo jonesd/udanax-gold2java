@@ -133,6 +133,7 @@ public class TranslateSmalltalk {
 		
 		packageLookup.put("AboraBlockSupport", "org.abora.gold.java");
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");
+		packageLookup.put("AboraSupport", "org.abora.gold.java");
 		packageLookup.put("Abstract", "org.abora.gold.java");
 		packageLookup.put("HashHelper", "org.abora.gold.java");
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
+import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
@@ -42,9 +43,13 @@ public class TransformClassReference extends AbstractMethodBodyTransformation {
 				return;
 			}
 		}
-		if (javaMethod.javaClass.packageLookup.get(token.value) != null) {
-			tokens.add(i + 1, new JavaCallStart("getCategory"));
-			tokens.add(i + 2, new JavaCallEnd());
+		if (javaMethod.javaClass.packageLookup.get(token.value) != null && (i >= tokens.size() || !((JavaToken)tokens.get(i+1)).value.equals("class"))) {
+			tokens.add(i, new JavaIdentifier("AboraSupport"));
+			tokens.add(i+1, new JavaCallKeywordStart("findCategory"));
+			// classname
+			tokens.add(i + 3, new JavaIdentifier("class"));
+			tokens.add(i+4, new JavaCallEnd());
+			javaMethod.javaClass.includeImportForType("AboraSupport");
 		}
 	}
 }
