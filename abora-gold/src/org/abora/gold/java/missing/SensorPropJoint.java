@@ -9,15 +9,15 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.xpp.basic.Heaper;
+import org.abora.gold.spaces.basic.XnRegion;
 
-public class Sema4 extends Heaper {
 
-	public Sema4() {
-		super();
+public class SensorPropJoint extends PropJoint /*GUESS*/ {
+
+	public SensorPropJoint(XnRegion unioned, XnRegion intersected) {
+		super(unioned, intersected);
 	}
-	public static Sema4 make(int a) {
+	public boolean isPartial() {
 		throw new UnsupportedOperationException();
 	}
-
 }

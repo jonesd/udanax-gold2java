@@ -51,6 +51,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformBitAndOrXor());
 		transformers.add(new TransformBlast());
 		transformers.add(new TransformIsKindOf());
+		transformers.add(new TransformStar());
 		transformers.add(new TransformCast());
 		transformers.add(new TransformAlmostTo());
 		transformers.add(new TransformSubclassResponsibility());
@@ -65,8 +66,10 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformSignals());
 		transformers.add(new TransformStrcmp());
 		transformers.add(new TransformStrlen());
+		transformers.add(new TransformMinMax());
 		transformers.add(new TransformFluidAccess());
 		transformers.add(new TransformNot());
+		transformers.add(new TransformAssert());
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new TransformCompilerFodder());

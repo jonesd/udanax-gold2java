@@ -251,7 +251,7 @@ public class ClassParser {
 			if (type.equals("void")) {
 				scanner.advance();
 				if (scanner.token.tokenType == ScannerToken.TOKEN_WORD && scanner.token.tokenString.equals("star")) {
-					type = "VoidStar";
+					type = "Heaper";
 				}
 			} else if (type.equals("Character") || type.equals("char")) {
 				scanner.advance();
@@ -269,17 +269,29 @@ public class ClassParser {
 		return type;
 	}
 
-	protected String readBracketType(ChunkParser parser, String type) {
-		type = parser.nextWord();
+	protected String readBracketType(ChunkParser parser, String missingType) {
+		List typeWords = new ArrayList();
+		String word;
+		while (!(word = parser.nextWord()).equals("}")) {
+			typeWords.add(word);
+		}
+
+		String type = missingType;
+		if (typeWords.size() > 0) { 
+			type = (String)typeWords.get(0);
+		}
 		if (type.startsWith("#")) {
 			// guess for: {void star} fetchNewRawSpace: size {#size.U.t var}
 			type = "int";
 		} else if (type.startsWith("(")) {
 			// guess for: 		myDetectors {(PrimSet NOCOPY of: FeFillRangeDetector)| NULL}'
-			type = parser.nextWord();
+			type = (String)typeWords.get(1);
+		} else if (type.equals("char") || type.equals("Character")) {
+			if (typeWords.size() > 1 && typeWords.get(1).equals("star")) {
+				type = "String";
+			}
 		}
 		type = lookupType(type);
-		while (!parser.nextWord().equals("}"));
 		return type;
 	}
 
@@ -429,8 +441,8 @@ public class ClassParser {
 				parser.nextWord();
 				parseVariables(parser, "static ");
 
-				parseMethods(javaClass.instanceMethods, "");
-				parseMethods(javaClass.classMethods, "static ");
+				parseMethods(javaClass.instanceMethodChunks, "");
+				parseMethods(javaClass.classMethodChunks, "static ");
 	}
 	
 	public void parse() throws Exception {

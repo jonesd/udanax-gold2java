@@ -9,7 +9,6 @@
 
 package org.abora.gold.collection.basic;
 
-import org.abora.gold.java.missing.BooleanVar;
 import org.abora.gold.java.missing.smalltalk.Stream;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
@@ -36,7 +35,7 @@ public class PrimDataArray extends PrimArray {
 		throw new UnsupportedOperationException();
 	}
 
-	public BooleanVar contentsEqual(PrimArray other) {
+	public boolean contentsEqual(PrimArray other) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -105,7 +104,7 @@ public class PrimDataArray extends PrimArray {
 		return compare(other, -1);
 	}
 
-	public BooleanVar elementsEqual(int here, PrimArray other, int there, int count) {
+	public boolean elementsEqual(int here, PrimArray other, int there, int count) {
 		throw new UnsupportedOperationException();
 	}
 

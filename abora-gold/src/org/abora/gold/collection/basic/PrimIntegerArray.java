@@ -9,8 +9,6 @@
 
 package org.abora.gold.collection.basic;
 
-import org.abora.gold.java.missing.BooleanVar;
-import org.abora.gold.java.missing.IntegerVar;
 import org.abora.gold.java.missing.smalltalk.Stream;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;

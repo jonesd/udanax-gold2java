@@ -80,6 +80,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("Ravi", "org.abora.gold.java.missing");
 		packageLookup.put("RaviNow", "org.abora.gold.java.missing");
 		packageLookup.put("Sema4", "org.abora.gold.java.missing");
+		packageLookup.put("SensorPropJoint", "org.abora.gold.java.missing");
 		packageLookup.put("SequenceDsp", "org.abora.gold.java.missing");
 		packageLookup.put("ShepFlag", "org.abora.gold.java.missing");
 		packageLookup.put("Signal", "org.abora.gold.java.missing");
@@ -125,6 +126,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("Symbol", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("TypeDescription", "org.abora.gold.java.missing.smalltalk");
 		
+		packageLookup.put("AboraAssertionException", "org.abora.gold.java");
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");
 		packageLookup.put("AboraRuntimeException", "org.abora.gold.java");
 		packageLookup.put("Abstract", "org.abora.gold.java");
@@ -322,9 +324,9 @@ public class TranslateSmalltalk {
 							javaClass.classQuotes.add(chunkDetails);
 						} else {
 							if (methodsForClass) {
-								javaClass.classMethods.add(chunkDetails);
+								javaClass.classMethodChunks.add(chunkDetails);
 							} else {
-								javaClass.instanceMethods.add(chunkDetails);
+								javaClass.instanceMethodChunks.add(chunkDetails);
 							}
 						}
 					}

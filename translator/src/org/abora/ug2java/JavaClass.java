@@ -26,8 +26,8 @@ public class JavaClass {
 	public String classCategory;
 	public String comment;
 	public Vector classQuotes = new Vector();
-	public Vector instanceMethods = new Vector();
-	public Vector classMethods = new Vector();
+	public Vector instanceMethodChunks = new Vector();
+	public Vector classMethodChunks = new Vector();
 	final List fields = new ArrayList();
 	final List methods = new ArrayList();
 

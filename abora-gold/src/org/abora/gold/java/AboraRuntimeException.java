@@ -14,12 +14,16 @@ public class AboraRuntimeException extends RuntimeException {
 	private static final long serialVersionUID = -7665468138537610579L;
 	
 	public static final String ALREADY_DESTROYED = "AlreadyDestroyed";
+	public static final String ALREADY_IN_SET = "AlreadyInSet";
 	public static final String ALREADY_IN_TABLE = "AlreadyInTable";
 	public static final String AMBIGUOUS_REPLACEMENT = "AmbiguousReplacement";
 	public static final String BAD_PRECISION = "BadPrecision";
 	public static final String BAD_REQUEST = "BadRequest";
+	public static final String BAD_RECIPE = "BadRecipe";
+	public static final String BEGINNING_OF_PACKET = "BeginningOfPacket";
 	public static final String BOGUS_PROTOCOL = "BogusProtocol";
 	public static final String BOGUS_START_INDEX = "BogusStartIndex";
+	public static final String CANNOT = "Cannot";
 	public static final String CANNOT_U_HAVE_U_MULTIPLE_U_SERVER_U_LOOPS = "CannotHaveMultipleServerLoops";
 	public static final String CANNOT_WRAP = "CannotWrap";
 	public static final String CANT_CONVERT = "CantConvert";
@@ -65,11 +69,13 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String MUST_BE_ASTUB = "MustBeAStub";
 	public static final String MUST_BE_CONCRETE_WRAPPER_SPEC = "MustBeConcreteWrapperSpec";
 	public static final String MUST_BE_FINITE = "MustBeFinite";
+	public static final String MUST_BE_FROZEN = "MustBeFrozen";
 	public static final String MUST_BE_INSIDE_TRANSACTION = "MustBeInsideTransaction";
 	public static final String MUST_BE_OWNER = "MustBeOwner";
 	public static final String MUST_BE_REAL_DISK_MANAGER = "MustBeRealDiskManager";
 	public static final String MUST_BE_SIMPLE = "MustBeSimple";
 	public static final String MUST_BE_VALID_LOCK_SMITH = "MustBeValidLockSmith";
+	public static final String MUST_DO_NEW_SHEPHERD_AFTER_DISK_UPDATE = "MustDoNewShepherdAfterDiskUpdate";
 	public static final String MUST_HAVE_ADMIN_AUTHORITY = "MustHaveAdminAuthority";
 	public static final String MUST_HAVE_AUTHOR_SIGNATURE_AUTHORITY = "MustHaveAuthorSignatureAuthority";
 	public static final String MUST_HAVE_BEEN_GRANTED_AUTHORITY = "MustHaveBeenGrantedAuthority";
@@ -84,6 +90,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String MUST_MATCH = "MustMatch";
 	public static final String MUST_NOT_BE_NULL = "MustNotBeNull";
 	public static final String MUST_NOT_CHANGE_DURING_COMMIT = "MustNotChangeDuringCommit";
+	public static final String MUST_NOT_RECORD_CHANGES_FOR_PUMPKINS = "MustNotRecordChangesForPumpkins";
 	public static final String MUST_SUPPLY_SOME_HYPER_REF_INFORMATION = "MustSupplySomeHyperRefInformation";
 	public static final String MUST_USE_DIFFERENT_LINK_END_KEY = "MustUseDifferentLinkEndKey";
 	public static final String MUST_USE_DIFFERENT_LINK_END_NAME = "MustUseDifferentLinkEndName";
@@ -104,6 +111,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String NO_PRIVATE_KEY = "NoPrivateKey";
 	public static final String NO_PUBLIC_KEY = "NoPublicKey";
 	public static final String NO_SUCH_CLUB = "NoSuchClub";
+	public static final String NO_SNARF_INFO = "NoSnarfInfo";
 	public static final String NON_SHEPHERD = "NonShepherd";
 	public static final String NOT_BECOMABLE = "NotBecomable";
 	public static final String NOT_CORRECTLY_SIGNED = "NotCorrectlySigned";
@@ -111,6 +119,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String NOT_FOUND = "NotFound";
 	public static final String NOT_GRABBED = "NotGrabbed";
 	public static final String NOT_IN_DOMAIN = "NotInDomain";
+	public static final String NOT_IN_LIST = "NotInList";
 	public static final String NOT_IN_RANGE = "NotInRange";
 	public static final String NOT_IN_SET = "NotInSet";
 	public static final String NOT_IN_SPACE = "NotInSpace";
@@ -131,13 +140,16 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String ORIGINAL_CONTEXT_MUST_BE_FROZEN = "OriginalContextMustBeFrozen";
 	public static final String OUT_OF_BOUNDS = "OutOfBounds";
 	public static final String OUT_OF_DOMAIN = "OutOfDomain";
+	public static final String PASSWORD_DOES_NOT_MATCH = "PasswordDoesNotMatch";
 	public static final String READ_CLUB_IRREVOCABLY_REMOVED = "ReadClubIrrevocablyRemoved";
 	public static final String READ_CLUB_REMOVED = "ReadClubRemoved";
 	public static final String RECORDERS_STILL_OUTSTANDING = "RecordersStillOutstanding";
+	public static final String REF_COUNT_BUG = "RefCountBug";
 	public static final String REGION_RETURNED_NULL_STEPPER_EVEN_THOUGH_NON_EMPTY = "RegionReturnedNullStepperEvenThoughNonEmpty";
 	public static final String REMOVE_FOULED = "RemoveFouled";
 	public static final String SANITY_VIOLATION = "SanityViolation";
-	public static final String SERVERLOOP_U_IS_U_NULL = "ServerLoopIsNull";
+	public static final String SERVERLOOP = "Serverloop";
+	public static final String SERVERLOOP_U_IS_U_NULL = "ServerloopIsNull";
 	public static final String SIGNATURE_CLUB_IRREVOCABLY_REMOVED = "SignatureClubIrrevocablyRemoved";
 	public static final String TOO_MANY_STEPPERS_RELEASED = "TooManySteppersReleased";
 	public static final String TOO_MANY_ZEROS = "TooManyZeros";

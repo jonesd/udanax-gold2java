@@ -34,5 +34,8 @@ public class SnarfHandle extends Heaper {
 	public void moveBytes(int offsetToMove, int sweeper, int count) {
 		throw new UnsupportedOperationException();
 	}
+	public void put32(int a, int b) {
+		throw new UnsupportedOperationException();
+	}
 
 }

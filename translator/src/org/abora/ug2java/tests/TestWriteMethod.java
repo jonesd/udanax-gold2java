@@ -17,6 +17,7 @@ import org.abora.ug2java.ClassParser;
 import org.abora.ug2java.ClassWriter;
 import org.abora.ug2java.JavaClass;
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.stscanner.ChunkDetails;
 
 /**
@@ -71,6 +72,22 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\nblah;\n}\n}\n", java);
 	}
 
+	public void testAssert() {
+		String smalltalk = "test\n(fred < 1) assert!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (fred < 1) throw new AboraAssertionException();\n}\n", java);
+	}
+
+	public void testAssertWithMessage() {
+		String smalltalk = "test\nfred < 1 assert: 'hello'!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (fred < 1) throw new AboraAssertionException(\"hello\");\n}\n", java);
+	}
+
 	public void testAssign() {
 		String smalltalk = "test\nfred _ 1.\nharry :=2!";
 
@@ -109,6 +126,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\ntable.storeValue(1, value);\n}\n", java);
+	}
+
+	public void testBasicCastWithStar() {
+		String smalltalk = "test\nmyTrace basicCast: Heaper star!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n(Heaper) myTrace;\n}\n", java);
 	}
 
 	public void testBinaryOperator() {
@@ -714,6 +739,22 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\none.two().threeAnd(four, 55);\n}\n", java);
 	}
 
+	public void testMax() {
+		String smalltalk = "test\none max: two!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nMath.max(one, two);\n}\n", java);
+	}
+
+	public void testMin() {
+		String smalltalk = "test\na := 1 min: blah grr!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\na = Math.min(1, blah.grr());\n}\n", java);
+	}
+
 	public void testModulus() {
 		String smalltalk = "test\n11 \\\\ 2!";
 
@@ -760,6 +801,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test(boolean blah) {\nreturn ! blah;\n}\n", java);
+	}
+
+	public void testNotExpression() {
+		String smalltalk = "test\n^blah isAlive not!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nreturn ! blah.isAlive();\n}\n", java);
 	}
 
 	public void testNULL() {

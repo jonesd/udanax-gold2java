@@ -13,7 +13,6 @@ import java.io.PrintWriter;
 
 import org.abora.gold.java.AboraRuntimeException;
 import org.abora.gold.java.Heap;
-import org.abora.gold.java.missing.BooleanVar;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xpp.basic.Heaper;
@@ -129,7 +128,7 @@ public class PrimArray extends Heaper {
 	 * even though they may be represented as different sizes. Two floats
 	 * likewise.
 	 */
-	public BooleanVar contentsEqual(PrimArray other) {
+	public boolean contentsEqual(PrimArray other) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -376,15 +375,15 @@ public class PrimArray extends Heaper {
 	 * Whether the two ranges contain the same values, using the criteria
 	 * defined in contentsEqual
 	 */
-	public BooleanVar elementsEqual(int here, PrimArray other, int there, int n) {
+	public boolean elementsEqual(int here, PrimArray other, int there, int n) {
 		throw new UnsupportedOperationException();
 	}
 
-	public BooleanVar elementsEqual(int here, PrimArray other, int there) {
+	public boolean elementsEqual(int here, PrimArray other, int there) {
 		return elementsEqual(here, other, there, -1);
 	}
 
-	public BooleanVar elementsEqual(int here, PrimArray other) {
+	public boolean elementsEqual(int here, PrimArray other) {
 		return elementsEqual(here, other, 0);
 	}
 

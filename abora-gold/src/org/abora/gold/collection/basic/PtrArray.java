@@ -9,8 +9,8 @@
 
 package org.abora.gold.collection.basic;
 
-import org.abora.gold.java.missing.BooleanVar;
 import org.abora.gold.java.missing.smalltalk.Stream;
+import org.abora.gold.wparray.XnExecutor;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xcvr.Xmtr;
@@ -59,6 +59,10 @@ public class PtrArray extends PrimArray {
 		throw new UnsupportedOperationException();
 	}
 
+	public static PtrArray make(XnExecutor executor, int a) {
+		throw new UnsupportedOperationException();
+	}
+	
 	/** create a zero size PtrArray */
 	public static PtrArray empty() {
 		throw new UnsupportedOperationException();
@@ -96,11 +100,11 @@ public class PtrArray extends PrimArray {
 		throw new UnsupportedOperationException();
 	}
 
-	public BooleanVar contentsEQ(PtrArray other) {
+	public boolean contentsEQ(PtrArray other) {
 		throw new UnsupportedOperationException();
 	}
 
-	public BooleanVar contentsEqual(PrimArray other) {
+	public boolean contentsEqual(PrimArray other) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -159,19 +163,19 @@ public class PtrArray extends PrimArray {
 		return indexPastEQ(value, 0);
 	}
 
-	public BooleanVar elementsEQ(int here, PrimArray other, int there, int count) {
+	public boolean elementsEQ(int here, PrimArray other, int there, int count) {
 		throw new UnsupportedOperationException();
 	}
 
-	public BooleanVar elementsEQ(int here, PrimArray other, int there) {
+	public boolean elementsEQ(int here, PrimArray other, int there) {
 		return elementsEQ(here, other, there, -1);
 	}
 
-	public BooleanVar elementsEQ(int here, PrimArray other) {
+	public boolean elementsEQ(int here, PrimArray other) {
 		return elementsEQ(here, other, 0);
 	}
 
-	public BooleanVar elementsEqual(int here, PrimArray other, int there, int count) {
+	public boolean elementsEqual(int here, PrimArray other, int there, int count) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -205,7 +209,7 @@ public class PtrArray extends PrimArray {
 		throw new UnsupportedOperationException();
 	}
 
-	public void migrate(int[] destination, BooleanVar destinationIsOld) {
+	public void migrate(int[] destination, boolean destinationIsOld) {
 		throw new UnsupportedOperationException();
 	}
 
