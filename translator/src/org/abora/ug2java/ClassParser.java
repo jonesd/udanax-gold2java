@@ -31,14 +31,14 @@ import org.abora.ug2java.stscanner.ChunkDetails;
 import org.abora.ug2java.stscanner.ChunkParser;
 import org.abora.ug2java.stscanner.ScannerToken;
 import org.abora.ug2java.stscanner.SmalltalkScanner;
-import org.abora.ug2java.transform.TransformMethod;
+import org.abora.ug2java.transform.TransformMethodBody;
 
 
 
 public class ClassParser {
 	
 	private JavaClass javaClass;
-	private TransformMethod methodTransformer = new TransformMethod();
+	private TransformMethodBody methodTransformer = new TransformMethodBody();
 	
 	
 	static final Map LOOKUP_TYPES;
@@ -149,6 +149,7 @@ public class ClassParser {
 
 	static final String CATEGORY_SEPARATOR = "-";
 
+	private static final String FOR_EACH_STEPPER_VARIABLE = "stomp";
 
 	public void setJavaClass(JavaClass javaClass) {
 		this.javaClass = javaClass;
@@ -506,9 +507,9 @@ public class ClassParser {
 						} else if (binary.equals("//")) {
 							//TODO what about truncation?
 							binary = "/";
-						} else if (binary.equals("<<")) {
-							//TODO not good enough
-							binary = ".print()";
+//						} else if (binary.equals("<<")) {
+//							//TODO not good enough
+//							binary = ".print()";
 						}
 						expression.add(new JavaKeyword(binary));
 						scanner.advance();
@@ -535,19 +536,23 @@ public class ClassParser {
 					{
 						expression.add(new JavaBlockStart());
 						scanner.advance();
+						boolean needsForEnd = false;
 						if (scanner.token.tokenType == ScannerToken.TOKEN_BLOCK_TEMP) {
 							if (hasFor) {
+								needsForEnd = true;
 								String tempName = scanner.token.tokenString;
 								scanner.advance();
-								String tempType = parseParameterType(scanner);
+								String tempType = parseType(scanner, "Heaper");
 								expression.add(new JavaType(tempType));
 								expression.add(new JavaIdentifier(tempName));
 								expression.add(new JavaKeyword("="));
-								expression.add(new JavaParenthesisStart());
-								expression.add(new JavaType(tempType));
-								expression.add(new JavaParenthesisEnd());
-								expression.add(new JavaIdentifier("iterator"));
-								expression.add(new JavaCallStart("next"));
+								if (!tempType.equals("Heaper")) {
+									expression.add(new JavaParenthesisStart());
+									expression.add(new JavaType(tempType));
+									expression.add(new JavaParenthesisEnd());
+								}
+								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
+								expression.add(new JavaCallStart("fetch"));
 								expression.add(new JavaCallEnd());
 								expression.add(new JavaStatementTerminator());
 								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
@@ -559,6 +564,12 @@ public class ClassParser {
 						expression.addAll(readMethodUnit(scanner).tokens);
 						scanner.token.checkType(ScannerToken.TOKEN_BLOCK_END);
 						expression.add(new JavaBlockEnd());
+//						if (needsForEnd) {
+//							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
+//							expression.add(new JavaCallStart("destroy"));
+//							expression.add(new JavaCallEnd());
+//							expression.add(new JavaStatementTerminator());
+//						}
 						scanner.advance();
 						atExpressionStart = true;
 						break;
@@ -648,16 +659,17 @@ public class ClassParser {
 							int startIndex = findStartOfExpression(expression);
 							expression.add(startIndex, new JavaKeyword("for"));
 							expression.add(startIndex + 1, new JavaParenthesisStart());
-							expression.add(startIndex + 2, new JavaType("Iterator"));
-							expression.add(startIndex + 3, new JavaIdentifier("iterator"));
+							expression.add(startIndex + 2, new JavaType("Stepper"));
+							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
 							expression.add(startIndex + 4, new JavaKeyword("="));
-							expression.add(new JavaCallStart(wordTrimmed));
+							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
+							expression.add(new JavaCallStart("hasValue"));
 							expression.add(new JavaCallEnd());
 							expression.add(new JavaKeyword(";"));
-							expression.add(new JavaIdentifier("iterator"));
-							expression.add(new JavaCallStart("hasNext"));
+							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE));
+							expression.add(new JavaCallStart("step"));
 							expression.add(new JavaCallEnd());
-							expression.add(new JavaKeyword(";"));
 							expression.add(new JavaParenthesisEnd());
 
 						} else {

@@ -433,12 +433,23 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testForEach() {
+		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| element]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals(
+			"public void test() {\nfor (Stepper stomp = fred ; stomp.hasValue() ; stomp.step()) {\nIntegerPos element = (IntegerPos )stomp.fetch();\nelement;\n}\n}\n",
+/*			"public void test() {\nfor (Stepper stepper = fred ; stepper.hasValue() ; stepper.step()) {\nIntegerPos element = (IntegerPos )stepper.fetch();\nelement;\n}\nstepper.destroy();\n}\n",*/
+			java);
+	}
+
+	public void testForEachHeaper() {
 		String smalltalk = "test\nfred forEach: [:element | element]!";
 
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals(
-			"public void test() {\nfor (Iterator iterator = fred.forEach() ; iterator.hasNext() ; ) {\nObject element = (Object )iterator.next();\nelement;\n}\n}\n",
+			"public void test() {\nfor (Stepper stomp = fred ; stomp.hasValue() ; stomp.step()) {\nHeaper element = stomp.fetch();\nelement;\n}\n}\n",
 			java);
 	}
 
@@ -556,6 +567,14 @@ public class TestWriteMethod extends TestCase {
 
 	public void testIntegerVar0() {
 		String smalltalk = "test\nblah _ IntegerVar0!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nblah = 0;\n}\n", java);
+	}
+
+	public void testIntegerIntegerVar0() {
+		String smalltalk = "test\nblah _ Integer IntegerVar: 0!";
 
 		String java = writeInstanceMethod(smalltalk);
 
@@ -715,6 +734,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public Stepper stepper() {\nreturn blah;\n}\n", java);
+	}
+
+	public void testPrint() {
+		String smalltalk = "test: aStream { ostream }\naStream << self blah: 34!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test(PrintWriter aStream) {\naStream.print(blah(34));\n}\n", java);
 	}
 
 	public void testQuickCast() {

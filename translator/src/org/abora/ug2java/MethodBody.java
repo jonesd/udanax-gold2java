@@ -145,4 +145,32 @@ public class MethodBody {
 		}
 		throw new IllegalStateException("Could not find any more " + aClass);
 	}
+
+	public int findEndOfExpression(int startIndex) {
+		int laterParentheses = 0;
+		int laterBlocks = 0;
+		for (int i = startIndex; i < tokens.size(); i++) {
+			JavaToken token = (JavaToken) tokens.get(i);
+			if (token instanceof JavaParenthesisStart) {
+				laterParentheses++;
+			} else if (token instanceof JavaParenthesisEnd) {
+				laterParentheses--;
+			} else if (token instanceof JavaBlockStart) {
+				laterBlocks++;
+			} else if (token instanceof JavaBlockEnd) {
+				laterBlocks--;
+			} else if (token instanceof JavaStatementTerminator) {
+				if (laterParentheses == 0 && laterBlocks == 0) {
+					return i - 1;
+				}
+			}
+			if ((laterParentheses < 0 && laterBlocks == 0) || (laterParentheses == 0 && laterBlocks < 0)) {
+				return i - 1;
+			}
+			if (laterParentheses == 0 && laterBlocks == 0 && i == tokens.size() - 1) {
+				return tokens.size() - 1;
+			}
+		}
+		throw new IllegalStateException("Could not find end of expression");
+	}
 }

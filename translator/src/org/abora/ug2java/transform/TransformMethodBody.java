@@ -14,16 +14,16 @@ import org.abora.ug2java.JavaMethod;
 
 
 
-public class TransformMethod implements MethodTransformation {
+public class TransformMethodBody implements MethodTransformation {
 
 	final private List transformers;
 	
 	
-	public TransformMethod() {
+	public TransformMethodBody() {
 		this(createTransformers());
 	}
 	
-	public TransformMethod(List transformers) {
+	public TransformMethodBody(List transformers) {
 		this.transformers = transformers;
 	}
 	
@@ -51,6 +51,8 @@ public class TransformMethod implements MethodTransformation {
 		transformers.add(new TransformSubclassResponsibility());
 		transformers.add(new TransformDOTCalls());
 		transformers.add(new TransformCAThashForEqual());
+		transformers.add(new TransformIntegerIntegerVar());
+		transformers.add(new TransformPrint());
 		transformers.add(new TransformStaticCall());
 		transformers.add(new TransformReturnVoid());
 		transformers.add(new TransformClassReference());

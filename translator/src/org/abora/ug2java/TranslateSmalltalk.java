@@ -110,6 +110,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("IdentityDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("IdentitySet", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("InspectorView", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("IntegerTableInspector", "org.abora.gold.java.missing.smalltalk");		
 		packageLookup.put("MethodDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("OrderedCollection", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("ParseNode", "org.abora.gold.java.missing.smalltalk");
@@ -333,7 +334,7 @@ public class TranslateSmalltalk {
 
 	private void writeClasses(String outputDirectoryName, List javaClasses) throws Exception {
 		System.out.println();
-		System.out.println("Writing Java");
+		System.out.println("Parsing Java");
 		System.out.println("-------------------------------------------------------");
 		
 		ClassParser classParser = new ClassParser();
@@ -341,7 +342,25 @@ public class TranslateSmalltalk {
 		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
 			JavaClass javaClass = (JavaClass) iter.next();
 			classParser.setJavaClass(javaClass);
+			System.out.println("Parse: "+javaClass.className);
 			classParser.parse();
+		}
+
+		System.out.println();
+		System.out.println("Transforming Classes");
+		System.out.println("-------------------------------------------------------");
+		ClassTransformer classTransformer = new TransformReceiverConstructor();
+		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
+			JavaClass javaClass = (JavaClass) iter.next();
+			System.out.println("Transform: "+javaClass.className);
+			classTransformer.transform(javaClass);
+		}
+
+		System.out.println();
+		System.out.println("Writing Classes");
+		System.out.println("-------------------------------------------------------");
+		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
+			JavaClass javaClass = (JavaClass) iter.next();
 			ClassWriter classWriter = new ClassWriter(javaClass);
 			classWriter.write(outputDirectoryName);
 		}

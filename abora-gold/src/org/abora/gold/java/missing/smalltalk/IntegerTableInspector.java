@@ -9,13 +9,13 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
-public class InspectorView {
+public class IntegerTableInspector {
 
-	public InspectorView() {
+	public IntegerTableInspector() {
 		super();
 	}
 	
-	public static void open(Object object) {
+	public static IntegerTableInspector inspect(Object object) {
 		throw new UnsupportedOperationException();
 	}
 
