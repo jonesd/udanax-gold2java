@@ -1,0 +1,61 @@
+<project name="abora-gold" default="init" basedir=".">
+    <description>
+    	Abora Gold.
+    </description>
+
+	<!-- set global properties for this build -->
+	<property name="name" value="abora-gold"/>
+	<property name="Name" value="Abora-Gold"/>
+	
+	
+	<property name="src" value="${basedir}/src"/>
+	<property name="src-gen" value="${basedir}/src-gen"/>
+	<property name="javadoc.dir" value="${basedir}/doc/api"/>
+   
+  <target name="init">
+    <tstamp/>
+  </target>
+
+	<target name="javadoc.br" depends="init">
+	<replaceregexp match="^(\s*)\* (.*)$" replace="\1\* \2&lt;br&gt;" byline="true">
+		<fileset dir="src-gen">
+		<include name="**/*.java"/>
+		</fileset>
+	</replaceregexp>
+	</target>
+
+
+<target name="javadoc" depends="init">
+	<mkdir dir="${javadoc.dir}"/>
+	<delete dir="${javadoc.dir}"/>
+		<javadoc destdir="${javadoc.dir}"
+           author="true"
+           version="true"
+           use="false"
+           windowtitle="${Name} API"
+           noindex="true"
+           verbose="false"
+           nodeprecatedlist="true"
+           >
+           <!-- additionalparam="-linksource" -->
+           
+		<packageset dir="${src}" defaultexcludes="yes">
+			<include name="org/abora/gold/**" />
+			<exclude name="**/tests/**"/>
+		</packageset>
+		<packageset dir="${src-gen}" defaultexcludes="yes">
+			<include name="org/abora/gold/**" />
+			<exclude name="**/tests/**"/>
+		</packageset>
+       
+		<doctitle><![CDATA[<h1>${Name}</h1>]]></doctitle>
+		<bottom><![CDATA[<i>Translation - Copyright &#169; 2003 David G Jones. All Rights Reserved.</i><br><i>Original Udanax-Gold - Copyright &#169; 1979-1999 Udanax.com. All rights reserved.</i>]]></bottom>
+		<tag name="todo" scope="all" description="To do:" />
+<!--    <group title="Group 1 Packages" packages="com.dummy.test.a*"/> -->
+<!--    <group title="Group 2 Packages" packages="com.dummy.test.b*:com.dummy.test.c*"/> -->
+<!--    <link offline="true" href="http://java.sun.com/products/jdk/1.2/docs/api/" packagelistLoc="C:\tmp"/> -->
+<!--    <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/> -->
+	</javadoc>
+</target>
+
+</project>
