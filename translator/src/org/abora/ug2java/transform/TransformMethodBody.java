@@ -33,6 +33,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformAndOrs());
 		transformers.add(new EnsureIfTestInParentheses());
 		transformers.add(new EnsureReasonableStatementTermination());
+		transformers.add(new ExcludeByName());
 		
 		transformers.add(new TransformSelfSends());
 		transformers.add(new TransformUses());
@@ -58,6 +59,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformCategoryName());
 		transformers.add(new TransformReceiverReceiveHeaper());
 		transformers.add(new TransformCastIntoOthers());
+		transformers.add(new TransformIntegerCall());
 		transformers.add(new TransformCompilerFodder());
 				
 		transformers.add(new TransformStaticCall());

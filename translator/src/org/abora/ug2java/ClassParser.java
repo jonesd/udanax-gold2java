@@ -1,11 +1,12 @@
 package org.abora.ug2java;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -338,6 +339,7 @@ public class ClassParser {
 	
 		String params = "";
 		String methodName = "";
+		List parameterList = new ArrayList();
 		SmalltalkScanner scanner = new SmalltalkScanner(smalltalkMethod);
 		String returnType = parseReturnType(scanner);
 		if (scanner.token.tokenType == ScannerToken.TOKEN_KEYWORD) {
@@ -352,6 +354,11 @@ public class ClassParser {
 					params = params + ", ";
 				}
 				params = params + type + " " + varName;
+				JavaField javaField = new JavaField();
+				javaField.name = varName;
+				javaField.type = type;
+				javaField.modifiers = "";
+				parameterList.add(javaField);
 			}
 		} else {
 			methodName = scanner.token.tokenString;
@@ -379,6 +386,7 @@ public class ClassParser {
 		javaMethod.name = methodName;
 		javaMethod.params = params;
 		javaMethod.javaClass = javaClass;
+		javaMethod.parameters = parameterList;
 
 		if (scanner.token.tokenType == ScannerToken.TOKEN_COMMENT) {
 			javaMethod.comment = scanner.token.tokenString;

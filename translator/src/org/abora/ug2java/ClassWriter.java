@@ -72,9 +72,11 @@ public class ClassWriter {
 	}
 
 	public void writeMethod(JavaMethod javaMethod, PrintWriter writer) {
-		boolean ignoreMethod = javaMethod.name.startsWith("inspect");
+		if (javaMethod.name.startsWith("inspect")) {
+			javaMethod.shouldInclude = false;
+		}
 		
-		if (!ignoreMethod) {
+		if (javaMethod.shouldInclude) {
 			if (javaMethod.comment != null) {
 				writeAsJavadocComment(writer, javaMethod.comment);			
 			}
@@ -96,7 +98,7 @@ public class ClassWriter {
 		if (quoteSmalltalk) {
 			writeAsQuote(writer, javaMethod.smalltalkSource.context, javaMethod.smalltalkSource.text);
 		}
-		if (!ignoreMethod) {
+		if (javaMethod.shouldInclude) {
 			writer.println("}");
 		}
 	}

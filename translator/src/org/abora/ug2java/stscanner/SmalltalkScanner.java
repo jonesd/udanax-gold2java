@@ -168,6 +168,7 @@ public class SmalltalkScanner {
 		if (value.indexOf('.') != -1) {
 			boolean isKeyword = value.endsWith(":");
 			value = value.substring(0, value.indexOf('.'));
+			//FIXMEvalue = value.replaceAll("\\.", "");
 			if (isKeyword) {
 				value = value + ":";
 			}

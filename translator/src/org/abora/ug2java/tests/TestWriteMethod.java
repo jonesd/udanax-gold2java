@@ -581,6 +581,22 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\n187;\n}\n", java);
 	}
 
+	public void testIntegerCall() {
+		String smalltalk = "test: blah {IntegerVar}\nblah integer!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test(int blah) {\nIntegerPos.make(blah);\n}\n", java);
+	}
+
+	public void testIntegerCallNonInt() {
+		String smalltalk = "test: blah {Heaper}\nblah integer!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test(Heaper blah) {\nblah.integer();\n}\n", java);
+	}
+
 	public void testIntegerHex() {
 		String smalltalk = "test\n16rA1!";
 
