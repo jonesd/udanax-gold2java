@@ -6,7 +6,7 @@
 
 package org.abora.ug2java.javatoken;
 
-import org.abora.ug2java.ClassWriter;
+import org.abora.ug2java.JavaClass;
 
 public class JavaComment extends JavaToken {
 
@@ -16,10 +16,10 @@ public class JavaComment extends JavaToken {
 
 	public void write(StringBuffer buffer) {
 		if (buffer.length() > 0 && buffer.charAt(buffer.length() - 1) != '\n') {
-			buffer.append(ClassWriter.lineSeparator());
+			buffer.append(JavaClass.lineSeparator());
 		}
 		buffer.append("/* ");
 		super.write(buffer);
-		buffer.append(" */" + ClassWriter.lineSeparator());
+		buffer.append(" */" + JavaClass.lineSeparator());
 	}
 }

@@ -6,7 +6,7 @@
 
 package org.abora.ug2java.javatoken;
 
-import org.abora.ug2java.ClassWriter;
+import org.abora.ug2java.JavaClass;
 
 public class JavaBlockStart extends JavaToken {
 
@@ -16,6 +16,6 @@ public class JavaBlockStart extends JavaToken {
 
 	public void write(StringBuffer buffer) {
 		writeLeadingSpaceIfRequired(buffer);
-		buffer.append("{" + ClassWriter.lineSeparator());
+		buffer.append("{" + JavaClass.lineSeparator());
 	}
 }

@@ -6,7 +6,7 @@
 
 package org.abora.ug2java.javatoken;
 
-import org.abora.ug2java.ClassWriter;
+import org.abora.ug2java.JavaClass;
 
 public class JavaBlockEnd extends JavaToken {
 
@@ -15,6 +15,6 @@ public class JavaBlockEnd extends JavaToken {
 	}
 
 	public void write(StringBuffer buffer) {
-		buffer.append("}" + ClassWriter.lineSeparator());
+		buffer.append("}" + JavaClass.lineSeparator());
 	}
 }

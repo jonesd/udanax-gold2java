@@ -3,7 +3,7 @@ package org.abora.ug2java.transform;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.abora.ug2java.ClassWriter;
+import org.abora.ug2java.JavaClass;
 import org.abora.ug2java.MethodBody;
 import org.abora.ug2java.javatoken.JavaAssignment;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
@@ -26,10 +26,10 @@ import org.abora.ug2java.javatoken.JavaType;
 
 public class TransformMethod {
 
-	final private ClassWriter classWriter;
+	final private JavaClass classWriter;
 	
 	
-	public TransformMethod(ClassWriter classWriter) {
+	public TransformMethod(JavaClass classWriter) {
 		this.classWriter = classWriter;
 	}
 	
@@ -244,8 +244,8 @@ public class TransformMethod {
 		Vector tokens = body.tokens;
 		for (int i = 0; i < tokens.size(); i++) {
 			JavaToken token = (JavaToken) tokens.elementAt(i);
-			if ((token instanceof JavaCallStart) && ClassWriter.OVERRIDE_CALLS.get(token.value) != null) {
-				token.value = (String) ClassWriter.OVERRIDE_CALLS.get(token.value);
+			if ((token instanceof JavaCallStart) && JavaClass.OVERRIDE_CALLS.get(token.value) != null) {
+				token.value = (String) JavaClass.OVERRIDE_CALLS.get(token.value);
 			}
 		}
 	}

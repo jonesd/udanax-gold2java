@@ -21,6 +21,7 @@ import junit.framework.*;
 public class TestWriteMethod extends TestCase {
 	private static final Class THIS = TestWriteMethod.class;
 
+	private JavaClass javaClass;
 	private ClassWriter classWriter;
 
 	public TestWriteMethod(String name) {
@@ -30,8 +31,9 @@ public class TestWriteMethod extends TestCase {
 	public void setUp() {
 		Hashtable packageLookup = new Hashtable();
 		packageLookup.put("Heaper", "org.abora.gold.xpp.basic");
-		classWriter = new ClassWriter(packageLookup);
-		classWriter.className = "Test";
+		javaClass = new JavaClass(packageLookup);
+		javaClass.className = "Test";
+		classWriter = new ClassWriter(javaClass);
 		classWriter.quoteSmalltalk = false;
 	}
 
@@ -816,7 +818,8 @@ public class TestWriteMethod extends TestCase {
 		ChunkDetails details = new ChunkDetails("", smalltalk);
 		StringWriter stringWriter = new StringWriter();
 		PrintWriter printWriter = new PrintWriter(stringWriter);
-		classWriter.writeMethod(printWriter, details, modifiers);
+		JavaMethod javaMethod = javaClass.parseMethod(details, modifiers);
+		classWriter.writeMethod(javaMethod, printWriter);
 		printWriter.close();
 		return stringWriter.toString();
 	}

@@ -230,7 +230,7 @@ public class TranslateSmalltalk {
 		FileReader fileReader = new FileReader(smalltalkFile);
 		LineNumberReader reader = new LineNumberReader(fileReader);
 		try {
-			ClassWriter classWriter = null;
+			JavaClass classWriter = null;
 			boolean methodsFor = false;
 			boolean methodsForClass = false;
 			String methodsForDescription = "";
@@ -259,7 +259,7 @@ public class TranslateSmalltalk {
 				int instanceVariableNamesIndex = chunk.indexOf("instanceVariableNames:");
 
 				if (subclassIndex != -1) {
-					classWriter = new ClassWriter(packageLookup);
+					classWriter = new JavaClass(packageLookup);
 					classesToWrite.add(classWriter);
 
 					ChunkParser parser = new ChunkParser(chunk);
@@ -329,13 +329,15 @@ public class TranslateSmalltalk {
 		}
 	}
 
-	private void writeClasses(String outputDirectoryName, List classWriters) throws Exception {
+	private void writeClasses(String outputDirectoryName, List javaClasses) throws Exception {
 		System.out.println();
 		System.out.println("Writing Java");
 		System.out.println("-------------------------------------------------------");
 
-		for (Iterator iter = classWriters.iterator(); iter.hasNext();) {
-			ClassWriter classWriter = (ClassWriter) iter.next();
+		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
+			JavaClass javaClass = (JavaClass) iter.next();
+			javaClass.parse();
+			ClassWriter classWriter = new ClassWriter(javaClass);
 			classWriter.write(outputDirectoryName);
 		}
 	}
