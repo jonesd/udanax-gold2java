@@ -95,11 +95,11 @@ public class IntegerVarArray extends PrimIntegerArray {
 		throw new UnsupportedOperationException();
 	}
 
-	private void receiveIVArray(Rcvr rcvr) {
+	protected void receiveIVArray(Rcvr rcvr) {
 		throw new UnsupportedOperationException();
 	}
 
-	private void sendIVArray(Xmtr xmtr) {
+	protected void sendIVArray(Xmtr xmtr) {
 		throw new UnsupportedOperationException();
 	}
 

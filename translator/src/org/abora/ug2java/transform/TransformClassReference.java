@@ -47,27 +47,4 @@ public class TransformClassReference extends AbstractMethodBodyTransformation {
 			tokens.add(i + 2, new JavaCallEnd());
 		}
 	}
-
-//	protected void transformClassReference(MethodBody body) {
-//	List tokens = body.tokens;
-//	for (int i = 0; i < tokens.size(); i++) {
-//		JavaToken token = (JavaToken) tokens.get(i);
-//		if (token instanceof JavaIdentifier) {
-//			if (i < tokens.size() - 1 && (tokens.get(i + 1) instanceof JavaCallStart)) {
-//				continue;
-//			}
-//			if (i > 0) {
-//				JavaToken pre = (JavaToken) tokens.get(i - 1);
-//				if ((pre instanceof JavaKeyword) && pre.value.equals("instanceof")) {
-//					continue;
-//				}
-//			}
-//			if (javaClass.packageLookup.get(token.value) != null) {
-//				tokens.add(i + 1, new JavaCallStart("getCategory"));
-//				tokens.add(i + 2, new JavaCallEnd());
-//			}
-//		}
-//	}
-//}
-
 }

@@ -46,26 +46,4 @@ public class TransformCreateCall extends AbstractMethodBodyTransformation {
 			tokens.add(i, new JavaKeyword("new"));
 		}
 	}
-//	protected void transformCreateCall(MethodBody body) {
-//	List tokens = body.tokens;
-//	for (int i = 0; i < tokens.size(); i++) {
-//		JavaToken call = (JavaToken) tokens.get(i);
-//		if (call instanceof JavaCallStart && call.value.equals("create")) {
-//			if (i > 0 && (tokens.get(i - 1) instanceof JavaIdentifier)) {
-//				JavaToken token = (JavaToken) tokens.get(i - 1);
-//				if (token.value.equals("super")) {
-//					continue;
-//				}
-//				call.value = token.value;
-//				javaClass.includeImportForType(call.value);
-//				tokens.remove(i - 1);
-//				tokens.add(i - 1, new JavaKeyword("new"));
-//			} else {
-//				call.value = javaClass.className;
-//				tokens.add(i, new JavaKeyword("new"));
-//			}
-//		}
-//	}
-//}
-
 }

@@ -34,4 +34,8 @@ public class IntegerVar extends Heaper {
 	public IntegerVar min(IntegerVar var) {
 		throw new UnsupportedOperationException();		
 	}
+	
+	public int DOThashForEqual() {
+		throw new UnsupportedOperationException();		
+	}
 }

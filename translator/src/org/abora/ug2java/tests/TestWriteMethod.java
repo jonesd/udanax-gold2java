@@ -5,13 +5,18 @@
  */
 package org.abora.ug2java.tests;
 
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Hashtable;
 
-import org.abora.ug2java.*;
-import org.abora.ug2java.stscanner.ChunkDetails;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-import junit.framework.*;
+import org.abora.ug2java.ClassWriter;
+import org.abora.ug2java.JavaClass;
+import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.stscanner.ChunkDetails;
 
 /**
  * JUnit test case for TestWriteMethod
@@ -801,6 +806,22 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nharry.one().two().three();\n}\n", java);
 	}
 
+	public void testUnreachableCodeReturnFodder() {
+		String smalltalk = "test\nHeaper BLAST: #NotInTable.\n^NULL!";
+		
+		String java = writeInstanceMethod(smalltalk);
+		
+		assertEquals("public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.NOT_IN_TABLE);\n}\n", java);
+	}
+
+	public void testUnreachableCodeReturnFodderWithComment() {
+		String smalltalk = "test\nHeaper BLAST: #NotInTable.\n^NULL \"fodder\"!";
+		
+		String java = writeInstanceMethod(smalltalk);
+		
+		assertEquals("public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.NOT_IN_TABLE);\n}\n", java);
+	}
+	
 	public void testWhileTrue() {
 		String smalltalk = "test\n[a < 1] whileTrue: [a _ a + 1]!";
 

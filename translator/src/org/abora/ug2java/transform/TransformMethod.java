@@ -52,6 +52,7 @@ public class TransformMethod implements MethodTransformation {
 		transformers.add(new TransformStaticCall());
 		transformers.add(new TransformReturnVoid());
 		transformers.add(new TransformClassReference());
+		transformers.add(new TransformUnreachableCode());
 		return Collections.unmodifiableList(transformers);
 	}
 	
