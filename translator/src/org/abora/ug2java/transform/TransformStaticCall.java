@@ -32,9 +32,11 @@ public class TransformStaticCall extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallStart.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.add(i, new JavaIdentifier(javaMethod.javaClass.className));
 		tokens.remove(i + 1);
 		tokens.remove(i + 1);
+		
+		return i;
 	}
 }

@@ -31,7 +31,7 @@ public class TransformSuperCreate extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallStart.class, "create"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart) tokens.get(i + 1);
 		call.value = "super";
 		tokens.remove(i);
@@ -43,5 +43,7 @@ public class TransformSuperCreate extends AbstractMethodBodyTransformation {
 			tokens.remove(j);
 			end--;
 		}
+		
+		return i;
 	}
 }

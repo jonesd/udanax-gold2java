@@ -33,7 +33,7 @@ public class TransformBitAndOrXor extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallKeywordStart.class, "bitShiftRight"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart token = (JavaCallKeywordStart)tokens.get(i);
 		int closingIndex = javaMethod.methodBody.findClosingCallEnd(i);
 		tokens.remove(closingIndex);
@@ -51,5 +51,6 @@ public class TransformBitAndOrXor extends AbstractMethodBodyTransformation {
 		} else {
 			throw new IllegalStateException("Unknown key?");
 		}
+		return i;
 	}
 }

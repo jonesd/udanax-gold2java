@@ -37,17 +37,19 @@ public class TransformIntegerCall extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaToken variable = (JavaToken)tokens.get(i);
 		if (variable instanceof JavaIdentifier) {
 			String type = javaMethod.findTypeOfVariable(variable.value);
 			if (!"int".equals(type)) {
-				return;
+				return i;
 			}
 		}
 		//TODO assume literal is a number...
 		tokens.add(i, new JavaIdentifier("IntegerPos"));
 		tokens.add(i + 1, new JavaCallKeywordStart("make"));
 		tokens.remove(i + 3);
+		
+		return i;
 	}
 }

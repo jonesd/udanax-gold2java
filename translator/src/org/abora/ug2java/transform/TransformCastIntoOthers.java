@@ -48,7 +48,7 @@ public class TransformCastIntoOthers extends AbstractMethodBodyTransformation {
 			);
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		String sourceName = ((JavaIdentifier)tokens.get(i)).value;
 		String tempType = ((JavaIdentifier)tokens.get(i + 2)).value;
 		String tempName = ((JavaIdentifier)tokens.get(i + 6)).value;
@@ -77,5 +77,6 @@ public class TransformCastIntoOthers extends AbstractMethodBodyTransformation {
 		tokens.add(i, new JavaKeyword("if"));
 		tokens.add(i + 1, new JavaParenthesisStart());
 
+		return i;
 	}
 }

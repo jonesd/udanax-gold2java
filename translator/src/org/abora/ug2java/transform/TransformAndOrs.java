@@ -37,7 +37,7 @@ public class TransformAndOrs extends AbstractMethodBodyTransformation {
 				factory.token(JavaBlockStart.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i);
 		int closingIndex = javaMethod.methodBody.findEndOfBlock(i + 1);
 		if (!(tokens.get(closingIndex + 1) instanceof JavaCallEnd)
@@ -57,5 +57,7 @@ public class TransformAndOrs extends AbstractMethodBodyTransformation {
 		}
 		tokens.add(i, new JavaKeyword(value));
 		tokens.add(i + 1, new JavaParenthesisStart());
+		return i;
+
 	}
 }

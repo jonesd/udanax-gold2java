@@ -41,7 +41,7 @@ public class TransformDiskManagerConsistent extends AbstractMethodBodyTransforma
 			);
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier diskManager = (JavaIdentifier)tokens.get(i);
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i+1);
 		int blockStart;
@@ -51,11 +51,11 @@ public class TransformDiskManagerConsistent extends AbstractMethodBodyTransforma
 		} else {
 			blockStart = javaMethod.methodBody.findNextTokenOfTypeQuietFail(i+2, JavaBlockStart.class);
 			if (blockStart == -1) {
-				return;
+				return i;
 			}
 			if (!(tokens.get(blockStart-1) instanceof JavaCallArgumentSeparator)) {
 				System.out.println("--Failed to match block context in DiskManager consistent call");
-				return;
+				return i;
 			}
 			tokens.remove(blockStart - 1);
 			blockStart -= 1;
@@ -82,5 +82,6 @@ public class TransformDiskManagerConsistent extends AbstractMethodBodyTransforma
 			
 			javaMethod.javaClass.includeImportForType("AboraBlockSupport");
 		}
+		return i;
 	}
 }

@@ -39,7 +39,7 @@ public class TransformAlmostTo extends AbstractMethodBodyTransformation {
 					factory.token(JavaCallKeywordStart.class, "toByDo"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i);
 		int expressionStart = javaMethod.methodBody.findStartOfExpression(i - 1);
 		tokens.add(expressionStart, new JavaKeyword("for"));
@@ -92,5 +92,6 @@ public class TransformAlmostTo extends AbstractMethodBodyTransformation {
 			tokens.remove(blockStart + 3);
 			tokens.remove(blockStart + 2);
 		}
+		return i;
 	}
 }

@@ -28,17 +28,19 @@ public class TransformUnreachableCode extends AbstractMethodBodyTransformation {
 		return matchSequence;
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		if (tokens.get(i + 8) instanceof JavaComment) {
 			tokens.remove(i + 8);
 		}
 		if (!(tokens.get(i + 8) instanceof JavaStatementTerminator)) {
 			System.out.println("--expected ; here");
-			return;
+			return i;
 		}
 		tokens.remove(i + 8);
 		tokens.remove(i + 7);
 		tokens.remove(i + 6);
+		
+		return i;
 	}
 
 }

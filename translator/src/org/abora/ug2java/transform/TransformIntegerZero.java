@@ -33,10 +33,12 @@ public TransformIntegerZero() {
 		return factory.token(JavaIdentifier.class, "IntegerZero"); 
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i);
 		tokens.add(i, new JavaIdentifier("IntegerPos"));
 		tokens.add(i+1, new JavaCallStart("zero"));
 		tokens.add(i+2, new JavaCallEnd());
+		
+		return i;
 	}
 }

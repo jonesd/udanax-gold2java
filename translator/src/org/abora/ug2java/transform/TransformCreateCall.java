@@ -30,12 +30,12 @@ public class TransformCreateCall extends AbstractMethodBodyTransformation {
 		return factory.token(JavaCallStart.class, "create");
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		if (i > 0 && (tokens.get(i - 1) instanceof JavaIdentifier)) {
 			JavaToken token = (JavaToken) tokens.get(i - 1);
 			if (token.value.equals("super")) {
-				return;
+				return i;
 			}
 			call.value = token.value;
 			javaMethod.javaClass.includeImportForType(call.value);
@@ -45,5 +45,6 @@ public class TransformCreateCall extends AbstractMethodBodyTransformation {
 			call.value = javaMethod.javaClass.className;
 			tokens.add(i, new JavaKeyword("new"));
 		}
+		return i;
 	}
 }

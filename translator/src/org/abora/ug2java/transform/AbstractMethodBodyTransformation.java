@@ -31,11 +31,12 @@ public abstract class AbstractMethodBodyTransformation implements MethodTransfor
 		List methodBodyTokens = methodBody.tokens;
 		for (int i = 0; i < methodBodyTokens.size(); i++) {
 			if (tokenMatcher.doesMatch(methodBodyTokens, i)) {
-				transform(javaMethod, methodBodyTokens, i);
+				int nextI = transform(javaMethod, methodBodyTokens, i);
+				i = nextI;
 			}
 		}
 	}
 	
 	protected abstract TokenMatcher matchers(TokenMatcherFactory factory);
-	protected abstract void transform(JavaMethod javaMethod, List methodBodyTokens, int indexOfMatch);
+	protected abstract int transform(JavaMethod javaMethod, List methodBodyTokens, int indexOfMatch);
 }

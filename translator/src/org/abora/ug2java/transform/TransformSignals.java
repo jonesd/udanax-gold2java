@@ -39,7 +39,7 @@ public class TransformSignals extends AbstractMethodBodyTransformation {
 				);
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i);
 		JavaCallKeywordStart signals = (JavaCallKeywordStart)tokens.get(i);
 		JavaIdentifier name = (JavaIdentifier)tokens.get(i+1);
@@ -52,5 +52,7 @@ public class TransformSignals extends AbstractMethodBodyTransformation {
 		}
 		name.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS+"."+name.value;
 		javaMethod.javaClass.includeImportForType(ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS);
+		
+		return i;
 	}
 }

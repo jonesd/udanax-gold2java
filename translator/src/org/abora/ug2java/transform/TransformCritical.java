@@ -34,7 +34,7 @@ public class TransformCritical extends AbstractMethodBodyTransformation {
 				factory.token(JavaBlockStart.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		int start = javaMethod.methodBody.findStartOfExpression(i - 1);
 		int postCallEnd = javaMethod.methodBody.findClosingCallEnd(i);
 		if (postCallEnd + 1 < tokens.size() && (tokens.get(postCallEnd + 1) instanceof JavaStatementTerminator)) {
@@ -45,5 +45,6 @@ public class TransformCritical extends AbstractMethodBodyTransformation {
 		tokens.add(i, new JavaParenthesisEnd());
 		tokens.add(start, new JavaKeyword("synchronized"));
 		tokens.add(start + 1, new JavaParenthesisStart());
+		return i;
 	}
 }

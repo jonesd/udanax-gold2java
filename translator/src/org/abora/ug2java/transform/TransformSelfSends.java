@@ -30,7 +30,9 @@ public class TransformSelfSends extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallStart.class));
 	}
 	
-	protected void transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
+	protected int transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
 		methodBodyTokens.remove(i);
+		
+		return i;
 	}
 }

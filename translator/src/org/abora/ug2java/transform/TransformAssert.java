@@ -38,7 +38,7 @@ public class TransformAssert extends AbstractMethodBodyTransformation {
 		return factory.token(JavaCallStart.class, "assert");
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		int expressionStart = i;
 		if (i > 0) {
@@ -54,5 +54,7 @@ public class TransformAssert extends AbstractMethodBodyTransformation {
 			tokens.add(expressionStart, new JavaParenthesisStart());
 		}
 		tokens.add(expressionStart, new JavaKeyword("if"));
+		return i;
+
 	}
 }

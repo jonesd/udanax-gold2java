@@ -38,10 +38,11 @@ public class TransformCompilerFodder extends AbstractMethodBodyTransformation {
 				));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i + 3);
 		tokens.remove(i + 2);
 		tokens.remove(i + 1);
 		tokens.remove(i);
+		return i;
 	}
 }

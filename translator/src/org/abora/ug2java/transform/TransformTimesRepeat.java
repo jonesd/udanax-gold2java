@@ -38,7 +38,7 @@ public class TransformTimesRepeat extends AbstractMethodBodyTransformation {
 				factory.token(JavaBlockStart.class));
 	}
 	
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		final String incrementVariable = "i";
 
 		int start = javaMethod.methodBody.findStartOfExpression(i - 1);
@@ -61,5 +61,7 @@ public class TransformTimesRepeat extends AbstractMethodBodyTransformation {
 		tokens.add(start + 6, new JavaKeyword(";"));
 		tokens.add(start + 7, new JavaIdentifier(incrementVariable));
 		tokens.add(start + 8, new JavaKeyword("<"));
+		
+		return i;
 	}
 }

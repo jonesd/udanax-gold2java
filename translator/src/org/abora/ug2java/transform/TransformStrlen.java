@@ -30,10 +30,12 @@ public class TransformStrlen extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallStart.class, "strlen"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		int endOfCall = javaMethod.methodBody.findClosingCallEnd(i+1);
 		tokens.add(endOfCall, new JavaCallStart("length"));
 		tokens.remove(i + 1);
 		tokens.remove(i);
+		
+		return i;
 	}
 }

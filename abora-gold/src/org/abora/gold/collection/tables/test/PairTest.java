@@ -2,6 +2,7 @@ package org.abora.gold.collection.tables.test;
 
 import org.abora.gold.collection.tables.Pair;
 import org.abora.gold.java.exception.AboraRuntimeException;
+import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.xpp.basic.Heaper;
 
 import junit.framework.TestCase;
@@ -60,9 +61,9 @@ public class PairTest extends TestCase {
 		assertSame("right", null, pair.fetchRight());
 	}
 	
-	public void XtestIsEqual() {
-		Heaper heaper1 = new Heaper();
-		Heaper heaper2 = new Heaper();
+	public void testIsEqual() {
+		Heaper heaper1 = IntegerPos.make(1);
+		Heaper heaper2 = IntegerPos.make(2);
 		
 		Pair pair12 = Pair.make(heaper1, heaper2);
 		Pair pair21 = Pair.make(heaper2, heaper1);

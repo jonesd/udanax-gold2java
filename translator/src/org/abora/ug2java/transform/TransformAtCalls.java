@@ -34,9 +34,10 @@ public class TransformAtCalls extends AbstractMethodBodyTransformation {
 		return factory.token(JavaCallStart.class);
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		call.value = transformName(call.value); 
+		return i;
 	}
 	
 	private String transformName(String name) {

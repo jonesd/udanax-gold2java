@@ -36,7 +36,7 @@ public TransformBlast() {
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i + 1);
 		JavaIdentifier message = (JavaIdentifier)tokens.get(i + 2);
 		tokens.remove(i);
@@ -45,5 +45,6 @@ public TransformBlast() {
 		call.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS;
 		javaMethod.javaClass.includeImportForType(call.value);
 		message.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS+"." + message.value;
+		return i;
 	}
 }

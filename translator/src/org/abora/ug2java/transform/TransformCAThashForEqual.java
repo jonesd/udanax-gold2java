@@ -30,7 +30,7 @@ public class TransformCAThashForEqual extends AbstractMethodBodyTransformation {
 		return factory.seq(factory.token(JavaIdentifier.class, "CAT"), factory.token(JavaCallStart.class, "hashForEqual"), factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier javaIdentifier = (JavaIdentifier)tokens.get(i);
 		javaIdentifier.value = "HashHelper";
 		javaMethod.javaClass.includeImportForType("HashHelper");
@@ -39,5 +39,7 @@ public class TransformCAThashForEqual extends AbstractMethodBodyTransformation {
 		tokens.add(i + 2, new JavaIdentifier("this"));
 		tokens.add(i + 3, new JavaCallStart("getClass"));
 		tokens.add(i + 4, new JavaCallEnd());
+		
+		return i;
 	}
 }

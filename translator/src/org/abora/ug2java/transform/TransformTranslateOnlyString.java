@@ -34,7 +34,7 @@ public class TransformTranslateOnlyString extends AbstractMethodBodyTransformati
 				factory.token(JavaCallEnd.class));
 	}
 	
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaLiteral javaLiteral = (JavaLiteral)tokens.get(i);
 		tokens.add(i, new JavaComment("translateOnly " + javaLiteral.value));
 		tokens.remove(i + 1);
@@ -43,5 +43,7 @@ public class TransformTranslateOnlyString extends AbstractMethodBodyTransformati
 		if (i + 1 < tokens.size() && tokens.get(i + 1) instanceof JavaStatementTerminator) {
 			tokens.remove(i + 1);
 		}
+		
+		return i;
 	}
 }

@@ -32,7 +32,7 @@ public class TransformSmalltalkOnly extends AbstractMethodBodyTransformation {
 				factory.token(JavaIdentifier.class, "smalltalkOnly"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaBlockEnd blockEnd = (JavaBlockEnd)tokens.get(i);
 		int blockStart = javaMethod.methodBody.findStartOfBlock(i);
 		tokens.remove(blockStart);
@@ -43,6 +43,8 @@ public class TransformSmalltalkOnly extends AbstractMethodBodyTransformation {
 		if (i + 1 < tokens.size() && tokens.get(i + 1) instanceof JavaStatementTerminator) {
 			tokens.remove(i + 1);
 		}
+		
+		return i;
 	}
 
 }

@@ -33,7 +33,7 @@ public class TransformPrint extends AbstractMethodBodyTransformation {
 		return factory.token(JavaKeyword.class, "<<");
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		int endOfBlock = javaMethod.methodBody.findEndOfExpression(i+1);
 		for (int j = i + 2; j < endOfBlock; j ++) {
 			JavaToken token = (JavaToken)tokens.get(j);
@@ -50,5 +50,7 @@ public class TransformPrint extends AbstractMethodBodyTransformation {
 			tokens.add(i, new JavaStatementTerminator());
 			tokens.add(i + 1, new JavaIdentifier(identifier.value));
 		}
+		
+		return i;
 	}
 }

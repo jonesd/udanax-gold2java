@@ -32,15 +32,15 @@ public class TransformClassReference extends AbstractMethodBodyTransformation {
 		return factory.token(JavaIdentifier.class);
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier token = (JavaIdentifier)tokens.get(i);
 		if (i < tokens.size() - 1 && (tokens.get(i + 1) instanceof JavaCallStart)) {
-			return;
+			return i;
 		}
 		if (i > 0) {
 			JavaToken pre = (JavaToken) tokens.get(i - 1);
 			if ((pre instanceof JavaKeyword) && pre.value.equals("instanceof")) {
-				return;
+				return i;
 			}
 		}
 		if (javaMethod.javaClass.packageLookup.get(token.value) != null && (i >= tokens.size() || !((JavaToken)tokens.get(i+1)).value.equals("class"))) {
@@ -51,5 +51,6 @@ public class TransformClassReference extends AbstractMethodBodyTransformation {
 			tokens.add(i+4, new JavaCallEnd());
 			javaMethod.javaClass.includeImportForType("AboraSupport");
 		}
+		return i;
 	}
 }

@@ -34,8 +34,9 @@ public class TransformDOTCalls extends AbstractMethodBodyTransformation {
 		return factory.seq(matchAny, factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i + 1);
 		tokens.remove(i);
+		return i;
 	}
 }

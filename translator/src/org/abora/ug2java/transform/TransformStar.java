@@ -32,12 +32,14 @@ public class TransformStar extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier type = (JavaIdentifier)tokens.get(i);
 		if (type.value.equals("char") || type.value.equals("Character")) {
 			type.value = "String";
 		}
 		tokens.remove(i + 2);
 		tokens.remove(i + 1);
+		
+		return i;
 	}
 }

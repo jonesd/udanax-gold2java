@@ -28,10 +28,12 @@ public class TransformNot extends AbstractMethodBodyTransformation {
 		return factory.seq(factory.token(JavaCallStart.class, "not"), factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		int expressionStart = javaMethod.methodBody.findStartOfExpression(i-1);
 		tokens.remove(i + 1);
 		tokens.remove(i);
 		tokens.add(expressionStart, new JavaKeyword("!"));
+		
+		return i;
 	}
 }

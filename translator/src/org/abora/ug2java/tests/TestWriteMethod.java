@@ -1124,11 +1124,27 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testSmalltalkOnly() {
+		String smalltalk = "smalltalkOnly\n[one blah] smalltalkOnly!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void smalltalkOnly() {\none.blah();\n}\n", java);
+	}
+
+	public void testSmalltalkOnlyMixed() {
+		String smalltalk = "smalltalkOnly\n[two blah] translateOnly. [one blah] smalltalkOnly!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void smalltalkOnly() {\none.blah();\n}\n", java);
+	}
+
+	public void testSmalltalkOnlySimpleTranlation() {
 		String smalltalk = "test\n[one blah] smalltalkOnly!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\n/* >>> smalltalkOnly */\none.blah();\n/* <<< smalltalkOnly */\n}\n", java);
+		assertEquals("public void test() {\n{\none.blah();\n}\nsmalltalkOnly;\n}\n", java);
 	}
 
 	public void testStrcmp() {
@@ -1289,6 +1305,30 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\n/* translateOnly \"hello there\" */\n}\n", java);
+	}
+
+	public void testTranslateOnly() {
+		String smalltalk = "translateOnly\n[one blah] translateOnly!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void translateOnly() {\none.blah();\n}\n", java);
+	}
+
+	public void testTranslateOnlyMixed() {
+		String smalltalk = "translateOnly\n[one blah] translateOnly. [two blah] smalltalkOnly!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void translateOnly() {\none.blah();\n}\n", java);
+	}
+
+	public void testTranslateOnlySimpleTranlation() {
+		String smalltalk = "test\n[one blah] translateOnly!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n{\none.blah();\n}\ntranslateOnly;\n}\n", java);
 	}
 
 	public void testValueNowOrOnUnwindDo() {

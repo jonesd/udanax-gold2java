@@ -36,7 +36,7 @@ public class TransformShouldImplement extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier type = (JavaIdentifier)tokens.get(i);
 		tokens.remove(i + 1);
 		tokens.remove(i);
@@ -54,5 +54,7 @@ public class TransformShouldImplement extends AbstractMethodBodyTransformation {
 				tokens.remove(i - 1);
 			}
 		}
+		
+		return i;
 	}
 }

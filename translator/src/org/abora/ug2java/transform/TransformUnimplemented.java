@@ -32,11 +32,13 @@ public TransformUnimplemented() {
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));
 		call.value = "UnimplementedException";
 		javaMethod.javaClass.includeImportForType("UnimplementedException");
+		
+		return i;
 	}
 }

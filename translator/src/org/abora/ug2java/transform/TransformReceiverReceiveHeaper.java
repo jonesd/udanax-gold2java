@@ -37,12 +37,14 @@ public class TransformReceiverReceiveHeaper extends AbstractMethodBodyTransforma
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier variable = (JavaIdentifier)tokens.get(i);
 		String type = javaMethod.javaClass.findTypeOfVariable(variable.value);
 		if (type != null && !type.equals("Heaper")) {
 			tokens.add(i + 2, new JavaCast(type));
 		}
+		
+		return i;
 	}
 	
 	private String transformName(String name) {

@@ -36,10 +36,11 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new EnsureReasonableStatementTermination());
 		transformers.add(new ExcludeByName());
 		transformers.add(new ExcludeStaticHeaper());
+		transformers.add(new ExcludeMethods());
 		
 		transformers.add(new TransformSelfSends());
 		transformers.add(new TransformUses());
-		transformers.add(new TransformSmalltalkOnly());
+//		transformers.add(new TransformSmalltalkOnly());
 		transformers.add(new TransformTranslateOnlyString());
 		transformers.add(new TransformSuperCreate());
 		transformers.add(new TransformCreateCall());
@@ -79,6 +80,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new TransformCompilerFodder());
+		transformers.add(new ChooseTransformOnly());
 				
 		transformers.add(new TransformStaticCall());
 		transformers.add(new TransformReturnVoid());

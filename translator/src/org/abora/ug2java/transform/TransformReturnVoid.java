@@ -30,7 +30,9 @@ public class TransformReturnVoid extends AbstractMethodBodyTransformation {
 				factory.token(JavaIdentifier.class, "VOID"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i + 1);
+		
+		return i;
 	}
 }

@@ -65,7 +65,7 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier identifier = (JavaIdentifier)tokens.get(i);
 		if (FLUID_MAPPINGS.containsKey(identifier.value)) {
 			String type = (String)FLUID_MAPPINGS.get(identifier.value);
@@ -74,5 +74,6 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 			tokens.add(i, new JavaParenthesisStart());
 			tokens.add(i + 1, new JavaCast(type));
 		}
+		return i;
 	}
 }

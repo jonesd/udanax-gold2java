@@ -34,7 +34,7 @@ public class TransformValueNowOrOnOnUnwindDo extends AbstractMethodBodyTransform
 				factory.token(JavaBlockStart.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		int start = javaMethod.methodBody.findStartOfBlock(i);
 		int postCallEnd = javaMethod.methodBody.findClosingCallEnd(i + 1);
 		if (postCallEnd + 1 < tokens.size() && (tokens.get(postCallEnd + 1) instanceof JavaStatementTerminator)) {
@@ -44,5 +44,7 @@ public class TransformValueNowOrOnOnUnwindDo extends AbstractMethodBodyTransform
 		tokens.remove(i + 1);
 		tokens.add(i + 1, new JavaKeyword("finally"));
 		tokens.add(start, new JavaKeyword("try"));
+		
+		return i;
 	}
 }

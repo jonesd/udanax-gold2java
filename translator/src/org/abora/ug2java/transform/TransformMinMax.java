@@ -33,7 +33,7 @@ public class TransformMinMax extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallKeywordStart.class, "max"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		int start = javaMethod.methodBody.findStartOfExpression(i-1);
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i);
 		tokens.remove(i);
@@ -41,5 +41,7 @@ public class TransformMinMax extends AbstractMethodBodyTransformation {
 		tokens.add(start, new JavaIdentifier("Math"));
 		tokens.add(start+1, new JavaCallKeywordStart(call.value));
 		javaMethod.javaClass.includeImportForType("Math");
+		
+		return i;
 	}
 }

@@ -34,9 +34,11 @@ public class TransformIsKindOf extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 	
-	protected void transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
+	protected int transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
 		methodBodyTokens.remove(i + 3);
 		methodBodyTokens.remove(i + 1);
 		methodBodyTokens.add(i + 1, new JavaKeyword("instanceof"));
+		
+		return i;
 	}
 }

@@ -33,10 +33,12 @@ public class TransformCategoryName extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart category = (JavaCallStart)tokens.get(i);
 		category.value = "getClass";
 		JavaCallStart name = (JavaCallStart)tokens.get(i+2);
 		name.value = "getName";
+		
+		return i;
 	}
 }

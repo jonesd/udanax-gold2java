@@ -36,12 +36,13 @@ public class TransformCast extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier type = (JavaIdentifier)tokens.get(i + 1);
 		int start = javaMethod.methodBody.findStartOfExpression(i - 1);
 		tokens.remove(i + 2);
 		tokens.remove(i + 1);
 		tokens.remove(i);
 		tokens.add(start, new JavaCast(type.value));
+		return i;
 	}
 }

@@ -35,9 +35,11 @@ public class TransformIntegerIntegerVar extends AbstractMethodBodyTransformation
 				factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i+3);
 		tokens.remove(i+1);
 		tokens.remove(i);
+		
+		return i;
 	}
 }

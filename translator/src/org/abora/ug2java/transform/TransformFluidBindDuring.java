@@ -40,18 +40,18 @@ public class TransformFluidBindDuring extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallStart.class, "fluidBindDuring"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier identifier = (JavaIdentifier)tokens.get(i);
 		String oldValueVariable = identifier.value+"OldValue";
 		int argumentStart = javaMethod.methodBody.findNextTokenOfType(i+1, JavaCallArgumentSeparator.class);
 		if (!(tokens.get(argumentStart+1) instanceof JavaBlockStart)) {
 			System.out.println("--Failed JavaBlockStart match for fluidBindDuring");
-			return;
+			return i;
 		}
 		int endOfBlock = javaMethod.methodBody.findEndOfBlock(argumentStart+1);
 		if (!(tokens.get(endOfBlock+1) instanceof JavaCallEnd)) {
 			System.out.println("--Failed JavaBlockEnd match for fluidBindDuring");
-			return;
+			return i;
 		}
 		int endOfCall = endOfBlock+1;// javaMethod.methodBody.findClosingCallEnd(i+1);
 
@@ -83,5 +83,7 @@ public class TransformFluidBindDuring extends AbstractMethodBodyTransformation {
 		tokens.add(i+4, new JavaCallKeywordStart("enterFluidBindDuring"));
 		tokens.add(i+5, new JavaIdentifier(identifier.value));
 		tokens.add(i+6, new JavaCallArgumentSeparator());
+		
+		return i;
 	}
 }

@@ -32,7 +32,7 @@ public class TransformUses extends AbstractMethodBodyTransformation {
 				factory.token(JavaIdentifier.class, "USES"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		if (i + 2 < tokens.size() && (tokens.get(i + 2) instanceof JavaStatementTerminator)) {
 			tokens.remove(i + 2);
 		}
@@ -46,5 +46,7 @@ public class TransformUses extends AbstractMethodBodyTransformation {
 			j--;
 		}
 		tokens.remove(j);
+		
+		return i;
 	}
 }

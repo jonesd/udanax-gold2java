@@ -35,9 +35,10 @@ public class TransformDOThashForEqual extends AbstractMethodBodyTransformation {
 			factory.token(JavaCallEnd.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i+1);
 		tokens.add(i, new JavaIdentifier("HashHelper"));
 		tokens.add(i + 1, new JavaCallKeywordStart("hashForEqual"));
+		return i;
 	}
 }

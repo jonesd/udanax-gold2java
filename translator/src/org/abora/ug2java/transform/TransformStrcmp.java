@@ -33,12 +33,14 @@ public class TransformStrcmp extends AbstractMethodBodyTransformation {
 				factory.token(JavaCallKeywordStart.class, "strcmp"));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		int endOfCall = javaMethod.methodBody.findClosingCallEnd(i+1);
 		int nextArgument = javaMethod.methodBody.findNextTokenOfType(i+1, JavaCallArgumentSeparator.class);
 		tokens.remove(nextArgument);
 		tokens.add(nextArgument, new JavaCallKeywordStart("compareTo"));
 		tokens.remove(i + 1);
 		tokens.remove(i);
+		
+		return i;
 	}
 }

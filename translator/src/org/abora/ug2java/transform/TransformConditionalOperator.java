@@ -36,22 +36,22 @@ public class TransformConditionalOperator extends AbstractMethodBodyTransformati
 						factory.token(JavaParenthesisStart.class));
 	}
 
-	protected void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		if (i == 0) {
-			return;
+			return i;
 		}
 		for (int j = i -1; j > 0; j--) {
 			JavaToken preToken = (JavaToken)tokens.get(j);
 			if (preToken instanceof JavaStatementTerminator || preToken instanceof JavaBlockEnd || preToken instanceof JavaBlockStart) {
 				// leave as normal if statement
-				return;
+				return i;
 			} else if (!(preToken instanceof JavaComment)) {
 				break;
 			}
 		}			
 		int ifBlockStart = javaMethod.methodBody.findNextTokenOfTypeQuietFail(i, JavaBlockStart.class);
 		if (ifBlockStart == -1) {
-			return;
+			return i;
 		}
 		int ifBlockEnd = javaMethod.methodBody.findEndOfBlockQuietFail(ifBlockStart);
 		if (ifBlockEnd != -1 && ifBlockEnd < tokens.size() - 1) {
@@ -59,11 +59,11 @@ public class TransformConditionalOperator extends AbstractMethodBodyTransformati
 			if (elseKeyword instanceof JavaKeyword && elseKeyword.value.equals("else")) {
 				int elseBlockStart = javaMethod.methodBody.findNextTokenOfTypeQuietFail(ifBlockEnd, JavaBlockStart.class);
 				if (elseBlockStart == -1) {
-					return;
+					return i;
 				}
 				int elseBlockEnd = javaMethod.methodBody.findEndOfBlockQuietFail(elseBlockStart);
 				if (elseBlockEnd == -1) {
-					return;
+					return i;
 				}
 				javaMethod.methodBody.removeShouldMatch(elseBlockEnd, JavaBlockEnd.class);
 				javaMethod.methodBody.removeShouldMatch(elseBlockStart, JavaBlockStart.class);
@@ -76,5 +76,6 @@ public class TransformConditionalOperator extends AbstractMethodBodyTransformati
 				javaMethod.methodBody.removeShouldMatch(i, JavaKeyword.class, "if");
 			}
 		}
+		return i;
 	}
 }
