@@ -23,6 +23,7 @@ public class JavaMethod extends JavaClassElement {
 	public List fields = new ArrayList();
 	public List parameters = new ArrayList();
 	public boolean shouldInclude = true;
+	public boolean isDeprecated = false;
 	
 	public String findTypeOfVariable(String variableName) {
 		String type = findTypeOfVariable(variableName, fields);

@@ -101,7 +101,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nif (fred < 1) throw new AboraAssertionException();\n}\n", java);
+		assertEquals("public void test() {\nif (fred < 1) {\nthrow new AboraAssertionException();\n}\n}\n", java);
 	}
 
 	public void testAssertWithMessage() {
@@ -109,7 +109,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nif (fred < 1) throw new AboraAssertionException(\"hello\");\n}\n", java);
+		assertEquals("public void test() {\nif (fred < 1) {\nthrow new AboraAssertionException(\"hello\");\n}\n}\n", java);
 	}
 
 	public void testAssign() {
@@ -466,19 +466,27 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testCompileFodder() {
-		String smalltalk = "test\nblah. ^false \"compiler fodder\"!";
+		String smalltalk = "test\na ifTrue: [^1] ifFalse: [^2].^false \"compiler fodder\"!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nblah;\n}\n", java);
+		assertEquals("public void test() {\nif (a) {\nreturn 1;\n}\nelse {\nreturn 2;\n}\n}\n", java);
 	}
 
 	public void testCompileFodder2() {
-		String smalltalk = "test\nblah. ^false \"fodder\"!";
+		String smalltalk = "test\na ifTrue: [^1] ifFalse: [^2].^false \"fodder\"!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nblah;\n}\n", java);
+		assertEquals("public void test() {\nif (a) {\nreturn 1;\n}\nelse {\nreturn 2;\n}\n}\n", java);
+	}
+
+	public void testCompileFodderNonElse() {
+		String smalltalk = "test\na ifTrue: [^1].^false \"compiler fodder\"!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (a) {\nreturn 1;\n}\nreturn false;\n}\n", java);
 	}
 
 	public void testConditionalOperator() {
@@ -801,12 +809,12 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test(int blah) {\nIntegerPos.make(blah);\n}\n", java);
 	}
 
-	public void testIntegerCallNonInt() {
-		String smalltalk = "test: blah {Heaper}\nblah integer!";
+	public void testIntegerCallExpression() {
+		String smalltalk = "test\nresult with: i integer!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test(Heaper blah) {\nblah.integer();\n}\n", java);
+		assertEquals("public void test() {\nresult.with(IntegerPos.make(i));\n}\n", java);
 	}
 
 	public void testIntegerCallOnIntLiteral() {
@@ -1087,7 +1095,15 @@ public class TestWriteMethod extends TestCase {
 		
 		String java = writeInstanceMethod(smalltalk);
 		
-		assertEquals("public void test() {\nthrow new PasseException();\n}\n", java);
+		assertEquals("/**\n * @deprecated\n */\npublic void test() {\nthrow new PasseException();\n}\n", java);
+	}
+
+	public void testPasseWithTrailingCode() {
+		String smalltalk = "test\nself passe. a ifTrue: [^1] ifFalse: [^2]. ^3!";
+		
+		String java = writeInstanceMethod(smalltalk);
+		
+		assertEquals("/**\n * @deprecated\n */\npublic void test() {\nthrow new PasseException();\n}\n", java);
 	}
 
 	public void testPrint() {
@@ -1443,6 +1459,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 		
 		assertEquals("public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.NOT_IN_TABLE);\n}\n", java);
+	}
+
+	public void testUnreachableCodeReturn() {
+		String smalltalk = "test\na ifTrue: [Heaper BLAST: #NotInTable.\n^99].\na blah.\n^99!";
+		
+		String java = writeInstanceMethod(smalltalk);
+		
+		assertEquals("public void test() {\nif (a) {\nthrow new AboraRuntimeException(AboraRuntimeException.NOT_IN_TABLE);\n}\na.blah();\nreturn 99;\n}\n", java);
 	}
 
 	public void testUnreachableCodeReturnFodderWithComment() {

@@ -77,9 +77,7 @@ public class ClassWriter {
 		}
 		
 		if (javaMethod.shouldInclude) {
-			if (javaMethod.comment != null) {
-				writeAsJavadocComment(writer, javaMethod.comment);			
-			}
+			writeMethodJavaDoc(javaMethod, writer);
 		
 			writer.print("public ");
 			writer.print(javaMethod.modifiers);
@@ -100,6 +98,19 @@ public class ClassWriter {
 		}
 		if (javaMethod.shouldInclude) {
 			writer.println("}");
+		}
+	}
+
+	private void writeMethodJavaDoc(JavaMethod javaMethod, PrintWriter writer) {
+		String comment = "";
+		if (javaMethod.comment != null) {
+			comment += javaMethod.comment;
+		}
+		if (javaMethod.isDeprecated) {
+			comment += "\n@deprecated";
+		}
+		if (comment.length() > 0) {
+			writeAsJavadocComment(writer, comment);			
 		}
 	}
 

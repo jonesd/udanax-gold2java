@@ -30,25 +30,15 @@ public class TransformIntegerCall extends AbstractMethodBodyTransformation {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.any(
-						factory.token(JavaIdentifier.class),
-						factory.token(JavaLiteral.class)),
 				factory.token(JavaCallStart.class, "integer"), 
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		JavaToken variable = (JavaToken)tokens.get(i);
-		if (variable instanceof JavaIdentifier) {
-			String type = javaMethod.findTypeOfVariable(variable.value);
-			if (!"int".equals(type)) {
-				return i;
-			}
-		}
-		//TODO assume literal is a number...
-		tokens.add(i, new JavaIdentifier("IntegerPos"));
-		tokens.add(i + 1, new JavaCallKeywordStart("make"));
-		tokens.remove(i + 3);
+		int start = javaMethod.methodBody.findStartOfExpression(i-1);
+		tokens.remove(i);
+		tokens.add(start, new JavaIdentifier("IntegerPos"));
+		tokens.add(start + 1, new JavaCallKeywordStart("make"));
 		
 		return i;
 	}

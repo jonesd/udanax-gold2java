@@ -184,6 +184,25 @@ public class MethodBody {
 		}
 	}
 
+	public int findPreviousTokenOfTypeQuietFail(int startIndex, Class aClass) {
+		for (int i = startIndex; i >= 0; --i) {
+			JavaToken token = (JavaToken) tokens.get(i);
+			if (aClass.isAssignableFrom(token.getClass())) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public int findPreviousTokenOfType(int startIndex, Class aClass) {
+		int i = findPreviousTokenOfTypeQuietFail(startIndex, aClass);
+		if (i == -1) {
+			throw new IllegalStateException("Could not find earlier  " + aClass);
+		} else {
+			return i;
+		}
+	}
+
 	public int findEndOfExpression(int startIndex) {
 		int laterParentheses = 0;
 		int laterBlocks = 0;

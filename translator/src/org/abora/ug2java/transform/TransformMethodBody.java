@@ -37,6 +37,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new ExcludeByName());
 		transformers.add(new ExcludeStaticHeaper());
 		transformers.add(new ExcludeMethods());
+		transformers.add(new DeprecatedMethods());
 		
 		transformers.add(new TransformSelfSends());
 		transformers.add(new TransformUses());
@@ -79,12 +80,12 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformCastIntoOthers());
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
-		transformers.add(new TransformCompilerFodder());
 		transformers.add(new ChooseTransformOnly());
 				
 		transformers.add(new TransformStaticCall());
 		transformers.add(new TransformReturnVoid());
 		transformers.add(new TransformClassReference());
+		transformers.add(new TransformCompilerFodder());
 		transformers.add(new TransformUnreachableCode());
 		return Collections.unmodifiableList(transformers);
 	}

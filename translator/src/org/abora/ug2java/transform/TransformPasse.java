@@ -38,6 +38,7 @@ public TransformPasse() {
 		tokens.add(i + 1, new JavaKeyword("new"));
 		call.value = "PasseException";
 		javaMethod.javaClass.includeImportForType("PasseException");
+		javaMethod.isDeprecated = true;
 		
 		return i;
 	}

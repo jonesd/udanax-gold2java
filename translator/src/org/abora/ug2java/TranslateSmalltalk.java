@@ -57,7 +57,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("FeCompletionDetector", "org.abora.gold.java.missing");
 		packageLookup.put("FeDirectWrapperChecker", "org.abora.gold.java.missing");
 		packageLookup.put("FeDirectWrapperMaker", "org.abora.gold.java.missing");
-		//	packageLookup.put("FeFillInDetector", "org.abora.gold.java.missing");
+		packageLookup.put("FeFillInDetector", "org.abora.gold.java.missing");
 		packageLookup.put("FeIndirectWrapperChecker", "org.abora.gold.java.missing");
 		packageLookup.put("FeIndirectWrapperMaker", "org.abora.gold.java.missing");
 		packageLookup.put("FeWrapperSpecHolder", "org.abora.gold.java.missing");

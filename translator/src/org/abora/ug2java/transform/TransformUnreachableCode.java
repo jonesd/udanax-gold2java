@@ -3,43 +3,43 @@ package org.abora.ug2java.transform;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
-import org.abora.ug2java.javatoken.JavaCallEnd;
-import org.abora.ug2java.javatoken.JavaCallStart;
-import org.abora.ug2java.javatoken.JavaComment;
-import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.JavaBlockEnd;
+import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
-import org.abora.ug2java.transform.tokenmatcher.MatchSequence;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 public class TransformUnreachableCode extends AbstractMethodBodyTransformation {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		MatchSequence matchSequence = new MatchSequence();
-		matchSequence.add(factory.token(JavaKeyword.class, "throw"));
-		matchSequence.add(factory.token(JavaKeyword.class, "new"));
-		matchSequence.add(factory.token(JavaCallStart.class));
-		matchSequence.add(factory.token(JavaIdentifier.class));
-		matchSequence.add(factory.token(JavaCallEnd.class));
-		matchSequence.add(factory.token(JavaStatementTerminator.class));
-		matchSequence.add(factory.token(JavaKeyword.class, "return"));
-		matchSequence.add(factory.token(JavaIdentifier.class, "null"));
-		return matchSequence;
+		return factory.any(
+				factory.token(JavaKeyword.class, "throw"),
+				factory.token(JavaKeyword.class, "return"));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		if (tokens.get(i + 8) instanceof JavaComment) {
-			tokens.remove(i + 8);
-		}
-		if (!(tokens.get(i + 8) instanceof JavaStatementTerminator)) {
-			System.out.println("--expected ; here");
+		int end = javaMethod.methodBody.findNextTokenOfTypeQuietFail(i, JavaStatementTerminator.class);
+		if (end == -1) {
 			return i;
 		}
-		tokens.remove(i + 8);
-		tokens.remove(i + 7);
-		tokens.remove(i + 6);
-		
+		int nextBlockStart = javaMethod.methodBody.findNextTokenOfTypeQuietFail(i, JavaBlockStart.class);
+		if (nextBlockStart != -1 && nextBlockStart < end) {
+			end = javaMethod.methodBody.findEndOfBlock(nextBlockStart);
+		}
+		int endOfBlock;
+		if (javaMethod.methodBody.findPreviousTokenOfTypeQuietFail(i, JavaBlockStart.class) == -1) {
+			// top level - so can remove the rest of the method
+			endOfBlock = tokens.size();
+		} else {
+			endOfBlock = javaMethod.methodBody.findNextTokenOfTypeQuietFail(end+1, JavaBlockEnd.class);
+			if (endOfBlock == -1) {
+				endOfBlock = tokens.size();
+			}
+		}
+		for (int j = endOfBlock - 1; j > end; --j) {
+			tokens.remove(j);
+		}
 		return i;
 	}
 

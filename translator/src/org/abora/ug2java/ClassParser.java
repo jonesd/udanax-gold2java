@@ -148,6 +148,7 @@ public class ClassParser {
 		set.add("makeScruSet");
 		set.add("makeJoint");
 		set.add("makeXnRegion");
+		set.add("makeHeaper");
 		OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS = Collections.unmodifiableSet(set);
 		
 	}

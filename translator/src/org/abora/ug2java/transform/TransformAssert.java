@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaAssignment;
+import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
@@ -40,12 +41,16 @@ public class TransformAssert extends AbstractMethodBodyTransformation {
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
+		int callEnd = javaMethod.methodBody.findClosingCallEnd(i);
+		tokens.add(callEnd+2, new JavaBlockEnd());
+		
 		int expressionStart = i;
 		if (i > 0) {
 			expressionStart = javaMethod.methodBody.findStartOfExpression(i - 1);
 		}
-		tokens.add(i, new JavaKeyword("throw"));
-		tokens.add(i+1, new JavaKeyword("new"));
+		tokens.add(i, new JavaBlockStart());
+		tokens.add(i+1, new JavaKeyword("throw"));
+		tokens.add(i+2, new JavaKeyword("new"));
 		call.value = "AboraAssertionException";
 		javaMethod.javaClass.includeImportForType("AboraAssertionException");
 		
