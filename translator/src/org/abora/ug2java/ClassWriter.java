@@ -1,3 +1,9 @@
+/*
+ * Udanax-Gold2Java - Translator
+ * Part of the Abora hypertext project: http://www.abora.org
+ * Copyright 2003, 2005 David G Jones
+ */
+
 package org.abora.ug2java;
 
 import java.io.File;
@@ -7,13 +13,9 @@ import java.io.StringWriter;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.stscanner.ChunkDetails;
-import org.abora.ug2java.stscanner.ChunkParser;
-import org.abora.ug2java.stscanner.ScannerToken;
-import org.abora.ug2java.stscanner.SmalltalkScanner;
 
 
 

@@ -1,3 +1,8 @@
+/*
+ * Udanax-Gold2Java - Translator
+ * Part of the Abora hypertext project: http://www.abora.org
+ * Copyright 2003, 2005 David G Jones
+ */
 package org.abora.ug2java.transform;
 
 import java.util.List;
@@ -7,10 +12,6 @@ import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.MethodBody;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
-import org.abora.ug2java.javatoken.JavaCallEnd;
-import org.abora.ug2java.javatoken.JavaCallKeywordStart;
-import org.abora.ug2java.javatoken.JavaCallStart;
-import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
@@ -24,8 +25,8 @@ public class TransformMethod {
 	final private JavaClass javaClass;
 	
 	
-	public TransformMethod(JavaClass classWriter) {
-		this.javaClass = classWriter;
+	public TransformMethod(JavaClass javaClass) {
+		this.javaClass = javaClass;
 	}
 	
 	public void transform(JavaMethod javaMethod) {

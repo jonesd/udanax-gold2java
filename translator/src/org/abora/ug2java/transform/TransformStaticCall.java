@@ -1,3 +1,8 @@
+/*
+ * Udanax-Gold2Java - Translator
+ * Part of the Abora hypertext project: http://www.abora.org
+ * Copyright 2003, 2005 David G Jones
+ */
 package org.abora.ug2java.transform;
 
 import java.util.List;
@@ -25,22 +30,4 @@ public class TransformStaticCall extends MethodBodyTransformation {
 		tokens.remove(i + 1);
 		tokens.remove(i + 1);
 	}
-//	protected void transformStaticCall(MethodBody body) {
-//	List tokens = body.tokens;
-//	for (int i = 0; i < tokens.size() - 2; i++) {
-//		JavaToken call = (JavaToken) tokens.get(i);
-//		if (call instanceof JavaCallStart && call.value.equals("class")) {
-//			JavaToken callEnd = (JavaToken) tokens.get(i + 1);
-//			if (callEnd instanceof JavaCallEnd) {
-//				JavaToken nextCall = (JavaToken) tokens.get(i + 2);
-//				if (nextCall instanceof JavaCallStart) {
-//					tokens.add(i, new JavaIdentifier(javaClass.className));
-//					tokens.remove(i + 1);
-//					tokens.remove(i + 1);
-//				}
-//			}
-//		}
-//	}
-//}
-
 }
