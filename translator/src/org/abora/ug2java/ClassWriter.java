@@ -26,12 +26,14 @@ public class ClassWriter {
 	static final String PACKAGE_SEPARATOR = ".";
 
 	private int JAVADOC_MARGIN = 90;
+	
+	private static final boolean INCLUDE_METHOD_BODIES = true;
 
 	static final Hashtable LOOKUP_TYPES = new Hashtable();
 	{
 		LOOKUP_TYPES.put("BooleanVar", "boolean");
 		LOOKUP_TYPES.put("Boolean", "boolean");
-		LOOKUP_TYPES.put("IntegerVar", "int");
+		LOOKUP_TYPES.put("IntegerVar", "IntegerVar");
 		LOOKUP_TYPES.put("UInt32", "int");
 		LOOKUP_TYPES.put("Int32", "int");
 		LOOKUP_TYPES.put("UInt8", "byte");
@@ -43,9 +45,11 @@ public class ClassWriter {
 		LOOKUP_TYPES.put("IEEEFloatVar", "float");
 		LOOKUP_TYPES.put("IEEE64", "double");
 		LOOKUP_TYPES.put("IEEE32", "float");
+		LOOKUP_TYPES.put("size", "int");
 
 		// total guess work		
 		LOOKUP_TYPES.put("size_U_t", "int");
+		LOOKUP_TYPES.put("size", "int");
 		LOOKUP_TYPES.put("UNKNOWN", "Object");
 
 		LOOKUP_TYPES.put("ostream", "PrintWriter");
@@ -82,6 +86,7 @@ public class ClassWriter {
 		OVERRIDE_RETURN_TYPE.put("make", "Heaper");
 		OVERRIDE_RETURN_TYPE.put("isEqual", "boolean");
 		OVERRIDE_RETURN_TYPE.put("isUnlocked", "boolean");
+		OVERRIDE_RETURN_TYPE.put("displayString", "String");
 	}
 
 	static final Set OVERRIDE_STATIC = new HashSet();
@@ -1028,7 +1033,12 @@ public class ClassWriter {
 		}
 
 		writer.println("public " + modifiers + returnType + " " + methodName + "(" + params + ") {");
-		writeTranslatedMethod(writer, scanner);
+		
+		if (INCLUDE_METHOD_BODIES) {
+			writeTranslatedMethod(writer, scanner);
+		} else {
+			writer.write("throw new UnsupportedOperationException();");
+		}
 		if (quoteSmalltalk) {
 			writeAsQuote(writer, methodDetails.context, smalltalkMethod);
 		}
