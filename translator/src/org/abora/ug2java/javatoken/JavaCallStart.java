@@ -16,7 +16,7 @@ public class JavaCallStart extends JavaToken {
 	public void write(JavaWriter buffer) {
 		// handling required after this identifires have been trimmed
 		char c = buffer.getLastCharacter();
-		if (Character.isJavaIdentifierPart(c) || c == ')') {
+		if (Character.isJavaIdentifierPart(c) || c == ')' || c == '"') {
 			buffer.append(".");
 		}
 		super.write(buffer);

@@ -95,7 +95,10 @@ public class TranslateSmalltalk {
 		packageLookup.put("VoidStar", "org.abora.gold.java.missing");
 		//	packageLookup.put("XnExecutor", "org.abora.gold.java.missing");
 		//	packageLookup.put("XuRegion", "org.abora.gold.java.missing");
+		packageLookup.put("XnReadFile", "org.abora.gold.java.missing");
 		packageLookup.put("XnSensor", "org.abora.gold.java.missing");
+		packageLookup.put("XnWriteFile", "org.abora.gold.java.missing");
+		packageLookup.put("XuRegion", "org.abora.gold.java.missing");
 
 		packageLookup.put("Array", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Behavior", "org.abora.gold.java.missing.smalltalk");

@@ -117,8 +117,17 @@ public class ClassParser {
 	static {
 		Map table  = new Hashtable();
 		table.put("stepper", STEPPER_CLASS);
+		table.put("isGenerated", "boolean");
+		table.put("SnarfPacker.conistentCount", "int");
 		table.put("ScruTable.stepper", "TableStepper");
 		table.put("SetTable.stepper", "TableStepper");
+		table.put("FluidVar.emulsion", "Emulsion");
+		table.put("FluidVar.fluidVar", "Heaper");
+		table.put("FluidVar.fluidFetch", "Heaper");
+		table.put("FluidVar.fluidGet", "Heaper");
+		table.put("FluidVar.initialValue", "Heaper");
+		table.put("XnRegion.simpleRegions", "Stepper");
+		table.put("XnRegion.disjointSimpleRegions", "Stepper");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 

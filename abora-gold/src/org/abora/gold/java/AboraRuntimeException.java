@@ -65,6 +65,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String MUST_BE_ASTUB = "MustBeAStub";
 	public static final String MUST_BE_CONCRETE_WRAPPER_SPEC = "MustBeConcreteWrapperSpec";
 	public static final String MUST_BE_FINITE = "MustBeFinite";
+	public static final String MUST_BE_INSIDE_TRANSACTION = "MustBeInsideTransaction";
 	public static final String MUST_BE_OWNER = "MustBeOwner";
 	public static final String MUST_BE_REAL_DISK_MANAGER = "MustBeRealDiskManager";
 	public static final String MUST_BE_SIMPLE = "MustBeSimple";
@@ -143,6 +144,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String TURTLE_NOT_MATURE = "TurtleNotMature";
 	public static final String UNENCODED_CATEGORY = "UnencodedCategory";
 	public static final String UNKNOWN_COOKBOOK = "UnknownCookbook";
+	public static final String UNINITIALIZED_PACKER = "UninitializedPacker";
 	public static final String WORK_IS_LOCKED_BY_SOMEONE_ELSE = "WorkIsLockedBySomeoneElse";
 	public static final String WHO_SAYS = "WhoSays";
 	public static final String WRONG_CHARACTER = "WrongCharacter";

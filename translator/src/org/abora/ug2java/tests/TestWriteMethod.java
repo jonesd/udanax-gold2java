@@ -472,6 +472,16 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\n}\n", java);
 	}
 
+	public void testFluidFetch() {
+		String smalltalk = "test\nCurrentPacker fluidFetch blah!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals(
+			"public void test() {\n((DiskManager) CurrentPacker.fluidFetch()).blah();\n}\n",
+			java);
+	}
+
 	public void testForEach() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| element]!";
 
@@ -581,7 +591,7 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\n187;\n}\n", java);
 	}
 
-	public void testIntegerCall() {
+	public void testIntegerCallOnIntVar() {
 		String smalltalk = "test: blah {IntegerVar}\nblah integer!";
 
 		String java = writeInstanceMethod(smalltalk);
@@ -595,6 +605,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test(Heaper blah) {\nblah.integer();\n}\n", java);
+	}
+
+	public void testIntegerCallOnIntLiteral() {
+		String smalltalk = "test\n27 integer!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nIntegerPos.make(27);\n}\n", java);
 	}
 
 	public void testIntegerHex() {
@@ -734,6 +752,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nfred = null;\n}\n", java);
+	}
+
+	public void testNotBoolean() {
+		String smalltalk = "test: blah {BooleanVar}\n^blah not!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test(boolean blah) {\nreturn ! blah;\n}\n", java);
 	}
 
 	public void testNULL() {
@@ -891,6 +917,22 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\n/* >>> smalltalkOnly */\none.blah();\n/* <<< smalltalkOnly */\n}\n", java);
 	}
 
+	public void testStrcmp() {
+		String smalltalk = "test\nString strcmp: 'hi there' with: 'here'!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n\"hi there\".compareTo(\"here\");\n}\n", java);
+	}
+
+	public void testStrlen() {
+		String smalltalk = "test\nString strlen: 'hi there'!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n\"hi there\".length();\n}\n", java);
+	}
+
 	public void testString() {
 		String smalltalk = "test\n'hi there'!";
 
@@ -901,6 +943,14 @@ public class TestWriteMethod extends TestCase {
 
 	public void testStringDeclaration() {
 		String smalltalk = "test: string {Character star}\nstring!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test(String string) {\nstring;\n}\n", java);
+	}
+
+	public void testStringDeclaration2() {
+		String smalltalk = "test: string {char star}\nstring!";
 
 		String java = writeInstanceMethod(smalltalk);
 

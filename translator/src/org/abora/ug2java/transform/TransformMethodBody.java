@@ -1,3 +1,4 @@
+
 /*
  * Udanax-Gold2Java - Translator
  * Part of the Abora hypertext project: http://www.abora.org
@@ -62,6 +63,10 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformCastIntoOthers());
 		transformers.add(new TransformIntegerCall());
 		transformers.add(new TransformSignals());
+		transformers.add(new TransformStrcmp());
+		transformers.add(new TransformStrlen());
+		transformers.add(new TransformFluidAccess());
+		transformers.add(new TransformNot());
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new TransformCompilerFodder());
