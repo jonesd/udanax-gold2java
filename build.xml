@@ -19,7 +19,7 @@
     <mkdir dir="${dist}"/>
     <!-- TODO following over-complexity is a poor attempt to get all
     	zipped content under a common udanax-gold2java dir -->
-    <zip destfile="${dist}/${name}-${DSTAMP}.jar" basedir=".." excludes="**/*">
+    <zip destfile="${dist}/${name}-${DSTAMP}.zip" basedir=".." excludes="**/*">
   	 	<fileset dir="..">
     		<include name="${parent.dir}/**/*.xml"/>
     		<include name="${parent.dir}/**/*.txt"/>
