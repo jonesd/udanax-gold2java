@@ -9,7 +9,6 @@
 
 package org.abora.gold.collection.basic;
 
-import org.abora.gold.java.missing.IntegerVar;
 import org.abora.gold.java.missing.smalltalk.Stream;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xcvr.Rcvr;
@@ -58,20 +57,20 @@ public class IntegerVarArray extends PrimIntegerArray {
 	}
 
 	/** Store an actual integer value */
-	public void storeIntegerVar(int index, IntegerVar value) {
+	public void storeIntegerVar(int index, /* IntegerVar */ int value) {
 		throw new UnsupportedOperationException();
 	}
 
 	/** Get an actual integer value */
-	public IntegerVar integerVarAt(int index) {
+	public /* IntegerVar */ int integerVarAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 
-	public void storeInteger(int index, IntegerVar value) {
+	public void storeInteger(int index, /* IntegerVar */ int value) {
 		throw new UnsupportedOperationException();
 	}
 
-	public IntegerVar integerAt(int index) {
+	public /* IntegerVar */ int integerAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 

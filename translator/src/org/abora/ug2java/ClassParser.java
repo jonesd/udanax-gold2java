@@ -102,7 +102,6 @@ public class ClassParser {
 	static {
 		Map table = new Hashtable();
 		table.put("actualHashForEqual", "int");
-		table.put("make", "Heaper");
 		table.put("isEqual", "boolean");
 		table.put("isUnlocked", "boolean");
 		table.put("displayString", "String");
@@ -115,6 +114,13 @@ public class ClassParser {
 		Map table  = new Hashtable();
 		table.put("stepper", "Stepper");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
+	}
+
+	static final Set OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS;
+	static {
+		Set set  = new HashSet();
+		set.add("make");
+		OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS = Collections.unmodifiableSet(set);
 	}
 
 	static final Set OVERRIDE_STATIC;
@@ -184,6 +190,8 @@ public class ClassParser {
 		} else if (returnType.equals("void") && OVERRIDE_VOID_RETURN_TYPE.containsKey(methodName)) {
 			returnType = (String) OVERRIDE_VOID_RETURN_TYPE.get(methodName);
 			returnType = lookupType(returnType);
+		} else if (returnType.equals("void") && OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS.contains(methodName)) {
+			returnType = javaClass.className;
 		}
 		return returnType;
 	}

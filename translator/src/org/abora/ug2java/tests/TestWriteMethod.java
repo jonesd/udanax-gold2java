@@ -670,19 +670,35 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testOverrideReturnType() {
+		String smalltalk = "{Blah} isEqual\n^blah!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public boolean isEqual() {\nreturn blah;\n}\n", java);
+	}
+
+	public void testOverrideReturnType2() {
+		String smalltalk = "isEqual\n^blah!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public boolean isEqual() {\nreturn blah;\n}\n", java);
+	}
+
+	public void testOverrideVoidReturnTypeWithClass() {
+		String smalltalk = "{Blah} make\n^blah!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public Blah make() {\nreturn blah;\n}\n", java);
+	}
+
+	public void testOverrideVoidReturnTypeWithClass2() {
 		String smalltalk = "make\n^blah!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public Heaper make() {\nreturn blah;\n}\n", java);
-	}
-
-	public void testOverrideReturnType2() {
-		String smalltalk = "{TableStepper} make\n^blah!";
-
-		String java = writeInstanceMethod(smalltalk);
-
-		assertEquals("public Heaper make() {\nreturn blah;\n}\n", java);
+		assertEquals("public Test make() {\nreturn blah;\n}\n", java);
 	}
 
 	public void testOverrideVoidReturnType() {

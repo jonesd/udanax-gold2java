@@ -24,17 +24,17 @@ public class PrimIntArray extends PrimIntegerArray {
 	 * Make an array initialized to zeros. The values are signed if bitCount is
 	 * negative
 	 */
-	public static PrimIntArray zeros(IntegerVar bitCount, IntegerVar count) {
+	public static PrimIntArray zeros(/* IntegerVar */ int bitCount, /* IntegerVar */ int count) {
 		throw new UnsupportedOperationException();
 	}
 
 	/** Store an integer value */
-	public void storeInteger(int index, IntegerVar value) {
+	public void storeInteger(int index, /* IntegerVar */ int value) {
 		throw new UnsupportedOperationException();
 	}
 
 	/** Get an actual integer value */
-	public IntegerVar integerAt(int index) {
+	public /* IntegerVar */ int integerAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 

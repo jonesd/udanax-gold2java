@@ -37,21 +37,21 @@ public class PrimIntegerArray extends PrimDataArray {
 	 * If canModify, then returns a newly created array only if the value will
 	 * not fit into this one, otherwise will always return a new array.
 	 */
-	public PrimIntegerArray hold(int index, IntegerVar value, boolean canModify) {
+	public PrimIntegerArray hold(int index, /* IntegerVar */ int value, boolean canModify) {
 		throw new UnsupportedOperationException();
 	}
 
-	public PrimIntegerArray hold(int index, IntegerVar value) {
+	public PrimIntegerArray hold(int index, /* IntegerVar */ int value) {
 		return hold(index, value, false);
 	}
 
 	/** Store an integer value */
-	public void storeInteger(int index, IntegerVar value) {
+	public void storeInteger(int index, /* IntegerVar */ int value) {
 		throw new UnsupportedOperationException();
 	}
 
 	/** Get an actual integer value */
-	public IntegerVar integerAt(int index) {
+	public /* IntegerVar */ int integerAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -75,15 +75,15 @@ public class PrimIntegerArray extends PrimDataArray {
 		throw new UnsupportedOperationException();
 	}
 
-	public int indexOfInteger(IntegerVar value, int start, int count) {
+	public int indexOfInteger(/* IntegerVar */ int value, int start, int count) {
 		throw new UnsupportedOperationException();
 	}
 
-	public int indexOfInteger(IntegerVar value, int start) {
+	public int indexOfInteger(/* IntegerVar */ int value, int start) {
 		return indexOfInteger(value, start, 1);
 	}
 
-	public int indexOfInteger(IntegerVar value) {
+	public int indexOfInteger(/* IntegerVar */ int value) {
 		return indexOfInteger(value, 0);
 	}
 
@@ -91,15 +91,15 @@ public class PrimIntegerArray extends PrimDataArray {
 		throw new UnsupportedOperationException();
 	}
 
-	public int indexPastInteger(IntegerVar value, int start, int count) {
+	public int indexPastInteger(/* IntegerVar */ int value, int start, int count) {
 		throw new UnsupportedOperationException();
 	}
 
-	public int indexPastInteger(IntegerVar value, int start) {
+	public int indexPastInteger(/* IntegerVar */ int value, int start) {
 		return indexPastInteger(value, start, 1);
 	}
 
-	public int indexPastInteger(IntegerVar value) {
+	public int indexPastInteger(/* IntegerVar */ int value) {
 		return indexPastInteger(value, 0);
 	}
 
