@@ -37,6 +37,25 @@ public class MethodBody {
 	public void remove(int index) {
 		tokens.remove(index);
 	}
+	
+	public void removeShouldMatch(int index, Class aClass) {
+		removeShouldMatch(index, aClass, null);
+	}
+	
+	public void removeShouldMatch(int index, String value) {
+		removeShouldMatch(index, null, value);
+	}
+
+	public void removeShouldMatch(int index, Class aClass, String value) {
+		JavaToken tokenToRemove = (JavaToken)tokens.get(index);
+		if (aClass != null && !(aClass.isInstance(tokenToRemove))) {
+			throw new IllegalStateException("Removing index:"+index+" expected class:"+aClass+" but found:"+tokenToRemove);
+		}
+		if (value != null && !value.equals(tokenToRemove.value)) {
+			throw new IllegalStateException("Removing index:"+index+" expected value:"+value+" but found:"+tokenToRemove);
+		}
+		remove(index);
+	}
 
 	public int findClosingCallEnd(int callStart) {
 		int earlyCalls = 0;
@@ -66,7 +85,7 @@ public class MethodBody {
 		return existingKeyword;
 	}
 
-	public int findEndOfBlock(int blockStart) {
+	public int findEndOfBlockQuietFail(int blockStart) {
 		int earlyParentheses = 0;
 		int earlyBlocks = 0;
 		for (int i = blockStart + 1; i < tokens.size(); i++) {
@@ -85,7 +104,16 @@ public class MethodBody {
 				}
 			}
 		}
-		throw new IllegalStateException("Could not find closing block");
+		return -1;
+	}
+
+	public int findEndOfBlock(int blockStart) {
+		int end = findEndOfBlockQuietFail(blockStart);
+		if (end == -1) {
+			throw new IllegalStateException("Could not find closing block");
+		} else {
+			return end;
+		}
 	}
 
 	public int findStartOfBlock(int blockEnd) {

@@ -7,29 +7,30 @@
  * Copyright 1979-1999 Udanax.com. All rights reserved
  */
 
-package org.abora.gold.java.missing.smalltalk;
+package org.abora.gold.java.missing;
 
+import org.abora.gold.collection.steppers.Stepper;
+import org.abora.gold.xpp.basic.Heaper;
 
-public class Array {
+public class RandomStepper extends Heaper {
 
-	public Array() {
+	public RandomStepper() {
 		super();
 	}
 
-	public static Array newWithAll(int i, int i1) {
+	public static RandomStepper make(int i, int j, int k) {
 		throw new UnsupportedOperationException();
 	}
 
-	public int size() {
+	public static RandomStepper make(int i) {
+		throw new UnsupportedOperationException();
+	}
+
+	public int value() {
 		throw new UnsupportedOperationException();
 	}
 	
-	public static Array with(Object a) {
+	public void step() {
 		throw new UnsupportedOperationException();
 	}
-
-	public Object at(int i) {
-		throw new UnsupportedOperationException();
-	}
-
 }

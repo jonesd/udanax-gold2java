@@ -7,17 +7,17 @@
  * Copyright 1979-1999 Udanax.com. All rights reserved
  */
 
-package org.abora.gold.java.missing.smalltalk;
+package org.abora.gold.java.missing;
 
+import org.abora.gold.xpp.converters.CategoryTable;
 
-public class Smalltalk {
+public class OccludingCategoryTable extends CategoryTable {
 
-	public Smalltalk() {
+	public OccludingCategoryTable() {
 		super();
 	}
 
-	public static Object at(Symbol className) {
+	public OccludingCategoryTable(CategoryTable front, CategoryTable back) {
 		throw new UnsupportedOperationException();
 	}
-
 }

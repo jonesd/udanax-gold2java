@@ -441,6 +441,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nblah;\n}\n", java);
 	}
 
+	public void testConditionalOperator() {
+		String smalltalk = "test\nreturn (one = two) ifTrue: [one] ifFalse: [two]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nreturn(one == two) ? one : two;\n}\n", java);
+	}
+
 	public void testDiskManagerConsistentDefaultDirty() {
 		String smalltalk = "test\nDiskManager consistent: [self diskUpdate]!";
 
@@ -813,6 +821,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nblah = 0;\n}\n", java);
+	}
+
+	public void testIntegerZero() {
+		String smalltalk = "test\nblah _ IntegerZero!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nblah = IntegerPos.zero();\n}\n", java);
 	}
 
 	public void testIsKindOf() {

@@ -72,11 +72,13 @@ public class TranslateSmalltalk {
 		packageLookup.put("IObject", "org.abora.gold.java.missing");
 		packageLookup.put("MarkM", "org.abora.gold.java.missing");
 		packageLookup.put("MuWordArray", "org.abora.gold.java.missing");
+		packageLookup.put("OccludingCategoryTable", "org.abora.gold.java.missing");
 		packageLookup.put("OrderEnum", "org.abora.gold.java.missing");
 		packageLookup.put("PackOBits", "org.abora.gold.java.missing");
 		packageLookup.put("PackageCategory", "org.abora.gold.java.missing");
 		packageLookup.put("Problem", "org.abora.gold.java.missing");
 		packageLookup.put("PropJoint", "org.abora.gold.java.missing");
+		packageLookup.put("RandomStepper", "org.abora.gold.java.missing");
 		packageLookup.put("Ravi", "org.abora.gold.java.missing");
 		packageLookup.put("RaviNow", "org.abora.gold.java.missing");
 		packageLookup.put("Sema4", "org.abora.gold.java.missing");
@@ -86,6 +88,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("Signal", "org.abora.gold.java.missing");
 		packageLookup.put("SnarfID", "org.abora.gold.java.missing");
 		packageLookup.put("SnarfHandle", "org.abora.gold.java.missing");
+		packageLookup.put("SocketPortal", "org.abora.gold.java.missing");
 		packageLookup.put("Someone", "org.abora.gold.java.missing");
 		packageLookup.put("SplayEntLoaf", "org.abora.gold.java.missing");
 		packageLookup.put("Stamp", "org.abora.gold.java.missing");

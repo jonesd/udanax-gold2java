@@ -98,6 +98,7 @@ public class ClassParser {
 		set.add("abstract");
 		set.add("interface");
 		set.add("synchonized");
+		set.add("return");
 
 		set.add("do");
 		JAVA_KEYWORDS = Collections.unmodifiableSet(set);
@@ -130,6 +131,7 @@ public class ClassParser {
 		table.put("FluidVar.initialValue", "Heaper");
 		table.put("XnRegion.simpleRegions", "Stepper");
 		table.put("XnRegion.disjointSimpleRegions", "Stepper");
+		table.put("crums", "Array");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -312,6 +314,7 @@ public class ClassParser {
 		while (startIndex < expression.size()) {
 			JavaToken test = (JavaToken) expression.elementAt(startIndex);
 			if (((test instanceof JavaKeyword) && test.value.equals("return"))
+				|| ((test instanceof JavaIdentifier) && test.value.equals("return"))
 				|| (test instanceof JavaComment)
 				|| (test instanceof JavaAssignment)
 				|| (startIndex + 1 < expression.size() && (expression.elementAt(startIndex + 1) instanceof JavaAssignment))) {

@@ -21,4 +21,20 @@ public class Urdi extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 
+	public static Urdi urdi(String fname, int count) {
+		throw new UnsupportedOperationException();
+	}
+
+	public byte usableSnarfs() {
+		throw new UnsupportedOperationException();
+	}
+
+	public int getDataSizeOfSnarf(int i) {
+		throw new UnsupportedOperationException();
+	}
+
+	public int usableStages() {
+		throw new UnsupportedOperationException();
+	}
+
 }

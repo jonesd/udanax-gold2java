@@ -29,4 +29,16 @@ public class UrdiView extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 
+	public SnarfHandle makeReadHandle(SnarfID snarfID) {
+		throw new UnsupportedOperationException();
+	}
+
+	public SnarfHandle makeErasingHandle(SnarfID snarfID) {
+		throw new UnsupportedOperationException();
+	}
+
+	public int getDataSizeOfSnarf(int i) {
+		throw new UnsupportedOperationException();
+	}
+
 }

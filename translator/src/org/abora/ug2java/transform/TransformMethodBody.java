@@ -48,6 +48,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformCritical());
 		transformers.add(new TransformValueNowOrOnOnUnwindDo());
 		transformers.add(new TransformAtCalls());
+		transformers.add(new TransformIntegerZero());
 		transformers.add(new TransformBlast());
 		transformers.add(new TransformIsKindOf());
 		transformers.add(new TransformStar());
@@ -74,6 +75,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformFluidBindDuring());
 		transformers.add(new TransformNot());
 		transformers.add(new TransformAssert());
+		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new TransformCompilerFodder());

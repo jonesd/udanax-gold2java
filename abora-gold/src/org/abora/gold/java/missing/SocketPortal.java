@@ -7,17 +7,18 @@
  * Copyright 1979-1999 Udanax.com. All rights reserved
  */
 
-package org.abora.gold.java.missing.smalltalk;
+package org.abora.gold.java.missing;
 
+import org.abora.gold.proman.PacketPortal;
+import org.abora.gold.proman.Portal;
 
-public class Smalltalk {
+public class SocketPortal extends Portal {
 
-	public Smalltalk() {
+	public SocketPortal() {
 		super();
 	}
 
-	public static Object at(Symbol className) {
+	public static PacketPortal make(int socket) {
 		throw new UnsupportedOperationException();
 	}
-
 }

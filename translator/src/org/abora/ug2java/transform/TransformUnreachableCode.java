@@ -33,7 +33,8 @@ public class TransformUnreachableCode extends AbstractMethodBodyTransformation {
 			tokens.remove(i + 8);
 		}
 		if (!(tokens.get(i + 8) instanceof JavaStatementTerminator)) {
-			throw new IllegalStateException("Expected a ; here");
+			System.out.println("--expected ; here");
+			return;
 		}
 		tokens.remove(i + 8);
 		tokens.remove(i + 7);
