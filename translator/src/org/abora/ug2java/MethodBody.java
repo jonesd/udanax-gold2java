@@ -47,6 +47,18 @@ public class MethodBody {
 	}
 
 	public void removeShouldMatch(int index, Class aClass, String value) {
+		shouldMatch(index, aClass, value);
+		remove(index);
+	}
+
+	public void shouldMatch(int index, Class aClass) {
+		shouldMatch(index, aClass, null);
+	}
+	
+	public void shouldMatch(int index, String value) {
+		shouldMatch(index, null, value);
+	}
+	public void shouldMatch(int index, Class aClass, String value) {
 		JavaToken tokenToRemove = (JavaToken)tokens.get(index);
 		if (aClass != null && !(aClass.isInstance(tokenToRemove))) {
 			throw new IllegalStateException("Removing index:"+index+" expected class:"+aClass+" but found:"+tokenToRemove);
@@ -54,7 +66,6 @@ public class MethodBody {
 		if (value != null && !value.equals(tokenToRemove.value)) {
 			throw new IllegalStateException("Removing index:"+index+" expected value:"+value+" but found:"+tokenToRemove);
 		}
-		remove(index);
 	}
 
 	public int findClosingCallEnd(int callStart) {

@@ -38,6 +38,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String CLUB_MUST_HAVE_UNIQUE_ID = "ClubMustHaveUniqueId";
 	public static final String COMBINE_LOOP_FAILED = "CombineLoopFailed";
 	public static final String COPY_OUT_OF_BOUNDS = "CopyOutOfBounds";
+	public static final String COUNT_MISMATCH = "CountMismatch";
 	public static final String DESTRUCTED_ABE = "DestructedAbe";
 	public static final String DISK_FULL = "DiskFull";
 	public static final String DOES_NOT_HAVE_AN_ID = "DoesNotHaveAnId";
@@ -100,6 +101,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String MUST_MATCH = "MustMatch";
 	public static final String MUST_NOT_BE_NULL = "MustNotBeNull";
 	public static final String MUST_NOT_CHANGE_DURING_COMMIT = "MustNotChangeDuringCommit";
+	public static final String MUST_NOT_HAVE_NULL_ELEMENTS = "MustNotHaveNullElements";
 	public static final String MUST_NOT_RECORD_CHANGES_FOR_PUMPKINS = "MustNotRecordChangesForPumpkins";
 	public static final String MUST_SUPPLY_SOME_HYPER_REF_INFORMATION = "MustSupplySomeHyperRefInformation";
 	public static final String MUST_USE_DIFFERENT_LINK_END_KEY = "MustUseDifferentLinkEndKey";

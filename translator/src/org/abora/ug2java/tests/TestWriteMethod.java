@@ -1012,6 +1012,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nreturn ! blah.isAlive();\n}\n", java);
 	}
 
+	public void testNotNULLElse() {
+		String smalltalk = "test\n(values fetch: i) notNULL: [:fe {FeRangeElement} | element _ fe carrier] else: [^nil]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nFeRangeElement fe = (FeRangeElement) (values.fetch(i));\nif (fe != null ) {\nelement = fe.carrier();\n}\nelse {\nreturn null;\n}\n}\n", java);
+	}
+
 	public void testNULL() {
 		String smalltalk = "test\nfred := NULL!";
 
@@ -1374,11 +1382,11 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testTranslateOnlyString() {
-		String smalltalk = "test\n'hello there' translateOnly!";
+		String smalltalk = "test\n'one.blah()' translateOnly!";
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\n/* translateOnly \"hello there\" */\n}\n", java);
+		assertEquals("public void test() {\n{\n/* \"one.blah()\" */\n}\ntranslateOnly;\n}\n", java);
 	}
 
 	public void testTranslateOnly() {

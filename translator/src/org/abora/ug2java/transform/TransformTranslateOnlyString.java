@@ -8,9 +8,12 @@ package org.abora.ug2java.transform;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.javatoken.JavaBlockEnd;
+import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaComment;
+import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
@@ -36,13 +39,15 @@ public class TransformTranslateOnlyString extends AbstractMethodBodyTransformati
 	
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaLiteral javaLiteral = (JavaLiteral)tokens.get(i);
-		tokens.add(i, new JavaComment("translateOnly " + javaLiteral.value));
-		tokens.remove(i + 1);
-		tokens.remove(i + 1);
-		tokens.remove(i + 1);
-		if (i + 1 < tokens.size() && tokens.get(i + 1) instanceof JavaStatementTerminator) {
-			tokens.remove(i + 1);
-		}
+		
+		tokens.remove(i+2);
+		tokens.remove(i+1);
+		tokens.remove(i);
+
+		tokens.add(i, new JavaBlockStart());
+		tokens.add(i+1, new JavaComment(javaLiteral.value));
+		tokens.add(i+2, new JavaBlockEnd());
+		tokens.add(i+3, new JavaIdentifier("translateOnly"));
 		
 		return i;
 	}

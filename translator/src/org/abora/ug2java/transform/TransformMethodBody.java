@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.javatoken.JavaIdentifier;
 
 
 
@@ -78,6 +79,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformAssert());
 		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformCastIntoOthers());
+		transformers.add(new TransformNotNULLElse());		
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new ChooseTransformOnly());
