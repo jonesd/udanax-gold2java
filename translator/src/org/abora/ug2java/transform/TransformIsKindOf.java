@@ -17,9 +17,16 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformIsKindOf extends MethodBodyTransformation {
+public class TransformIsKindOf extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformIsKindOf() {
+		super();
+	}
+	public TransformIsKindOf(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaIdentifier.class), 
 				factory.token(JavaCallKeywordStart.class, "isKindOf"), 
@@ -27,7 +34,7 @@ public class TransformIsKindOf extends MethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 	
-	public void transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
+	protected void transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
 		methodBodyTokens.remove(i + 3);
 		methodBodyTokens.remove(i + 1);
 		methodBodyTokens.add(i + 1, new JavaKeyword("instanceof"));

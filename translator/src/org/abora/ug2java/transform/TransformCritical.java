@@ -19,15 +19,22 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformCritical extends MethodBodyTransformation {
+public class TransformCritical extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformCritical() {
+		super();
+	}
+	public TransformCritical(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaCallKeywordStart.class, "critical"), 
 				factory.token(JavaBlockStart.class));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		int start = javaMethod.methodBody.findStartOfExpression(i - 1);
 		int postCallEnd = javaMethod.methodBody.findClosingCallEnd(i);
 		if (postCallEnd + 1 < tokens.size() && (tokens.get(postCallEnd + 1) instanceof JavaStatementTerminator)) {

@@ -17,15 +17,22 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformSmalltalkOnly extends MethodBodyTransformation {
+public class TransformSmalltalkOnly extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformSmalltalkOnly() {
+		super();
+	}
+	public TransformSmalltalkOnly(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaBlockEnd.class), 
 				factory.token(JavaIdentifier.class, "smalltalkOnly"));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaBlockEnd blockEnd = (JavaBlockEnd)tokens.get(i);
 		int blockStart = javaMethod.methodBody.findStartOfBlock(i);
 		tokens.remove(blockStart);

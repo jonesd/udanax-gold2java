@@ -17,15 +17,22 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformUses extends MethodBodyTransformation {
+public class TransformUses extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformUses() {
+		super();
+	}
+	public TransformUses(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaBlockEnd.class), 
 				factory.token(JavaIdentifier.class, "USES"));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		if (i + 2 < tokens.size() && (tokens.get(i + 2) instanceof JavaStatementTerminator)) {
 			tokens.remove(i + 2);
 		}

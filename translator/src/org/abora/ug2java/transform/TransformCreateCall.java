@@ -17,13 +17,20 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformCreateCall extends MethodBodyTransformation {
+public class TransformCreateCall extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformCreateCall() {
+		super();
+	}
+	public TransformCreateCall(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.token(JavaCallStart.class, "create");
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		if (i > 0 && (tokens.get(i - 1) instanceof JavaIdentifier)) {
 			JavaToken token = (JavaToken) tokens.get(i - 1);

@@ -19,16 +19,23 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformWhileTrue extends MethodBodyTransformation {
+public class TransformWhileTrue extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformWhileTrue() {
+		super();
+	}
+	public TransformWhileTrue(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaStatementTerminator.class), 
 				factory.token(JavaBlockEnd.class), 
 				factory.token(JavaCallKeywordStart.class, "whileTrue"));
 	}
 	
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		int preBlockStart = javaMethod.methodBody.findStartOfBlock(i + 1);
 		tokens.add(preBlockStart, new JavaKeyword("while"));
 		tokens.remove(preBlockStart + 1);

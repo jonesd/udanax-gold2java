@@ -20,13 +20,21 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformAlmostTo extends MethodBodyTransformation {
+public class TransformAlmostTo extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+
+	public TransformAlmostTo() {
+		super();
+	}
+	public TransformAlmostTo(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.token(JavaCallKeywordStart.class, "almostToDo");
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		int expressionStart = javaMethod.methodBody.findStartOfExpression(i - 1);
 		tokens.add(expressionStart, new JavaKeyword("for"));
 		tokens.add(expressionStart + 1, new JavaParenthesisStart());

@@ -14,19 +14,28 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public abstract class MethodBodyTransformation {
+public abstract class AbstractMethodBodyTransformation implements MethodTransformation {
 
+	private final TokenMatcher tokenMatcher;
+	
+	public AbstractMethodBodyTransformation() {
+		this(new TokenMatcherFactory());
+	}
+	
+	public AbstractMethodBodyTransformation(TokenMatcherFactory factory) {
+		tokenMatcher = matchers(factory);
+	}
+	
 	public void transform(JavaMethod javaMethod) {
 		MethodBody methodBody = javaMethod.methodBody;
 		List methodBodyTokens = methodBody.tokens;
-		TokenMatcher matcher = matchers(new TokenMatcherFactory());
 		for (int i = 0; i < methodBodyTokens.size(); i++) {
-			if (matcher.doesMatch(methodBodyTokens, i)) {
+			if (tokenMatcher.doesMatch(methodBodyTokens, i)) {
 				transform(javaMethod, methodBodyTokens, i);
 			}
 		}
 	}
 	
-	public abstract TokenMatcher matchers(TokenMatcherFactory factory);
-	public abstract void transform(JavaMethod javaMethod, List methodBodyTokens, int indexOfMatch);
+	protected abstract TokenMatcher matchers(TokenMatcherFactory factory);
+	protected abstract void transform(JavaMethod javaMethod, List methodBodyTokens, int indexOfMatch);
 }

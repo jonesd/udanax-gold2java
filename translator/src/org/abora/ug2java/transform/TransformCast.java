@@ -17,9 +17,16 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformCast extends MethodBodyTransformation {
+public class TransformCast extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformCast() {
+		super();
+	}
+	public TransformCast(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.any(
 						factory.token(JavaCallKeywordStart.class, "cast"),
@@ -28,7 +35,7 @@ public class TransformCast extends MethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier type = (JavaIdentifier)tokens.get(i + 1);
 		int start = javaMethod.methodBody.findStartOfExpression(i - 1);
 		tokens.remove(i + 2);

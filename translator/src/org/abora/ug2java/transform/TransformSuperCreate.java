@@ -15,15 +15,22 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformSuperCreate extends MethodBodyTransformation {
+public class TransformSuperCreate extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformSuperCreate() {
+		super();
+	}
+	public TransformSuperCreate(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaIdentifier.class, "super"), 
 				factory.token(JavaCallStart.class, "create"));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart) tokens.get(i + 1);
 		call.value = "super";
 		tokens.remove(i);

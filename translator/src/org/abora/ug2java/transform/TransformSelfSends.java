@@ -15,15 +15,22 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformSelfSends extends MethodBodyTransformation {
+public class TransformSelfSends extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformSelfSends() {
+		super();
+	}
+	public TransformSelfSends(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaIdentifier.class, "this"), 
 				factory.token(JavaCallStart.class));
 	}
 	
-	public void transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
+	protected void transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
 		methodBodyTokens.remove(i);
 	}
 }

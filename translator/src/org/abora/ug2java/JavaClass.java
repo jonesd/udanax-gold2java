@@ -46,7 +46,8 @@ public class JavaClass {
 	SortedSet importedPackages = new TreeSet();
 	public Hashtable packageLookup = new Hashtable();
 	
-	private TransformMethod methodTransformer = new TransformMethod(this);
+	//FIXME just create one of these for all classes
+	private TransformMethod methodTransformer = new TransformMethod();
 
 	static final String CATEGORY_SEPARATOR = "-";
 	static final String PACKAGE_SEPARATOR = ".";

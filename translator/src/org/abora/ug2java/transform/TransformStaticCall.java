@@ -16,16 +16,23 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformStaticCall extends MethodBodyTransformation {
+public class TransformStaticCall extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformStaticCall() {
+		super();
+	}
+	public TransformStaticCall(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaCallStart.class, "class"), 
 				factory.token(JavaCallEnd.class),
 				factory.token(JavaCallStart.class));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.add(i, new JavaIdentifier(javaMethod.javaClass.className));
 		tokens.remove(i + 1);
 		tokens.remove(i + 1);

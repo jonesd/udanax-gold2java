@@ -18,13 +18,20 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformClassReference extends MethodBodyTransformation {
+public class TransformClassReference extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformClassReference() {
+		super();
+	}
+	public TransformClassReference(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.token(JavaIdentifier.class);
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier token = (JavaIdentifier)tokens.get(i);
 		if (i < tokens.size() - 1 && (tokens.get(i + 1) instanceof JavaCallStart)) {
 			return;

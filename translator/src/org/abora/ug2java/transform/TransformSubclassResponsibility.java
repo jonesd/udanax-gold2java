@@ -15,13 +15,20 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformSubclassResponsibility extends MethodBodyTransformation {
+public class TransformSubclassResponsibility extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformSubclassResponsibility() {
+		super();
+	}
+	public TransformSubclassResponsibility(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.token(JavaCallStart.class, "subclassResponsibility");
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));

@@ -13,11 +13,11 @@ import org.abora.ug2java.util.ToStringGenerator;
 
 
 
-public class MatchAll implements TokenMatcher {
+public class MatchSequence implements TokenMatcher {
 
 	private final List matchers = new ArrayList();
 	
-	public MatchAll() {
+	public MatchSequence() {
 		super();
 	}
 	

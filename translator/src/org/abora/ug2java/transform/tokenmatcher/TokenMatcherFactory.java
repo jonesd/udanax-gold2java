@@ -33,14 +33,14 @@ public class TokenMatcherFactory {
 	}
 
 	public TokenMatcher seq(TokenMatcher matcher1, TokenMatcher matcher2) {
-		MatchAll matchAll = new MatchAll();
+		MatchSequence matchAll = new MatchSequence();
 		matchAll.add(matcher1);
 		matchAll.add(matcher2);
 		return matchAll;
 	}
 
 	public TokenMatcher seq(TokenMatcher matcher1, TokenMatcher matcher2, TokenMatcher matcher3) {
-		MatchAll matchAll = new MatchAll();
+		MatchSequence matchAll = new MatchSequence();
 		matchAll.add(matcher1);
 		matchAll.add(matcher2);
 		matchAll.add(matcher3);
@@ -48,7 +48,7 @@ public class TokenMatcherFactory {
 	}
 
 	public TokenMatcher seq(TokenMatcher matcher1, TokenMatcher matcher2, TokenMatcher matcher3, TokenMatcher matcher4) {
-		MatchAll matchAll = new MatchAll();
+		MatchSequence matchAll = new MatchSequence();
 		matchAll.add(matcher1);
 		matchAll.add(matcher2);
 		matchAll.add(matcher3);

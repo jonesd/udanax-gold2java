@@ -34,8 +34,8 @@ public class MatchToken implements TokenMatcher {
 
 	public String toString() {
 		ToStringGenerator generator = new ToStringGenerator(this);
-		generator.add("tokenClass", tokenClass);
-		generator.add("tokenValue", tokenValue);
+		generator.add("class", tokenClass);
+		generator.add("value", tokenValue);
 		return generator.end();
 	}
 }

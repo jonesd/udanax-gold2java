@@ -18,16 +18,23 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformTranslateOnlyString extends MethodBodyTransformation {
+public class TransformTranslateOnlyString extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformTranslateOnlyString() {
+		super();
+	}
+	public TransformTranslateOnlyString(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaLiteral.class), 
 				factory.token(JavaCallStart.class, "translateOnly"), 
 				factory.token(JavaCallEnd.class));
 	}
 	
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaLiteral javaLiteral = (JavaLiteral)tokens.get(i);
 		tokens.add(i, new JavaComment("translateOnly " + javaLiteral.value));
 		tokens.remove(i + 1);

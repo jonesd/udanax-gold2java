@@ -17,9 +17,16 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformOverrideCalls extends MethodBodyTransformation {
+public class TransformOverrideCalls extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformOverrideCalls() {
+		super();
+	}
+	public TransformOverrideCalls(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		MatchAny matchAny = new MatchAny();
 		//TODO could be more efficient by matching just once on type, then go through all names
 		for (Iterator iter = JavaClass.OVERRIDE_CALLS.keySet().iterator(); iter.hasNext();) {
@@ -29,7 +36,7 @@ public class TransformOverrideCalls extends MethodBodyTransformation {
 		return matchAny;
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		call.value = (String) JavaClass.OVERRIDE_CALLS.get(call.value);
 	}

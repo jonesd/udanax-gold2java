@@ -17,9 +17,16 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformBlast extends MethodBodyTransformation {
+public class TransformBlast extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformBlast() {
+		super();
+	}
+	public TransformBlast(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaIdentifier.class, "Heaper"), 
 				factory.token(JavaCallKeywordStart.class, "BLAST"),
@@ -27,7 +34,7 @@ public class TransformBlast extends MethodBodyTransformation {
 				factory.token(JavaCallEnd.class));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i + 1);
 		JavaIdentifier message = (JavaIdentifier)tokens.get(i + 2);
 		tokens.remove(i);

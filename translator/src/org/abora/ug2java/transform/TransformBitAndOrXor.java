@@ -15,16 +15,23 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformBitAndOrXor extends MethodBodyTransformation {
+public class TransformBitAndOrXor extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformBitAndOrXor() {
+		super();
+	}
+	public TransformBitAndOrXor(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.any(
 				factory.token(JavaCallKeywordStart.class, "bitAnd"), 
 				factory.token(JavaCallKeywordStart.class, "bitOr"), 
 				factory.token(JavaCallKeywordStart.class, "bitXor"));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart token = (JavaCallKeywordStart)tokens.get(i);
 		int closingIndex = javaMethod.methodBody.findClosingCallEnd(i);
 		tokens.remove(closingIndex);

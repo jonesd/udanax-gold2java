@@ -18,16 +18,23 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformValueNowOrOnOnUnwindDo extends MethodBodyTransformation {
+public class TransformValueNowOrOnOnUnwindDo extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformValueNowOrOnOnUnwindDo() {
+		super();
+	}
+	public TransformValueNowOrOnOnUnwindDo(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaBlockEnd.class), 
 				factory.token(JavaCallKeywordStart.class, "valueNowOrOnUnwindDo"), 
 				factory.token(JavaBlockStart.class));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		int start = javaMethod.methodBody.findStartOfBlock(i);
 		int postCallEnd = javaMethod.methodBody.findClosingCallEnd(i + 1);
 		if (postCallEnd + 1 < tokens.size() && (tokens.get(postCallEnd + 1) instanceof JavaStatementTerminator)) {

@@ -20,9 +20,16 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformAndOrs extends MethodBodyTransformation {
+public class TransformAndOrs extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformAndOrs() {
+		super();
+	}
+	public TransformAndOrs(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.any(
 						factory.token(JavaCallKeywordStart.class, "and"), 
@@ -30,7 +37,7 @@ public class TransformAndOrs extends MethodBodyTransformation {
 				factory.token(JavaBlockStart.class));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i);
 		int closingIndex = javaMethod.methodBody.findEndOfBlock(i + 1);
 		if (!(tokens.get(closingIndex + 1) instanceof JavaCallEnd)

@@ -15,15 +15,22 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformReturnVoid extends MethodBodyTransformation {
+public class TransformReturnVoid extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformReturnVoid() {
+		super();
+	}
+	public TransformReturnVoid(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaKeyword.class, "return"), 
 				factory.token(JavaIdentifier.class, "VOID"));
 	}
 
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i + 1);
 	}
 }

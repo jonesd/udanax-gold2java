@@ -23,15 +23,22 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformTimesRepeat extends MethodBodyTransformation {
+public class TransformTimesRepeat extends AbstractMethodBodyTransformation {
 
-	public TokenMatcher matchers(TokenMatcherFactory factory) {
+	public TransformTimesRepeat() {
+		super();
+	}
+	public TransformTimesRepeat(TokenMatcherFactory factory) {
+		super(factory);
+	}
+
+	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaCallKeywordStart.class, "timesRepeat"), 
 				factory.token(JavaBlockStart.class));
 	}
 	
-	public void transform(JavaMethod javaMethod, List tokens, int i) {
+	protected void transform(JavaMethod javaMethod, List tokens, int i) {
 		final String incrementVariable = "i";
 
 		int start = javaMethod.methodBody.findStartOfExpression(i - 1);
