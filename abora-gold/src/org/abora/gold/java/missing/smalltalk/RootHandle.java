@@ -9,23 +9,13 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
-import org.abora.gold.java.missing.IntegerVar;
+public class RootHandle {
 
-public class Array {
-
-	public Array() {
+	public RootHandle() {
 		super();
 	}
-
-	public static Array newWithAll(int i, int i1) {
-		throw new UnsupportedOperationException();
-	}
-
-	public IntegerVar size() {
-		throw new UnsupportedOperationException();
-	}
 	
-	public static Array with(Object a) {
+	public static RootHandle tracePosEnt(Object a, Object b) {
 		throw new UnsupportedOperationException();
 	}
 

@@ -109,4 +109,10 @@ public class AboraHeaper {
 	public static boolean isDestructed(AboraHeaper h) {
 		throw new UnsupportedOperationException();
 	}
+	public static boolean isConstructed(AboraHeaper h) {
+		throw new UnsupportedOperationException();
+	}
+	public static void setGC(boolean a) {
+		throw new UnsupportedOperationException();
+	}
 }

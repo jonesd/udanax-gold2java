@@ -1,5 +1,7 @@
 package org.abora.gold.java;
 
+import org.abora.gold.xpp.fluid.FluidVar;
+
 
 
 public class AboraBlockSupport {
@@ -21,6 +23,32 @@ public class AboraBlockSupport {
 	}
 	
 	public static void exitConsistent() {
+		throw new UnsupportedOperationException();
+	}
+	
+	/**
+	 * @see org.abora.gold.snarf.DiskManager insistent
+	 */
+	public static void enterInsistent() {
+		
+		enterInsistent(-1);
+	}
+	
+	public static void enterInsistent(int dirty) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public static void exitInsistent() {
+		throw new UnsupportedOperationException();
+	}
+	/**
+	 * @see FluidVar fluidBindDuring
+	 */
+	public static Object enterFluidBindDuring(FluidVar fluidVar, Object newValue) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public static void exitFluidBindDuring(FluidVar fluidVar, Object oldVar) {
 		throw new UnsupportedOperationException();
 	}
 

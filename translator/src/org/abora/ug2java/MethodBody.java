@@ -136,14 +136,23 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find start of expression");
 	}
 
-	public int findNextTokenOfType(int startIndex, Class aClass) {
+	public int findNextTokenOfTypeQuietFail(int startIndex, Class aClass) {
 		for (int i = startIndex; i < tokens.size(); i++) {
 			JavaToken token = (JavaToken) tokens.get(i);
 			if (aClass.isAssignableFrom(token.getClass())) {
 				return i;
 			}
 		}
-		throw new IllegalStateException("Could not find any more " + aClass);
+		return -1;
+	}
+
+	public int findNextTokenOfType(int startIndex, Class aClass) {
+		int i = findNextTokenOfTypeQuietFail(startIndex, aClass);
+		if (i == -1) {
+			throw new IllegalStateException("Could not find any more " + aClass);
+		} else {
+			return i;
+		}
 	}
 
 	public int findEndOfExpression(int startIndex) {

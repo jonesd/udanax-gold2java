@@ -70,6 +70,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformStrlen());
 		transformers.add(new TransformMinMax());
 		transformers.add(new TransformFluidAccess());
+		transformers.add(new TransformFluidBindDuring());
 		transformers.add(new TransformNot());
 		transformers.add(new TransformAssert());
 		transformers.add(new TransformUnimplemented());

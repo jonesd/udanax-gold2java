@@ -118,6 +118,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("MethodDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("OrderedCollection", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("ParseNode", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("RootHandle", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Sensor", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Selector", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Set", "org.abora.gold.java.missing.smalltalk");

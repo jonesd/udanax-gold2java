@@ -401,12 +401,36 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nblah;\n}\n", java);
 	}
 
-	public void testDiskManagerConsistent() {
+	public void testDiskManagerConsistentDefaultDirty() {
+		String smalltalk = "test\nDiskManager consistent: [self diskUpdate]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraBlockSupport.enterConsistent();\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitConsistent();\n}\n}\n", java);
+	}
+
+	public void testDiskManagerConsistentWithIdentifier() {
 		String smalltalk = "test\nDiskManager consistent: 2 with: [self diskUpdate]!";
 
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nAboraBlockSupport.enterConsistent(2);\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitConsistent();\n}\n}\n", java);
+	}
+
+	public void testDiskManagerConsistentWithExpression() {
+		String smalltalk = "test\nDiskManager consistent: self dirtyLevel with: [self diskUpdate]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraBlockSupport.enterConsistent(dirtyLevel());\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitConsistent();\n}\n}\n", java);
+	}
+
+	public void testDiskManagerInsistentWithExpression() {
+		String smalltalk = "test\nDiskManager insistent: self dirtyLevel with: [self diskUpdate]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraBlockSupport.enterInsistent(dirtyLevel());\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitInsistent();\n}\n}\n", java);
 	}
 
 	public void testCreateCall() {
@@ -505,6 +529,17 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\n}\n", java);
 	}
 
+	public void testFluidBindDuring() {
+		String smalltalk = "test\nCurrentTrace fluidBind: myEnt newTrace during: [result := BeClub make: desc]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals(
+			"public void test() {\nObject CurrentTraceOldValue = AboraBlockSupport.enterFluidBindDuring(CurrentTrace, myEnt.newTrace());\ntry {\nresult = BeClub.make(desc);\n}\nfinally {\nAboraBlockSupport.exitFluidBindDuring(CurrentTrace, CurrentTraceOldValue);\n}\n}\n",
+			java);
+	}
+
+	
 	public void testFluidFetch() {
 		String smalltalk = "test\nCurrentPacker fluidFetch blah!";
 

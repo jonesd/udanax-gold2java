@@ -14,6 +14,7 @@ public class AboraRuntimeException extends RuntimeException {
 	private static final long serialVersionUID = -7665468138537610579L;
 	
 	public static final String ALREADY_DESTROYED = "AlreadyDestroyed";
+	public static final String ALREADY_EXTINCT = "AlreadyExtinct";
 	public static final String ALREADY_IN_SET = "AlreadyInSet";
 	public static final String ALREADY_IN_TABLE = "AlreadyInTable";
 	public static final String AMBIGUOUS_REPLACEMENT = "AmbiguousReplacement";
@@ -33,6 +34,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String CAST_FAILED = "CastFailed";
 	public static final String CLUB_ALREADY_NAMED = "ClubAlreadyNamed";
 	public static final String CLUB_NAME_IN_USE = "ClubNameInUse";
+	public static final String CLUB_MUST_HAVE_UNIQUE_ID = "ClubMustHaveUniqueId";
 	public static final String COMBINE_LOOP_FAILED = "CombineLoopFailed";
 	public static final String COPY_OUT_OF_BOUNDS = "CopyOutOfBounds";
 	public static final String DESTRUCTED_ABE = "DestructedAbe";
@@ -45,11 +47,14 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String EMPTY_STEPPER = "EmptyStepper";
 	public static final String EMPTY_TRAIL = "EmptyTrail";
 	public static final String ENDORSEMENT_MUST_BE_FINITE = "EndorsementMustBeFinite";
+	public static final String FALLEN_BEHIND_IN_NODE_DOUBLING = "FallenBehindInNodeDoubling";
 	public static final String FATAL_ERROR = "FatalError";
+	public static final String FOSSIL_EXTINCT = "FossilExtinct";
 	public static final String HAS_MULTIPLE_IDS = "HasMultipleIds";
 	public static final String HASH_MUST_NOT_CHANGE = "HashMustNotChange";
 	public static final String IDALREADY_ASSIGNED = "IDALREADY_ASSIGNED";
 	public static final String IDALREADY_USED = "IDALREADY_USED";
+	public static final String ILLEGAL_ID = "IllegalId";
 	public static final String INCOMPARABLE_TYPE = "INCOMPARABLE_TYPE";
 	public static final String INCOMPLETE_ABSTRACTION = "IncompleteAbstraction";
 	public static final String INCORRECT_FLOCK_INFO = "IncorrectFlockInfo";
@@ -67,6 +72,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String MULTIPLE_PRE_IMAGES = "MultiplePreImages";
 	public static final String MUST_BE_AFLOCK = "MustBeAFlock";
 	public static final String MUST_BE_ASTUB = "MustBeAStub";
+	public static final String MUST_BE_CLUB_DESCRIPTION = "MustBeClubDescription";
 	public static final String MUST_BE_CONCRETE_WRAPPER_SPEC = "MustBeConcreteWrapperSpec";
 	public static final String MUST_BE_FINITE = "MustBeFinite";
 	public static final String MUST_BE_FROZEN = "MustBeFrozen";
@@ -157,6 +163,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String UNENCODED_CATEGORY = "UnencodedCategory";
 	public static final String UNKNOWN_COOKBOOK = "UnknownCookbook";
 	public static final String UNINITIALIZED_PACKER = "UninitializedPacker";
+	public static final String WORK_MUST_BE_GRABBED = "WorkMustBeGrabbed";
 	public static final String WORK_IS_LOCKED_BY_SOMEONE_ELSE = "WorkIsLockedBySomeoneElse";
 	public static final String WHO_SAYS = "WhoSays";
 	public static final String WRONG_CHARACTER = "WrongCharacter";
