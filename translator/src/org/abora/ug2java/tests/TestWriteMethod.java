@@ -43,7 +43,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none && (two);\r\n}\r\n", java);
+		assertEquals("public void test() {\none && (two);\n}\n", java);
 	}
 
 	public void testAndAnd() {
@@ -51,7 +51,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none && (two && (three));\r\n}\r\n", java);
+		assertEquals("public void test() {\none && (two && (three));\n}\n", java);
 	}
 
 	public void testAlmostTo() {
@@ -59,7 +59,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\r\nblah;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\nblah;\n}\n}\n", java);
 	}
 
 	public void testAssign() {
@@ -67,7 +67,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred = 1;\r\nharry = 2;\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred = 1;\nharry = 2;\n}\n", java);
 	}
 
 	public void testAssignUnaryOperator() {
@@ -75,7 +75,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred = harry.kill();\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred = harry.kill();\n}\n", java);
 	}
 
 	public void testAtStoreValue() {
@@ -83,7 +83,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\ntable.storeValue(1, value);\r\n}\r\n", java);
+		assertEquals("public void test() {\ntable.storeValue(1, value);\n}\n", java);
 	}
 
 	public void testBinaryOperator() {
@@ -91,7 +91,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none < two;\r\n}\r\n", java);
+		assertEquals("public void test() {\none < two;\n}\n", java);
 	}
 
 	public void testBinaryOperatorEquals() {
@@ -99,7 +99,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none == two;\r\n}\r\n", java);
+		assertEquals("public void test() {\none == two;\n}\n", java);
 	}
 
 	public void testBinaryOperatorIdentity() {
@@ -107,7 +107,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none == two;\r\n}\r\n", java);
+		assertEquals("public void test() {\none == two;\n}\n", java);
 	}
 
 	public void testBinaryOperatorNotEquals() {
@@ -115,7 +115,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none != two;\r\n}\r\n", java);
+		assertEquals("public void test() {\none != two;\n}\n", java);
 	}
 
 	public void testBinaryOperatorNotIdentity() {
@@ -123,7 +123,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none != two;\r\n}\r\n", java);
+		assertEquals("public void test() {\none != two;\n}\n", java);
 	}
 
 	public void testBinaryOperatorWithUnary() {
@@ -131,7 +131,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none.and() < two.three();\r\n}\r\n", java);
+		assertEquals("public void test() {\none.and() < two.three();\n}\n", java);
 	}
 
 	public void testBitAnd() {
@@ -139,7 +139,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none & 7;\r\n}\r\n", java);
+		assertEquals("public void test() {\none & 7;\n}\n", java);
 	}
 
 	public void testBitOr() {
@@ -147,7 +147,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none | 7;\r\n}\r\n", java);
+		assertEquals("public void test() {\none | 7;\n}\n", java);
 	}
 
 	public void testBitXor() {
@@ -155,7 +155,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none ^ 7;\r\n}\r\n", java);
+		assertEquals("public void test() {\none ^ 7;\n}\n", java);
 	}
 
 	public void testBlast() {
@@ -163,7 +163,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nthrow new AboraRuntimeException(AboraRuntimeException.TEST_BLAH);\r\n}\r\n", java);
+		assertEquals("public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.TEST_BLAH);\n}\n", java);
 	}
 
 	public void testBlock() {
@@ -171,7 +171,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n{\r\none.two();\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\n{\none.two();\n}\n}\n", java);
 	}
 
 	public void testBlockArguments() {
@@ -179,7 +179,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n{\r\nObject a;\r\nT b;\r\none.two();\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\n{\nObject a;\nT b;\none.two();\n}\n}\n", java);
 	}
 
 	public void testBlockEmpty() {
@@ -187,7 +187,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n{\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\n{\n}\n}\n", java);
 	}
 
 	public void testBlockTemps() {
@@ -195,7 +195,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n{\r\nObject a;\r\nT b;\r\none.two();\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\n{\nObject a;\nT b;\none.two();\n}\n}\n", java);
 	}
 
 	public void testBrackets() {
@@ -203,7 +203,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred = (one.two());\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred = (one.two());\n}\n", java);
 	}
 
 	public void testBracketsEmbedded() {
@@ -211,7 +211,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred = ((one.two()));\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred = ((one.two()));\n}\n", java);
 	}
 
 	public void testBracketsFollowing() {
@@ -219,7 +219,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred = (one.two()).three();\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred = (one.two()).three();\n}\n", java);
 	}
 
 	public void testCascade() {
@@ -228,7 +228,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none.two().three();\r\n}\r\n", java);
+		assertEquals("public void test() {\none.two().three();\n}\n", java);
 	}
 
 	public void testCast() {
@@ -236,7 +236,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n(Peter) blah;\r\n}\r\n", java);
+		assertEquals("public void test() {\n(Peter) blah;\n}\n", java);
 	}
 
 	public void testCastCall() {
@@ -244,7 +244,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n(Peter) happy();\r\n}\r\n", java);
+		assertEquals("public void test() {\n(Peter) happy();\n}\n", java);
 	}
 
 	public void testCastMore() {
@@ -252,7 +252,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\napple = (Peter) (blah.able(george));\r\n}\r\n", java);
+		assertEquals("public void test() {\napple = (Peter) (blah.able(george));\n}\n", java);
 	}
 
 	public void testCharacter() {
@@ -260,7 +260,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n'a';\r\n'-';\r\n}\r\n", java);
+		assertEquals("public void test() {\n'a';\n'-';\n}\n", java);
 	}
 
 	public void testClassCall() {
@@ -268,7 +268,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nHeaper.blah();\r\n}\r\n", java);
+		assertEquals("public void test() {\nHeaper.blah();\n}\n", java);
 	}
 
 	public void testClassSelfCall() {
@@ -276,7 +276,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nTest.blah();\r\n}\r\n", java);
+		assertEquals("public void test() {\nTest.blah();\n}\n", java);
 	}
 
 	public void testClassNonReference() {
@@ -284,7 +284,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nNonClass;\r\n}\r\n", java);
+		assertEquals("public void test() {\nNonClass;\n}\n", java);
 	}
 
 	public void testClassReference() {
@@ -292,7 +292,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nHeaper.getCategory();\r\n}\r\n", java);
+		assertEquals("public void test() {\nHeaper.getCategory();\n}\n", java);
 	}
 
 	public void testClassReference2() {
@@ -300,7 +300,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\ntable.storeValue(1, Heaper.getCategory());\r\n}\r\n", java);
+		assertEquals("public void test() {\ntable.storeValue(1, Heaper.getCategory());\n}\n", java);
 	}
 
 	public void testComment() {
@@ -308,7 +308,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred = 1\r\n/* Hello There */\r\n;\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred = 1\n/* Hello There */\n;\n}\n", java);
 	}
 
 	public void testCreateCall() {
@@ -316,7 +316,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nnew Blah(12);\r\n}\r\n", java);
+		assertEquals("public void test() {\nnew Blah(12);\n}\n", java);
 	}
 
 	public void testCreateCallSelf() {
@@ -324,7 +324,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nnew Test(12);\r\n}\r\n", java);
+		assertEquals("public void test() {\nnew Test(12);\n}\n", java);
 	}
 
 	public void testCreateSuper() {
@@ -332,7 +332,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public  Test(Object blah) {\r\nsuper(blah);\r\n}\r\n", java);
+		assertEquals("public  Test(Object blah) {\nsuper(blah);\n}\n", java);
 	}
 
 	public void testCritical() {
@@ -340,7 +340,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nsynchronized (mutex) {\r\nblah;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nsynchronized (mutex) {\nblah;\n}\n}\n", java);
 	}
 
 	public void testDouble() {
@@ -348,7 +348,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n187.123;\r\n}\r\n", java);
+		assertEquals("public void test() {\n187.123;\n}\n", java);
 	}
 
 	public void testEmpty() {
@@ -356,7 +356,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n}\r\n", java);
+		assertEquals("public void test() {\n}\n", java);
 	}
 
 	public void testForEach() {
@@ -365,7 +365,7 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals(
-			"public void test() {\r\nfor (Iterator iterator = fred.forEach() ; iterator.hasNext() ; ) {\r\nObject element = (Object )iterator.next();\r\nelement;\r\n}\r\n}\r\n",
+			"public void test() {\nfor (Iterator iterator = fred.forEach() ; iterator.hasNext() ; ) {\nObject element = (Object )iterator.next();\nelement;\n}\n}\n",
 			java);
 	}
 
@@ -374,7 +374,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public static void getCategory() {\r\n}\r\n", java);
+		assertEquals("public static void getCategory() {\n}\n", java);
 	}
 
 	public void testIfFalse() {
@@ -382,7 +382,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nif ( ! (one == two)) {\r\nreturn one;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nif ( ! (one == two)) {\nreturn one;\n}\n}\n", java);
 	}
 
 	public void testIfTrue() {
@@ -390,7 +390,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nif (one == two) {\r\nreturn one;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nif (one == two) {\nreturn one;\n}\n}\n", java);
 	}
 
 	public void testIfTrueIfFalse() {
@@ -398,7 +398,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nif (one == two) {\r\nreturn one;\r\n}\r\nelse {\r\nreturn two;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nif (one == two) {\nreturn one;\n}\nelse {\nreturn two;\n}\n}\n", java);
 	}
 
 	public void testIfTrueLeadingAssignments() {
@@ -406,7 +406,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\na = b = if (one == two) {\r\none;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\na = b = if (one == two) {\none;\n}\n}\n", java);
 	}
 
 	public void testIfTrueLeadingReturn() {
@@ -414,7 +414,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nreturn if (one == two) {\r\none;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nreturn if (one == two) {\none;\n}\n}\n", java);
 	}
 
 	public void testIfTrueMissingTestParentheses() {
@@ -422,7 +422,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nif (one == two) {\r\nreturn one;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nif (one == two) {\nreturn one;\n}\n}\n", java);
 	}
 
 	public void testIfTrueMissingTestParenthesesComplicated() {
@@ -430,7 +430,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nif (one == (two + 2)) {\r\nreturn one;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nif (one == (two + 2)) {\nreturn one;\n}\n}\n", java);
 	}
 
 	public void testInt32Zero() {
@@ -438,7 +438,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n0 + 2;\r\n}\r\n", java);
+		assertEquals("public void test() {\n0 + 2;\n}\n", java);
 	}
 
 	public void testInteger() {
@@ -446,7 +446,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n187;\r\n}\r\n", java);
+		assertEquals("public void test() {\n187;\n}\n", java);
 	}
 
 	public void testIntegerHex() {
@@ -454,7 +454,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n0xa1;\r\n}\r\n", java);
+		assertEquals("public void test() {\n0xa1;\n}\n", java);
 	}
 
 	public void testIntegerLong() {
@@ -462,7 +462,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n12345678901L;\r\n}\r\n", java);
+		assertEquals("public void test() {\n12345678901L;\n}\n", java);
 	}
 
 	public void testIntegerNegative() {
@@ -470,7 +470,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n-187;\r\n}\r\n", java);
+		assertEquals("public void test() {\n-187;\n}\n", java);
 	}
 
 	public void testIntegerVar0() {
@@ -478,7 +478,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nblah = IntegerVar.zero();\r\n}\r\n", java);
+		assertEquals("public void test() {\nblah = IntegerVar.zero();\n}\n", java);
 	}
 
 	public void testIntegerVarZero() {
@@ -486,7 +486,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nblah = IntegerVar.zero();\r\n}\r\n", java);
+		assertEquals("public void test() {\nblah = IntegerVar.zero();\n}\n", java);
 	}
 
 	public void testIsKindOf() {
@@ -494,7 +494,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nblah instanceof Heaper;\r\n}\r\n", java);
+		assertEquals("public void test() {\nblah instanceof Heaper;\n}\n", java);
 	}
 
 	public void testJavaDocComment() {
@@ -502,7 +502,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("/**\r\n * Hello there\r\n */\r\npublic void test() {\r\n}\r\n", java);
+		assertEquals("/**\n * Hello there\n */\npublic void test() {\n}\n", java);
 	}
 
 	public void testJavaDocCommentLong() {
@@ -512,7 +512,7 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals(
-			"/**\r\n * Hello there, what is the time of day once we all are here and there we go to be. Is this a\r\n * really long comment or is it simply a lot of nonesense made up on the spot.\r\n */\r\npublic void test() {\r\n}\r\n",
+			"/**\n * Hello there, what is the time of day once we all are here and there we go to be. Is this a\n * really long comment or is it simply a lot of nonesense made up on the spot.\n */\npublic void test() {\n}\n",
 			java);
 	}
 
@@ -521,7 +521,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none.two().three(four);\r\n}\r\n", java);
+		assertEquals("public void test() {\none.two().three(four);\n}\n", java);
 	}
 
 	public void testKeyword2() {
@@ -529,7 +529,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none.two().threeAnd(four, 55);\r\n}\r\n", java);
+		assertEquals("public void test() {\none.two().threeAnd(four, 55);\n}\n", java);
 	}
 
 	public void testModulus() {
@@ -537,7 +537,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n11 % 2;\r\n}\r\n", java);
+		assertEquals("public void test() {\n11 % 2;\n}\n", java);
 	}
 
 	public void testMethodNameFullStop() {
@@ -545,7 +545,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n}\r\n", java);
+		assertEquals("public void test() {\n}\n", java);
 	}
 
 	public void testMethodNameFullStopKeyword() {
@@ -553,7 +553,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nblah(1);\r\n}\r\n", java);
+		assertEquals("public void test() {\nblah(1);\n}\n", java);
 	}
 
 	public void testMultipleStatements() {
@@ -561,7 +561,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none.two();\r\nborris = three + 3;\r\n}\r\n", java);
+		assertEquals("public void test() {\none.two();\nborris = three + 3;\n}\n", java);
 	}
 
 	public void testNil() {
@@ -569,7 +569,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred = null;\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred = null;\n}\n", java);
 	}
 
 	public void testNULL() {
@@ -577,7 +577,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred = null;\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred = null;\n}\n", java);
 	}
 
 	public void testOr() {
@@ -585,7 +585,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\none || (two);\r\n}\r\n", java);
+		assertEquals("public void test() {\none || (two);\n}\n", java);
 	}
 
 	public void testQuickCast() {
@@ -593,7 +593,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n(Peter) blah;\r\n}\r\n", java);
+		assertEquals("public void test() {\n(Peter) blah;\n}\n", java);
 	}
 
 	public void testReturn() {
@@ -601,7 +601,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nreturn fred;\r\n}\r\n", java);
+		assertEquals("public void test() {\nreturn fred;\n}\n", java);
 	}
 
 	public void testReturnIllegalLeading() {
@@ -620,7 +620,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n123;\r\n/* whole */\r\n/* lot of comments */\r\nreturn fred;\r\n}\r\n", java);
+		assertEquals("public void test() {\n123;\n/* whole */\n/* lot of comments */\nreturn fred;\n}\n", java);
 	}
 
 	public void testReturnVoid() {
@@ -628,7 +628,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nreturn ;\r\n}\r\n", java);
+		assertEquals("public void test() {\nreturn ;\n}\n", java);
 	}
 
 	public void testSelfSends() {
@@ -636,7 +636,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nkill();\r\none(2);\r\n}\r\n", java);
+		assertEquals("public void test() {\nkill();\none(2);\n}\n", java);
 	}
 
 	public void testSmalltalkOnly() {
@@ -644,7 +644,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n/* >>> smalltalkOnly */\r\none.blah();\r\n/* <<< smalltalkOnly */\r\n}\r\n", java);
+		assertEquals("public void test() {\n/* >>> smalltalkOnly */\none.blah();\n/* <<< smalltalkOnly */\n}\n", java);
 	}
 
 	public void testString() {
@@ -652,7 +652,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n\"hi there\";\r\n}\r\n", java);
+		assertEquals("public void test() {\n\"hi there\";\n}\n", java);
 	}
 
 	public void testStringDeclaration() {
@@ -660,7 +660,15 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test(String string) {\r\nstring;\r\n}\r\n", java);
+		assertEquals("public void test(String string) {\nstring;\n}\n", java);
+	}
+
+	public void testStringWrapped() {
+		String smalltalk = "test\n'hi there\nand here\n'!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n\"hi there\\n\"+\n\"and here\\n\"+\n\"\";\n}\n", java);
 	}
 
 	public void testSubclassResponsibility() {
@@ -668,7 +676,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nAbstract.subclassResponsibility();\r\n}\r\n", java);
+		assertEquals("public void test() {\nthrow new SubclassResponsibilityException();\n}\n", java);
 	}
 
 	public void testSuper() {
@@ -676,7 +684,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nsuper.borris();\r\n}\r\n", java);
+		assertEquals("public void test() {\nsuper.borris();\n}\n", java);
 	}
 
 	public void testSymbol() {
@@ -684,7 +692,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nHI_THERE;\r\n}\r\n", java);
+		assertEquals("public void test() {\nHI_THERE;\n}\n", java);
 	}
 
 	public void testSymbolInQuotes() {
@@ -692,7 +700,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nHI_THERE;\r\n}\r\n", java);
+		assertEquals("public void test() {\nHI_THERE;\n}\n", java);
 	}
 
 	public void testSymbolInQuotesComplex() {
@@ -700,7 +708,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nHI_THERE__AGAIN;\r\n}\r\n", java);
+		assertEquals("public void test() {\nHI_THERE__AGAIN;\n}\n", java);
 	}
 
 	public void testSymbolInQuotesUpperCase() {
@@ -708,7 +716,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nHI_THERE;\r\n}\r\n", java);
+		assertEquals("public void test() {\nHI_THERE;\n}\n", java);
 	}
 
 	public void testSymbolArrayNew() {
@@ -716,7 +724,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nArray.new();\r\n}\r\n", java);
+		assertEquals("public void test() {\nArray.new();\n}\n", java);
 	}
 
 	public void testTemps() {
@@ -724,7 +732,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nObject one;\r\nTest two;\r\n}\r\n", java);
+		assertEquals("public void test() {\nObject one;\nTest two;\n}\n", java);
 	}
 
 	public void testTempsEmpty() {
@@ -732,7 +740,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n}\r\n", java);
+		assertEquals("public void test() {\n}\n", java);
 	}
 
 	public void testTimesRepeat() {
@@ -740,7 +748,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfor (int i = 0 ; i < 4 ; i ++ ) {\r\nblah();\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nfor (int i = 0 ; i < 4 ; i ++ ) {\nblah();\n}\n}\n", java);
 	}
 
 	public void testTranslateOnlyString() {
@@ -748,7 +756,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n/* translateOnly \"hello there\" */\r\n}\r\n", java);
+		assertEquals("public void test() {\n/* translateOnly \"hello there\" */\n}\n", java);
 	}
 
 	public void testValueNowOrOnUnwindDo() {
@@ -756,7 +764,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\ntry {\r\nblah;\r\n}\r\nfinally {\r\nhello;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\ntry {\nblah;\n}\nfinally {\nhello;\n}\n}\n", java);
 	}
 
 	public void testUInt32Zero() {
@@ -764,7 +772,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n0 + 2;\r\n}\r\n", java);
+		assertEquals("public void test() {\n0 + 2;\n}\n", java);
 	}
 
 	public void testUses() {
@@ -772,7 +780,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\n1;\r\n2;\r\n}\r\n", java);
+		assertEquals("public void test() {\n1;\n2;\n}\n", java);
 	}
 
 	public void testUnaryOperator() {
@@ -780,7 +788,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nfred.kill();\r\n}\r\n", java);
+		assertEquals("public void test() {\nfred.kill();\n}\n", java);
 	}
 
 	public void testUnaryOperatorMultiple() {
@@ -788,7 +796,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nharry.one().two().three();\r\n}\r\n", java);
+		assertEquals("public void test() {\nharry.one().two().three();\n}\n", java);
 	}
 
 	public void testWhileTrue() {
@@ -796,7 +804,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\r\nwhile (a < 1) {\r\na = a + 1;\r\n}\r\n}\r\n", java);
+		assertEquals("public void test() {\nwhile (a < 1) {\na = a + 1;\n}\n}\n", java);
 	}
 
 	protected String writeInstanceMethod(String smalltalk) {

@@ -11,6 +11,8 @@ package org.abora.gold.java;
 
 public class AboraRuntimeException extends RuntimeException {
 
+	private static final long serialVersionUID = -7665468138537610579L;
+	
 	public static final String ALREADY_DESTROYED = "AlreadyDestroyed";
 	public static final String ALREADY_IN_TABLE = "AlreadyInTable";
 	public static final String AMBIGUOUS_REPLACEMENT = "AmbiguousReplacement";

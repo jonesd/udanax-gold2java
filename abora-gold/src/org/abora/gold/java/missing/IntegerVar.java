@@ -30,4 +30,8 @@ public class IntegerVar extends Heaper {
 	public int integer() {
 		throw new UnsupportedOperationException();
 	}
+	
+	public IntegerVar min(IntegerVar var) {
+		throw new UnsupportedOperationException();		
+	}
 }

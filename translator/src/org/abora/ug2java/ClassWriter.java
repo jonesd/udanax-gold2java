@@ -532,8 +532,11 @@ public class ClassWriter {
 		for (int i = 0; i < tokens.size(); i++) {
 			JavaToken call = (JavaToken) tokens.elementAt(i);
 			if (call instanceof JavaCallStart && call.value.equals("subclassResponsibility")) {
-				tokens.add(i, new JavaIdentifier("Abstract"));
-				i++;
+				tokens.add(i, new JavaKeyword("throw"));
+				tokens.add(i + 1, new JavaKeyword("new"));
+				call.value = "SubclassResponsibilityException";
+				includeImportForType("SubclassResponsibilityException");
+				i+=2;
 			}
 		}
 	}
@@ -1281,6 +1284,7 @@ public class ClassWriter {
 				case ScannerToken.TOKEN_STRING :
 					{
 						String safeString = stringReplaceWith(scanner.token.tokenString, "\"", "\\\"");
+						safeString = stringReplaceWith(safeString, "\n", "\\n\"+\n\"");
 						safeString = "\"" + safeString + "\"";
 						expression.add(new JavaLiteral(safeString));
 						scanner.advance();

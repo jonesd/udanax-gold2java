@@ -119,6 +119,7 @@ public class TranslateSmalltalk {
 		
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");
 		packageLookup.put("AboraRuntimeException", "org.abora.gold.java");
+		packageLookup.put("SubclassResponsibilityException", "org.abora.gold.java");
 		packageLookup.put("Abstract", "org.abora.gold.java");
 
 		packageLookup.put("PrintWriter", "java.io");
