@@ -800,6 +800,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public Stepper stepper() {\nreturn blah;\n}\n", java);
 	}
 
+	public void testPasse() {
+		String smalltalk = "test\nself passe!";
+		
+		String java = writeInstanceMethod(smalltalk);
+		
+		assertEquals("public void test() {\nthrow new PasseException();\n}\n", java);
+	}
+
 	public void testPrint() {
 		String smalltalk = "test: aStream { ostream }\naStream << self blah: 34!";
 

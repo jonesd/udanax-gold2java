@@ -84,4 +84,24 @@ public class AboraHeaper {
 	public String displayString() {
 		throw new UnsupportedOperationException();
 	}
+	
+	// Temp replace Heaper implementation
+	public static int takeOop() {
+		throw new UnsupportedOperationException();
+	}
+	
+	// Temp replace Heaper implementation
+	public static Category getCategory() {
+		throw new UnsupportedOperationException();
+	}
+	
+	// Temp replace Heaper implementation
+	public void delete() {
+		throw new UnsupportedOperationException();
+	}
+
+	// Temp replace Heaper implementation
+	public void destructor() {
+		throw new UnsupportedOperationException();
+	}
 }
