@@ -13,6 +13,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.abora.ug2java.ClassParser;
 import org.abora.ug2java.ClassWriter;
 import org.abora.ug2java.JavaClass;
 import org.abora.ug2java.JavaMethod;
@@ -839,7 +840,9 @@ public class TestWriteMethod extends TestCase {
 		ChunkDetails details = new ChunkDetails("", smalltalk);
 		StringWriter stringWriter = new StringWriter();
 		PrintWriter printWriter = new PrintWriter(stringWriter);
-		JavaMethod javaMethod = javaClass.parseMethod(details, modifiers);
+		ClassParser classParser = new ClassParser();
+		classParser.setJavaClass(javaClass);
+		JavaMethod javaMethod = classParser.parseMethod(details, modifiers);
 		classWriter.writeMethod(javaMethod, printWriter);
 		printWriter.close();
 		return stringWriter.toString();

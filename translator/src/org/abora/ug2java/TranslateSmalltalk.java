@@ -230,7 +230,7 @@ public class TranslateSmalltalk {
 		FileReader fileReader = new FileReader(smalltalkFile);
 		LineNumberReader reader = new LineNumberReader(fileReader);
 		try {
-			JavaClass classWriter = null;
+			JavaClass javaClass = null;
 			boolean methodsFor = false;
 			boolean methodsForClass = false;
 			String methodsForDescription = "";
@@ -259,27 +259,27 @@ public class TranslateSmalltalk {
 				int instanceVariableNamesIndex = chunk.indexOf("instanceVariableNames:");
 
 				if (subclassIndex != -1) {
-					classWriter = new JavaClass(packageLookup);
-					classesToWrite.add(classWriter);
+					javaClass = new JavaClass(packageLookup);
+					classesToWrite.add(javaClass);
 
 					ChunkParser parser = new ChunkParser(chunk);
-					classWriter.superclassName = parser.nextWord();
+					javaClass.superclassName = parser.nextWord();
 					parser.nextWord();
 					parser.nextWord();
-					classWriter.className = parser.nextWord();
-					if (classWriter.className.indexOf(":") != -1) {
-						throw new Exception("Corrupt classname: " + classWriter.className + " line:" + chunkLineNumber);
+					javaClass.className = parser.nextWord();
+					if (javaClass.className.indexOf(":") != -1) {
+						throw new Exception("Corrupt classname: " + javaClass.className + " line:" + chunkLineNumber);
 					}
-					if (classWriter.superclassName.equals("Object") /*&& classWriter.className.equals("Heaper")*/
+					if (javaClass.superclassName.equals("Object") /*&& classWriter.className.equals("Heaper")*/
 						) {
-						classWriter.superclassName = "AboraHeaper";
+						javaClass.superclassName = "AboraHeaper";
 					}
 					parser.moveToWord("category:");
 					parser.nextWord();
-					classWriter.classCategory = parser.nextWord();
+					javaClass.classCategory = ClassParser.transformCategory(parser.nextWord());
 					ChunkDetails chunkDetails = new ChunkDetails(smalltalkFile.getName(), chunkLineNumber, "", chunk);
-					classWriter.classQuotes.add(chunkDetails);
-					packageLookup.put(classWriter.className, classWriter.getPackage());
+					javaClass.classQuotes.add(chunkDetails);
+					packageLookup.put(javaClass.className, javaClass.getPackage());
 				} else if (methodsForIndex != -1) {
 					skipMethodCategory = false;
 					methodsForClass = chunk.indexOf(" class ") != -1;
@@ -289,13 +289,13 @@ public class TranslateSmalltalk {
 					}
 				} else if (instanceVariableNamesIndex != -1) {
 					ChunkDetails chunkDetails = new ChunkDetails(smalltalkFile.getName(), chunkLineNumber, "", chunk);
-					classWriter.classQuotes.add(chunkDetails);
+					javaClass.classQuotes.add(chunkDetails);
 				} else if (chunk.startsWith("\"--") && chunk.endsWith("\"!")) {
 					//ignore
 				} else if (chunk.startsWith("(") || chunk.startsWith("CxxSystemOrganization")) {
-					if (classWriter != null) {
+					if (javaClass != null) {
 						ChunkDetails chunkDetails = new ChunkDetails(smalltalkFile.getName(), chunkLineNumber, "", chunk);
-						classWriter.classQuotes.add(chunkDetails);
+						javaClass.classQuotes.add(chunkDetails);
 					}
 					// skip
 				} else if (commentIndex != -1) {
@@ -304,19 +304,19 @@ public class TranslateSmalltalk {
 					if (first == -1 || last == -1) {
 						throw new Exception("Couldn't find class comment: " + chunkLineNumber);
 					}
-					classWriter.comment = chunk.substring(first + 1, last);
+					javaClass.comment = chunk.substring(first + 1, last);
 					ChunkDetails chunkDetails = new ChunkDetails(smalltalkFile.getName(), chunkLineNumber, "", chunk);
-					classWriter.classQuotes.add(chunkDetails);
+					javaClass.classQuotes.add(chunkDetails);
 				} else {
-					if (classWriter != null) {
+					if (javaClass != null) {
 						ChunkDetails chunkDetails = new ChunkDetails(smalltalkFile.getName(), chunkLineNumber, methodsForDescription, chunk);
 						if (skipMethodCategory) {
-							classWriter.classQuotes.add(chunkDetails);
+							javaClass.classQuotes.add(chunkDetails);
 						} else {
 							if (methodsForClass) {
-								classWriter.classMethods.add(chunkDetails);
+								javaClass.classMethods.add(chunkDetails);
 							} else {
-								classWriter.instanceMethods.add(chunkDetails);
+								javaClass.instanceMethods.add(chunkDetails);
 							}
 						}
 					}
@@ -333,10 +333,13 @@ public class TranslateSmalltalk {
 		System.out.println();
 		System.out.println("Writing Java");
 		System.out.println("-------------------------------------------------------");
+		
+		ClassParser classParser = new ClassParser();
 
 		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
 			JavaClass javaClass = (JavaClass) iter.next();
-			javaClass.parse();
+			classParser.setJavaClass(javaClass);
+			classParser.parse();
 			ClassWriter classWriter = new ClassWriter(javaClass);
 			classWriter.write(outputDirectoryName);
 		}
