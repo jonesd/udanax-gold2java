@@ -1,0 +1,44 @@
+<project name="ug2java" default="translate" basedir=".">
+    <description>
+    	
+    </description>
+
+  <!-- set global properties for this build -->
+  <property name="name" value="ug2java"/>
+  <property name="dist" location="dist"/>
+  <property name="parent.dir" value="udanax-gold2java"/>
+  <property name="translator.ant" location="translator/build.xml"/>
+  
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+  </target>
+
+  <target name="dist" depends="init"
+        description="generate the distribution" >
+    <mkdir dir="${dist}"/>
+    <!-- TODO following over-complexity is a poor attempt to get all
+    	zipped content under a common udanax-gold2java dir -->
+    <zip destfile="${dist}/${name}-${DSTAMP}.jar" basedir=".." excludes="**/*">
+  	 	<fileset dir="..">
+    		<include name="${parent.dir}/**/*.xml"/>
+    		<include name="${parent.dir}/**/*.txt"/>
+    		<include name="${parent.dir}/udanax-gold/*"/>
+    		<include name="${parent.dir}/translator/src/**/*.java"/>
+    		<include name="${parent.dir}/translator/lib/*"/>
+    		<include name="${parent.dir}/abora-gold/src/**/*.java"/>
+    	</fileset>
+    </zip>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <delete dir="${dist}"/>
+  </target>
+  
+  <target name="translate" depends="init"
+  		description="Delegate Smalltalk translation" >
+  	<ant antfile="${translator.ant}" dir="translator" target="translate" />
+  </target>
+
+</project>
