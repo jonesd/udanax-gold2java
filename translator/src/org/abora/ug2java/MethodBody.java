@@ -110,14 +110,15 @@ public class MethodBody {
 		int laterBlocks = 0;
 		for (int i = endIndex; i >= 0; i--) {
 			JavaToken token = (JavaToken) tokens.get(i);
-			if (token instanceof JavaParenthesisStart) {
+			if (token instanceof JavaParenthesisStart || token instanceof JavaCallStart) {
 				laterParentheses--;
-			} else if (token instanceof JavaParenthesisEnd) {
+			} else if (token instanceof JavaParenthesisEnd || token instanceof JavaCallEnd) {
 				laterParentheses++;
 			} else if (token instanceof JavaBlockStart) {
 				laterBlocks--;
 			} else if (token instanceof JavaBlockEnd) {
-				laterBlocks++;
+				laterBlocks--;
+//				laterBlocks++;
 			} else if (
 				(token instanceof JavaAssignment)
 					|| (token instanceof JavaStatementTerminator)

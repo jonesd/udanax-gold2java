@@ -38,6 +38,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String COMBINE_LOOP_FAILED = "CombineLoopFailed";
 	public static final String COPY_OUT_OF_BOUNDS = "CopyOutOfBounds";
 	public static final String DESTRUCTED_ABE = "DestructedAbe";
+	public static final String DISK_FULL = "DiskFull";
 	public static final String DOES_NOT_HAVE_AN_ID = "DoesNotHaveAnId";
 	public static final String DOES_NOT_MATCH = "DoesNotMatch";
 	public static final String EDIT_CLUB_IRREVOCABLY_REMOVED = "EditClubIrrevocablyRemoved";
@@ -146,6 +147,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String ORIGINAL_CONTEXT_MUST_BE_FROZEN = "OriginalContextMustBeFrozen";
 	public static final String OUT_OF_BOUNDS = "OutOfBounds";
 	public static final String OUT_OF_DOMAIN = "OutOfDomain";
+	public static final String OVERGRAZED = "Overgrazed";
 	public static final String PASSWORD_DOES_NOT_MATCH = "PasswordDoesNotMatch";
 	public static final String READ_CLUB_IRREVOCABLY_REMOVED = "ReadClubIrrevocablyRemoved";
 	public static final String READ_CLUB_REMOVED = "ReadClubRemoved";

@@ -64,12 +64,36 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\none && (two && (three));\n}\n", java);
 	}
 
-	public void testAlmostTo() {
+	public void testAlmostToDo() {
 		String smalltalk = "test\n0 almostTo: fred happy do: [:i {UInt32} | blah ]!";
 
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\nblah;\n}\n}\n", java);
+	}
+
+	public void testAlmostToDoAfterIf() {
+		String smalltalk = "test\nmyValue == NULL ifTrue: [^VOID]. 0 almostTo: fred happy do: [:i {UInt32} | blah ]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif (myValue == null) {\nreturn ;\n}\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\nblah;\n}\n}\n", java);
+	}
+
+	public void testAlmostToByDoPositive() {
+		String smalltalk = "test\n0 almostTo: fred happy by: 2 do: [:i {UInt32} | blah ]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nfor (int i = 0 ; i < fred.happy() ; i += 2 ) {\nblah;\n}\n}\n", java);
+	}
+
+	public void testAlmostToByDoNegative() {
+		String smalltalk = "test\n0 almostTo: fred happy by: -2 do: [:i {UInt32} | blah ]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nfor (int i = 0 ; i > fred.happy() ; i -= 2 ) {\nblah;\n}\n}\n", java);
 	}
 
 	public void testAssert() {
@@ -1169,6 +1193,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nfor (int i = 0 ; i < 4 ; i ++ ) {\nblah();\n}\n}\n", java);
+	}
+
+	public void testToDo() {
+		String smalltalk = "test\n1 to: fred happy do: [:i {UInt32} | blah ]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nfor (int i = 1 ; i <= fred.happy() ; i ++ ) {\nblah;\n}\n}\n", java);
 	}
 
 	public void testTranslateOnlyString() {

@@ -29,7 +29,7 @@ public class TransformNot extends AbstractMethodBodyTransformation {
 	}
 
 	protected void transform(JavaMethod javaMethod, List tokens, int i) {
-		int expressionStart = javaMethod.methodBody.findStartOfExpression(i);
+		int expressionStart = javaMethod.methodBody.findStartOfExpression(i-1);
 		tokens.remove(i + 1);
 		tokens.remove(i);
 		tokens.add(expressionStart, new JavaKeyword("!"));

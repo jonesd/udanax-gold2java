@@ -44,7 +44,7 @@ public class TransformPrint extends AbstractMethodBodyTransformation {
 		tokens.add(endOfBlock+1, new JavaCallEnd());
 		tokens.remove(i);
 		tokens.add(i, new JavaCallKeywordStart("print"));
-		int startOfBlock = javaMethod.methodBody.findStartOfExpression(i);
+		int startOfBlock = javaMethod.methodBody.findStartOfExpression(i-1);
 		if (startOfBlock + 1 != i && tokens.get(startOfBlock) instanceof JavaIdentifier) {
 			JavaIdentifier identifier = (JavaIdentifier)tokens.get(startOfBlock);
 			tokens.add(i, new JavaStatementTerminator());

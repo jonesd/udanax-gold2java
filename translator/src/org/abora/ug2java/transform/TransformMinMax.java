@@ -34,7 +34,7 @@ public class TransformMinMax extends AbstractMethodBodyTransformation {
 	}
 
 	protected void transform(JavaMethod javaMethod, List tokens, int i) {
-		int start = javaMethod.methodBody.findStartOfExpression(i);
+		int start = javaMethod.methodBody.findStartOfExpression(i-1);
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i);
 		tokens.remove(i);
 		tokens.add(i, new JavaCallArgumentSeparator());
