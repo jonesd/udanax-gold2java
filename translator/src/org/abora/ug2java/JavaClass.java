@@ -120,7 +120,7 @@ public class JavaClass {
 		OVERRIDE_STATIC.add("unimplemented");
 	}
 
-	public static final Hashtable OVERRIDE_CALLS = new Hashtable();
+	public static final Map OVERRIDE_CALLS = new HashMap();
 	{
 		OVERRIDE_CALLS.put("atStore", "store");
 		OVERRIDE_CALLS.put("atStoreInt", "storeInt");
@@ -354,9 +354,9 @@ public class JavaClass {
 	}
 
 	protected void includeAnyReferencedTypes(MethodBody body) {
-		Vector tokens = body.tokens;
+		List tokens = body.tokens;
 		for (int i = 0; i < tokens.size(); i++) {
-			JavaToken token = (JavaToken) tokens.elementAt(i);
+			JavaToken token = (JavaToken) tokens.get(i);
 			if ((token instanceof JavaIdentifier || token instanceof JavaType || token instanceof JavaCast)
 				&& Character.isJavaIdentifierStart(token.value.charAt(0))) {
 				includeImportForType(token.value);
@@ -716,15 +716,6 @@ public class JavaClass {
 		return methodBodies;
 	}
 	
-	protected MethodBody parseTranslatedMethod(SmalltalkScanner scanner) {
-		MethodBody methodBody = readMethodUnit(scanner);
-	
-		methodTransformer.transform(methodBody);
-		includeAnyReferencedTypes(methodBody);
-	
-		return methodBody;
-	}
-
 	protected void parseMethods(Vector methods, String modifiers) throws Exception {
 		for (Enumeration e = methods.elements(); e.hasMoreElements();) {
 			ChunkDetails methodDetails = (ChunkDetails) e.nextElement();
@@ -787,14 +778,15 @@ public class JavaClass {
 		javaMethod.returnType = returnType;
 		javaMethod.name = methodName;
 		javaMethod.params = params;
+		javaMethod.javaClass = this;
 
 		if (scanner.token.tokenType == ScannerToken.TOKEN_COMMENT) {
 			javaMethod.comment = scanner.token.tokenString;
 			scanner.advance();
 		}
-
-		
-		javaMethod.methodBody = parseTranslatedMethod(scanner);
+		javaMethod.methodBody = readMethodUnit(scanner);
+		methodTransformer.transform(javaMethod);
+		includeAnyReferencedTypes(javaMethod.methodBody);
 
 			SmalltalkSource smalltalkSource = new SmalltalkSource();
 			smalltalkSource.context = methodDetails.context;

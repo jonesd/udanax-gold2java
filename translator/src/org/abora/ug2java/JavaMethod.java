@@ -10,4 +10,5 @@ public class JavaMethod extends JavaClassElement {
 	public String params;
 	public SmalltalkSource smalltalkSource;
 	public String comment;
+	public JavaClass javaClass;
 }

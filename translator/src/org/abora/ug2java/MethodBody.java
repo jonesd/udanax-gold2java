@@ -7,6 +7,7 @@
 package org.abora.ug2java;
 
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Vector;
 
 import org.abora.ug2java.javatoken.JavaAssignment;
@@ -22,17 +23,25 @@ import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.javatoken.JavaToken;
 
 public class MethodBody {
-	public Vector tokens;
+	public List tokens;
 
-	public MethodBody(Vector tokens) {
+	public MethodBody(List tokens) {
 		super();
 		this.tokens = tokens;
+	}
+	
+	public JavaToken get(int index) {
+		return (JavaToken)tokens.get(index);
+	}
+	
+	public void remove(int index) {
+		tokens.remove(index);
 	}
 
 	public int findClosingCallEnd(int callStart) {
 		int earlyCalls = 0;
 		for (int i = callStart + 1; i < tokens.size(); i++) {
-			JavaToken token = (JavaToken) tokens.elementAt(i);
+			JavaToken token = (JavaToken) tokens.get(i);
 			if (token instanceof JavaCallStart) {
 				earlyCalls++;
 			} else if (token instanceof JavaCallEnd) {
@@ -61,7 +70,7 @@ public class MethodBody {
 		int earlyParentheses = 0;
 		int earlyBlocks = 0;
 		for (int i = blockStart + 1; i < tokens.size(); i++) {
-			JavaToken token = (JavaToken) tokens.elementAt(i);
+			JavaToken token = (JavaToken) tokens.get(i);
 			if (token instanceof JavaParenthesisStart) {
 				earlyParentheses++;
 			} else if (token instanceof JavaParenthesisEnd) {
@@ -82,7 +91,7 @@ public class MethodBody {
 	public int findStartOfBlock(int blockEnd) {
 		int earlyBlocks = 0;
 		for (int i = blockEnd - 1; i >= 0; i--) {
-			JavaToken token = (JavaToken) tokens.elementAt(i);
+			JavaToken token = (JavaToken) tokens.get(i);
 			if (token instanceof JavaBlockEnd) {
 				earlyBlocks++;
 			} else if (token instanceof JavaBlockStart) {
@@ -100,7 +109,7 @@ public class MethodBody {
 		int laterParentheses = 0;
 		int laterBlocks = 0;
 		for (int i = endIndex; i >= 0; i--) {
-			JavaToken token = (JavaToken) tokens.elementAt(i);
+			JavaToken token = (JavaToken) tokens.get(i);
 			if (token instanceof JavaParenthesisStart) {
 				laterParentheses--;
 			} else if (token instanceof JavaParenthesisEnd) {
@@ -129,7 +138,7 @@ public class MethodBody {
 
 	public int findNextTokenOfType(int startIndex, Class aClass) {
 		for (int i = startIndex; i < tokens.size(); i++) {
-			JavaToken token = (JavaToken) tokens.elementAt(i);
+			JavaToken token = (JavaToken) tokens.get(i);
 			if (aClass.isAssignableFrom(token.getClass())) {
 				return i;
 			}

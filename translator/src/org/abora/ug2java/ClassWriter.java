@@ -39,8 +39,8 @@ public class ClassWriter {
 
 	protected void writeMethodBody(MethodBody methodBody, PrintWriter writer) {
 			StringBuffer buffer = new StringBuffer();
-			for (Enumeration e = methodBody.tokens.elements(); e.hasMoreElements();) {
-				JavaToken token = (JavaToken) e.nextElement();
+			for (Iterator e = methodBody.tokens.iterator(); e.hasNext();) {
+				JavaToken token = (JavaToken) e.next();
 				token.write(buffer);
 			}
 			writer.print(buffer.toString());
