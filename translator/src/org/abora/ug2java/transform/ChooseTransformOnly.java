@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
+import org.abora.ug2java.javatoken.JavaCallEnd;
+import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
@@ -81,7 +83,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 			}
 		}
 		
-		return i;
+		return simpleBlock(javaMethod, tokens, i, onlyType.value);
 	}
 		
 	private int acceptOnlyBlock(JavaMethod javaMethod, List tokens, int i) {
@@ -100,5 +102,20 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 			tokens.remove(j);
 		}
 		return blockStart;
+	}
+
+	private int simpleBlock(JavaMethod javaMethod, List tokens, int i, String call) {
+		int blockStart = javaMethod.methodBody.findStartOfBlock(i);
+		tokens.remove(i+2);
+		tokens.remove(i+1);
+
+		tokens.add(blockStart, new JavaIdentifier("AboraSupport"));
+		tokens.add(blockStart+1, new JavaCallStart(call));
+		tokens.add(blockStart+2, new JavaCallEnd());
+		tokens.add(blockStart+3, new JavaStatementTerminator());
+		
+		javaMethod.javaClass.includeImportForType("AboraSupport");
+		
+		return i;
 	}
 }

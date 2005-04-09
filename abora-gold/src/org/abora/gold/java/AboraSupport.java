@@ -14,4 +14,11 @@ public class AboraSupport {
 		throw new UnsupportedOperationException();
 	}
 	
+	public static void smalltalkOnly() {
+		throw new UnsupportedOperationException();
+	}
+	
+	public static void translateOnly() {
+		throw new UnsupportedOperationException();
+	}
 }

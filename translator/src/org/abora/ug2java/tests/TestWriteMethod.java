@@ -654,6 +654,17 @@ public class TestWriteMethod extends TestCase {
 			java);
 	}
 
+	public void testFluidFetchInsideTransactionFlag() {
+		String smalltalk = "test\nInsideTransactionFlag fluidFetch ifTrue: [self blah]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals(
+			"public void test() {\nif (((Boolean) InsideTransactionFlag.fluidFetch()).booleanValue()) {\nblah();\n}\n}\n",
+			java);
+	}
+	
+	
 	public void testForEach() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| element]!";
 
@@ -1218,7 +1229,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\n{\none.blah();\n}\nsmalltalkOnly;\n}\n", java);
+		assertEquals("public void test() {\nAboraSupport.smalltalkOnly();\n{\none.blah();\n}\n}\n", java);
 	}
 
 	public void testStrcmp() {
@@ -1386,7 +1397,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\n{\n/* \"one.blah()\" */\n}\ntranslateOnly;\n}\n", java);
+		assertEquals("public void test() {\nAboraSupport.translateOnly();\n{\n/* \"one.blah()\" */\n}\n}\n", java);
 	}
 
 	public void testTranslateOnly() {
@@ -1410,7 +1421,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\n{\none.blah();\n}\ntranslateOnly;\n}\n", java);
+		assertEquals("public void test() {\nAboraSupport.translateOnly();\n{\none.blah();\n}\n}\n", java);
 	}
 
 	public void testValueNowOrOnUnwindDo() {

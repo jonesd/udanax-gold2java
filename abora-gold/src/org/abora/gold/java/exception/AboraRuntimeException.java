@@ -19,6 +19,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String ALREADY_IN_TABLE = "AlreadyInTable";
 	public static final String AMBIGUOUS_REPLACEMENT = "AmbiguousReplacement";
 	public static final String BAD_PRECISION = "BadPrecision";
+	public static final String BAD_PRIM_SPEC = "BadPrimSpec";
 	public static final String BAD_REQUEST = "BadRequest";
 	public static final String BAD_RECIPE = "BadRecipe";
 	public static final String BEGINNING_OF_PACKET = "BeginningOfPacket";

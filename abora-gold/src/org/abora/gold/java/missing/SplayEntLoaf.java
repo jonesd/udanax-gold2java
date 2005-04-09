@@ -9,9 +9,9 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.xpp.basic.Heaper;
+import org.abora.gold.be.ents.Loaf;
 
-public class SplayEntLoaf extends Heaper {
+public class SplayEntLoaf extends Loaf /*Guess*/ {
 
 	public SplayEntLoaf() {
 		super();

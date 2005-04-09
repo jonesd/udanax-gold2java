@@ -44,6 +44,7 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 		map.put("InitialEditClub", "ID");
 		map.put("InitialReadClub", "ID");
 		map.put("InitialSponsor", "ID");
+		map.put("InsideTransactionFlag", "Boolean");
 		FLUID_MAPPINGS = Collections.unmodifiableMap(map);
 	}
 	
@@ -73,6 +74,10 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 			tokens.add(i + 2, new JavaParenthesisEnd());
 			tokens.add(i, new JavaParenthesisStart());
 			tokens.add(i + 1, new JavaCast(type));
+			if (type.equals("Boolean")) {
+				tokens.add(i+6, new JavaCallStart("booleanValue"));
+				tokens.add(i+7, new JavaCallEnd());
+			}
 		}
 		return i;
 	}

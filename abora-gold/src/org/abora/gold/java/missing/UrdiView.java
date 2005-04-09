@@ -17,7 +17,7 @@ public class UrdiView extends Heaper {
 		super();
 	}
 
-	public int getDataSizeOfSnarf(SnarfID mySnarfID) {
+	public int getDataSizeOfSnarf(int/*SnarfID*/ mySnarfID) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -29,16 +29,16 @@ public class UrdiView extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 
-	public SnarfHandle makeReadHandle(SnarfID snarfID) {
+	public SnarfHandle makeReadHandle(int/*SnarfID*/ snarfID) {
 		throw new UnsupportedOperationException();
 	}
 
-	public SnarfHandle makeErasingHandle(SnarfID snarfID) {
+	public SnarfHandle makeErasingHandle(int/*SnarfID*/ snarfID) {
 		throw new UnsupportedOperationException();
 	}
 
-	public int getDataSizeOfSnarf(int i) {
-		throw new UnsupportedOperationException();
-	}
+//	public int getDataSizeOfSnarf(int i) {
+//		throw new UnsupportedOperationException();
+//	}
 
 }

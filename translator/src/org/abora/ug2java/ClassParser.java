@@ -74,6 +74,7 @@ public class ClassParser {
 		table.put("sizeUt", "int");
 //		table.put("size", "int");
 		table.put("UNKNOWN", "Object");
+		table.put("SnarfID", "int");
 
 		table.put("ostream", "PrintWriter");
 		LOOKUP_TYPES = Collections.unmodifiableMap(table);
@@ -116,6 +117,7 @@ public class ClassParser {
 		table.put("displayString", "String");
 		table.put("exportName", "String");
 		table.put("inspect", "Object");
+		table.put("isFullOrder", "boolean");
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -129,8 +131,8 @@ public class ClassParser {
 		table.put("SetTable.stepper", "TableStepper");
 		table.put("FluidVar.emulsion", "Emulsion");
 		table.put("FluidVar.fluidVar", "Heaper");
-		table.put("FluidVar.fluidFetch", "Heaper");
-		table.put("FluidVar.fluidGet", "Heaper");
+		table.put("FluidVar.fluidFetch", "Object");
+		table.put("FluidVar.fluidGet", "Object");
 		table.put("FluidVar.initialValue", "Heaper");
 		table.put("XnRegion.simpleRegions", "Stepper");
 		table.put("XnRegion.disjointSimpleRegions", "Stepper");
@@ -149,6 +151,9 @@ public class ClassParser {
 		set.add("makeJoint");
 		set.add("makeXnRegion");
 		set.add("makeHeaper");
+		set.add("makeCoordinateSpaceWithRegion");
+		set.add("makeBertCrum");
+		set.add("makeHUpperCrum");
 		OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS = Collections.unmodifiableSet(set);
 		
 	}
