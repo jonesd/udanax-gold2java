@@ -32,6 +32,7 @@ public class TransformMethodBody implements MethodTransformation {
 	private static List createTransformers() {		
 		List transformers = new ArrayList();
 		transformers.add(new OverrideReturnType());
+		transformers.add(new OverrideArgumentType());
 		transformers.add(new TransformAndOrs());
 		transformers.add(new EnsureIfTestInParentheses());
 		transformers.add(new EnsureReasonableStatementTermination());
@@ -44,8 +45,10 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformUses());
 //		transformers.add(new TransformSmalltalkOnly());
 		transformers.add(new TransformTranslateOnlyString());
+		transformers.add(new TransformNewCreateCallOnClass());
 		transformers.add(new TransformSuperCreate());
 		transformers.add(new TransformCreateCall());
+		transformers.add(new TransformCerr());
 		transformers.add(new TransformWhileTrue());
 		transformers.add(new TransformTimesRepeat());
 		transformers.add(new TransformCritical());
@@ -73,6 +76,8 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformStrcmp());
 		transformers.add(new TransformStrlen());
 		transformers.add(new TransformMinMax());
+		transformers.add(new TransformNewCreate());
+		transformers.add(new TransformNewCall());
 		transformers.add(new TransformFluidAccess());
 		transformers.add(new TransformFluidBindDuring());
 		transformers.add(new TransformNot());

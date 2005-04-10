@@ -13,6 +13,7 @@ import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallStart;
+import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
@@ -27,6 +28,8 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		List list = new ArrayList();
 		list.add("IntegerPos.actualHashForEqual");
 		list.add("IntegerPos.integerHash");
+		// Remove smalltalkOnly logging
+		list.add("WorksIniter.initializeSystem");
 		
 		//TODO only for tests...
 		list.add("translateOnly");
@@ -37,6 +40,8 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 	private static final List SMALLTALK_METHODS;
 	static {
 		List list = new ArrayList();
+		list.add("WorksIniter.fetchNewRawSpace");
+		list.add("DiskManagerEmulsion.fetchNewRawSpace");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");
@@ -62,7 +67,8 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier onlyType = (JavaIdentifier)tokens.get(i+1);
-		boolean isTranslateOnly = onlyType.value.equals("translateOnly");
+		String call = onlyType.value;
+		boolean isTranslateOnly = call.equals("translateOnly");
 		
 		String shortName = javaMethod.name;
 		String fullName = javaMethod.javaClass.className+"."+shortName;
@@ -73,17 +79,17 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 			if (shouldTranslate) {
 				return acceptOnlyBlock(javaMethod, tokens, i);
 			} else if (shouldSmalltalk) {
-				return rejectOnlyBlock(javaMethod, tokens, i);
+				return rejectOnlyBlock(javaMethod, tokens, i, call);
 			}
 		} else {
 			if (shouldTranslate) {
-				return rejectOnlyBlock(javaMethod, tokens, i);
+				return rejectOnlyBlock(javaMethod, tokens, i, call);
 			} else if (shouldSmalltalk) {
 				return acceptOnlyBlock(javaMethod, tokens, i);
 			}
 		}
 		
-		return simpleBlock(javaMethod, tokens, i, onlyType.value);
+		return simpleBlock(javaMethod, tokens, i, call);
 	}
 		
 	private int acceptOnlyBlock(JavaMethod javaMethod, List tokens, int i) {
@@ -96,11 +102,12 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		return i - 1;
 	}
 
-	private int rejectOnlyBlock(JavaMethod javaMethod, List tokens, int i) {
+	private int rejectOnlyBlock(JavaMethod javaMethod, List tokens, int i, String call) {
 		int blockStart = javaMethod.methodBody.findStartOfBlock(i);
 		for (int j = i+2; j >= blockStart; --j) {
 			tokens.remove(j);
 		}
+		tokens.add(blockStart, new JavaComment("Removed "+call));
 		return blockStart;
 	}
 

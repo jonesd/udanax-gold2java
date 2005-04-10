@@ -365,7 +365,7 @@ public class TranslateSmalltalk {
 		System.out.println();
 		System.out.println("Transforming Classes");
 		System.out.println("-------------------------------------------------------");
-		ClassTransformer classTransformer = new TransformReceiverConstructor();
+		ClassTransformer classTransformer = new ClassTransformers();
 		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
 			JavaClass javaClass = (JavaClass) iter.next();
 			System.out.println("Transform: "+javaClass.className);

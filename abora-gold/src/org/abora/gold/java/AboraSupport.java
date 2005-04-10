@@ -1,5 +1,7 @@
 package org.abora.gold.java;
 
+import java.io.PrintWriter;
+
 import org.abora.gold.xpp.basic.Category;
 
 
@@ -19,6 +21,10 @@ public class AboraSupport {
 	}
 	
 	public static void translateOnly() {
+		throw new UnsupportedOperationException();
+	}
+	
+	public static PrintWriter getPrintWriter() {
 		throw new UnsupportedOperationException();
 	}
 }

@@ -409,6 +409,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nreturn HashHelper.hashForEqual(this.getClass());\n}\n", java);
 	}
 
+	public void testCerr() {
+		String smalltalk = "test\ncerr << 'hello'!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraSupport.getPrintWriter().print(\"hello\");\n}\n", java);
+	}
+
 	public void testCharacter() {
 		String smalltalk = "test\n$a.$-!";
 
@@ -998,7 +1006,31 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals("public void test() {\none.two();\nborris = three + 3;\n}\n", java);
 	}
+	
+	public void testNewCall() {
+		String smalltalk = "test\nArray new: size!";
 
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nnew Array(size);\n}\n", java);
+	}
+	
+	public void testNewCreate() {
+		String smalltalk = "test\nself new create.Stepper: aStepper!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nnew Test(aStepper);\n}\n", java);
+	}
+	
+	public void testNewCreateForClass() {
+		String smalltalk = "test\nDiskManagerEmulsion new create!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nnew DiskManagerEmulsion();\n}\n", java);
+	}
+	
 	public void testNil() {
 		String smalltalk = "test\nfred := nil!";
 
@@ -1141,6 +1173,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test(PrintWriter aStream) {\naStream.print(12 + 1);\naStream.print(13 + 2);\naStream.print(14 + 3);\n}\n", java);
 	}
 
+	public void testPrintOn() {
+		String smalltalk = "printOn: aStream\naStream << self blah: 34!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void printOn(PrintWriter aStream) {\naStream.print(blah(34));\n}\n", java);
+	}
+
 	public void testQuickCast() {
 		String smalltalk = "test\nblah quickCast: Peter!";
 
@@ -1221,7 +1261,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void smalltalkOnly() {\none.blah();\n}\n", java);
+		assertEquals("public void smalltalkOnly() {\n/* Removed translateOnly */\none.blah();\n}\n", java);
 	}
 
 	public void testSmalltalkOnlySimpleTranlation() {
@@ -1349,7 +1389,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void test() {\nArray.new();\n}\n", java);
+		assertEquals("public void test() {\nnew Array();\n}\n", java);
 	}
 	public void testSymbolWithColons() {
 		String smalltalk = "test\n#IDSpace.U.newIDs.U.N2:with:!";
@@ -1400,6 +1440,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nAboraSupport.translateOnly();\n{\n/* \"one.blah()\" */\n}\n}\n", java);
 	}
 
+	public void testTranscript() {
+		String smalltalk = "test\nTranscript << 'hello'!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraSupport.getPrintWriter().print(\"hello\");\n}\n", java);
+	}
+	
 	public void testTranslateOnly() {
 		String smalltalk = "translateOnly\n[one blah] translateOnly!";
 
@@ -1413,7 +1461,7 @@ public class TestWriteMethod extends TestCase {
 
 		String java = writeInstanceMethod(smalltalk);
 
-		assertEquals("public void translateOnly() {\none.blah();\n}\n", java);
+		assertEquals("public void translateOnly() {\none.blah();\n/* Removed smalltalkOnly */\n}\n", java);
 	}
 
 	public void testTranslateOnlySimpleTranlation() {

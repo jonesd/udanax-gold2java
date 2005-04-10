@@ -21,10 +21,10 @@ public class TransformReceiverConstructor implements ClassTransformer {
 		boolean foundRcvrConstructor = false;
 		for (Iterator iter = javaClass.methods.iterator(); iter.hasNext();) {
 			JavaMethod method = (JavaMethod) iter.next();
-			if (method.name.equals(javaClass.className) && method.params.equals("")) {
+			if (method.name.equals(javaClass.className) && method.parameters.isEmpty()) {
 				foundEmptyConstructor = true;
 			}
-			if (method.name.equals(javaClass.className) && method.params.startsWith("Rcvr ")) {
+			if (method.name.equals(javaClass.className) && method.parameters.size() == 1 && ((JavaField)method.parameters.get(0)).type.equals("Rcvr")) {
 				foundRcvrConstructor = true;
 			}
 		}
@@ -41,7 +41,7 @@ public class TransformReceiverConstructor implements ClassTransformer {
 		method.javaClass = javaClass;
 		method.modifiers = "";
 		method.name = javaClass.className;
-		method.params = "Rcvr receiver";
+		method.parameters.add(new JavaField("", "Rcvr", "receiver"));
 		method.returnType = "";
 		method.comment = null;
 		
@@ -67,7 +67,6 @@ public class TransformReceiverConstructor implements ClassTransformer {
 		method.javaClass = javaClass;
 		method.modifiers = "";
 		method.name = javaClass.className;
-		method.params = "";
 		method.returnType = "";
 		method.comment = null;
 		

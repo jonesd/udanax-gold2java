@@ -56,12 +56,12 @@ public class ClassParser {
 //TODO		table.put("IntegerVar", "IntegerVar");
 		table.put("UInt32", "int");
 		table.put("Int32", "int");
-		table.put("UInt8", "byte");
-		table.put("Int8", "byte");
+		table.put("UInt8", "int"/*"byte"*/);
+		table.put("Int8", "int"/*"byte"*/);
 		//		table.put("UInt8Array", "byte[]");
-		table.put("Uint3", "byte");
-		table.put("UInt4", "byte");
-		table.put("Int4", "byte");
+		table.put("Uint3", "int"/*"byte"*/);
+		table.put("UInt4", "int"/*"byte"*/);
+		table.put("Int4", "int"/*"byte"*/);
 		table.put("IEEEDoubleVar", "double");
 		table.put("IEEEFloatVar", "float");
 		table.put("IEEE64", "double");
@@ -118,6 +118,9 @@ public class ClassParser {
 		table.put("exportName", "String");
 		table.put("inspect", "Object");
 		table.put("isFullOrder", "boolean");
+		table.put("fetchOldRawSpace", "Array");
+		table.put("fetchNewRawSpace", "Array");
+		table.put("fluidSpace", "Array");		
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -388,7 +391,6 @@ public class ClassParser {
 			return null;
 		}
 	
-		String params = "";
 		String methodName = "";
 		List parameterList = new ArrayList();
 		SmalltalkScanner scanner = new SmalltalkScanner(smalltalkMethod);
@@ -401,14 +403,7 @@ public class ClassParser {
 				String varName = parseJavaSafeVarNameDeclaration(scanner);
 				String type = parseParameterType(scanner);
 	
-				if (params.length() != 0) {
-					params = params + ", ";
-				}
-				params = params + type + " " + varName;
-				JavaField javaField = new JavaField();
-				javaField.name = varName;
-				javaField.type = type;
-				javaField.modifiers = "";
+				JavaField javaField = new JavaField("", type, varName);
 				parameterList.add(javaField);
 			}
 		} else {
@@ -417,7 +412,8 @@ public class ClassParser {
 			if (methodName.equals("=")) {
 				String varName = parseJavaSafeVarNameDeclaration(scanner);
 				String type = parseParameterType(scanner);
-				params = type + " " + varName;
+				JavaField javaField = new JavaField("", type, varName);
+				parameterList.add(javaField);
 			}
 		}
 		methodName = getJavaSafeWord(methodName);
@@ -435,7 +431,6 @@ public class ClassParser {
 		javaMethod.modifiers = modifiers;
 		javaMethod.returnType = returnType;
 		javaMethod.name = methodName;
-		javaMethod.params = params;
 		javaMethod.javaClass = javaClass;
 		javaMethod.parameters = parameterList;
 
@@ -945,10 +940,7 @@ scannerAdvance(scanner);
 		while (!w.equals("'")) {
 			String varName = getJavaSafeWord(w);
 			String type = nextType(parser);
-			JavaField field = new JavaField();
-			field.modifiers = modifiers;
-			field.name = varName;
-			field.type = type;
+			JavaField field = new JavaField(modifiers, type, varName);
 			javaClass.fields.add(field);
 			w = parser.nextWord();
 		}

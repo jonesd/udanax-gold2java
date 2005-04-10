@@ -15,6 +15,10 @@ public class Array {
 	public Array() {
 		super();
 	}
+	
+	public Array(int size) {
+		throw new UnsupportedOperationException();
+	}
 
 	public static Array newWithAll(int i, int i1) {
 		throw new UnsupportedOperationException();

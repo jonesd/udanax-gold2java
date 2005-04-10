@@ -79,13 +79,7 @@ public class ClassWriter {
 		if (javaMethod.shouldInclude) {
 			writeMethodJavaDoc(javaMethod, writer);
 		
-			writer.print("public ");
-			writer.print(javaMethod.modifiers);
-			writer.print(javaMethod.returnType);
-			if (javaMethod.modifiers.length() > 0 || javaMethod.returnType.length() > 0) {
-				writer.print(" ");
-			}
-			writer.println(javaMethod.name + "(" + javaMethod.params + ") {");
+			writeMethodSignature(javaMethod, writer);
 			
 			if (INCLUDE_METHOD_BODIES) {
 				writeMethodBody(javaMethod.methodBody, writer);
@@ -99,6 +93,30 @@ public class ClassWriter {
 		if (javaMethod.shouldInclude) {
 			writer.println("}");
 		}
+	}
+
+	private void writeMethodSignature(JavaMethod javaMethod, PrintWriter writer) {
+		writer.print("public ");
+		writer.print(javaMethod.modifiers);
+		writer.print(javaMethod.returnType);
+		if (javaMethod.modifiers.length() > 0 || javaMethod.returnType.length() > 0) {
+			writer.print(" ");
+		}
+		writer.print(javaMethod.name + "(");
+		for (Iterator iter = javaMethod.parameters.iterator(); iter.hasNext();) {
+			JavaField element = (JavaField) iter.next();
+			if (element.modifiers != null && element.modifiers.length() > 0) {
+				writer.print(element.modifiers);
+				writer.print(" ");
+			}
+			writer.print(element.type);
+			writer.print(" ");
+			writer.print(element.name);
+			if (iter.hasNext()) {
+				writer.print(", ");
+			}
+		}
+		writer.println(") {");
 	}
 
 	private void writeMethodJavaDoc(JavaMethod javaMethod, PrintWriter writer) {

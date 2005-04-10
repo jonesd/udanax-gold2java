@@ -45,7 +45,8 @@ public class TransformPrint extends AbstractMethodBodyTransformation {
 		tokens.remove(i);
 		tokens.add(i, new JavaCallKeywordStart("print"));
 		int startOfBlock = javaMethod.methodBody.findStartOfExpression(i-1);
-		if (startOfBlock + 1 != i && tokens.get(startOfBlock) instanceof JavaIdentifier) {
+		//TODO watchc out for "AboraSupport.getPrintWriter()." case
+		if (startOfBlock + 1 != i && tokens.get(startOfBlock) instanceof JavaIdentifier && !((JavaIdentifier)tokens.get(startOfBlock)).value.equals("AboraSupport")) {
 			JavaIdentifier identifier = (JavaIdentifier)tokens.get(startOfBlock);
 			tokens.add(i, new JavaStatementTerminator());
 			tokens.add(i + 1, new JavaIdentifier(identifier.value));
