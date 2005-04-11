@@ -216,6 +216,22 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\none & 7;\n}\n", java);
 	}
 
+	public void testBitInvert() {
+		String smalltalk = "test\none bitInvert!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n~ one;\n}\n", java);
+	}
+
+	public void testBitInvertExpression() {
+		String smalltalk = "test\n(flags bitAnd: (a bitOr: b) bitInvert) ~~ 0 ifTrue: [^1]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif ((flags & ~ (a | b)) != 0) {\nreturn 1;\n}\n}\n", java);
+	}
+
 	public void testBitOr() {
 		String smalltalk = "test\none bitOr: 7!";
 
@@ -513,6 +529,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nAboraBlockSupport.enterConsistent();\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitConsistent();\n}\n}\n", java);
 	}
 
+	public void testDiskManagerConsistentDefaultDirtyWithInterveningComment() {
+		String smalltalk = "test\nDiskManager consistent: \"comment\" [self diskUpdate]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraBlockSupport.enterConsistent(\n/* comment */\n);\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitConsistent();\n}\n}\n", java);
+	}
+
 	public void testDiskManagerConsistentWithIdentifier() {
 		String smalltalk = "test\nDiskManager consistent: 2 with: [self diskUpdate]!";
 
@@ -577,6 +601,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nsynchronized (mutex) {\nblah;\n}\n}\n", java);
 	}
 
+	public void testDefineFluid() {
+		String smalltalk = "test\nMuSet defineFluid: #ActiveClubs with: DiskManager emulsion with: [MuSet make]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraSupport.defineFluid(MuSet.class, \"ActiveClubs\", DiskManager.emulsion(), MuSet.make());\n}\n", java);
+	}
+	
 	public void testDiv() {
 		String smalltalk = "test\n11 // 2!";
 
@@ -1055,6 +1087,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nreturn ! blah.isAlive();\n}\n", java);
 	}
 
+	public void testNotIfFalseExpression() {
+		String smalltalk = "test\nflags = (a bitOr: b) ifFalse: [^1]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nif ( ! (flags == (a | b))) {\nreturn 1;\n}\n}\n", java);
+	}
+
 	public void testNotNULLElse() {
 		String smalltalk = "test\n(values fetch: i) notNULL: [:fe {FeRangeElement} | element _ fe carrier] else: [^nil]!";
 
@@ -1187,6 +1227,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\n(Peter) blah;\n}\n", java);
+	}
+
+	public void testReanimate() {
+		String smalltalk = "test\nfossil reanimate: [:recorder {ResultRecorder} | ^1]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nResultRecorder recorder = AboraBlockSupport.enterRecorderFossilReanimate(fossil);\ntry {\nreturn 1;\n}\nfinally {\nAboraBlockSupport.exitRecorderFossilReanimate();\n}\n}\n", java);
 	}
 
 	public void testReturn() {
@@ -1495,6 +1543,15 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals("public void test() {\n1;\n2;\n}\n", java);
 	}
+	
+	public void testUsesMultiple() {
+		String smalltalk = "test\n[HistoryCrum] USES. [TracePosition] USES. [Ent] USES.!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n}\n", java);
+	}
+
 
 	public void testUnaryOperator() {
 		String smalltalk = "test\nfred kill!";

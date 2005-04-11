@@ -176,6 +176,40 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find start of expression");
 	}
 
+	public int findStartOfExpressionMinimal(int endIndex) {
+		int laterParentheses = 0;
+		int laterBlocks = 0;
+		for (int i = endIndex; i >= 0; i--) {
+			JavaToken token = (JavaToken) tokens.get(i);
+			if (token instanceof JavaParenthesisStart || token instanceof JavaCallStart) {
+				laterParentheses--;
+			} else if (token instanceof JavaParenthesisEnd || token instanceof JavaCallEnd) {
+				laterParentheses++;
+			} else if (token instanceof JavaBlockStart) {
+				laterBlocks--;
+			} else if (token instanceof JavaBlockEnd) {
+				laterBlocks--;
+//				laterBlocks++;
+			} else if (
+				(token instanceof JavaAssignment)
+					|| (token instanceof JavaStatementTerminator)
+					|| ((token instanceof JavaKeyword) && token.value.equals("return"))) {
+				if (laterParentheses == 0 && laterBlocks == 0) {
+					return i + 1;
+				}
+			} else if (laterParentheses == 0 && laterBlocks == 0 && token instanceof JavaKeyword) {
+				return i + 1;
+			}
+			if ((laterParentheses < 0 && laterBlocks == 0) || (laterParentheses == 0 && laterBlocks < 0)) {
+				return i + 1;
+			}
+			if (laterParentheses == 0 && laterBlocks == 0 && i == 0) {
+				return 0;
+			}
+		}
+		throw new IllegalStateException("Could not find start of expression");
+	}
+
 	public int findNextTokenOfTypeQuietFail(int startIndex, Class aClass) {
 		for (int i = startIndex; i < tokens.size(); i++) {
 			JavaToken token = (JavaToken) tokens.get(i);

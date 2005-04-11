@@ -140,6 +140,7 @@ public class ClassParser {
 		table.put("XnRegion.simpleRegions", "Stepper");
 		table.put("XnRegion.disjointSimpleRegions", "Stepper");
 		table.put("crums", "Array");
+		table.put("BeClub.make", "BeWork");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -757,7 +758,7 @@ scannerAdvance(scanner);
 								expression.add(new JavaKeyword("else"));
 							} else {
 								int startIndex = findStartOfExpression(expression);
-								if (!(expression.lastElement() instanceof JavaParenthesisEnd)) {
+								if (!(expression.lastElement() instanceof JavaParenthesisEnd) || !(expression.get(startIndex) instanceof JavaParenthesisStart)) {
 									expression.add(startIndex, new JavaParenthesisStart());
 									expression.add(new JavaParenthesisEnd());
 								}

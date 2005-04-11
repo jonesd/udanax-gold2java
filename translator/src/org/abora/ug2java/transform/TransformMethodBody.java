@@ -80,7 +80,9 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformNewCall());
 		transformers.add(new TransformFluidAccess());
 		transformers.add(new TransformFluidBindDuring());
-		transformers.add(new TransformNot());
+		transformers.add(new TransformDefineFluid());
+		transformers.add(new TransformReanimate());
+		transformers.add(new TransformUnaryOperator());
 		transformers.add(new TransformAssert());
 		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformCastIntoOthers());

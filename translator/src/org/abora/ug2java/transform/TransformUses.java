@@ -47,6 +47,6 @@ public class TransformUses extends AbstractMethodBodyTransformation {
 		}
 		tokens.remove(j);
 		
-		return i;
+		return j;
 	}
 }
