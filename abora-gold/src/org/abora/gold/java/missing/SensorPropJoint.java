@@ -11,6 +11,7 @@ package org.abora.gold.java.missing;
 
 import org.abora.gold.id.IDRegion;
 import org.abora.gold.spaces.basic.XnRegion;
+import org.abora.gold.spaces.cross.CrossRegion;
 
 
 public class SensorPropJoint extends PropJoint /*GUESS*/ {
@@ -25,6 +26,9 @@ public class SensorPropJoint extends PropJoint /*GUESS*/ {
 		throw new UnsupportedOperationException();
 	}
 	public IDRegion relevantEndorsements() {
+		throw new UnsupportedOperationException();
+	}
+	public static PropJoint make(IDRegion region, CrossRegion region2, boolean myPartialFlag) {
 		throw new UnsupportedOperationException();
 	}
 }

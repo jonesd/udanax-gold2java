@@ -13,6 +13,7 @@ import java.util.Vector;
 import org.abora.ug2java.javatoken.JavaAssignment;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
+import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
@@ -193,12 +194,12 @@ public class MethodBody {
 			} else if (
 				(token instanceof JavaAssignment)
 					|| (token instanceof JavaStatementTerminator)
-					|| ((token instanceof JavaKeyword) && token.value.equals("return"))) {
+					|| ((token instanceof JavaKeyword) && token.value.equals("return"))
+					|| (token instanceof JavaKeyword)
+					|| (token instanceof JavaCallArgumentSeparator)) {
 				if (laterParentheses == 0 && laterBlocks == 0) {
 					return i + 1;
 				}
-			} else if (laterParentheses == 0 && laterBlocks == 0 && token instanceof JavaKeyword) {
-				return i + 1;
 			}
 			if ((laterParentheses < 0 && laterBlocks == 0) || (laterParentheses == 0 && laterBlocks < 0)) {
 				return i + 1;

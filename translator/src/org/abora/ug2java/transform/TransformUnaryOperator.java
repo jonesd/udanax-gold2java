@@ -24,6 +24,7 @@ public class TransformUnaryOperator extends AbstractMethodBodyTransformation {
 		Map map = new HashMap();
 		map.put("not", "!");
 		map.put("bitInvert", "~");
+		map.put("negated", "-");
 		operators = Collections.unmodifiableMap(map);
 	}
 	
@@ -37,7 +38,7 @@ public class TransformUnaryOperator extends AbstractMethodBodyTransformation {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaCallStart.class, "not|bitInvert"),
+				factory.token(JavaCallStart.class, "not|bitInvert|negated"),
 				factory.token(JavaCallEnd.class));
 	}
 

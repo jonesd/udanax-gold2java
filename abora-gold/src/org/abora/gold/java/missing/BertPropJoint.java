@@ -9,6 +9,7 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.filter.Joint;
 import org.abora.gold.spaces.basic.XnRegion;
 
 public class BertPropJoint extends PropJoint {
@@ -26,6 +27,9 @@ public class BertPropJoint extends PropJoint {
 		throw new UnsupportedOperationException();
 	}
 	public boolean isSensorWaiting() {
+		throw new UnsupportedOperationException();
+	}
+	public static PropJoint make(Joint joint, Joint joint2, boolean mySensorWaitingFlag, boolean myCannotPartializeFlag) {
 		throw new UnsupportedOperationException();
 	}
 }

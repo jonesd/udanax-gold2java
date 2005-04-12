@@ -9,37 +9,34 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
-import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
-import org.abora.ug2java.javatoken.JavaLiteral;
-import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformIntegerCall extends AbstractMethodBodyTransformation {
+public class TransformXuTime extends AbstractMethodBodyTransformation {
 
-	public TransformIntegerCall() {
+
+	public TransformXuTime() {
 		super();
 	}
-	public TransformIntegerCall(TokenMatcherFactory factory) {
+	public TransformXuTime(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaCallStart.class, "integer"), 
+				factory.token(JavaIdentifier.class, "Time"),
+				factory.token(JavaCallStart.class, "xuTime"),
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		int start = javaMethod.methodBody.findStartOfExpressionMinimal(i-1);
-		tokens.remove(i);
-		tokens.add(start, new JavaIdentifier("IntegerPos"));
-		tokens.add(start + 1, new JavaCallKeywordStart("make"));
-		
+		JavaIdentifier identifier = (JavaIdentifier)tokens.get(i);
+		identifier.value = "AboraSupport";
 		return i;
+
 	}
 }

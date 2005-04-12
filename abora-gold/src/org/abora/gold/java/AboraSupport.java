@@ -31,4 +31,8 @@ public class AboraSupport {
 	public static void defineFluid(Class class1, String name, Object value, Object value2) {
 		throw new UnsupportedOperationException();
 	}
+
+	public static int xuTime() {
+		throw new UnsupportedOperationException();
+	}
 }

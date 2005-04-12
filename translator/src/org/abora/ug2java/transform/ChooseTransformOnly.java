@@ -42,6 +42,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		List list = new ArrayList();
 		list.add("WorksIniter.fetchNewRawSpace");
 		list.add("DiskManagerEmulsion.fetchNewRawSpace");
+		list.add("BeGrandMap.xuTime");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");

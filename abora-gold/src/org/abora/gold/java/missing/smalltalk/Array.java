@@ -32,6 +32,10 @@ public class Array {
 		throw new UnsupportedOperationException();
 	}
 
+	public static Array with(Object a, Object b) {
+		throw new UnsupportedOperationException();
+	}
+
 	public Object at(int i) {
 		throw new UnsupportedOperationException();
 	}

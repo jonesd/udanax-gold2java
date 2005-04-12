@@ -304,6 +304,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\n{\nObject a;\nT b;\none.two();\n}\n}\n", java);
 	}
 
+	public void testBlockTempsDuplicateInSubsequentBlock() {
+		String smalltalk = "test\n[|:a :b {T} |one two]. [| :b {A} | b blah]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n{\nObject a;\nT b;\none.two();\n}\n{\nA b1;\nb1.blah();\n}\n}\n", java);
+	}
+
 	public void testBrackets() {
 		String smalltalk = "test\nfred := (one two)!";
 
@@ -551,6 +559,14 @@ public class TestWriteMethod extends TestCase {
 		String java = writeInstanceMethod(smalltalk);
 
 		assertEquals("public void test() {\nAboraBlockSupport.enterConsistent(dirtyLevel());\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitConsistent();\n}\n}\n", java);
+	}
+
+	public void testDiskManagerConsistentWithExpression2() {
+		String smalltalk = "test\nCurrentPacker fluidGet consistent: self dirtyLevel with: [self diskUpdate]!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nDiskManager diskManager1 = ((DiskManager) CurrentPacker.fluidGet());\nAboraBlockSupport.enterConsistent(dirtyLevel(), diskManager1);\ntry {\ndiskUpdate();\n}\nfinally {\nAboraBlockSupport.exitConsistent(diskManager1);\n}\n}\n", java);
 	}
 
 	public void testDiskManagerInsistentWithExpression() {
@@ -867,6 +883,14 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals("public void test() {\nresult.with(IntegerPos.make(i));\n}\n", java);
 	}
+	
+	public void testIntegerCallExpression2() {
+		String smalltalk = "test\nTuple two: Sequence zero with: -1 integer!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nTuple.two(Sequence.zero(), IntegerPos.make(-1));\n}\n", java);
+	}
 
 	public void testIntegerCallOnIntLiteral() {
 		String smalltalk = "test\n27 integer!";
@@ -1038,7 +1062,15 @@ public class TestWriteMethod extends TestCase {
 
 		assertEquals("public void test() {\none.two();\nborris = three + 3;\n}\n", java);
 	}
-	
+
+	public void testNegated() {
+		String smalltalk = "test\na size negated!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\n- a.size();\n}\n", java);
+	}
+
 	public void testNewCall() {
 		String smalltalk = "test\nArray new: size!";
 
@@ -1609,6 +1641,14 @@ public class TestWriteMethod extends TestCase {
 		assertEquals("public void test() {\nwhile (a < 1) {\na = a + 1;\n}\n}\n", java);
 	}
 
+	public void testXuTime() {
+		String smalltalk = "test\nTime xuTime!";
+
+		String java = writeInstanceMethod(smalltalk);
+
+		assertEquals("public void test() {\nAboraSupport.xuTime();\n}\n", java);
+	}
+	
 	protected String writeInstanceMethod(String smalltalk) {
 		return writeMethod(smalltalk, "");
 	}

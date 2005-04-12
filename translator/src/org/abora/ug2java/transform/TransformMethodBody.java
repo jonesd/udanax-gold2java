@@ -40,6 +40,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new ExcludeStaticHeaper());
 		transformers.add(new ExcludeMethods());
 		transformers.add(new DeprecatedMethods());
+		transformers.add(new EnsureUniqueLocalVarNames());
 		
 		transformers.add(new TransformSelfSends());
 		transformers.add(new TransformUses());
@@ -49,6 +50,7 @@ public class TransformMethodBody implements MethodTransformation {
 		transformers.add(new TransformSuperCreate());
 		transformers.add(new TransformCreateCall());
 		transformers.add(new TransformCerr());
+		transformers.add(new TransformXuTime());
 		transformers.add(new TransformWhileTrue());
 		transformers.add(new TransformTimesRepeat());
 		transformers.add(new TransformCritical());
