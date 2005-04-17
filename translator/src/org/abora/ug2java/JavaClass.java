@@ -8,7 +8,6 @@ package org.abora.ug2java;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -28,20 +27,26 @@ public class JavaClass {
 	public Vector classQuotes = new Vector();
 	public Vector instanceMethodChunks = new Vector();
 	public Vector classMethodChunks = new Vector();
-	final List fields = new ArrayList();
-	final List methods = new ArrayList();
-
-	SortedSet importedPackages = new TreeSet();
-	public Hashtable packageLookup = new Hashtable();
+	public final List fields = new ArrayList();
+	public final List methods = new ArrayList();
+	public final JavaCodebase javaCodebase;
+	public SortedSet importedPackages = new TreeSet();
 
 	static final String PACKAGE_SEPARATOR = ".";
 
 	/**
 	 * ClassWriter constructor comment.
 	 */
-	public JavaClass(Hashtable packageLookup) {
+	public JavaClass(String className, JavaCodebase javaCodebase) {
 		super();
-		this.packageLookup = packageLookup;
+		this.javaCodebase = javaCodebase;
+		this.className = className;
+		//TODO good form to add yourself directly to javaCodebase?
+		javaCodebase.addJavaClass(this);
+	}
+	
+	public JavaCodebase getJavaCodebase() {
+		return javaCodebase;
 	}
 
 	public String findTypeOfVariable(String name) {
@@ -54,16 +59,16 @@ public class JavaClass {
 		return null;
 	}
 	
-	protected String getPackage() {
+	public String getPackage() {
 		return classCategory;
 	}
 
-	protected String getPackageDirectory() {
+	public String getPackageDirectory() {
 		return classCategory.replaceAll("\\.", File.separator);
 	}
 
 	public void includeImportForType(String type) {
-		String importPackage = (String) packageLookup.get(type);
+		String importPackage = (String) javaCodebase.packageLookup.get(type);
 		if (importPackage != null) {
 			importedPackages.add(importPackage + "." + type);
 		}
@@ -94,5 +99,37 @@ public class JavaClass {
 	
 	public List getMethodBodies() {
 		return methods;
+	}
+
+	public boolean isSubclassAnyDepthOf(JavaClass aClass) {
+		if (this == aClass) {
+			return false;
+		} else {
+			return this.isClassOrSubclassAnyDepthOf(aClass);
+		}
+	}
+
+	private boolean isClassOrSubclassAnyDepthOf(JavaClass aClass) {
+		if (this == aClass) {
+			return true;
+		} else if (aClass == null) {
+			return false;
+		} else if (getSuperClass() != null) {
+			return this.getSuperClass().isClassOrSubclassAnyDepthOf(aClass);
+		} else {
+			return false;
+		}
+	}
+	
+	public JavaClass getSuperClass() {
+		return javaCodebase.getJavaClass(superclassName);
+	}
+
+	public void addMethod(JavaMethod method) {
+		if (method.javaClass != null && method.javaClass != this) {
+			throw new IllegalStateException("method already a member of a different type");
+		}
+		methods.add(method);
+		method.javaClass = this;
 	}
 }

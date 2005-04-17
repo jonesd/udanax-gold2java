@@ -11,6 +11,9 @@ import java.io.*;
 
 import org.abora.ug2java.stscanner.ChunkDetails;
 import org.abora.ug2java.stscanner.ChunkParser;
+import org.abora.ug2java.transform.type.ClassTransformer;
+import org.abora.ug2java.transform.type.ClassTransformers;
+import org.abora.ug2java.writer.ClassWriter;
 
 public class TranslateSmalltalk {
 	private static final char CHUNK_SEPARATOR = '!';
@@ -218,14 +221,14 @@ public class TranslateSmalltalk {
 	}
 	public void translate(String[] sources, String outputDirectoryName) throws Exception {
 
-		Hashtable packageLookup = new Hashtable();
-		initializePackageLookup(packageLookup);
+		JavaCodebase javaCodebase = new JavaCodebase();
+		initializePackageLookup(javaCodebase.packageLookup);
 
-		List classToWrite = readAllSourcesFiles(sources, packageLookup);
+		List classToWrite = readAllSourcesFiles(sources, javaCodebase);
 		writeClasses(outputDirectoryName, classToWrite);
 	}
 
-	private List readAllSourcesFiles(String[] sources, Hashtable packageLookup) throws FileNotFoundException, IOException, Exception {
+	private List readAllSourcesFiles(String[] sources, JavaCodebase javaCodebase) throws FileNotFoundException, IOException, Exception {
 
 		System.out.println();
 		System.out.println("Reading Source Files");
@@ -236,13 +239,13 @@ public class TranslateSmalltalk {
 		for (int i = 0; i < sources.length; i++) {
 			String filename = sources[i];
 			System.out.println("Source: " + filename);
-			readSourceFile(filename, packageLookup, classesToWrite);
+			readSourceFile(filename, javaCodebase, classesToWrite);
 		}
 
 		return classesToWrite;
 	}
 
-	private void readSourceFile(String source, Hashtable packageLookup, List classesToWrite) throws FileNotFoundException, IOException, Exception {
+	private void readSourceFile(String source, JavaCodebase javaCodebase, List classesToWrite) throws FileNotFoundException, IOException, Exception {
 
 		File smalltalkFile = new File(source);
 
@@ -278,27 +281,28 @@ public class TranslateSmalltalk {
 				int instanceVariableNamesIndex = chunk.indexOf("instanceVariableNames:");
 
 				if (subclassIndex != -1) {
-					javaClass = new JavaClass(packageLookup);
-					classesToWrite.add(javaClass);
 
 					ChunkParser parser = new ChunkParser(chunk);
-					javaClass.superclassName = parser.nextWord();
+					String superClassName = parser.nextWord();
 					parser.nextWord();
 					parser.nextWord();
-					javaClass.className = parser.nextWord();
-					if (javaClass.className.indexOf(":") != -1) {
+					String className = parser.nextWord();
+					if (className.indexOf(":") != -1) {
 						throw new Exception("Corrupt classname: " + javaClass.className + " line:" + chunkLineNumber);
 					}
-					if (javaClass.superclassName.equals("Object") /*&& classWriter.className.equals("Heaper")*/
+					javaClass = new JavaClass(className, javaCodebase);
+					classesToWrite.add(javaClass);
+					if (superClassName.equals("Object") /*&& classWriter.className.equals("Heaper")*/
 						) {
-						javaClass.superclassName = "AboraHeaper";
+						superClassName = "AboraHeaper";
 					}
+					javaClass.superclassName = superClassName;
 					parser.moveToWord("category:");
 					parser.nextWord();
 					javaClass.classCategory = ClassParser.transformCategory(parser.nextWord());
 					ChunkDetails chunkDetails = new ChunkDetails(smalltalkFile.getName(), chunkLineNumber, "", chunk);
 					javaClass.classQuotes.add(chunkDetails);
-					packageLookup.put(javaClass.className, javaClass.getPackage());
+					javaCodebase.packageLookup.put(javaClass.className, javaClass.getPackage());
 				} else if (methodsForIndex != -1) {
 					skipMethodCategory = false;
 					methodsForClass = chunk.indexOf(" class ") != -1;

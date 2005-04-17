@@ -32,14 +32,15 @@ import org.abora.ug2java.stscanner.ChunkDetails;
 import org.abora.ug2java.stscanner.ChunkParser;
 import org.abora.ug2java.stscanner.ScannerToken;
 import org.abora.ug2java.stscanner.SmalltalkScanner;
-import org.abora.ug2java.transform.TransformMethodBody;
+import org.abora.ug2java.transform.method.MethodTransformation;
+import org.abora.ug2java.transform.method.intra.TransformIntraMethod;
 
 
 
 public class ClassParser {
 	
 	private JavaClass javaClass;
-	private TransformMethodBody methodTransformer = new TransformMethodBody();
+	private MethodTransformation methodTransformer = new TransformIntraMethod();
 	private int stompLevel = 1;
 	
 	public static final String HEAPER_CLASS = "Heaper";

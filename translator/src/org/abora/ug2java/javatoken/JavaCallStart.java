@@ -5,7 +5,7 @@
  */
 package org.abora.ug2java.javatoken;
 
-import org.abora.ug2java.JavaWriter;
+import org.abora.ug2java.writer.JavaWriter;
 
 public class JavaCallStart extends JavaToken {
 

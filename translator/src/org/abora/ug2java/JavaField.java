@@ -14,7 +14,11 @@ public class JavaField {
 	public String name;
 	public String type;
 	public String modifiers;
-	
+
+	public JavaField(String type, String name) {
+		this("", type, name);
+	}
+
 	public JavaField(String modifiers, String type, String name) {
 		this.name = name;
 		this.type = type;

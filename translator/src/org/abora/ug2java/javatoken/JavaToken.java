@@ -5,8 +5,8 @@
  */
 package org.abora.ug2java.javatoken;
 
-import org.abora.ug2java.JavaWriter;
 import org.abora.ug2java.util.ToStringGenerator;
+import org.abora.ug2java.writer.JavaWriter;
 
 public class JavaToken {
 	//FIXME:

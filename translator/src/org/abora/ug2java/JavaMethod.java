@@ -19,13 +19,13 @@ public class JavaMethod extends JavaClassElement {
 	public SmalltalkSource smalltalkSource;
 	public String comment;
 	public JavaClass javaClass;
-	public List fields = new ArrayList();
+	public List localVariables = new ArrayList();
 	public List parameters = new ArrayList();
 	public boolean shouldInclude = true;
 	public boolean isDeprecated = false;
 	
 	public String findTypeOfVariable(String variableName) {
-		String type = findTypeOfVariable(variableName, fields);
+		String type = findTypeOfVariable(variableName, localVariables);
 		if (type == null) {
 			type = findTypeOfVariable(variableName, parameters);
 		}
@@ -45,4 +45,12 @@ public class JavaMethod extends JavaClassElement {
 		return null;
 	}
 
+	public JavaCodebase getJavaCodebase() {
+		return javaClass.getJavaCodebase();
+	}
+
+	public void addLocalVariable(JavaField field) {
+		localVariables.add(field);
+	}
+	
 }
