@@ -127,6 +127,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String NO_SUCH_CLUB = "NoSuchClub";
 	public static final String NO_SNARF_INFO = "NoSnarfInfo";
 	public static final String NON_SHEPHERD = "NonShepherd";
+	public static final String NOT_ANUMBER = "NotAnumber";
 	public static final String NOT_BECOMABLE = "NotBecomable";
 	public static final String NOT_CORRECTLY_SIGNED = "NotCorrectlySigned";
 	public static final String NOT_ENUMERABLE = "NotEnumerable";

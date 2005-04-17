@@ -39,16 +39,24 @@ public class TransformTranslateOnlyString extends AbstractMethodBodyTransformati
 	
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaLiteral javaLiteral = (JavaLiteral)tokens.get(i);
+		//TODO general insanity here. Why didn't we just remember the original value?
+		String cleanSource = stipStringWrapping(javaLiteral.value);
 		
 		tokens.remove(i+2);
 		tokens.remove(i+1);
 		tokens.remove(i);
 
 		tokens.add(i, new JavaBlockStart());
-		tokens.add(i+1, new JavaComment(javaLiteral.value));
+		tokens.add(i+1, new JavaComment(cleanSource));
 		tokens.add(i+2, new JavaBlockEnd());
 		tokens.add(i+3, new JavaIdentifier("translateOnly"));
 		
 		return i;
+	}
+	
+	private String stipStringWrapping(String value) {
+		String cleaner = value.replaceAll("\\\\n\"\\+\n\"", "\n");
+//		cleaner = cleaner.replaceAll("\n\"", "\n");
+		return cleaner.substring(1, cleaner.length()-1);
 	}
 }

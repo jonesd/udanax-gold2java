@@ -15,9 +15,15 @@ public class JavaComment extends JavaToken {
 
 	public void write(JavaWriter buffer) {
 		buffer.ensureAtStartOfLine();
-		buffer.append("/* ");
-		super.write(buffer);
-		buffer.append(" */");
+		if (value.indexOf("/*") == -1) {
+			buffer.append("/* ");
+			super.write(buffer);
+			buffer.append(" */");
+		} else {
+			String clean = value.replaceAll("\n", "\n// ");
+			buffer.append("// ");
+			buffer.append(clean);
+		}
 		buffer.newLine();
 	}
 }

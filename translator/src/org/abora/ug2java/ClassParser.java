@@ -840,7 +840,8 @@ scannerAdvance(scanner);
 					}
 				case ScannerToken.TOKEN_STRING :
 					{
-						String safeString = stringReplaceWith(scanner.token.tokenString, "\"", "\\\"");
+						String safeString = stringReplaceWith(scanner.token.tokenString, "\\", "\\\\");
+						safeString = stringReplaceWith(safeString, "\"", "\\\"");
 						safeString = stringReplaceWith(safeString, "\n", "\\n\"+\n\"");
 						safeString = "\"" + safeString + "\"";
 						expression.add(new JavaLiteral(safeString));

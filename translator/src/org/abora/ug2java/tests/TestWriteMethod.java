@@ -393,10 +393,10 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
-	public void testCharacter() {
-		String smalltalk = "test\n$a.$-!";
+	public void testCharacterLiteral() {
+		String smalltalk = "test\n$a. $-. $\\. $'!";
 
-		String expectedJava = "public void test() {\n'a';\n'-';\n}\n";
+		String expectedJava = "public void test() {\n'a';\n'-';\n'\\\\';\n'\\\'';\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -439,6 +439,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nfred := 1\n\"Hello There\"!";
 
 		String expectedJava = "public void test() {\nfred = 1;\n/* Hello There */\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testCommentWithEmbeddedLineComment() {
+		String smalltalk = "test\nfred := 1\n\"Hello /* here */ There\"!";
+
+		String expectedJava = "public void test() {\nfred = 1;\n// Hello /* here */ There\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1317,10 +1324,10 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
-	public void testString() {
-		String smalltalk = "test\n'hi there'!";
+	public void testStringLiteral() {
+		String smalltalk = "test\n'hi there'' \\\" '''' '!";
 
-		String expectedJava = "public void test() {\n\"hi there\";\n}\n";
+		String expectedJava = "public void test() {\n\"hi there' \\\\\\\" '' \";\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1444,9 +1451,9 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testTranslateOnlyString() {
-		String smalltalk = "test\n'one.blah()' translateOnly!";
+		String smalltalk = "test\n'one.blah();\nagain()' translateOnly!";
 
-		String expectedJava = "public void test() {\nAboraSupport.translateOnly();\n{\n/* \"one.blah()\" */\n}\n}\n";
+		String expectedJava = "public void test() {\nAboraSupport.translateOnly();\n{\n/* one.blah();\nagain() */\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

@@ -143,7 +143,15 @@ public class SmalltalkScanner {
 	private ScannerToken readCharacter() {
 		next();
 		char c = next();
-		return new ScannerToken(ScannerToken.TOKEN_CHARACTER, String.valueOf(c));
+		String s;
+		if (c == '\\') {
+			s = "\\\\";
+		} else if (c == '\'') {
+			s = "\\\'";
+		} else {
+			s = String.valueOf(c);
+		}
+		return new ScannerToken(ScannerToken.TOKEN_CHARACTER, s);
 	}
 
 	private ScannerToken readComment() {
@@ -213,9 +221,14 @@ public class SmalltalkScanner {
 		char c;
 		do {
 			c = next();
+			while (c == '\'' && !atEnd() && peek() == '\'') {
+				next();
+				c = next();
+			}
 		} while (c != '\'');
 
 		String value = contents.substring(start, index - 1);
+		value = value.replaceAll("''", "'");
 		return new ScannerToken(ScannerToken.TOKEN_STRING, value);
 	}
 
