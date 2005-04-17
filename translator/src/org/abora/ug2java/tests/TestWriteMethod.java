@@ -707,6 +707,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testFluidBindDuringWithComment() {
+		String smalltalk = "test\nCurrentTrace fluidBind: myEnt newTrace during: \"comment\" [result := BeClub make: desc]!";
+
+		String expectedJava = "public void test() {\nObject CurrentTraceOldValue = AboraBlockSupport.enterFluidBindDuring(CurrentTrace, myEnt.newTrace());\ntry \n/* comment */\n{\nresult = BeClub.make(desc);\n}\nfinally {\nAboraBlockSupport.exitFluidBindDuring(CurrentTrace, CurrentTraceOldValue);\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testFluidFetch() {
 		String smalltalk = "test\nCurrentPacker fluidFetch blah!";
 

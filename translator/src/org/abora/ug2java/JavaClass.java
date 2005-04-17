@@ -34,13 +34,15 @@ public class JavaClass {
 
 	static final String PACKAGE_SEPARATOR = ".";
 
-	/**
-	 * ClassWriter constructor comment.
-	 */
 	public JavaClass(String className, JavaCodebase javaCodebase) {
+		this(className, null, javaCodebase);
+	}
+	
+	public JavaClass(String className, String superclassName, JavaCodebase javaCodebase) {
 		super();
 		this.javaCodebase = javaCodebase;
 		this.className = className;
+		this.superclassName = superclassName;
 		//TODO good form to add yourself directly to javaCodebase?
 		javaCodebase.addJavaClass(this);
 	}

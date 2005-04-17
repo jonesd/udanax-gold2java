@@ -24,6 +24,15 @@ public class JavaMethod extends JavaClassElement {
 	public boolean shouldInclude = true;
 	public boolean isDeprecated = false;
 	
+	public JavaMethod() {
+		super();
+	}
+	
+	public JavaMethod(String returnType, String name) {
+		this.returnType = returnType;
+		this.name = name;
+	}
+	
 	public String findTypeOfVariable(String variableName) {
 		String type = findTypeOfVariable(variableName, localVariables);
 		if (type == null) {

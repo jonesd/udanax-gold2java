@@ -15,6 +15,7 @@ import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
+import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
@@ -45,11 +46,16 @@ public class TransformFluidBindDuring extends AbstractMethodBodyTransformation {
 		JavaIdentifier identifier = (JavaIdentifier)tokens.get(i);
 		String oldValueVariable = identifier.value+"OldValue";
 		int argumentStart = javaMethod.methodBody.findNextTokenOfType(i+1, JavaCallArgumentSeparator.class);
-		if (!(tokens.get(argumentStart+1) instanceof JavaBlockStart)) {
+		int startOfBlack = argumentStart+1;
+		if (tokens.get(startOfBlack) instanceof JavaComment) {
+			//TODO should be filtering out comments implicitly
+			++startOfBlack;
+		}
+		if (!(tokens.get(startOfBlack) instanceof JavaBlockStart)) {
 			System.out.println("--Failed JavaBlockStart match for fluidBindDuring");
 			return i;
 		}
-		int endOfBlock = javaMethod.methodBody.findEndOfBlock(argumentStart+1);
+		int endOfBlock = javaMethod.methodBody.findEndOfBlock(startOfBlack);
 		if (!(tokens.get(endOfBlock+1) instanceof JavaCallEnd)) {
 			System.out.println("--Failed JavaBlockEnd match for fluidBindDuring");
 			return i;

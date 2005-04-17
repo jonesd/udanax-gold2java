@@ -9,8 +9,15 @@
 
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.wparray.XnExecutor;
+
 public class WeakPtrArray extends PtrArray {
 	protected WeakPtrArray(int count, int size) {
 		super(-1, -1);
 	}
+	
+	public static PtrArray make(XnExecutor executor, int a) {
+		throw new UnsupportedOperationException();
+	}
+
 }

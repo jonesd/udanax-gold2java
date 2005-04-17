@@ -223,11 +223,19 @@ public class TranslateSmalltalk {
 
 		JavaCodebase javaCodebase = new JavaCodebase();
 		initializePackageLookup(javaCodebase.packageLookup);
+		initializeNonTranslatedClasses(javaCodebase);
 
 		List classToWrite = readAllSourcesFiles(sources, javaCodebase);
 		writeClasses(outputDirectoryName, classToWrite);
 	}
 
+	private void initializeNonTranslatedClasses(JavaCodebase javaCodebase) {
+		new JavaClass("AboraHeaper", "Object", javaCodebase);
+		new JavaClass("PtrArray", "PrimArray", javaCodebase);
+		JavaClass weakPtrArray = new JavaClass("WeakPtrArray", "PtrArray", javaCodebase);
+		weakPtrArray.addMethod(new JavaMethod("PtrArray", "make"));
+		
+	}
 	private List readAllSourcesFiles(String[] sources, JavaCodebase javaCodebase) throws FileNotFoundException, IOException, Exception {
 
 		System.out.println();
