@@ -5,8 +5,10 @@
  */
 package org.abora.ug2java.transform.method.intra;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -36,10 +38,10 @@ public class TransformUnaryOperator extends AbstractMethodBodyTransformation {
 	public TransformUnaryOperator(TokenMatcherFactory factory) {
 		super(factory);
 	}
-
+	
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaCallStart.class, "not|bitInvert|negated"),
+				factory.token(JavaCallStart.class, regularExpressionOr(operators.keySet())),
 				factory.token(JavaCallEnd.class));
 	}
 

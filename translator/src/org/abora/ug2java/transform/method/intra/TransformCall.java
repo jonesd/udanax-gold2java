@@ -5,41 +5,43 @@
  */
 package org.abora.ug2java.transform.method.intra;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallStart;
-import org.abora.ug2java.javatoken.JavaIdentifier;
-import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformNewCall extends AbstractMethodBodyTransformation {
+public class TransformCall extends AbstractMethodBodyTransformation {
 
-	public TransformNewCall() {
+	private static final Map CALLS;
+	static {
+		Map map = new HashMap();
+		map.put("nextPut", "print");
+		CALLS = Collections.unmodifiableMap(map);
+	}
+	
+	public TransformCall() {
 		super();
 	}
-	public TransformNewCall(TokenMatcherFactory factory) {
+	public TransformCall(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.seq(
-				factory.token(JavaIdentifier.class),
-				factory.token(JavaCallStart.class, "new"));
+		return factory.token(JavaCallStart.class, "nextPut");
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		JavaIdentifier type = (JavaIdentifier)tokens.get(i);
-		JavaCallStart call = (JavaCallStart)tokens.get(i+1);
-		
-		call.value = type.value;
-			javaMethod.javaClass.includeImportForType(type.value);
-			tokens.remove(i);
-			tokens.add(i, new JavaKeyword("new"));
+		JavaCallStart call = (JavaCallStart)tokens.get(i);
+		String newCallName = (String)CALLS.get(call.value);
+		call.value = newCallName;
 		return i;
 	}
 }

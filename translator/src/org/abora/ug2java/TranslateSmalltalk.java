@@ -6,8 +6,17 @@
 
 package org.abora.ug2java;
 
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.abora.ug2java.stscanner.ChunkDetails;
 import org.abora.ug2java.stscanner.ChunkParser;

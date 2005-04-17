@@ -6,7 +6,6 @@
 package org.abora.ug2java.transform.tokenmatcher;
 
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.abora.ug2java.javatoken.JavaToken;

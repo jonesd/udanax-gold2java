@@ -8,7 +8,6 @@ package org.abora.ug2java.transform.method.intra;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
-import org.abora.ug2java.javatoken.JavaAssignment;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaComment;

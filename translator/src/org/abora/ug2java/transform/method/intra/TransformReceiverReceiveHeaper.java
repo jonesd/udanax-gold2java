@@ -40,7 +40,7 @@ public class TransformReceiverReceiveHeaper extends AbstractMethodBodyTransforma
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier variable = (JavaIdentifier)tokens.get(i);
-		String type = javaMethod.javaClass.findTypeOfVariable(variable.value);
+		String type = javaMethod.findTypeOfVariable(variable.value);
 		if (type != null && !type.equals("Heaper")) {
 			tokens.add(i + 2, new JavaCast(type));
 		}

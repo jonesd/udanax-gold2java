@@ -19,6 +19,7 @@ public class OverrideArgumentType implements MethodTransformation {
 	static {
 		Map map = new HashMap();
 		map.put("printOn", "PrintWriter");
+		map.put("showOn", "PrintWriter");
 		map.put("DiskManager.fluidSpace", "Array");
 
 		METHODS = Collections.unmodifiableMap(map);

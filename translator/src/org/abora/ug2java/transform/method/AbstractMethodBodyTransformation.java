@@ -5,6 +5,8 @@
  */
 package org.abora.ug2java.transform.method;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
@@ -39,4 +41,17 @@ public abstract class AbstractMethodBodyTransformation implements MethodTransfor
 	
 	protected abstract TokenMatcher matchers(TokenMatcherFactory factory);
 	protected abstract int transform(JavaMethod javaMethod, List methodBodyTokens, int indexOfMatch);
+	
+	protected String regularExpressionOr(Collection c) {
+		StringBuffer regularExpression = new StringBuffer();
+		Iterator iterator = c.iterator();
+		while (iterator.hasNext()) {
+			regularExpression.append((String)iterator.next());
+			if (iterator.hasNext()) {
+				regularExpression.append("|");
+			}
+		}
+		return regularExpression.toString();
+	}
+
 }

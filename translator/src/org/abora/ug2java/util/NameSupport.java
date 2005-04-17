@@ -1,6 +1,5 @@
 package org.abora.ug2java.util;
 
-import java.util.Iterator;
 import java.util.StringTokenizer;
 
 

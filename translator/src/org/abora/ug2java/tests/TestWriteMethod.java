@@ -7,7 +7,6 @@ package org.abora.ug2java.tests;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Iterator;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -605,19 +604,11 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testDowncastStaticCallAssignmentSubclass() {
-		JavaClass a1 = new JavaClass("A1", javaClass.getJavaCodebase());
-		a1.superclassName = "Heaper";
+		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
 		
-		JavaClass a2 = new JavaClass("A2", javaClass.getJavaCodebase());
-		a2.superclassName = "A1";
-		
-		JavaClass m = new JavaClass("M", javaClass.getJavaCodebase());
-		m.superclassName = "Heaper";
-		JavaMethod make = new JavaMethod();
-		make.name = "make";
-		make.returnType = "A2";
-		make.javaClass = m;
-		m.addMethod(make);
+		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
+		m.addMethod(new JavaMethod("A2", "make"));
 		
 		String smalltalk = "test\n| a1 {A1} | a1 := M make!";
 
@@ -626,24 +617,12 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testDowncastStaticCallAssignmentInconsistentReturnType() {
-		JavaClass a1 = new JavaClass("A1", javaClass.getJavaCodebase());
-		a1.superclassName = "Heaper";
+		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
 		
-		JavaClass a2 = new JavaClass("A2", javaClass.getJavaCodebase());
-		a2.superclassName = "A1";
-		
-		JavaClass m = new JavaClass("M", javaClass.getJavaCodebase());
-		m.superclassName = "Heaper";
-		JavaMethod make = new JavaMethod();
-		make.name = "make";
-		make.returnType = "A1";
-		make.javaClass = m;
-		m.addMethod(make);
-		JavaMethod make2 = new JavaMethod();
-		make2.name = "make";
-		make2.returnType = "Heaper";
-		make2.javaClass = m;
-		m.addMethod(make2);
+		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
+		m.addMethod(new JavaMethod("A1", "make"));
+		m.addMethod(new JavaMethod("Heaper", "make"));
 		
 		String smalltalk = "test\n| a2 {A2} | a2 := M make!";
 
@@ -652,19 +631,11 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testDowncastStaticCallAssignment() {
-		JavaClass a1 = new JavaClass("A1", javaClass.getJavaCodebase());
-		a1.superclassName = "Heaper";
-		
-		JavaClass a2 = new JavaClass("A2", javaClass.getJavaCodebase());
-		a2.superclassName = "A1";
-		
-		JavaClass m = new JavaClass("M", javaClass.getJavaCodebase());
-		m.superclassName = "Heaper";
-		JavaMethod make = new JavaMethod();
-		make.name = "make";
-		make.returnType = "A1";
-		make.javaClass = m;
-		m.addMethod(make);
+		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
+
+		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
+		m.addMethod(new JavaMethod("A1", "make"));
 		
 		String smalltalk = "test\n| a2 {A2} | a2 := M make!";
 
@@ -673,19 +644,11 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testDowncastStaticCallAssignmentSameType() {
-		JavaClass a1 = new JavaClass("A1", javaClass.getJavaCodebase());
-		a1.superclassName = "Heaper";
+		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
 		
-		JavaClass a2 = new JavaClass("A2", javaClass.getJavaCodebase());
-		a2.superclassName = "A1";
-		
-		JavaClass m = new JavaClass("M", javaClass.getJavaCodebase());
-		m.superclassName = "Heaper";
-		JavaMethod make = new JavaMethod();
-		make.name = "make";
-		make.returnType = "A2";
-		make.javaClass = m;
-		m.addMethod(make);
+		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
+		m.addMethod(new JavaMethod("A2", "make"));
 		
 		String smalltalk = "test\n| a2 {A2} | a2 := M make!";
 
@@ -1048,6 +1011,20 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testNextPut() {
+		String smalltalk = "test\noo nextPut: $a!";
+
+		String expectedJava = "public void test() {\noo.print('a');\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testNextPutPrint() {
+		String smalltalk = "test\noo nextPut: $-; print: self minHeight!";
+
+		String expectedJava = "public void test() {\noo.print('-');\noo.print(minHeight());\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testNil() {
 		String smalltalk = "test\nfred := nil!";
 
@@ -1189,10 +1166,24 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testPrintStringRadix() {
+		String smalltalk = "test\nself flags printStringRadix: 2!";
+
+		String expectedJava = "public void test() {\nInteger.toString(flags(), 2);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testQuickCast() {
 		String smalltalk = "test\nblah quickCast: Peter!";
 
 		String expectedJava = "public void test() {\n(Peter) blah;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testRaisedTo() {
+		String smalltalk = "test\n2 raisedTo: height - 2!";
+
+		String expectedJava = "public void test() {\nMath.pow(2, height - 2);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1203,6 +1194,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testReceiveIntegerVarForDeclaredBoolean() {
+		String smalltalk = "test\n| startsInside { Boolean } | startsInside := rcvr receiveIntegerVar!";
+
+		String expectedJava = "public void test() {\nboolean startsInside;\nstartsInside = rcvr.receiveBooleanVar();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testReturn() {
 		String smalltalk = "test\n^fred!";
 
@@ -1242,10 +1240,38 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testSendIntegerVar() {
+		String smalltalk = "test\nxmtr sendIntegerVar: 99!";
+
+		String expectedJava = "public void test() {\nxmtr.sendIntegerVar(99);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testSendIntegerVarForBoolean() {
+		String smalltalk = "test\n| b { Boolean } | xmtr sendIntegerVar: b!";
+
+		String expectedJava = "public void test() {\nboolean b;\nxmtr.sendBooleanVar(b);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testSendIntegerVarForBooleanExpression() {
+		String smalltalk = "test\nxmtr sendIntegerVar: integers isBoundedBelow not!";
+
+		String expectedJava = "public void test() {\nxmtr.sendBooleanVar( ! integers.isBoundedBelow());\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testShouldImplement() {
 		String smalltalk = "test\n^Someone shouldImplement!";
 
 		String expectedJava = "public void test() {\nthrow new ShouldImplementException(\"Someone\");\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testShowOn() {
+		String smalltalk = "showOn: oo\noo print: 'hello'!";
+
+		String expectedJava = "public void showOn(PrintWriter oo) {\noo.print(\"hello\");\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

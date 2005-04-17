@@ -15,7 +15,6 @@ import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaLiteral;
-import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;

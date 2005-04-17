@@ -127,4 +127,7 @@ public class AboraHeaper {
 	public static void setGC(boolean a) {
 		throw new UnsupportedOperationException();
 	}
+	public String printString() {
+		throw new UnsupportedOperationException();
+	}
 }
