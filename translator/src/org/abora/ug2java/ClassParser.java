@@ -142,6 +142,8 @@ public class ClassParser {
 		table.put("XnRegion.disjointSimpleRegions", "Stepper");
 		table.put("crums", "Array");
 		table.put("BeClub.make", "BeWork");
+		table.put("Ent.makeHandleFor", "RootHandle");
+		table.put("preorderNumber", "int");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 

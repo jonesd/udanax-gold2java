@@ -21,6 +21,7 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("printOn", "PrintWriter");
 		map.put("showOn", "PrintWriter");
 		map.put("DiskManager.fluidSpace", "Array");
+		map.put("Heaper2UInt32Cache.make", "int");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

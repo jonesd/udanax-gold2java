@@ -10,25 +10,27 @@ import java.util.Collections;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.transform.method.MethodTransformation;
 
-public class ExcludeByName implements MethodTransformation {
+public class ForceReturn implements MethodTransformation {
 
-	private static final List EXCLUDE_NAMES;
+	private static final List METHODS;
 	static {
 		List list = new ArrayList();
-		list.add("ActualArray.search"); // seemes to be smalltalk only code - not int aware
-		list.add("XnRegion.dox"); // smalltalk: special
-		list.add("ScruTable.dox"); // smalltalk: special
-		list.add("ScruTable.asOrderedCollection"); // smalltalk: special
-		EXCLUDE_NAMES = Collections.unmodifiableList(list);
+		list.add("HistoryCrum.displayString"); 
+		
+		//TODO testcase
+		list.add("Test.testForceReturn");
+		
+		METHODS = Collections.unmodifiableList(list);
 	}
 	
 	public void transform(JavaMethod javaMethod) {
 		String name = javaMethod.name;
 		String nameWithClass = javaMethod.javaClass.className+"."+name;
-		if (EXCLUDE_NAMES.contains(nameWithClass) || EXCLUDE_NAMES.contains(name)) {
-			javaMethod.shouldInclude = false;
+		if (METHODS.contains(nameWithClass) || METHODS.contains(name)) {
+			javaMethod.methodBody.tokens.add(0, new JavaKeyword("return"));
 		}
 	}
 

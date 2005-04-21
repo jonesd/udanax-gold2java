@@ -27,4 +27,7 @@ public class FHash extends Heaper {
 	public static int fastHash(String s) {
 		throw new UnsupportedOperationException();
 	}
+	public static int fastHashString(String prob) {
+		throw new UnsupportedOperationException();
+	}
 }

@@ -157,6 +157,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("UnimplementedException", "org.abora.gold.java.exception");
 
 		packageLookup.put("PrintWriter", "java.io");
+		packageLookup.put("StringWriter", "java.io");
 		packageLookup.put("Iterator", "java.util");
 
 		packageLookup.put("HFn", "org.abora.gold.java.missing.handle");

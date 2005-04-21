@@ -33,10 +33,12 @@ public class TransformWhileTrue extends AbstractMethodBodyTransformation {
 		return factory.seq(
 				factory.token(JavaStatementTerminator.class), 
 				factory.token(JavaBlockEnd.class), 
-				factory.token(JavaCallKeywordStart.class, "whileTrue"));
+				factory.token(JavaCallKeywordStart.class, "whileTrue|whileFalse"));
 	}
 	
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
+		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i+2);
+		boolean isWhileTrue = call.value.equals("whileTrue");
 		int preBlockStart = javaMethod.methodBody.findStartOfBlock(i + 1);
 		tokens.add(preBlockStart, new JavaKeyword("while"));
 		tokens.remove(preBlockStart + 1);
@@ -50,6 +52,12 @@ public class TransformWhileTrue extends AbstractMethodBodyTransformation {
 		}
 		tokens.remove(postCallEnd);
 		tokens.remove(i+2);
+		
+		if (!isWhileTrue) {
+			tokens.add(i+2, new JavaParenthesisEnd());
+			tokens.add(preBlockStart+1, new JavaParenthesisStart());
+			tokens.add(preBlockStart+2, new JavaKeyword("!"));
+		}
 		
 		return i;
 	}

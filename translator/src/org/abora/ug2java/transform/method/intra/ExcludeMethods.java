@@ -14,21 +14,36 @@ import org.abora.ug2java.transform.method.MethodTransformation;
 
 public class ExcludeMethods implements MethodTransformation {
 
-	private static final List REMOVE;
+	private static final List INSTANCE_METHODS;
 	static {
 		List list = new ArrayList();
-		list.add("IntegerPos.IntegerVar");
+		list.add("ActualArray.search"); // seemes to be smalltalk only code - not int aware
+		list.add("XnRegion.dox"); // smalltalk: special
+		list.add("ScruTable.dox"); // smalltalk: special
+		list.add("ScruTable.asOrderedCollection"); // smalltalk: special
 		list.add("IntegerPos.basicCast");
 		list.add("MuTable.test");
+		//TODO Possibly dropped for myFlags?
+		list.add("CanopyCrum.joint");
 
-		REMOVE = Collections.unmodifiableList(list);
+		INSTANCE_METHODS = Collections.unmodifiableList(list);
+	}
+
+	private static final List STATIC_METHODS;
+	static {
+		List list = new ArrayList();
+		list.add("ImmuSet.with"); 
+		list.add("IntegerPos.IntegerVar");
+
+		STATIC_METHODS = Collections.unmodifiableList(list);
 	}
 
 	
 	public void transform(JavaMethod javaMethod) {
 		String shortName = javaMethod.name;
 		String fullName = javaMethod.javaClass.className+"."+shortName;
-		if (REMOVE.contains(shortName) || REMOVE.contains(fullName)) {
+		if (!javaMethod.isStatic() && (INSTANCE_METHODS.contains(shortName) || INSTANCE_METHODS.contains(fullName))
+				|| javaMethod.isStatic() && (STATIC_METHODS.contains(shortName) || STATIC_METHODS.contains(fullName))) {
 			javaMethod.shouldInclude = false;
 		}
 	}

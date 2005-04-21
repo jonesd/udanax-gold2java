@@ -12,7 +12,7 @@ import java.util.List;
 
 
 public class JavaMethod extends JavaClassElement {
-	public String modifiers;
+	public String modifiers = "";
 	public String returnType;
 	public MethodBody methodBody;
 	public String name;
@@ -60,6 +60,11 @@ public class JavaMethod extends JavaClassElement {
 
 	public void addLocalVariable(JavaField field) {
 		localVariables.add(field);
+	}
+
+	public boolean isStatic() {
+		//TODO lame implementation...
+		return modifiers.indexOf("static") != -1;
 	}
 	
 }

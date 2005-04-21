@@ -5,6 +5,8 @@
  */
 package org.abora.ug2java.transform.tokenmatcher;
 
+import org.abora.ug2java.javatoken.JavaType;
+
 
 
 public class TokenMatcherFactory {
@@ -93,6 +95,42 @@ public class TokenMatcherFactory {
 		matchAll.add(matcher3);
 		matchAll.add(matcher4);
 		matchAll.add(matcher5);
+		return matchAll;
+	}
+
+	public TokenMatcher seq(TokenMatcher matcher1, TokenMatcher matcher2, TokenMatcher matcher3, TokenMatcher matcher4, TokenMatcher matcher5, TokenMatcher matcher6) {
+		MatchSequence matchAll = new MatchSequence();
+		matchAll.add(matcher1);
+		matchAll.add(matcher2);
+		matchAll.add(matcher3);
+		matchAll.add(matcher4);
+		matchAll.add(matcher5);
+		matchAll.add(matcher6);
+		return matchAll;
+	}
+
+	public TokenMatcher seq(TokenMatcher matcher1, TokenMatcher matcher2, TokenMatcher matcher3, TokenMatcher matcher4, TokenMatcher matcher5, TokenMatcher matcher6, TokenMatcher matcher7) {
+		MatchSequence matchAll = new MatchSequence();
+		matchAll.add(matcher1);
+		matchAll.add(matcher2);
+		matchAll.add(matcher3);
+		matchAll.add(matcher4);
+		matchAll.add(matcher5);
+		matchAll.add(matcher6);
+		matchAll.add(matcher7);
+		return matchAll;
+	}
+
+	public TokenMatcher seq(TokenMatcher matcher1, TokenMatcher matcher2, TokenMatcher matcher3, TokenMatcher matcher4, TokenMatcher matcher5, TokenMatcher matcher6, TokenMatcher matcher7, TokenMatcher matcher8) {
+		MatchSequence matchAll = new MatchSequence();
+		matchAll.add(matcher1);
+		matchAll.add(matcher2);
+		matchAll.add(matcher3);
+		matchAll.add(matcher4);
+		matchAll.add(matcher5);
+		matchAll.add(matcher6);
+		matchAll.add(matcher7);
+		matchAll.add(matcher8);
 		return matchAll;
 	}
 

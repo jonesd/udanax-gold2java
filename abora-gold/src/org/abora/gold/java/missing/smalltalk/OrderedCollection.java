@@ -9,13 +9,23 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import org.abora.gold.xpp.basic.Heaper;
+
 public class OrderedCollection {
 
 	public OrderedCollection() {
 		super();
 	}
 	
+	public OrderedCollection(int c) {
+		throw new UnsupportedOperationException();
+	}
+	
 	public static OrderedCollection with(Object a, Object b) {
+		throw new UnsupportedOperationException();
+	}
+
+	public void add(Heaper heaper) {
 		throw new UnsupportedOperationException();
 	}
 

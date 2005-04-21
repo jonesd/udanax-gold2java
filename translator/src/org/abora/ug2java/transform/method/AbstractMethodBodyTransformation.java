@@ -5,7 +5,10 @@
  */
 package org.abora.ug2java.transform.method;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,7 +44,17 @@ public abstract class AbstractMethodBodyTransformation implements MethodTransfor
 	
 	protected abstract TokenMatcher matchers(TokenMatcherFactory factory);
 	protected abstract int transform(JavaMethod javaMethod, List methodBodyTokens, int indexOfMatch);
-	
+
+	protected String regularExpressionOr(Collection c1, Collection c2) {
+		//TODO insanity for c1.copyWithAll(c2)...
+		Object[] array1 = c1.toArray();
+		Object[] array2 = c2.toArray();
+		Object[] array12 = new Object[array1.length + array2.length];
+		System.arraycopy(array1, 0, array12, 0, array1.length);
+		System.arraycopy(array2, 0, array12, array1.length, array2.length);
+		return regularExpressionOr(Arrays.asList(array12));
+	}
+
 	protected String regularExpressionOr(Collection c) {
 		StringBuffer regularExpression = new StringBuffer();
 		Iterator iterator = c.iterator();

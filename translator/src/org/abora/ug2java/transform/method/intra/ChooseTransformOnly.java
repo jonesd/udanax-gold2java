@@ -31,6 +31,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("IntegerPos.integerHash");
 		// Remove smalltalkOnly logging
 		list.add("WorksIniter.initializeSystem");
+		list.add("PrintCBlocksTracks.execute");
 		
 		//TODO only for tests...
 		list.add("translateOnly");

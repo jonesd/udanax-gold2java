@@ -66,6 +66,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String INDEX_OUT_OF_BOUNDS = "IndexOutOfBounds";
 	public static final String INTERSECTING_COMBINE = "InterestingCombine";
 	public static final String INTRODUCE_FAILED = "IntroduceFailed";
+	public static final String INVALID_CHARACTER = "InvalidCharacter";
 	public static final String INVALID_PARAMETER = "InvalidParameter";
 	public static final String INVALID_REQUEST = "InvalidRequest";
 	public static final String INVALID_TEXT_POSITION = "InvalidTextPosition";
@@ -184,6 +185,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String WHO_SAYS = "WhoSays";
 	public static final String WRONG_CHARACTER = "WrongCharacter";
 	public static final String WRONG_COORD_SPACE = "WrongCoordSpace";
+	public static final String WRONGUSERVERLOOP = "Wronguserverloop";
 	public static final String ZERO_SEQUENCE = "ZeroSequence";
 
 	/**

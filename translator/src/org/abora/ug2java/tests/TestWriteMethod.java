@@ -70,6 +70,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testAlmostToDoNoStepType() {
+		String smalltalk = "test\n0 almostTo: fred happy do: [:i | blah ]!";
+
+		String expectedJava = "public void test() {\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\nblah;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testAlmostToDoAfterIf() {
 		String smalltalk = "test\nmyValue == NULL ifTrue: [^VOID]. 0 almostTo: fred happy do: [:i {UInt32} | blah ]!";
 
@@ -88,6 +95,20 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\n0 almostTo: fred happy by: -2 do: [:i {UInt32} | blah ]!";
 
 		String expectedJava = "public void test() {\nfor (int i = 0 ; i > fred.happy() ; i -= 2 ) {\nblah;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testAsDouble() {
+		String smalltalk = "test\nself fred asDouble!";
+
+		String expectedJava = "public void test() {\n(double) fred();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testAsFloat() {
+		String smalltalk = "test\nfred asFloat!";
+
+		String expectedJava = "public void test() {\n(float) fred;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -477,6 +498,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testConditionalOperatorEmbedded() {
+		String smalltalk = "test\nself blah: ((one = two) ifTrue: [one] ifFalse: [two])!";
+
+		String expectedJava = "public void test() {\nblah(((one == two) ? one : two));\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testDiskManagerConsistentDefaultDirty() {
 		String smalltalk = "test\nDiskManager consistent: [self diskUpdate]!";
 
@@ -698,6 +726,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testForceReturn() {
+		String smalltalk = "testForceReturn\nself fred!";
+
+		String expectedJava = "public void testForceReturn() {\nreturn fred();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testForEach() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| element]!";
 
@@ -798,6 +833,20 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\n(a blah: b) ~~ 98 ifTrue: [^one]!";
 
 		String expectedJava = "public void test() {\nif ((a.blah(b)) != 98) {\nreturn one;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testInitializeLocalVariable() {
+		String smalltalk = "test\n| shouldInitialize { Heaper }| ^shouldInitialize!";
+
+		String expectedJava = "public void test() {\n/* TODO variable may not be initialized before being used */\nHeaper shouldInitialize = null;\nreturn shouldInitialize;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testInitializeLocalVariableInt() {
+		String smalltalk = "test\n| shouldInitialize { Integer }| ^shouldInitialize!";
+
+		String expectedJava = "public void test() {\n/* TODO variable may not be initialized before being used */\nint shouldInitialize = 0;\nreturn shouldInitialize;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -997,6 +1046,20 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testNewBecome() {
+		String smalltalk = "test\n(SuspendedHeaper new.Become: object) create!";
+
+		String expectedJava = "public void test() {\n/* TODO newBecome */\nnew SuspendedHeaper();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testNewBecomeSelf() {
+		String smalltalk = "test\n(self new.Become: object) create!";
+
+		String expectedJava = "public void test() {\n/* TODO newBecome */\nnew Test();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testNewCall() {
 		String smalltalk = "test\nArray new: size!";
 
@@ -1071,6 +1134,30 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nfred := NULL!";
 
 		String expectedJava = "public void test() {\nfred = null;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testOperatorIntNullIdentity() {
+		//Sideffect of converting IntegerVar to int primitive
+		String smalltalk = "test\n| a {Int32}| a == nil!";
+
+		String expectedJava = "public void test() {\nint a;\na == 0;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testOperatorObjectNullShouldFail() {
+		//Sideffect of converting IntegerVar to int primitive
+		String smalltalk = "test\n| a | a == nil!";
+
+		String expectedJava = "public void test() {\nObject a;\na == null;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testOperatorIntNullNotIdentity() {
+		//Sideffect of converting IntegerVar to int primitive
+		String smalltalk = "test\n| a {Int32}| a ~~ nil!";
+
+		String expectedJava = "public void test() {\nint a;\na != 0;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1317,6 +1404,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testStreamContents() {
+		String smalltalk = "test\n^String streamContents: [:aStream | aStream print: 'hello']!";
+
+		String expectedJava = "public void test() {\nStringWriter stringWriter = new StringWriter();\nPrintWriter aStream = new PrintWriter(stringWriter);\naStream.print(\"hello\");\nreturn stringWriter.toString();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testStrlen() {
 		String smalltalk = "test\nString strlen: 'hi there'!";
 
@@ -1368,6 +1462,13 @@ public class TestWriteMethod extends TestCase {
 
 	public void testSubclassResponsibility() {
 		String smalltalk = "test\nself subclassResponsibility!";
+
+		String expectedJava = "public void test() {\nthrow new SubclassResponsibilityException();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testSubclassResponsibilityReturn() {
+		String smalltalk = "test\n^self subclassResponsibility!";
 
 		String expectedJava = "public void test() {\nthrow new SubclassResponsibilityException();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
@@ -1552,6 +1653,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nHeaper BLAST: #NotInTable.\n^NULL \"fodder\"!";
 
 		String expectedJava = "public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.NOT_IN_TABLE);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testWhileFalse() {
+		String smalltalk = "test\n[a < 1] whileFalse: [a _ a + 1]!";
+
+		String expectedJava = "public void test() {\nwhile ( ! (a < 1)) {\na = a + 1;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

@@ -50,7 +50,8 @@ public class TransformAlmostTo extends AbstractMethodBodyTransformation {
 		JavaToken variableType = (JavaToken) tokens.get(blockStart + 1);
 		if (!variableType.value.equals("int")) {
 			System.out.println("-- Warning: Non-int almostToDo variable");
-			//	throw new IllegalStateException("Non-int almostToDo variable");
+			// TODO review type force
+			variableType.value = "int";
 		}
 
 		boolean isBy = call.value.endsWith("ByDo");

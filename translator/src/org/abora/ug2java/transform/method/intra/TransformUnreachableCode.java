@@ -1,6 +1,9 @@
 package org.abora.ug2java.transform.method.intra;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
@@ -12,7 +15,7 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 public class TransformUnreachableCode extends AbstractMethodBodyTransformation {
-
+	
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.any(
 				factory.token(JavaKeyword.class, "throw"),
@@ -20,6 +23,7 @@ public class TransformUnreachableCode extends AbstractMethodBodyTransformation {
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
+		
 		int end = javaMethod.methodBody.findNextTokenOfTypeQuietFail(i, JavaStatementTerminator.class);
 		if (end == -1) {
 			return i;

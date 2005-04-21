@@ -37,6 +37,8 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 		map.put("CurrentKeyMaster", "FeKeyMaster");
 		map.put("CurrentSensorCanopyCache", "CanopyCache");
 		map.put("CurrentServer", "FeServer");
+		map.put("CurrentServerConnection", "Connection");
+		map.put("CurrentServerLoop", "ServerLoop");
 		map.put("CurrentSession", "FeSession");
 		map.put("CurrentSessions", "FePromiseSession");
 		map.put("CurrentTrace", "TracePosition");

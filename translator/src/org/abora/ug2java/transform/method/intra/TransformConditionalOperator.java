@@ -10,8 +10,11 @@ import java.util.List;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
+import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
+import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaKeyword;
+import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.javatoken.JavaToken;
@@ -66,6 +69,12 @@ public class TransformConditionalOperator extends AbstractMethodBodyTransformati
 					return i;
 				}
 				javaMethod.methodBody.removeShouldMatch(elseBlockEnd, JavaBlockEnd.class);
+				if (elseBlockEnd < tokens.size() && tokens.get(elseBlockEnd-1) instanceof JavaStatementTerminator) {
+					JavaToken following = (JavaToken)tokens.get(elseBlockEnd);
+					if (following instanceof JavaParenthesisEnd || following instanceof JavaCallEnd || following instanceof JavaCallArgumentSeparator) {
+						tokens.remove(elseBlockEnd-1);
+					}
+				}
 				javaMethod.methodBody.removeShouldMatch(elseBlockStart, JavaBlockStart.class);
 				javaMethod.methodBody.removeShouldMatch(elseBlockStart-1, JavaKeyword.class, "else");
 				javaMethod.methodBody.removeShouldMatch(elseBlockStart-2, JavaBlockEnd.class);

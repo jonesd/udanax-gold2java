@@ -9,6 +9,7 @@
 
 package org.abora.gold.java;
 
+import org.abora.gold.rcmain.ServerChunk;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
@@ -19,12 +20,13 @@ public class AboraHeaper {
 	public static FluidVar CurrentAuthor;
 	public static FluidVar CurrentBertCanopyCache;
 	public static FluidVar CurrentBertCrum;
-	public static FluidVar CurrentChunk;
 	public static FluidVar CurrentGrandMap;
 	public static FluidVar CurrentKeyMaster;
 	public static FluidVar CurrentPacker;
 	public static FluidVar CurrentSensorCanopyCache;
 	public static FluidVar CurrentServer;
+	public static FluidVar CurrentServerConnection;
+	public static FluidVar CurrentServerLoop;
 	public static FluidVar CurrentSession;
 	public static FluidVar CurrentSessions;
 	public static FluidVar CurrentTrace;
@@ -40,6 +42,9 @@ public class AboraHeaper {
 	public static Recipe DiskCuisine;
 	public static Recipe FebeCuisine;
 	public static Recipe XppCuisine;
+	
+	public static ServerChunk CurrentChunk;
+
 
 	/**
 	 * Constructor for AboraHeaper.
@@ -128,6 +133,9 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	public String printString() {
+		throw new UnsupportedOperationException();
+	}
+	public void markInstances(int i) {
 		throw new UnsupportedOperationException();
 	}
 }

@@ -5,7 +5,10 @@
  */
 package org.abora.ug2java.transform.method.intra;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
@@ -20,6 +23,20 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 public class TransformCompilerFodder extends AbstractMethodBodyTransformation {
+	/**
+	 * Methods that are too complicated for the current simple code to analyse properly.
+	 * Any methods matched against this should be left as is.
+	 */
+	private static final Set ignoreMethods;
+	static {
+		Set set = new HashSet();
+		set.add("ResultRecorderPFinder.shouldTrigger");
+		
+		//TODO for tests only
+		set.add("Test.testUnreachableCodeIgnore");
+		ignoreMethods = Collections.unmodifiableSet(set);
+	}
+	
 
 
 	public TransformCompilerFodder() {
@@ -42,6 +59,12 @@ public class TransformCompilerFodder extends AbstractMethodBodyTransformation {
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
+		String shortName = javaMethod.name;
+		String fullName = javaMethod.javaClass.className+"."+shortName;
+		if (ignoreMethods.contains(fullName) || ignoreMethods.contains(shortName)) {
+			return i;
+		}
+
 		int blockStart = javaMethod.methodBody.findStartOfBlock(i);
 		JavaToken preBlock = (JavaToken)tokens.get(blockStart - 1);
 		if (preBlock instanceof JavaKeyword && "else".equals(preBlock.value)) {
