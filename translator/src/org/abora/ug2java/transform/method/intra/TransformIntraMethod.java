@@ -84,6 +84,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformStrlen());
 		transformers.add(new TransformMinMax());
 		transformers.add(new TransformPrintStringRadix());
+		transformers.add(new TransformPrintOnBase());
 		transformers.add(new TransformNewCreate());
 		transformers.add(new TransformNewCall());
 		transformers.add(new TransformFluidAccess());
@@ -104,7 +105,13 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformInitializeLocalVariable());
 		transformers.add(new TransformNewBecome());
 		transformers.add(new TransformOperatorIntNull());
+		transformers.add(new TransformMuSetMake());
+		transformers.add(new TransformOrglRootMake());
+		transformers.add(new TransformAtIfAbsent());
+		transformers.add(new TransformBlockReturn());
 				
+		transformers.add(new TransformExcessParantheses());
+		transformers.add(new TransformClassX());
 		transformers.add(new TransformStaticCall());
 		transformers.add(new TransformReturnVoid());
 		transformers.add(new TransformClassReference());

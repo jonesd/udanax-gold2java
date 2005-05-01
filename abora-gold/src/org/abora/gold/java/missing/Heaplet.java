@@ -9,18 +9,15 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.collection.basic.UInt8Array;
-import org.abora.gold.lock.Encrypter;
 import org.abora.gold.xpp.basic.Heaper;
 
-public class EncrypterConstructor extends Heaper {
+public class Heaplet extends Heaper {
 
-	public EncrypterConstructor() {
+	public Heaplet() {
 		super();
 	}
 
-	public Encrypter invokeFunction(UInt8Array publicKey, UInt8Array privateKey) {
+	public static void garbageCollect() {
 		throw new UnsupportedOperationException();
 	}
-
 }

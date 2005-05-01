@@ -9,18 +9,21 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.collection.basic.UInt8Array;
-import org.abora.gold.lock.Encrypter;
+import org.abora.gold.snarf.FlockInfo;
+import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.basic.Heaper;
 
-public class EncrypterConstructor extends Heaper {
+public class ShepherdStub extends Heaper {
 
-	public EncrypterConstructor() {
+	public ShepherdStub() {
 		super();
 	}
 
-	public Encrypter invokeFunction(UInt8Array publicKey, UInt8Array privateKey) {
+	public ShepherdStub(int theHash, FlockInfo info, Category theCategory) {
 		throw new UnsupportedOperationException();
 	}
 
+	public ShepherdStub(int hash, Category newCat) {
+		throw new UnsupportedOperationException();
+	}
 }

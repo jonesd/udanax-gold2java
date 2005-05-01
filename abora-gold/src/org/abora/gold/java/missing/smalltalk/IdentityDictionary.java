@@ -9,10 +9,24 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+
 public class IdentityDictionary {
 
 	public IdentityDictionary() {
 		super();
+	}
+
+	//TODO int params are just to make things easier. Do we need to convert to object?
+	public Object at(Object key) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public int ifAbsent(Object key, int putIfAbsent) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public void put(Object key, int value) {
+		throw new UnsupportedOperationException();
 	}
 
 }

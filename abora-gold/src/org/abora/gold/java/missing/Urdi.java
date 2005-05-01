@@ -37,4 +37,8 @@ public class Urdi extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 
+	public UrdiView makeReadView() {
+		throw new UnsupportedOperationException();
+	}
+
 }

@@ -217,4 +217,14 @@ public class PtrArray extends PrimArray {
 		throw new UnsupportedOperationException();
 	}
 
+	//TODO can this be removed?
+	public Heaper at(int estateIndex) {
+		throw new UnsupportedOperationException();
+	}
+
+	//TODO can this be removed?
+	public void put(int estateIndex, Heaper object) {
+		throw new UnsupportedOperationException();
+	}
+
 }

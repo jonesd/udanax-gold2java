@@ -28,7 +28,7 @@ public class TransformCreateCall extends AbstractMethodBodyTransformation {
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.token(JavaCallStart.class, "create");
+		return factory.token(JavaCallStart.class, "create.*");
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {

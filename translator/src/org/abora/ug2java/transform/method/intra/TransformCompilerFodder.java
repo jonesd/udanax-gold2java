@@ -54,6 +54,7 @@ public class TransformCompilerFodder extends AbstractMethodBodyTransformation {
 				factory.token(JavaStatementTerminator.class),
 				factory.any(
 						factory.token(JavaComment.class, "compiler fodder"),
+						factory.token(JavaComment.class, "Compiler fodder"),
 						factory.token(JavaComment.class, "fodder")
 				));
 	}
@@ -67,7 +68,7 @@ public class TransformCompilerFodder extends AbstractMethodBodyTransformation {
 
 		int blockStart = javaMethod.methodBody.findStartOfBlock(i);
 		JavaToken preBlock = (JavaToken)tokens.get(blockStart - 1);
-		if (preBlock instanceof JavaKeyword && "else".equals(preBlock.value)) {
+		if (preBlock instanceof JavaKeyword && ("else".equals(preBlock.value) || "finally".equals(preBlock.value))) {
 			// Can only trim out the return if this return wont be called.
 			// This is just a quick approximate check
 			tokens.remove(i+4);

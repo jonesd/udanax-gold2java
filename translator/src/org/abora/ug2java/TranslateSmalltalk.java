@@ -76,6 +76,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("FHash", "org.abora.gold.java.missing");
 		packageLookup.put("GrandHashSetStepper", "org.abora.gold.java.missing");
 		//	packageLookup.put("Heaper", "org.abora.gold.java.missing");
+		packageLookup.put("Heaplet", "org.abora.gold.java.missing");
 		packageLookup.put("HRoot", "org.abora.gold.java.missing");
 		//BAD	packageLookup.put("IDRegio", "org.abora.gold.java.missing");
 		packageLookup.put("IEEE128", "org.abora.gold.java.missing");
@@ -97,6 +98,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("SensorPropJoint", "org.abora.gold.java.missing");
 		packageLookup.put("SequenceDsp", "org.abora.gold.java.missing");
 		packageLookup.put("ShepFlag", "org.abora.gold.java.missing");
+		packageLookup.put("ShepherdStub", "org.abora.gold.java.missing");
 		packageLookup.put("Signal", "org.abora.gold.java.missing");
 		packageLookup.put("SnarfID", "org.abora.gold.java.missing");
 		packageLookup.put("SnarfHandle", "org.abora.gold.java.missing");
@@ -240,6 +242,7 @@ public class TranslateSmalltalk {
 	}
 
 	private void initializeNonTranslatedClasses(JavaCodebase javaCodebase) {
+		new JavaClass("Object", javaCodebase);
 		new JavaClass("AboraHeaper", "Object", javaCodebase);
 		new JavaClass("PtrArray", "PrimArray", javaCodebase);
 		JavaClass weakPtrArray = new JavaClass("WeakPtrArray", "PtrArray", javaCodebase);

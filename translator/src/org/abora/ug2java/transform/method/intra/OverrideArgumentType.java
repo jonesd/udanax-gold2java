@@ -22,6 +22,8 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("showOn", "PrintWriter");
 		map.put("DiskManager.fluidSpace", "Array");
 		map.put("Heaper2UInt32Cache.make", "int");
+		//TODO should we really have to override this?
+		map.put("TextyRcvr.getCharToken", "char");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

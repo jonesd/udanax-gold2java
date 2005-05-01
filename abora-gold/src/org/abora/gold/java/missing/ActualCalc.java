@@ -9,11 +9,14 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.xpp.basic.Heaper;
 
-public class ActualCalc extends Heaper {
+public class ActualCalc extends Calc {
 
 	public ActualCalc() {
 		super();
+	}
+	
+	public ActualCalc(int i) {
+		throw new UnsupportedOperationException();
 	}
 }

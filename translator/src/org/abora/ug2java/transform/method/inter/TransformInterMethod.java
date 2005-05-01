@@ -33,6 +33,8 @@ public class TransformInterMethod implements MethodTransformation {
 		List transformers = new ArrayList();
 		
 		transformers.add(new TransformDowncastStaticCallAssignment());
+		transformers.add(new TransformDowncastArgument());
+		transformers.add(new TransformHandleDo());
 		
 		return Collections.unmodifiableList(transformers);
 	}

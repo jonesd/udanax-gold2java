@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.abora.ug2java.util.ToStringGenerator;
+
 
 
 public class JavaMethod extends JavaClassElement {
@@ -23,6 +25,7 @@ public class JavaMethod extends JavaClassElement {
 	public List parameters = new ArrayList();
 	public boolean shouldInclude = true;
 	public boolean isDeprecated = false;
+	private final Annotation annotations = new Annotation(); 
 	
 	public JavaMethod() {
 		super();
@@ -66,5 +69,19 @@ public class JavaMethod extends JavaClassElement {
 		//TODO lame implementation...
 		return modifiers.indexOf("static") != -1;
 	}
+
+	public void addParameter(JavaField parameter) {
+		parameters.add(parameter);
+	}
 	
+	public Annotation getAnnotations() {
+		return annotations;
+	}
+	
+	public String toString() {
+		ToStringGenerator generator = new ToStringGenerator(this);
+		generator.add("name", name);
+		generator.add("class", javaClass);
+		return generator.end();
+	}
 }

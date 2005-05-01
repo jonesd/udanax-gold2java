@@ -19,12 +19,16 @@ public class ExcludeMethods implements MethodTransformation {
 		List list = new ArrayList();
 		list.add("ActualArray.search"); // seemes to be smalltalk only code - not int aware
 		list.add("XnRegion.dox"); // smalltalk: special
+		list.add("ScruSet.dox"); // smalltalk: special
 		list.add("ScruTable.dox"); // smalltalk: special
 		list.add("ScruTable.asOrderedCollection"); // smalltalk: special
 		list.add("IntegerPos.basicCast");
 		list.add("MuTable.test");
 		//TODO Possibly dropped for myFlags?
 		list.add("CanopyCrum.joint");
+		//TODO would like this for debugging, cant compile all cases though...
+		list.add("crums");
+		list.add("Abraham.isKindOf");
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
 	}

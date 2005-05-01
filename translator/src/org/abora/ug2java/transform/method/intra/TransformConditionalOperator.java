@@ -51,7 +51,10 @@ public class TransformConditionalOperator extends AbstractMethodBodyTransformati
 			} else if (!(preToken instanceof JavaComment)) {
 				break;
 			}
-		}			
+			if (j == 0) {
+				return i;
+			}
+		}
 		int ifBlockStart = javaMethod.methodBody.findNextTokenOfTypeQuietFail(i, JavaBlockStart.class);
 		if (ifBlockStart == -1) {
 			return i;

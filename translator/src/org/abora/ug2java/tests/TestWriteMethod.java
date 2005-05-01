@@ -7,15 +7,23 @@ package org.abora.ug2java.tests;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.abora.ug2java.Annotation;
 import org.abora.ug2java.ClassParser;
 import org.abora.ug2java.JavaClass;
 import org.abora.ug2java.JavaCodebase;
+import org.abora.ug2java.JavaField;
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.MethodBody;
 import org.abora.ug2java.stscanner.ChunkDetails;
 import org.abora.ug2java.transform.type.ClassTransformer;
 import org.abora.ug2java.transform.type.ClassTransformers;
@@ -137,6 +145,20 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nfred := harry kill!";
 
 		String expectedJava = "public void test() {\nfred = harry.kill();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testAtIfAbsent() {
+		String smalltalk = "test\nDismantleStatistics at: pos ifAbsent: [0]!";
+
+		String expectedJava = "public void test() {\nDismantleStatistics.ifAbsent(pos, 0);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testAtIfAbsentEmptyBlock() {
+		String smalltalk = "test\nDismantleStatistics at: pos ifAbsent: []!";
+
+		String expectedJava = "public void test() {\nDismantleStatistics.ifAbsent(pos, null);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -301,6 +323,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testBlockReturn() {
+		String smalltalk = "test\n^[self release]!!";
+
+		String expectedJava = "public void test() {\nrelease();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testBrackets() {
 		String smalltalk = "test\nfred := (one two)!";
 
@@ -434,6 +463,14 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nTest.blah();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testClassCall2() {
+		String smalltalk = "test\ninfo class == Heaper!";
+
+		String expectedJava = "public void test() {\nAboraSupport.findCategory(info.getClass()) == AboraSupport.findCategory(Heaper.class);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 
 	public void testClassNonReference() {
 		String smalltalk = "test\nNonClass!";
@@ -574,11 +611,25 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public Test() {\nsuper(2);\nObject blah;\nblah = 1;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testCreateSuperWithExtendedName() {
+		String smalltalk = "create: size {Int32} with.Executor: exec {XnExecutor}\nsuper create!";
+
+		String expectedJava = "public Test(int size, XnExecutor exec) {\nsuper();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
 
 	public void testCritical() {
 		String smalltalk = "test\nmutex critical: [blah]!";
 
 		String expectedJava = "public void test() {\nsynchronized (mutex) {\nblah;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testDefineFluidWithBooleanLiteral() {
+		String smalltalk = "test\nMuSet defineFluid: #InsideTransactionFlag with: DiskManager emulsion with: [false]!";
+
+		String expectedJava = "public void test() {\nAboraSupport.defineFluid(MuSet.class, \"InsideTransactionFlag\", DiskManager.emulsion(), Boolean.FALSE);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -636,6 +687,23 @@ public class TestWriteMethod extends TestCase {
 
 		String expectedJava = "public void test() {\n187.123;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testDowncastArgument() {
+		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
+
+		JavaMethod method = new JavaMethod("", "make");
+		method.addParameter(new JavaField("static", "A2", "arg1"));
+		method.methodBody = new MethodBody(new ArrayList());
+		javaClass.addMethod(method);
+		
+		String smalltalk = "test\n| a1 {A1} | ^ self make: a1!";
+
+		String expectedJava = "public static void test() {\nA1 a1;\nreturn make((A2) a1);\n}\n";
+		
+		String actualJava = writeMethod(smalltalk, "static ");
+		assertEquals(expectedJava, actualJava);
 	}
 
 	public void testDowncastStaticCallAssignmentSubclass() {
@@ -736,7 +804,7 @@ public class TestWriteMethod extends TestCase {
 	public void testForEach() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| element]!";
 
-		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos )stomp1.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos) stomp1.fetch();\nelement;\n}\n}\n";
 		/*
 		 * "public void test() {\nfor (Stepper stepper = fred ;
 		 * stepper.hasValue() ; stepper.step()) {\nIntegerPos element =
@@ -755,21 +823,21 @@ public class TestWriteMethod extends TestCase {
 	public void testForEachNested() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| blah forEach: [:element2 {RealPos} | element + element2]]!";
 
-		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos )stomp1.fetch();\nfor (Stepper stomp2 = blah ; stomp2.hasValue() ; stomp2.step()) {\nRealPos element2 = (RealPos )stomp2.fetch();\nelement + element2;\n}\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos) stomp1.fetch();\nfor (Stepper stomp2 = blah ; stomp2.hasValue() ; stomp2.step()) {\nRealPos element2 = (RealPos) stomp2.fetch();\nelement + element2;\n}\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testForIndices() {
 		String smalltalk = "test\nfred forIndices: [:i {IntegerVar} :value {IntegerRegion}| element]!";
 
-		String expectedJava = "public void test() {\nfor (TableStepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nint i = (int )stomp1.index();\nIntegerRegion value = (IntegerRegion )stomp1.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (TableStepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nint i = (int) stomp1.index();\nIntegerRegion value = (IntegerRegion) stomp1.fetch();\nelement;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testForPositions() {
 		String smalltalk = "test\nfred forPositions: [:key {IntegerPos} :value {IntegerRegion}| element]!";
 
-		String expectedJava = "public void test() {\nfor (TableStepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos key = (IntegerPos )stomp1.position();\nIntegerRegion value = (IntegerRegion )stomp1.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (TableStepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos key = (IntegerPos) stomp1.position();\nIntegerRegion value = (IntegerRegion) stomp1.fetch();\nelement;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -780,10 +848,53 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
-	public void testIfFalse() {
-		String smalltalk = "test\n(one = two) ifFalse: [^one]!";
+	public void testHandleDo() {
+		JavaMethod problemsMethod = new JavaMethod("", "problemsBlah");
+		problemsMethod.methodBody = new MethodBody(new ArrayList());
+		Set problems = new HashSet();
+		problems.add("BLAH");
+		problemsMethod.getAnnotations().put(Annotation.PROBLEM_SIGNALS, problems);
+		javaClass.addMethod(problemsMethod);
+		
+		String smalltalk = "test\nTest problems.Blah handle: [:ex | ^false] do: [self blahblah]!";
 
-		String expectedJava = "public void test() {\nif ( ! (one == two)) {\nreturn one;\n}\n}\n";
+		String expectedJava = "public void test() {\ntry {\nblahblah();\n}\ncatch (AboraRuntimeException ex) {\nif (AboraRuntimeException.BLAH.equals(ex.getMessage())) {\nreturn false;\n}\nelse {\nthrow ex;\n}\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testHandleDoManyProblems() {
+		JavaMethod problemsMethod = new JavaMethod("", "problemsBlah");
+		problemsMethod.methodBody = new MethodBody(new ArrayList());
+		Set problems = new TreeSet();
+		problems.add("BLAH");
+		problems.add("NOT_IN_SET");
+		problemsMethod.getAnnotations().put(Annotation.PROBLEM_SIGNALS, problems);
+		javaClass.addMethod(problemsMethod);
+		
+		String smalltalk = "test\nTest problems.Blah handle: [:ex | ^false] do: [self blahblah]!";
+
+		String expectedJava = "public void test() {\ntry {\nblahblah();\n}\ncatch (AboraRuntimeException ex) {\nif (AboraRuntimeException.BLAH.equals(ex.getMessage()) || AboraRuntimeException.NOT_IN_SET.equals(ex.getMessage())) {\nreturn false;\n}\nelse {\nthrow ex;\n}\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testHandleDoBrackets() {
+		JavaMethod problemsMethod = new JavaMethod("", "problemsBlah");
+		problemsMethod.methodBody = new MethodBody(new ArrayList());
+		Set problems = new HashSet();
+		problems.add("BLAH");
+		problemsMethod.getAnnotations().put(Annotation.PROBLEM_SIGNALS, problems);
+		javaClass.addMethod(problemsMethod);
+		
+		String smalltalk = "test\n(Test problems.Blah) handle: [:ex | ^false] do: [self blahblah]!";
+
+		String expectedJava = "public void test() {\ntry {\nblahblah();\n}\ncatch (AboraRuntimeException ex) {\nif (AboraRuntimeException.BLAH.equals(ex.getMessage())) {\nreturn false;\n}\nelse {\nthrow ex;\n}\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testHandleDoAllBlasts() {		
+		String smalltalk = "test\n(Heaper problems.AllBlasts) handle: [:ex | ^false] do: [self blahblah]!";
+
+		String expectedJava = "public void test() {\ntry {\nblahblah();\n}\ncatch (AboraRuntimeException ex) {\nreturn false;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -833,6 +944,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\n(a blah: b) ~~ 98 ifTrue: [^one]!";
 
 		String expectedJava = "public void test() {\nif ((a.blah(b)) != 98) {\nreturn one;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testIfTrueMissingTestParenthesesPaired() {
+		String smalltalk = "test\n(a blah: b) ~~ (a fred: b) ifTrue: [^one]!";
+
+		String expectedJava = "public void test() {\nif ((a.blah(b)) != (a.fred(b))) {\nreturn one;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -989,7 +1107,7 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\none.two().threeAnd(four, 55);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
-
+	
 	public void testMax() {
 		String smalltalk = "test\none max: two!";
 
@@ -1036,6 +1154,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\none two.\nborris := three + 3!";
 
 		String expectedJava = "public void test() {\none.two();\nborris = three + 3;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testMuSetMakeIntegerVar() {
+		String smalltalk = "test\nMuSet make: 300!";
+
+		String expectedJava = "public void test() {\nMuSet.makeIntegerVar(300);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1217,6 +1342,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testParantheses() {
+		String smalltalk = "test\n(self extra). [(1 + 2)]. [(1 + 2) + 3]!";
+
+		String expectedJava = "public void test() {\nextra();\n{\n1 + 2;\n}\n{\n(1 + 2) + 3;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	//	create.IntegerVar: size {IntegerVar}
 
 	//	"The optional argument just hints at the number of elements
@@ -1259,6 +1391,14 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void printOn(PrintWriter aStream) {\naStream.print(blah(34));\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testPrintOnBase() {
+		String smalltalk = "printOn: aStream\nmyHashValue printOn: aStream base: 16!";
+
+		String expectedJava = "public void printOn(PrintWriter aStream) {\naStream.print(Integer.toString(myHashValue, 16));\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 
 	public void testPrintStringRadix() {
 		String smalltalk = "test\nself flags printStringRadix: 2!";
@@ -1372,8 +1512,36 @@ public class TestWriteMethod extends TestCase {
 	public void testSignals() {
 		String smalltalk = "test\n^self signals: #(NotInTable)!";
 
-		String expectedJava = "public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.NOT_IN_TABLE);\n}\n";
+		String expectedJava = "";
 		assertInstanceMethod(expectedJava, smalltalk);
+		
+		JavaMethod method = javaClass.getMethod("test");
+		
+		assertFalse(method.shouldInclude);
+		
+		Set problems = (Set)method.getAnnotations().get(Annotation.PROBLEM_SIGNALS);
+		assertNotNull(problems);
+		assertEquals("size", 1, problems.size());
+		assertEquals("NOT_IN_TABLE", (String)problems.iterator().next());
+	}
+
+	public void testSignalsMany() {
+		String smalltalk = "test\n^self signals: #(NotInTable MustBeOwner)!";
+
+		String expectedJava = "";
+		assertInstanceMethod(expectedJava, smalltalk);
+		
+		JavaMethod method = javaClass.getMethod("test");
+		
+		assertFalse(method.shouldInclude);
+		
+		Set problems = (Set)method.getAnnotations().get(Annotation.PROBLEM_SIGNALS);
+		assertNotNull(problems);
+		assertEquals("size", 2, problems.size());
+		Iterator iter = problems.iterator();
+		//Should have sorted signal names
+		assertEquals("MUST_BE_OWNER", iter.next());
+		assertEquals("NOT_IN_TABLE", iter.next());
 	}
 
 	public void testSmalltalkOnly() {
@@ -1593,6 +1761,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testValueNowOrOnUnwindDoExpression() {
+		String smalltalk = "test\n[blah] valueNowOrOnUnwindDo: self hello!";
+
+		String expectedJava = "public void test() {\ntry {\nblah;\n}\nfinally {\nhello();\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testUInt32Zero() {
 		String smalltalk = "test\nUInt32Zero + 2!";
 
@@ -1655,7 +1830,7 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.NOT_IN_TABLE);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
-
+	
 	public void testWhileFalse() {
 		String smalltalk = "test\n[a < 1] whileFalse: [a _ a + 1]!";
 
@@ -1667,6 +1842,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\n[a < 1] whileTrue: [a _ a + 1]!";
 
 		String expectedJava = "public void test() {\nwhile (a < 1) {\na = a + 1;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testWhileTrueNoBlock() {
+		String smalltalk = "test\n[agenda step] whileTrue!";
+
+		String expectedJava = "public void test() {\nwhile (agenda.step());\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

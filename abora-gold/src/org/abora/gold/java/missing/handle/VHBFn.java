@@ -23,4 +23,8 @@ public class VHBFn extends Heaper {
 		super();
 	}
 
+	public void invokeFunction(Heaper arg1, boolean arg2) {
+		throw new UnsupportedOperationException();
+	}
+
 }

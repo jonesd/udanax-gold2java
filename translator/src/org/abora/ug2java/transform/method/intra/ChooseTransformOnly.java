@@ -32,6 +32,11 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		// Remove smalltalkOnly logging
 		list.add("WorksIniter.initializeSystem");
 		list.add("PrintCBlocksTracks.execute");
+		list.add("PrimFloatSpec");
+		list.add("PrimPointerSpec");
+		list.add("HUpperCrum.addOParent");
+		list.add("AgendaItem.schedule");
+		list.add("CloseExecutor.registerHolder");
 		
 		//TODO only for tests...
 		list.add("translateOnly");
@@ -45,6 +50,12 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("WorksIniter.fetchNewRawSpace");
 		list.add("DiskManagerEmulsion.fetchNewRawSpace");
 		list.add("BeGrandMap.xuTime");
+		//TODO not sure about this choice
+		list.add("Abraham.getShepherdStubCategory");
+		list.add("DeleteExecutor.registerHolder");
+		list.add("IPPromiseListener.shouldBeReady");
+		list.add("SHTO.printOn");
+		list.add("ShepherdLocked.isReallyUnlocked");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");
@@ -74,9 +85,11 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		boolean isTranslateOnly = call.equals("translateOnly");
 		
 		String shortName = javaMethod.name;
-		String fullName = javaMethod.javaClass.className+"."+shortName;
-		boolean shouldTranslate = TRANSLATE_METHODS.contains(shortName) || TRANSLATE_METHODS.contains(fullName);
-		boolean shouldSmalltalk = SMALLTALK_METHODS.contains(shortName) || SMALLTALK_METHODS.contains(fullName);
+		String className = javaMethod.javaClass.className;
+		String fullName = className+"."+shortName;
+		
+		boolean shouldTranslate = TRANSLATE_METHODS.contains(shortName) || TRANSLATE_METHODS.contains(className) || TRANSLATE_METHODS.contains(fullName);
+		boolean shouldSmalltalk = SMALLTALK_METHODS.contains(shortName) || SMALLTALK_METHODS.contains(className) ||SMALLTALK_METHODS.contains(fullName);
 		
 		if (isTranslateOnly) {
 			if (shouldTranslate) {

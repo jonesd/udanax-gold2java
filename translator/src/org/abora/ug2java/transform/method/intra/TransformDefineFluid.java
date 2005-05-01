@@ -13,6 +13,7 @@ import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
+import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -46,6 +47,15 @@ public class TransformDefineFluid extends AbstractMethodBodyTransformation {
 		if (blockEnd > callEnd) {
 			System.out.println("--Failed JavaBlock match for defineFluid");
 			return i;
+		}
+		// Support primitive (in this case boolean literal) to object
+		if (blockEnd == blockStart + 3) {
+			JavaToken blockToken = (JavaToken)tokens.get(blockStart+1);
+			if ("true".equals(blockToken.value) || "false".equals(blockToken.value)) {
+				tokens.add(blockStart+1, new JavaIdentifier("Boolean"));
+				blockToken.value = blockToken.value.toUpperCase();
+				blockEnd += 1;
+			}
 		}
 		
 		tokens.remove(blockEnd);

@@ -36,6 +36,7 @@ public class AboraHeaper {
 	public static FluidVar InitialReadClub;
 	public static FluidVar InitialSponsor;
 	public static FluidVar InsideTransactionFlag;
+	public static FluidVar InsideAgenda;
 	
 	public static Recipe BootCuisine;
 	public static Recipe CalcCuisine;
@@ -136,6 +137,16 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	public void markInstances(int i) {
+		throw new UnsupportedOperationException();
+	}
+	public static void mayBecome(Category cat) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public boolean isKindOf(Category cat) {
+		throw new UnsupportedOperationException();
+	}
+	public static int preorderMax() {
 		throw new UnsupportedOperationException();
 	}
 }

@@ -39,6 +39,13 @@ public class MethodBody {
 		tokens.remove(index);
 	}
 	
+	public void remove(int startIndex, int endIndexExclusive) {
+		for (int i = endIndexExclusive-1; i >= startIndex; --i) {
+			remove(i);
+		}
+	}
+	
+	
 	public void removeShouldMatch(int index, Class aClass) {
 		removeShouldMatch(index, aClass, null);
 	}
@@ -275,5 +282,43 @@ public class MethodBody {
 			}
 		}
 		throw new IllegalStateException("Could not find end of expression");
+	}
+
+	public int findClosingTokenOfType(int startIndex, Class closingType) {
+		Class openingType = tokens.get(startIndex).getClass();
+		int depth = 0;
+		for (int i = startIndex; i < tokens.size(); i++) {
+			JavaToken token = (JavaToken)tokens.get(i);
+			if (token.getClass() == openingType) {
+				++depth;
+			} else if (token.getClass() == closingType) {
+				--depth;
+				if (depth == 0) {
+					return i;
+				} else if (depth < 0) {
+					throw new IllegalStateException("Close before start: "+closingType);
+				}
+			}
+		}
+		throw new IllegalStateException("Could not find matching close: "+closingType);
+	}
+
+	public int findOpeningTokenOfType(int endIndex, Class openingType) {
+		Class closingType = tokens.get(endIndex).getClass();
+		int depth = 0;
+		for (int i = endIndex; i >= 0; --i) {
+			JavaToken token = (JavaToken)tokens.get(i);
+			if (token.getClass() == closingType) {
+				++depth;
+			} else if (token.getClass() == openingType) {
+				--depth;
+				if (depth == 0) {
+					return i;
+				} else if (depth < 0) {
+					throw new IllegalStateException("Close before open: "+openingType);
+				}
+			}
+		}
+		throw new IllegalStateException("Could not find matching open: "+openingType);
 	}
 }

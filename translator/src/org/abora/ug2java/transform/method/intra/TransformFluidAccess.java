@@ -48,6 +48,7 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 		map.put("InitialReadClub", "ID");
 		map.put("InitialSponsor", "ID");
 		map.put("InsideTransactionFlag", "Boolean");
+		map.put("InsideAgenda", "Boolean");
 		FLUID_MAPPINGS = Collections.unmodifiableMap(map);
 	}
 	

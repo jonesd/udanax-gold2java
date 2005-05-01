@@ -16,6 +16,7 @@ public class OverrideClassVariables implements ClassTransformer {
 	static {
 		Map map = new HashMap();
 		map.put("DiskManager.myFluidSpace", "Array");
+		map.put("DeleteExecutor.StorageArray", "PtrArray");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

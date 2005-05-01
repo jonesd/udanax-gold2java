@@ -23,4 +23,8 @@ public class BHHFn extends Heaper {
 		super();
 	}
 
+	public boolean invokeFunction(Heaper arg1, Heaper arg2) {
+		throw new UnsupportedOperationException();
+	}
+
 }

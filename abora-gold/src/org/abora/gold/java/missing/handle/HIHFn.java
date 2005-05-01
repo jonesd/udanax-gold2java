@@ -23,4 +23,8 @@ public class HIHFn extends Heaper {
 		super();
 	}
 
+	public Object invokeFunction(int arg1, Heaper arg2) {
+		throw new UnsupportedOperationException();
+	}
+
 }

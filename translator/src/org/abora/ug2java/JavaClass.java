@@ -18,6 +18,7 @@ import org.abora.ug2java.javatoken.JavaCast;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.javatoken.JavaType;
+import org.abora.ug2java.util.ToStringGenerator;
 
 public class JavaClass {
 	public String className;
@@ -134,4 +135,25 @@ public class JavaClass {
 		methods.add(method);
 		method.javaClass = this;
 	}
+
+	public JavaMethod getMethod(String methodName) {
+		JavaMethod found = null;
+		for (Iterator iter = methods.iterator(); iter.hasNext();) {
+			JavaMethod method = (JavaMethod) iter.next();
+			if (method.name.equals(methodName)) {
+				if (found != null) {
+					throw new IllegalStateException("More than one match for: "+className+"."+methodName);
+				}
+				found = method;
+			}
+		}
+		return found;
+	}
+	
+	public String toString() {
+		ToStringGenerator generator = new ToStringGenerator(this);
+		generator.add("name", className);
+		return generator.end();
+	}
+
 }

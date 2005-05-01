@@ -19,6 +19,7 @@ import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
+import org.abora.ug2java.javatoken.JavaCast;
 import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
@@ -144,6 +145,18 @@ public class ClassParser {
 		table.put("BeClub.make", "BeWork");
 		table.put("Ent.makeHandleFor", "RootHandle");
 		table.put("preorderNumber", "int");
+		table.put("GlobalEmulsion.globalEmulsion", "Emulsion");
+		table.put("GlobalEmulsion.make", "Emulsion");
+		table.put("GenericCrossDsp.make", "Mapping");
+		table.put("Abraham.dismantleStatistics", "IdentityDictionary");
+		table.put("Category.brotherClass", "Class");
+		table.put("FakePackageCategory.contentsCategory", "Category");
+		table.put("FakePackageCategory.originalContentsCategory", "Category");
+		table.put("FakePackageCategory.isConcretePackage", "boolean");
+		table.put("FakeCategory.getSuperCategory", "Category");
+		table.put("FakeCategory.isEqualOrSubclassOf", "boolean");
+		table.put("FakeCategory.originalClass", "Class");
+		table.put("PrimSet.createWithExecutor", "PrimSet");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -283,7 +296,7 @@ public class ClassParser {
 			if (type.equals("void")) {
 				scannerAdvance(scanner);
 				if (scanner.token.tokenType == ScannerToken.TOKEN_WORD && scanner.token.tokenString.equals("star")) {
-					type = "Heaper";
+					type = "PrimArray";
 				}
 			} else if (type.equals("Character") || type.equals("char")) {
 				scannerAdvance(scanner);
@@ -422,7 +435,7 @@ public class ClassParser {
 		}
 		methodName = getJavaSafeWord(methodName);
 	
-		if (methodName.equals("create") && modifiers.indexOf("static") == -1) {
+		if (methodName.startsWith("create") && modifiers.indexOf("static") == -1) {
 			modifiers = "";
 			returnType = "";
 			methodName = javaClass.className;
@@ -585,9 +598,7 @@ public class ClassParser {
 								expression.add(new JavaIdentifier(tempName));
 								expression.add(new JavaKeyword("="));
 								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaParenthesisStart());
-									expression.add(new JavaType(tempType));
-									expression.add(new JavaParenthesisEnd());
+									expression.add(new JavaCast(tempType));
 								}
 								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 								expression.add(new JavaCallStart("fetch"));
@@ -605,9 +616,7 @@ public class ClassParser {
 								expression.add(new JavaIdentifier(tempName));
 								expression.add(new JavaKeyword("="));
 								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaParenthesisStart());
-									expression.add(new JavaType(tempType));
-									expression.add(new JavaParenthesisEnd());
+									expression.add(new JavaCast(tempType));
 								}
 								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 								expression.add(new JavaCallStart("position"));
@@ -621,9 +630,7 @@ public class ClassParser {
 								expression.add(new JavaIdentifier(tempName));
 								expression.add(new JavaKeyword("="));
 								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaParenthesisStart());
-									expression.add(new JavaType(tempType));
-									expression.add(new JavaParenthesisEnd());
+									expression.add(new JavaCast(tempType));
 								}
 								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 								expression.add(new JavaCallStart("fetch"));
@@ -642,9 +649,7 @@ public class ClassParser {
 								expression.add(new JavaIdentifier(tempName));
 								expression.add(new JavaKeyword("="));
 								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaParenthesisStart());
-									expression.add(new JavaType(tempType));
-									expression.add(new JavaParenthesisEnd());
+									expression.add(new JavaCast(tempType));
 								}
 								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 								expression.add(new JavaCallStart("index"));
@@ -658,9 +663,7 @@ public class ClassParser {
 								expression.add(new JavaIdentifier(tempName));
 								expression.add(new JavaKeyword("="));
 								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaParenthesisStart());
-									expression.add(new JavaType(tempType));
-									expression.add(new JavaParenthesisEnd());
+									expression.add(new JavaCast(tempType));
 								}
 								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 								expression.add(new JavaCallStart("fetch"));
@@ -868,19 +871,8 @@ scannerAdvance(scanner);
 							expression.add(new JavaCallEnd());
 							scannerAdvance(scanner);
 						} else {
-							StringBuffer buffer = new StringBuffer();
-							for (int i = 0; i < value.length(); i++) {
-								char c = value.charAt(i);
-								if (i > 0 && Character.isUpperCase(c) && Character.isLowerCase(value.charAt(i - 1))) {
-									buffer.append('_');
-								}
-								if (c == ':') {
-									buffer.append("_");
-								} else {
-									buffer.append(Character.toUpperCase(c));
-								}
-							}
-							expression.add(new JavaIdentifier(buffer.toString()));
+							String symbol = transformSmalltalkSymbolToJava(value);
+							expression.add(new JavaIdentifier(symbol));
 						}
 						atExpressionStart = false;
 						break;
@@ -933,6 +925,24 @@ scannerAdvance(scanner);
 		return new MethodBody(tokens);
 	}
 	
+	//TODO do something about this. Sideffect of incorrect #(Blah Again) handling
+	public static String transformSmalltalkSymbolToJava(String value) {
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < value.length(); i++) {
+			char c = value.charAt(i);
+			if (i > 0 && Character.isUpperCase(c) && Character.isLowerCase(value.charAt(i - 1))) {
+				buffer.append('_');
+			}
+			if (c == ':') {
+				buffer.append("_");
+			} else {
+				buffer.append(Character.toUpperCase(c));
+			}
+		}
+		String symbol = buffer.toString();
+		return symbol;
+	}
+
 	private void scannerAdvance(SmalltalkScanner scanner) {
 		scanner.advance();
 	}

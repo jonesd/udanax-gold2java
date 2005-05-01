@@ -31,17 +31,22 @@ public class TransformValueNowOrOnOnUnwindDo extends AbstractMethodBodyTransform
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaBlockEnd.class), 
-				factory.token(JavaCallKeywordStart.class, "valueNowOrOnUnwindDo"), 
-				factory.token(JavaBlockStart.class));
+				factory.token(JavaCallKeywordStart.class, "valueNowOrOnUnwindDo"));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
+		boolean hasBlockDo = tokens.get(i+2) instanceof JavaBlockStart; 
 		int start = javaMethod.methodBody.findStartOfBlock(i);
 		int postCallEnd = javaMethod.methodBody.findClosingCallEnd(i + 1);
 		if (postCallEnd + 1 < tokens.size() && (tokens.get(postCallEnd + 1) instanceof JavaStatementTerminator)) {
 			tokens.remove(postCallEnd + 1);
 		}
 		tokens.remove(postCallEnd);
+		if (!hasBlockDo) {
+			tokens.add(postCallEnd, new JavaStatementTerminator());
+			tokens.add(postCallEnd+1, new JavaBlockEnd());
+			tokens.add(i+2, new JavaBlockStart());
+		}
 		tokens.remove(i + 1);
 		tokens.add(i + 1, new JavaKeyword("finally"));
 		tokens.add(start, new JavaKeyword("try"));
