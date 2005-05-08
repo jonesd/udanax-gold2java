@@ -64,6 +64,7 @@ public class ClassParser {
 		table.put("Uint3", "int"/*"byte"*/);
 		table.put("UInt4", "int"/*"byte"*/);
 		table.put("Int4", "int"/*"byte"*/);
+		table.put("UInt1", "int");
 		table.put("IEEEDoubleVar", "double");
 		table.put("IEEEFloatVar", "float");
 		table.put("IEEE64", "double");
@@ -77,6 +78,8 @@ public class ClassParser {
 //		table.put("size", "int");
 		table.put("UNKNOWN", "Object");
 		table.put("SnarfID", "int");
+		//TODO mispelling?
+		table.put("IDRegio", "IDRegion");
 
 		table.put("ostream", "PrintWriter");
 		LOOKUP_TYPES = Collections.unmodifiableMap(table);
@@ -110,6 +113,13 @@ public class ClassParser {
 		JAVA_KEYWORDS = Collections.unmodifiableSet(set);
 	}
 
+	public static final Set NON_CONSTRUCTORS;
+	static {
+		Set set = new HashSet();
+		set.add("createAfter");
+		NON_CONSTRUCTORS = Collections.unmodifiableSet(set);
+	}
+	
 	public static final Map OVERRIDE_RETURN_TYPE;
 	static {
 		Map table = new Hashtable();
@@ -122,7 +132,8 @@ public class ClassParser {
 		table.put("isFullOrder", "boolean");
 		table.put("fetchOldRawSpace", "Array");
 		table.put("fetchNewRawSpace", "Array");
-		table.put("fluidSpace", "Array");		
+		table.put("fluidSpace", "Array");	
+		table.put("LPPrimeSizeProvider.make", "PrimeSizeProvider");
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -157,6 +168,9 @@ public class ClassParser {
 		table.put("FakeCategory.isEqualOrSubclassOf", "boolean");
 		table.put("FakeCategory.originalClass", "Class");
 		table.put("PrimSet.createWithExecutor", "PrimSet");
+		table.put("HeightChanger.make", "PropChanger");
+		table.put("SnarfInfoHandler.create", "SnarfInfoHandler");
+		table.put("TextyRcvr.receiveString", "String");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -435,7 +449,7 @@ public class ClassParser {
 		}
 		methodName = getJavaSafeWord(methodName);
 	
-		if (methodName.startsWith("create") && modifiers.indexOf("static") == -1) {
+		if (methodName.startsWith("create")  && modifiers.indexOf("static") == -1 && (!NON_CONSTRUCTORS.contains(methodName))) {
 			modifiers = "";
 			returnType = "";
 			methodName = javaClass.className;

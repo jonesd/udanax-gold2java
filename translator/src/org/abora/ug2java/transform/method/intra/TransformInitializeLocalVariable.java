@@ -36,6 +36,7 @@ public class TransformInitializeLocalVariable extends AbstractMethodBodyTransfor
 		set.add("PermissionsChange.fetchFinder.result");
 		set.add("PrimPtrTable.hashFind.loc");
 		set.add("PrimPtrTable.hashFind.removed");
+		set.add("RealRegion.make.flag");
 		
 		//TODO just for tests
 		set.add("Test.test.shouldInitialize");

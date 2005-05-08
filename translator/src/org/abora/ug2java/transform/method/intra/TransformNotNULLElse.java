@@ -38,7 +38,7 @@ public class TransformNotNULLElse extends AbstractMethodBodyTransformation {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq( 
-			factory.token(JavaCallKeywordStart.class, "notNULLElse"),
+			factory.token(JavaCallKeywordStart.class, "not(NULL|Nil)(Else)?"),
 			factory.token(JavaBlockStart.class),
 			factory.token(JavaType.class),
 			factory.token(JavaIdentifier.class),
@@ -46,23 +46,30 @@ public class TransformNotNULLElse extends AbstractMethodBodyTransformation {
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
+		String callName = ((JavaCallKeywordStart)tokens.get(i)).value;
 		String tempType = ((JavaType)tokens.get(i+2)).value;
 		String tempName = ((JavaIdentifier)tokens.get(i+3)).value;
 		
 		int expressionStart = javaMethod.methodBody.findStartOfExpression(i-1);
 		int ifBlockEnd = javaMethod.methodBody.findEndOfBlock(i+1);
-		javaMethod.methodBody.shouldMatch(ifBlockEnd+1, JavaCallArgumentSeparator.class);
-		int elseBlockStart = ifBlockEnd+2;
-		javaMethod.methodBody.shouldMatch(elseBlockStart, JavaBlockStart.class);
-		int elseBlockEnd = javaMethod.methodBody.findEndOfBlock(elseBlockStart);
-		javaMethod.methodBody.shouldMatch(elseBlockEnd+1, JavaCallEnd.class);
-		javaMethod.methodBody.shouldMatch(elseBlockEnd+2, JavaStatementTerminator.class);
+		int callEnd = ifBlockEnd+1;
+		if (callName.endsWith("Else")) {
+			javaMethod.methodBody.shouldMatch(ifBlockEnd+1, JavaCallArgumentSeparator.class);
+			int elseBlockStart = ifBlockEnd+2;
+			javaMethod.methodBody.shouldMatch(elseBlockStart, JavaBlockStart.class);
+			int elseBlockEnd = javaMethod.methodBody.findEndOfBlock(elseBlockStart);
+			callEnd = elseBlockEnd+1;
+		}
+		javaMethod.methodBody.shouldMatch(callEnd, JavaCallEnd.class);
+		javaMethod.methodBody.shouldMatch(callEnd+1, JavaStatementTerminator.class);
 		
-		tokens.remove(elseBlockEnd+2);
-		tokens.remove(elseBlockEnd+1);
+		tokens.remove(callEnd+1);
+		tokens.remove(callEnd);
 		
-		tokens.remove(ifBlockEnd+1);
-		tokens.add(ifBlockEnd+1, new JavaKeyword("else"));
+		if (callName.endsWith("Else")) {
+			tokens.remove(ifBlockEnd+1);
+			tokens.add(ifBlockEnd+1, new JavaKeyword("else"));
+		}
 		
 		tokens.remove(i+4);
 		tokens.remove(i+3);

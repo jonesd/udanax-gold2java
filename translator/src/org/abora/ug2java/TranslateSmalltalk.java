@@ -136,6 +136,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("MethodDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("OrderedCollection", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("ParseNode", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("Random", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("RootHandle", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Sensor", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Selector", "org.abora.gold.java.missing.smalltalk");
@@ -144,6 +145,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("Stream", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Symbol", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("TypeDescription", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("WriteStream", "org.abora.gold.java.missing.smalltalk");
 		
 		packageLookup.put("AboraBlockSupport", "org.abora.gold.java");
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");

@@ -9,12 +9,18 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.nkernel.FeEdition;
+import org.abora.gold.wrapper.FeWrapper;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class FeDirectWrapperMaker extends Heaper {
 
 	public FeDirectWrapperMaker() {
 		super();
+	}
+
+	public FeWrapper invokeFunction(FeEdition edition) {
+		throw new UnsupportedOperationException();
 	}
 
 }

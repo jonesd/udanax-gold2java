@@ -29,6 +29,8 @@ public class ExcludeMethods implements MethodTransformation {
 		//TODO would like this for debugging, cant compile all cases though...
 		list.add("crums");
 		list.add("Abraham.isKindOf");
+		list.add("BranchDescription.ohashForEqual");
+		list.add("BranchDescription.oisEqual");
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
 	}

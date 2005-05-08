@@ -39,5 +39,9 @@ public class Array {
 	public Object at(int i) {
 		throw new UnsupportedOperationException();
 	}
+	
+	public void put(int i, Object v) {
+		throw new UnsupportedOperationException();
+	}
 
 }

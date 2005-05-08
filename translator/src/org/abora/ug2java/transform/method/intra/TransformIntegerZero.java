@@ -28,7 +28,7 @@ public TransformIntegerZero() {
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.token(JavaIdentifier.class, "IntegerZero"); 
+		return factory.token(JavaIdentifier.class, "IntegerZero|Integer0"); 
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {

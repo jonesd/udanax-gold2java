@@ -120,7 +120,7 @@ public class UInt8Array extends PrimIntArray {
 	 * are outstanding hard pointers, my clients must call noMoreGuts() when
 	 * they will no longer be using the pointer.
 	 */
-	public String gutsOf() {
+	public PrimArray /*TODO should be String?*/ gutsOf() {
 		throw new UnsupportedOperationException();
 	}
 	public void noMoreGuts() {

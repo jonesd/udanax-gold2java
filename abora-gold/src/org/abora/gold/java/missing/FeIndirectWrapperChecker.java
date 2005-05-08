@@ -9,12 +9,17 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.nkernel.FeEdition;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class FeIndirectWrapperChecker extends Heaper {
 
 	public FeIndirectWrapperChecker() {
 		super();
+	}
+
+	public boolean invokeFunction(FeEdition inner) {
+		throw new UnsupportedOperationException();
 	}
 
 }

@@ -31,13 +31,12 @@ public class TransformIntegerIntegerVar extends AbstractMethodBodyTransformation
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaIdentifier.class, "int"), 
-				factory.token(JavaCallKeywordStart.class, "IntegerVar"),
-				factory.token(JavaToken.class),
-				factory.token(JavaCallEnd.class));
+				factory.token(JavaCallKeywordStart.class, "IntegerVar"));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		tokens.remove(i+3);
+		int callEnd = javaMethod.methodBody.findClosingCallEnd(i+1);
+		tokens.remove(callEnd);
 		tokens.remove(i+1);
 		tokens.remove(i);
 		

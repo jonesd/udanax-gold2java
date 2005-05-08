@@ -33,11 +33,7 @@ public class TransformAlmostTo extends AbstractMethodBodyTransformation {
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.any(
-				factory.token(JavaCallKeywordStart.class, "almostToDo"),
-				factory.token(JavaCallKeywordStart.class, "toDo"),
-				factory.token(JavaCallKeywordStart.class, "almostToByDo"),
-					factory.token(JavaCallKeywordStart.class, "toByDo"));
+		return factory.token(JavaCallKeywordStart.class, "almostToDo|toDo|almostToByDo|toByDo|downToDo");
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
@@ -60,6 +56,8 @@ public class TransformAlmostTo extends AbstractMethodBodyTransformation {
 		if (isBy) {
 			JavaLiteral byToken = (JavaLiteral)tokens.get(blockStart - 2);
 			byValue = Integer.parseInt(byToken.value);
+		} else if (call.value.indexOf("down") != -1) {
+			byValue = -1;
 		}
 		String by = "++";
 		if (byValue > 1) {

@@ -37,6 +37,12 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("HUpperCrum.addOParent");
 		list.add("AgendaItem.schedule");
 		list.add("CloseExecutor.registerHolder");
+		list.add("RealPos.actualHashForEqual");
+		list.add("PrimIntegerSpec.array");
+		list.add("PrimIntegerSpec.arrayFromBuffer");
+		list.add("PrimIntegerSpec.privateCopy");
+		list.add("PrimIEEE64.asIEEE32");
+		list.add("PrimIEEE32.asIEEE64");
 		
 		//TODO only for tests...
 		list.add("translateOnly");

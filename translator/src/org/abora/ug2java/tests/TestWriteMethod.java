@@ -57,6 +57,13 @@ public class TestWriteMethod extends TestCase {
 		return new TestSuite(THIS);
 	}
 
+	public void testAbs() {
+		String smalltalk = "test\nblah abs!";
+
+		String expectedJava = "public void test() {\nMath.abs(blah);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testAnd() {
 		String smalltalk = "test\none and: [two]!";
 		String expectedJava = "public void test() {\none && (two);\n}\n";
@@ -106,6 +113,7 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	
 	public void testAsDouble() {
 		String smalltalk = "test\nself fred asDouble!";
 
@@ -584,6 +592,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testCreateAfter() {
+		String smalltalk = "createAfter: trace\n^1!";
+
+		String expectedJava = "public void createAfter(Object trace) {\nreturn 1;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testCreateCall() {
 		String smalltalk = "test\nBlah create: 12!";
 
@@ -756,6 +771,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\n| a2 {A2} | a2 := M make!";
 
 		String expectedJava = "public void test() {\nA2 a2;\na2 = M.make();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testDownToDo() {
+		String smalltalk = "test\n10 downTo: fred happy do: [:i {UInt32} | blah ]!";
+
+		String expectedJava = "public void test() {\nfor (int i = 10 ; i >= fred.happy() ; i -= 1 ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1059,6 +1081,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testIntegerIntegerVarWithExpression() {
+		String smalltalk = "test\n^ Integer IntegerVar: (smallPrimeTable uIntAt: idx)!";
+
+		String expectedJava = "public void test() {\nreturn (smallPrimeTable.uIntAt(idx));\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testIntegerVarZero() {
 		String smalltalk = "test\nblah _ IntegerVarZero!";
 
@@ -1068,6 +1097,13 @@ public class TestWriteMethod extends TestCase {
 
 	public void testIntegerZero() {
 		String smalltalk = "test\nblah _ IntegerZero!";
+
+		String expectedJava = "public void test() {\nblah = IntegerPos.zero();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testInteger0() {
+		String smalltalk = "test\nblah _ Integer0!";
 
 		String expectedJava = "public void test() {\nblah = IntegerPos.zero();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
@@ -1105,6 +1141,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\none two three: four and: 55!";
 
 		String expectedJava = "public void test() {\none.two().threeAnd(four, 55);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testKeywordMissingSpace() {
+		String smalltalk = "test\nmyConcreteSpecs copyGrow:1!";
+
+		String expectedJava = "public void test() {\nmyConcreteSpecs.copyGrow(1);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 	
@@ -1248,6 +1291,20 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testNotNilElse() {
+		String smalltalk = "test\n(values fetch: i) notNil: [:fe {FeRangeElement} | element _ fe carrier] else: [^nil]!";
+
+		String expectedJava = "public void test() {\nFeRangeElement fe = (FeRangeElement) (values.fetch(i));\nif (fe != null ) {\nelement = fe.carrier();\n}\nelse {\nreturn null;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testNotNil() {
+		String smalltalk = "test\n(values fetch: i) notNil: [:fe {FeRangeElement} | element _ fe carrier]!";
+
+		String expectedJava = "public void test() {\nFeRangeElement fe = (FeRangeElement) (values.fetch(i));\nif (fe != null ) {\nelement = fe.carrier();\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testNotNULLElse() {
 		String smalltalk = "test\n(values fetch: i) notNULL: [:fe {FeRangeElement} | element _ fe carrier] else: [^nil]!";
 
@@ -1290,6 +1347,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\none or: [two]!";
 
 		String expectedJava = "public void test() {\none || (two);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testOverrideLocalVarType() {
+		String smalltalk = "test\n| shouldOverrideLocalVars | shouldOverrideLocalVars := 23!";
+
+		String expectedJava = "public void test() {\nint shouldOverrideLocalVars;\nshouldOverrideLocalVars = 23;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

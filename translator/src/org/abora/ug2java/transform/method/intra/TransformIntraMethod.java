@@ -33,6 +33,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		List transformers = new ArrayList();
 		transformers.add(new OverrideReturnType());
 		transformers.add(new OverrideArgumentType());
+		transformers.add(new OverrideLocalVarType());
 		transformers.add(new TransformAndOrs());
 		transformers.add(new EnsureIfTestInParentheses());
 		transformers.add(new EnsureReasonableStatementTermination());
@@ -82,7 +83,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformShouldImplement());
 		transformers.add(new TransformStrcmp());
 		transformers.add(new TransformStrlen());
-		transformers.add(new TransformMinMax());
+		transformers.add(new TransformMathCalls());
 		transformers.add(new TransformPrintStringRadix());
 		transformers.add(new TransformPrintOnBase());
 		transformers.add(new TransformNewCreate());

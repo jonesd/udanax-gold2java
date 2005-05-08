@@ -7,18 +7,15 @@
  * Copyright 1979-1999 Udanax.com. All rights reserved
  */
 
-package org.abora.gold.java.missing;
+package org.abora.gold.java.missing.smalltalk;
 
-import org.abora.gold.wrapper.FeWrapperSpec;
-import org.abora.gold.xpp.basic.Heaper;
+public class Random {
 
-public class FeWrapperSpecHolder extends Heaper {
-
-	public FeWrapperSpecHolder() {
+	public Random() {
 		super();
 	}
-
-	public void invokeFunction(FeWrapperSpec spec) {
+	
+	public int next() {
 		throw new UnsupportedOperationException();
 	}
 

@@ -165,11 +165,18 @@ public class SmalltalkScanner {
 	}
 
 	private ScannerToken readId() {
+		return readId(true);
+	}
+	
+	private ScannerToken readId(boolean stopAtColon) {
 		int start = index;
 		next();
 		char c;
 		while (Character.isJavaIdentifierPart(c = peek()) || c == ':' || (c == '.' && Character.isJavaIdentifierStart(peek2()))) {
 			next();
+			if (c == ':' && stopAtColon) {
+				break;
+			}
 		}
 
 		String value = contents.substring(start, index);
@@ -243,7 +250,7 @@ public class SmalltalkScanner {
 			id.tokenString = id.tokenString.replace(' ', '_');
 			id.tokenString = id.tokenString.replace(':', '_');
 		} else {
-			id = readId();
+			id = readId(false);
 		}
 		id.tokenType = ScannerToken.TOKEN_SYMBOL;
 		return id;
