@@ -13,6 +13,7 @@ public class AboraRuntimeException extends RuntimeException {
 
 	private static final long serialVersionUID = -7665468138537610579L;
 	
+	public static final String ALLUBUT = "AllBut";
 	public static final String ALREADY_DESTROYED = "AlreadyDestroyed";
 	public static final String ALREADY_EXTINCT = "AlreadyExtinct";
 	public static final String ALREADY_IN_SET = "AlreadyInSet";
@@ -71,6 +72,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String INVALID_REQUEST = "InvalidRequest";
 	public static final String INVALID_TEXT_POSITION = "InvalidTextPosition";
 	public static final String INVALID_TRAIL = "InvalidTrail";
+	public static final String MEMUALLOCUERROR = "Memuallocuerror";
 	public static final String MODIFY_BLOCKED_BY_OUTSTANDING_STEPPER = "ModifyBlockedByOutstandingStepper";
 	public static final String MODULO_FAILED = "ModuloFailed";
 	public static final String MULTIPLE_IMAGES = "MultipleImages";
@@ -126,6 +128,8 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String NO_PRIVATE_KEY = "NoPrivateKey";
 	public static final String NO_PUBLIC_KEY = "NoPublicKey";
 	public static final String NO_SUCH_CLUB = "NoSuchClub";
+	public static final String NO_SUCH_ENCRYPTER = "NoSuchEncrypter";
+	public static final String NO_SUCH_SCRAMBLER = "NoSuchScrambler";
 	public static final String NO_SNARF_INFO = "NoSnarfInfo";
 	public static final String NON_SHEPHERD = "NonShepherd";
 	public static final String NOT_ANUMBER = "NotAnumber";
@@ -150,6 +154,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String NULL_SHEPHERD = "NullShepherd";
 	public static final String NULL_VALUE = "NullValue";
 	public static final String NULLFLUID = "NullFluid";
+	public static final String NULLUCHKPTR = "Nulluchkptr";
 	public static final String OBSOLETE_USAGE_MUST_USE_FETCH_LEFT = "ObsoleteUsageMustUseFetchLeft";
 	public static final String OBSOLETE_USAGE_MUST_USE_FETCH_RIGHT = "ObsoleteUsageMustUseFetchRight";
 	public static final String OBSOLETE_USAGE_MUST_USE_PAIR_WITH_NULLS = "ObsoleteUsageMustUsePairWithNulls";
@@ -159,6 +164,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String OUT_OF_DOMAIN = "OutOfDomain";
 	public static final String OVERGRAZED = "Overgrazed";
 	public static final String PASSWORD_DOES_NOT_MATCH = "PasswordDoesNotMatch";
+	public static final String PUREUVIRTUAL = "PureVirtual";
 	public static final String READ_CLUB_IRREVOCABLY_REMOVED = "ReadClubIrrevocablyRemoved";
 	public static final String READ_CLUB_REMOVED = "ReadClubRemoved";
 	public static final String RECORDERS_STILL_OUTSTANDING = "RecordersStillOutstanding";
@@ -172,6 +178,9 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String SHEPHERD_MUST_NOT_HAVE_NULL_FLOCK_INFO = "ShepherdMustNotHaveNullFlockInfo";
 	public static final String SHOULD_HAVE_DONE_DISK_UPDATE_ON_CHANGED_SHEPHERD = "ShouldHaveDoneDiskUpdateOnChangedShepherd";
 	public static final String SIGNATURE_CLUB_IRREVOCABLY_REMOVED = "SignatureClubIrrevocablyRemoved";
+	public static final String SOCKETURECVUERROR = "Socketurecvuerror";
+	public static final String SOCKETUSENDUERROR = "Socketusenduerror";
+	public static final String SUBCLASSURESPONSIBILITY = "SubclassResponsibility";
 	public static final String TEST_PACKER_DOES_NOT_FORWARD = "TestPackerDoesNotForward";
 	public static final String TOO_MANY_STEPPERS_RELEASED = "TooManySteppersReleased";
 	public static final String TOO_MANY_ZEROS = "TooManyZeros";
@@ -180,6 +189,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String UNKNOWN_COOKBOOK = "UnknownCookbook";
 	public static final String UNINITIALIZED_PACKER = "UninitializedPacker";
 	public static final String UNRECOGNIZED_PRECISION = "UnrecognizedPrecision";
+	public static final String URDIUJACKPOT = "UrdiJackpot";
 	public static final String WORK_MUST_BE_GRABBED = "WorkMustBeGrabbed";
 	public static final String WORK_IS_LOCKED_BY_SOMEONE_ELSE = "WorkIsLockedBySomeoneElse";
 	public static final String WHO_SAYS = "WhoSays";

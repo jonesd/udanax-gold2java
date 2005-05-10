@@ -37,7 +37,7 @@ public class TransformNewBecome extends AbstractMethodBodyTransformation {
 		return factory.seq(
 //				factory.token(JavaParenthesisStart.class),
 //				factory.token(JavaIdentifier.class), 
-				factory.token(JavaCallKeywordStart.class, "newBecome"),
+				factory.token(JavaCallKeywordStart.class, "newBecome|newAllocType"),
 				factory.token(JavaToken.class),
 				factory.token(JavaCallEnd.class),
 				factory.token(JavaParenthesisEnd.class),
@@ -46,18 +46,20 @@ public class TransformNewBecome extends AbstractMethodBodyTransformation {
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
+		JavaCallKeywordStart newType = (JavaCallKeywordStart)tokens.get(i);
 		JavaCallStart call = (JavaCallStart)tokens.get(i+5);
 		
 		tokens.remove(i+3);
 		tokens.remove(i+2);
 		tokens.remove(i+1);
 		tokens.remove(i);
-		tokens.add(i, new JavaComment("TODO newBecome"));
+		tokens.add(i, new JavaComment("TODO "+newType.value));
 		
 		if (i > 0) {
 			if (tokens.get(i-1) instanceof JavaIdentifier) {
 				JavaIdentifier type = (JavaIdentifier)tokens.get(i-1);
 				call.value = type.value;
+				javaMethod.javaClass.includeImportForType(type.value);
 				tokens.remove(i-1);
 				tokens.remove(i-2);
 			} else {

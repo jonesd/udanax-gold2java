@@ -7,6 +7,8 @@ package org.abora.ug2java;
 
 import org.abora.ug2java.util.ToStringGenerator;
 
+import com.sun.tools.javac.v8.resources.javac;
+
 
 
 
@@ -29,5 +31,9 @@ public class JavaField {
 		ToStringGenerator generator = new ToStringGenerator(this);
 		generator.add(modifiers+" "+type+" "+name);
 		return generator.end();
+	}
+
+	public JavaClass getJavaClass(JavaCodebase javaCodebase) {
+		return javaCodebase.getJavaClass(type);
 	}
 }

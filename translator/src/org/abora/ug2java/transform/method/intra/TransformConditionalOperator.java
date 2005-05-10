@@ -43,7 +43,7 @@ public class TransformConditionalOperator extends AbstractMethodBodyTransformati
 		if (i == 0) {
 			return i;
 		}
-		for (int j = i -1; j > 0; j--) {
+		for (int j = i -1; j >= 0; j--) {
 			JavaToken preToken = (JavaToken)tokens.get(j);
 			if (preToken instanceof JavaStatementTerminator || preToken instanceof JavaBlockEnd || preToken instanceof JavaBlockStart) {
 				// leave as normal if statement

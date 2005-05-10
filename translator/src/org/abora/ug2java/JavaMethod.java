@@ -84,4 +84,8 @@ public class JavaMethod extends JavaClassElement {
 		generator.add("class", javaClass);
 		return generator.end();
 	}
+
+	public JavaField getParameter(int i) {
+		return (JavaField)parameters.get(i);
+	}
 }

@@ -149,4 +149,7 @@ public class AboraHeaper {
 	public static int preorderMax() {
 		throw new UnsupportedOperationException();
 	}
+	public void fixup() {
+		throw new UnsupportedOperationException();
+	}
 }

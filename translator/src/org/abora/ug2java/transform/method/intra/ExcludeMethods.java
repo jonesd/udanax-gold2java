@@ -31,6 +31,14 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("Abraham.isKindOf");
 		list.add("BranchDescription.ohashForEqual");
 		list.add("BranchDescription.oisEqual");
+		list.add("Stepper.forEach");
+		list.add("Stepper.forEachPromise");
+		list.add("TableStepper.forIndices");
+		list.add("TableStepper.forKeyValues");
+		list.add("TableStepper.forPositions");
+		list.add("TableStepper.forPromisedPairs");
+		list.add("RecorderFossil.reanimate");
+		
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
 	}

@@ -85,32 +85,32 @@ public class ClassParser {
 		LOOKUP_TYPES = Collections.unmodifiableMap(table);
 	}
 
-	static final Set JAVA_KEYWORDS;
+	static final Set JAVA_RESERVED_WORDS;
 	static {
 		Set set = new HashSet();
-		set.add("import");
-		set.add("class");
-		set.add("int");
-		set.add("package");
-		set.add("extends");
-		set.add("byte");
-		set.add("char");
-		set.add("float");
-		set.add("double");
-		set.add("long");
-		set.add("instanceof");
-		set.add("final");
-		set.add("public");
-		set.add("protected");
-		set.add("private");
-		set.add("static");
 		set.add("abstract");
+		set.add("byte");
+		set.add("class");
+		set.add("char");
+		set.add("double");
+		set.add("extends");
+		set.add("final");
+		set.add("float");
+		set.add("import");
+		set.add("instanceof");
+		set.add("int");
 		set.add("interface");
-		set.add("synchonized");
+		set.add("long");
+		set.add("package");
+		set.add("private");
+		set.add("protected");
+		set.add("public");
 		set.add("return");
+		set.add("static");
+		set.add("synchonized");
 
 		set.add("do");
-		JAVA_KEYWORDS = Collections.unmodifiableSet(set);
+		JAVA_RESERVED_WORDS = Collections.unmodifiableSet(set);
 	}
 
 	public static final Set NON_CONSTRUCTORS;
@@ -171,6 +171,7 @@ public class ClassParser {
 		table.put("HeightChanger.make", "PropChanger");
 		table.put("SnarfInfoHandler.create", "SnarfInfoHandler");
 		table.put("TextyRcvr.receiveString", "String");
+		table.put("asOrderedCollection", "OrderedCollection");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -382,7 +383,7 @@ public class ClassParser {
 	}
 
 	public static String getJavaSafeWord(String element) {
-		if (JAVA_KEYWORDS.contains(element)) {
+		if (JAVA_RESERVED_WORDS.contains(element)) {
 			element = element + "x";
 		}
 		if (element.equals("=")) {
@@ -605,7 +606,7 @@ public class ClassParser {
 						if (scanner.token.tokenType == ScannerToken.TOKEN_BLOCK_TEMP) {
 							if (hasForEach) {
 								needsForEnd = true;
-								String tempName = scanner.token.tokenString;
+								String tempName = getJavaSafeWord(scanner.token.tokenString);
 								scannerAdvance(scanner);
 								String tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));
@@ -623,7 +624,7 @@ public class ClassParser {
 								scannerAdvance(scanner);
 							} else if (hasForPositions) { 
 								needsForEnd = true;
-								String tempName = scanner.token.tokenString;
+								String tempName = getJavaSafeWord(scanner.token.tokenString);
 								scannerAdvance(scanner);
 								String tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));
@@ -637,7 +638,7 @@ public class ClassParser {
 								expression.add(new JavaCallEnd());
 								expression.add(new JavaStatementTerminator());
 								
-								tempName = scanner.token.tokenString;
+								tempName = getJavaSafeWord(scanner.token.tokenString);
 								scannerAdvance(scanner);
 								tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));
@@ -656,7 +657,7 @@ public class ClassParser {
 
 							} else if (hasForIndices) { 
 								needsForEnd = true;
-								String tempName = scanner.token.tokenString;
+								String tempName = getJavaSafeWord(scanner.token.tokenString);
 								scannerAdvance(scanner);
 								String tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));
@@ -670,7 +671,7 @@ public class ClassParser {
 								expression.add(new JavaCallEnd());
 								expression.add(new JavaStatementTerminator());
 								
-								tempName = scanner.token.tokenString;
+								tempName = getJavaSafeWord(scanner.token.tokenString);
 								scannerAdvance(scanner);
 								tempType = parseType(scanner, HEAPER_CLASS);
 								expression.add(new JavaType(tempType));

@@ -10,8 +10,10 @@ import java.util.List;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
-import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.JavaCallEnd;
+import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
+import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -28,25 +30,31 @@ public class TransformUses extends AbstractMethodBodyTransformation {
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.seq(
-				factory.token(JavaBlockEnd.class), 
-				factory.token(JavaIdentifier.class, "USES"));
+		return factory.token(JavaToken.class, "USES");
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		if (i + 2 < tokens.size() && (tokens.get(i + 2) instanceof JavaStatementTerminator)) {
-			tokens.remove(i + 2);
+		
+		if (tokens.get(i) instanceof JavaCallStart) {
+			javaMethod.methodBody.removeShouldMatch(i+1, JavaCallEnd.class);
 		}
-		tokens.remove(i + 1);
+		
+		if (i + 1 < tokens.size() && (tokens.get(i + 1) instanceof JavaStatementTerminator)) {
+			tokens.remove(i + 1);
+		}
+		
+		int deleteTo;
+		if (i > 0 && (tokens.get(i - 1) instanceof JavaBlockEnd)) {
+			deleteTo = javaMethod.methodBody.findOpeningTokenOfType(i-1, JavaBlockStart.class);
+		} else {
+			deleteTo = javaMethod.methodBody.findStartOfExpression(i-1);
+		}
 		tokens.remove(i);
+
 		int j = i - 1;
-		//TODO add a first element to the matching sequence to ensure that there is at least
-		// a token before i?
-		while (!(tokens.get(j) instanceof JavaBlockStart)) {
+		for (; j >= deleteTo; j -= 1) {
 			tokens.remove(j);
-			j--;
 		}
-		tokens.remove(j);
 		
 		return j;
 	}

@@ -43,6 +43,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("PrimIntegerSpec.privateCopy");
 		list.add("PrimIEEE64.asIEEE32");
 		list.add("PrimIEEE32.asIEEE64");
+		list.add("ActualHashSet.distanceFromHome");
 		
 		//TODO only for tests...
 		list.add("translateOnly");

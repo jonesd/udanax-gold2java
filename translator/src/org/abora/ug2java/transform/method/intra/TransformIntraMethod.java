@@ -86,6 +86,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformMathCalls());
 		transformers.add(new TransformPrintStringRadix());
 		transformers.add(new TransformPrintOnBase());
+		transformers.add(new TransformShow());
 		transformers.add(new TransformNewCreate());
 		transformers.add(new TransformNewCall());
 		transformers.add(new TransformFluidAccess());

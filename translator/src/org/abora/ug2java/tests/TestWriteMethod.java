@@ -721,6 +721,44 @@ public class TestWriteMethod extends TestCase {
 		assertEquals(expectedJava, actualJava);
 	}
 
+	public void testDowncastArgument2() {
+		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
+		new JavaClass("A3", "A1", javaClass.getJavaCodebase());
+
+		JavaMethod method = new JavaMethod("", "make");
+		method.addParameter(new JavaField("static", "A2", "arg1"));
+		method.addParameter(new JavaField("static", "A3", "arg2"));
+		method.methodBody = new MethodBody(new ArrayList());
+		javaClass.addMethod(method);
+		
+		String smalltalk = "test\n| a1 {A1} a11 {A1}| ^ self make: a1 with: a11!";
+
+		String expectedJava = "public static void test() {\nA1 a1;\nA1 a11;\nreturn make((A2) a1, (A3) a11);\n}\n";
+		
+		String actualJava = writeMethod(smalltalk, "static ");
+		assertEquals(expectedJava, actualJava);
+	}
+	
+	public void testDowncastArgument2WithCast() {
+		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
+		new JavaClass("A3", "A1", javaClass.getJavaCodebase());
+
+		JavaMethod method = new JavaMethod("", "make");
+		method.addParameter(new JavaField("static", "A2", "arg1"));
+		method.addParameter(new JavaField("static", "A3", "arg2"));
+		method.methodBody = new MethodBody(new ArrayList());
+		javaClass.addMethod(method);
+		
+		String smalltalk = "test\n| a1 {A1} a11 {A1}| ^ self make: (a1 cast: A2) with: a11!";
+
+		String expectedJava = "public static void test() {\nA1 a1;\nA1 a11;\nreturn make(((A2) a1), (A3) a11);\n}\n";
+		
+		String actualJava = writeMethod(smalltalk, "static ");
+		assertEquals(expectedJava, actualJava);
+	}
+
 	public void testDowncastStaticCallAssignmentSubclass() {
 		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
 		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
@@ -931,6 +969,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\n(one = two) ifTrue: [^one] ifFalse: [^two]!";
 
 		String expectedJava = "public void test() {\nif (one == two) {\nreturn one;\n}\nelse {\nreturn two;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testIfTrueIfFalseWithCommentShouldNotBeInterpretedAsConditional() {
+		String smalltalk = "test\n\"one\" \"two\" (one = two) ifTrue: [^one] ifFalse: [^two]!";
+
+		String expectedJava = "/**\n * one\n */\npublic void test() {\n/* two */\nif (one == two) {\nreturn one;\n}\nelse {\nreturn two;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1211,6 +1256,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\na size negated!";
 
 		String expectedJava = "public void test() {\n- a.size();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testNewAlloc() {
+		String smalltalk = "test\n(EmptyStepper new.AllocType: #PERSISTENT) create!";
+
+		String expectedJava = "public void test() {\n/* TODO newAllocType */\nnew EmptyStepper();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1566,6 +1618,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testShow() {
+		String smalltalk = "test\nTranscript show: '.'!";
+
+		String expectedJava = "public void test() {\nAboraSupport.getPrintWriter().print(\".\");\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testShowOn() {
 		String smalltalk = "showOn: oo\noo print: 'hello'!";
 
@@ -1846,6 +1905,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testUsesDirect() {
+		String smalltalk = "test\nImmuSet USES!";
+
+		String expectedJava = "public void test() {\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testUsesMultiple() {
 		String smalltalk = "test\n[HistoryCrum] USES. [TracePosition] USES. [Ent] USES.!";
 
