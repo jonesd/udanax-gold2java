@@ -7,8 +7,6 @@ package org.abora.ug2java;
 
 import org.abora.ug2java.util.ToStringGenerator;
 
-import com.sun.tools.javac.v8.resources.javac;
-
 
 
 

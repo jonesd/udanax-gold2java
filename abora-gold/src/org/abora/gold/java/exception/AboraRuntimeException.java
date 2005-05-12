@@ -45,6 +45,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String DISK_FULL = "DiskFull";
 	public static final String DOES_NOT_HAVE_AN_ID = "DoesNotHaveAnId";
 	public static final String DOES_NOT_MATCH = "DoesNotMatch";
+	public static final String DONT_CHANGE_TURTLES_BOOT_HEAPER = "DontChangeTurtlesBootHeaper";
 	public static final String EDIT_CLUB_IRREVOCABLY_REMOVED = "EditClubIrrevocablyRemoved";
 	public static final String EDITIONS_REQUIRE_LABELS = "EditionsRequireLabels";
 	public static final String EDITOR_REMOVED = "EditorRemoved";
@@ -59,6 +60,7 @@ public class AboraRuntimeException extends RuntimeException {
 	public static final String HASH_MUST_NOT_CHANGE = "HashMustNotChange";
 	public static final String IDALREADY_ASSIGNED = "IDALREADY_ASSIGNED";
 	public static final String IDALREADY_USED = "IDALREADY_USED";
+	public static final String IDENTIFIER_TOO_LONG = "IdentifierTooLong";
 	public static final String ILLEGAL_ID = "IllegalId";
 	public static final String INCOMPARABLE_TYPE = "INCOMPARABLE_TYPE";
 	public static final String INCOMPLETE_ABSTRACTION = "IncompleteAbstraction";

@@ -107,6 +107,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformInitializeLocalVariable());
 		transformers.add(new TransformNewBecome());
 		transformers.add(new TransformOperatorIntNull());
+		transformers.add(new TransformDeleteString());
 		transformers.add(new TransformMuSetMake());
 		transformers.add(new TransformOrglRootMake());
 		transformers.add(new TransformAtIfAbsent());

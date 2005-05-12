@@ -59,6 +59,9 @@ public class AboraBlockSupport {
 	public static Object enterFluidBindDuring(FluidVar fluidVar, Object newValue) {
 		throw new UnsupportedOperationException();
 	}
+	public static Object enterFluidBindDuring(FluidVar fluidVar, boolean newValue) {
+		throw new UnsupportedOperationException();
+	}
 	
 	public static void exitFluidBindDuring(FluidVar fluidVar, Object oldVar) {
 		throw new UnsupportedOperationException();

@@ -9,7 +9,9 @@
 
 package org.abora.gold.java;
 
+import org.abora.gold.java.missing.OrderEnum;
 import org.abora.gold.rcmain.ServerChunk;
+import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
@@ -46,6 +48,49 @@ public class AboraHeaper {
 	
 	public static ServerChunk CurrentChunk;
 
+	//TODO what to really do with these, often Smalltalk Symbols?
+	public static final String ALL_TESTS_ON_ = "AllTestsOn";
+	public static final String BOOT_CUISINE = "BootCuisine";
+	public static final String CALC_CUISINE = "CalcCuisine";
+	public static final String CHECK_ = "Check";
+	public static final String CONCRETE = "Concrete";
+	public static final String CURRENT_CHUNK = "CurrentChunk";
+	public static final String DISK_CUISINE = "DiskCuisine";
+	public static final String DONT_CHANGE_TURTLES_BOOT_HEAPER = "DontChangeTurtlesBootHeaper";
+	public static final String EDITION_UWITH_ALL_UN3_WITH_WITH_ = "EDITION_UWITH_ALL_UN3_WITH_WITH_";
+	public static final String FEBE_CUISINE = "FEBE_CUISINE";
+	public static final String MAKE_WRAPPER_ = "MakeWrapper";
+	public static final String NO_ENCRYPTER = "NO_ENCRYPTER";
+	public static final String NO_REQUEST_ = "NO_REQUEST_";
+	public static final String SET_SPEC_ = "SetSpec";
+	public static final String XPP_CUISINE = "XPP_CUISINE";
+	
+	public static final String FE_BOO_LOCK_SMITH = "FE_BOO_LOCK_SMITH";
+	public static final String FE_CHALLENGE_LOCK_SMITH = "FE_CHALLENGE_LOCK_SMITH";
+	public static final String FE_CLUB_DESCRIPTION = "FE_CLUB_DESCRIPTION";
+	public static final String FE_HYPER_LINK = "FE_HYPER_LINK";
+	public static final String FE_HYPER_REF = "FE_HYPER_REF";
+	public static final String FE_LOCK_SMITH = "FE_LOCK_SMITH";
+	public static final String FE_MATCH_LOCK_SMITH = "FE_MATCH_LOCK_SMITH";
+	public static final String FE_MULTI_LOCK_SMITH = "FE_MULTI_LOCK_SMITH";
+	public static final String FE_MULTI_REF = "FE_MULTI_REF";
+	public static final String FE_PATH = "FE_PATH";
+	public static final String FE_SET = "FE_SET";
+	public static final String FE_SINGLE_REF = "FE_SINGLE_REF";
+	public static final String FE_TEXT = "FE_TEXT";
+	public static final String FE_WALL_LOCK_SMITH = "FE_WALL_LOCK_SMITH";
+	public static final String FE_WORK_SET = "FE_WORK_SET";
+	public static final String FE_WRAPPER = "FE_WRAPPER";
+	
+	public static final OrderEnum EQUAL = null;
+	public static final OrderEnum GREATERUTHAN = null;
+	public static final OrderEnum LESSUTHAN = null;
+	public static final OrderEnum INCOMPARABLE = null;
+	
+	public static final IntegerPos ZERO = null;
+	public static final IntegerPos ONE = null;
+	public static final IntegerPos TWO = null;
+	public static final IntegerPos THREE = null;
 
 	/**
 	 * Constructor for AboraHeaper.

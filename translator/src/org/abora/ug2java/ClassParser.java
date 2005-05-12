@@ -80,6 +80,7 @@ public class ClassParser {
 		table.put("SnarfID", "int");
 		//TODO mispelling?
 		table.put("IDRegio", "IDRegion");
+		table.put("Symbol", "String");
 
 		table.put("ostream", "PrintWriter");
 		LOOKUP_TYPES = Collections.unmodifiableMap(table);
@@ -172,6 +173,7 @@ public class ClassParser {
 		table.put("SnarfInfoHandler.create", "SnarfInfoHandler");
 		table.put("TextyRcvr.receiveString", "String");
 		table.put("asOrderedCollection", "OrderedCollection");
+		table.put("SimpleTurtle.make", "Turtle");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -773,6 +775,7 @@ scannerAdvance(scanner);
 						String word = scanner.token.tokenString;
 						String wordTrimmed = word.substring(0, word.length() - 1);
 						word = getJavaSafeWord(word);
+						wordTrimmed = getJavaSafeWord(wordTrimmed);
 
 						if (wordTrimmed.equals("ifTrue") || wordTrimmed.equals("ifFalse")) {
 							if (hasIf) {

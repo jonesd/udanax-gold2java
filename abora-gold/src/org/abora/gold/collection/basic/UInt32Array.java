@@ -126,4 +126,8 @@ public class UInt32Array extends PrimIntArray {
 		throw new UnsupportedOperationException();
 	}
 
+	public void store(int i, int j) {
+		throw new UnsupportedOperationException();
+	}
+
 }

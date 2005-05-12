@@ -22,7 +22,7 @@ public class SnarfHandle extends Heaper {
 	public byte getDataP() {
 		throw new UnsupportedOperationException();
 	}
-	public SnarfID getSnarfID() {
+	public int getSnarfID() {
 		throw new UnsupportedOperationException();
 	}
 	public int getDataSize() {
@@ -35,6 +35,9 @@ public class SnarfHandle extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 	public void put32(int a, int b) {
+		throw new UnsupportedOperationException();
+	}
+	public boolean isWritable() {
 		throw new UnsupportedOperationException();
 	}
 

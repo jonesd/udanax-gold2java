@@ -295,6 +295,13 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.TEST_BLAH);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testBlastSelf() {
+		String smalltalk = "test\nself BLAST: #OutOfBounds!";
+
+		String expectedJava = "public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.OUT_OF_BOUNDS);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
 
 	public void testBlock() {
 		String smalltalk = "test\n[one two]!";
@@ -652,6 +659,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nMuSet defineFluid: #ActiveClubs with: DiskManager emulsion with: [MuSet make]!";
 
 		String expectedJava = "public void test() {\nAboraSupport.defineFluid(MuSet.class, \"ActiveClubs\", DiskManager.emulsion(), MuSet.make());\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testDeleteString() {
+		String smalltalk = "test\n| s {char star}| s delete. x delete!";
+
+		String expectedJava = "public void test() {\nString s;\n/* Removed s.delete(); */\nx.delete();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1188,6 +1202,14 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\none.two().threeAnd(four, 55);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testKeywordReserved() {
+		String smalltalk = "test\n^IDSpace import: arg1!";
+
+		String expectedJava = "public void test() {\nreturn IDSpace.importx(arg1);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	
 	public void testKeywordMissingSpace() {
 		String smalltalk = "test\nmyConcreteSpecs copyGrow:1!";

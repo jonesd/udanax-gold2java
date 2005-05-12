@@ -31,21 +31,23 @@ public TransformBlast() {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaIdentifier.class, "Heaper"), 
 				factory.token(JavaCallKeywordStart.class, "BLAST"),
 				factory.token(JavaIdentifier.class), 
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i + 1);
-		JavaIdentifier message = (JavaIdentifier)tokens.get(i + 2);
-		tokens.remove(i);
+		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i);
+		JavaIdentifier message = (JavaIdentifier)tokens.get(i + 1);
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));
 		call.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS;
 		javaMethod.javaClass.includeImportForType(call.value);
 		message.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS+"." + message.value;
+		
+		if (i > 0 && (tokens.get(i-1) instanceof JavaIdentifier)) {
+			tokens.remove(i-1);
+		}
 		return i;
 	}
 }
