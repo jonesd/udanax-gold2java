@@ -11,21 +11,13 @@ package org.abora.gold.java.missing;
 
 import org.abora.gold.xpp.basic.Heaper;
 
-public class Problem extends Heaper {
+public class Logger extends Heaper {
 
-	public Problem() {
+	public Logger() {
 		super();
 	}
 
-	public String getProblemName() {
-		throw new UnsupportedOperationException();
-	}
-
-	public String getFileName() {
-		throw new UnsupportedOperationException();
-	}
-
-	public int getLineNumber() {
+	public static void defineLogger(String blast_log) {
 		throw new UnsupportedOperationException();
 	}
 

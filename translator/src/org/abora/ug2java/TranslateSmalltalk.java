@@ -85,6 +85,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("IObject", "org.abora.gold.java.missing");
 		packageLookup.put("MarkM", "org.abora.gold.java.missing");
 		packageLookup.put("MuWordArray", "org.abora.gold.java.missing");
+		packageLookup.put("Logger", "org.abora.gold.java.missing");
 		packageLookup.put("OccludingCategoryTable", "org.abora.gold.java.missing");
 		packageLookup.put("OrderEnum", "org.abora.gold.java.missing");
 		packageLookup.put("PackOBits", "org.abora.gold.java.missing");
@@ -125,6 +126,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("Collection", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("CompiledMethod", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Context", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("Delay", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Dictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("EntView", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Filename", "org.abora.gold.java.missing.smalltalk");
@@ -138,6 +140,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("MethodDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("OrderedCollection", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("ParseNode", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("Processor", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Random", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("RootHandle", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Sensor", "org.abora.gold.java.missing.smalltalk");
@@ -150,7 +153,9 @@ public class TranslateSmalltalk {
 		packageLookup.put("WriteStream", "org.abora.gold.java.missing.smalltalk");
 		
 		packageLookup.put("AboraBlockSupport", "org.abora.gold.java");
+		packageLookup.put("AboraCharacterSupport", "org.abora.gold.java");
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");
+		packageLookup.put("AboraSocketSupport", "org.abora.gold.java");
 		packageLookup.put("AboraSupport", "org.abora.gold.java");
 		packageLookup.put("Abstract", "org.abora.gold.java");
 		packageLookup.put("HashHelper", "org.abora.gold.java");

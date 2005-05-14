@@ -115,6 +115,8 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformOrglRootMake());
 		transformers.add(new TransformAtIfAbsent());
 		transformers.add(new TransformBlockReturn());
+		transformers.add(new TransformSocket());
+		transformers.add(new TransformCharacterStaticCall());
 				
 		transformers.add(new TransformExcessParantheses());
 		transformers.add(new TransformClassX());

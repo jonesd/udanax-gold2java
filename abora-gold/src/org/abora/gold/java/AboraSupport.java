@@ -8,6 +8,8 @@ import org.abora.gold.xpp.basic.Category;
 
 public class AboraSupport {
 
+	public static PrintWriter logger = null; 
+	
 	public AboraSupport() {
 		super();
 	}
@@ -35,4 +37,6 @@ public class AboraSupport {
 	public static int xuTime() {
 		throw new UnsupportedOperationException();
 	}
+	
+	
 }

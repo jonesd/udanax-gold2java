@@ -465,6 +465,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testCharacterTab() {
+		String smalltalk = "test\nCharacter tab!";
+
+		String expectedJava = "public void test() {\nAboraCharacterSupport.tab();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testClassCall() {
 		String smalltalk = "test\nHeaper blah!";
 
@@ -505,6 +512,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\ntable at: 1 storeValue: Heaper)!";
 
 		String expectedJava = "public void test() {\ntable.storeValue(1, AboraSupport.findCategory(Heaper.class));\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testCloseSocket() {
+		String smalltalk = "test\n| fd {Int32}| fd close!";
+
+		String expectedJava = "public void test() {\nint fd;\nAboraSocketSupport.close(fd);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1226,6 +1240,14 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 	
+	public void testListenFor() {
+		String smalltalk = "test\naSocket listenFor: 5!";
+
+		String expectedJava = "public void test() {\nAboraSocketSupport.listenFor(aSocket, 5);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+
 	public void testMax() {
 		String smalltalk = "test\none max: two!";
 

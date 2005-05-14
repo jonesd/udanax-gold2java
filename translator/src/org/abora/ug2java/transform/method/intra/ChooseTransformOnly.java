@@ -63,6 +63,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("IPPromiseListener.shouldBeReady");
 		list.add("SHTO.printOn");
 		list.add("ShepherdLocked.isReallyUnlocked");
+		list.add("CloseExecutor.execute");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");

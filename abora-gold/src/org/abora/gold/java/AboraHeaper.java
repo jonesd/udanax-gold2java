@@ -9,6 +9,8 @@
 
 package org.abora.gold.java;
 
+import java.io.PrintWriter;
+
 import org.abora.gold.java.missing.OrderEnum;
 import org.abora.gold.rcmain.ServerChunk;
 import org.abora.gold.spaces.integers.IntegerPos;
@@ -50,6 +52,7 @@ public class AboraHeaper {
 
 	//TODO what to really do with these, often Smalltalk Symbols?
 	public static final String ALL_TESTS_ON_ = "AllTestsOn";
+	public static final String BLAST_LOG = "BLAST_LOG";
 	public static final String BOOT_CUISINE = "BootCuisine";
 	public static final String CALC_CUISINE = "CalcCuisine";
 	public static final String CHECK_ = "Check";
@@ -59,6 +62,7 @@ public class AboraHeaper {
 	public static final String DONT_CHANGE_TURTLES_BOOT_HEAPER = "DontChangeTurtlesBootHeaper";
 	public static final String EDITION_UWITH_ALL_UN3_WITH_WITH_ = "EDITION_UWITH_ALL_UN3_WITH_WITH_";
 	public static final String FEBE_CUISINE = "FEBE_CUISINE";
+	public static final String FOO_LOG = "FOO_LOG";
 	public static final String MAKE_WRAPPER_ = "MakeWrapper";
 	public static final String NO_ENCRYPTER = "NO_ENCRYPTER";
 	public static final String NO_REQUEST_ = "NO_REQUEST_";
@@ -91,6 +95,9 @@ public class AboraHeaper {
 	public static final IntegerPos ONE = null;
 	public static final IntegerPos TWO = null;
 	public static final IntegerPos THREE = null;
+	
+	public static final PrintWriter BlastLog = null;
+	public static final PrintWriter ErrorLog = null;
 
 	/**
 	 * Constructor for AboraHeaper.
