@@ -132,6 +132,8 @@ public class TranslateSmalltalk {
 		packageLookup.put("IdentityDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("IdentitySet", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("InspectorView", "org.abora.gold.java.missing.smalltalk");
+		//TODO not really a smalltalk class - just an int version of Array
+		packageLookup.put("IntArray", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("IntegerTableInspector", "org.abora.gold.java.missing.smalltalk");		
 		packageLookup.put("MethodDictionary", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("OrderedCollection", "org.abora.gold.java.missing.smalltalk");

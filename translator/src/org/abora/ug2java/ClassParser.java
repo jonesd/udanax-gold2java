@@ -59,6 +59,8 @@ public class ClassParser {
 		table.put("UInt32", "int");
 		table.put("Int32", "int");
 		table.put("UInt8", "int"/*"byte"*/);
+		// mispelling in SimpleShuffler
+		table.put("Uint8", "int"/*"byte"*/);
 		table.put("Int8", "int"/*"byte"*/);
 		//		table.put("UInt8Array", "byte[]");
 		table.put("Uint3", "int"/*"byte"*/);
@@ -174,6 +176,7 @@ public class ClassParser {
 		table.put("TextyRcvr.receiveString", "String");
 		table.put("asOrderedCollection", "OrderedCollection");
 		table.put("SimpleTurtle.make", "Turtle");
+		table.put("Category.name", "String");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 

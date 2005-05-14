@@ -68,9 +68,19 @@ public class UInt8Array extends PrimIntArray {
 	public void storeUInt(int index, int value) {
 		throw new UnsupportedOperationException();
 	}
+	
+	//TODO duplicated storeUInt
+	public void put(int index, int value) {
+		throw new UnsupportedOperationException();
+	}
 
 	/** Get a 32 bit unsigned actual integer value */
 	public int uIntAt(int index) {
+		throw new UnsupportedOperationException();
+	}
+
+	//TODO duplicated uIntAt
+	public int at(int index) {
 		throw new UnsupportedOperationException();
 	}
 

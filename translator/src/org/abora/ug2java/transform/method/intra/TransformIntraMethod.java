@@ -62,6 +62,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformValueNowOrOnOnUnwindDo());
 		transformers.add(new TransformAtCalls());
 		transformers.add(new TransformIntegerZero());
+		transformers.add(new TransformUint8());
 		transformers.add(new TransformBlast());
 		transformers.add(new TransformIsKindOf());
 		transformers.add(new TransformStar());
@@ -71,6 +72,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformDOTCalls());
 		transformers.add(new TransformDOThashForEqual());
 		transformers.add(new TransformCAThashForEqual());
+		transformers.add(new TransformDOTputCharacter());
 		transformers.add(new TransformIntegerIntegerVar());
 		transformers.add(new TransformPrint());
 		transformers.add(new TransformBinaryOperator());
@@ -86,6 +88,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformMathCalls());
 		transformers.add(new TransformPrintStringRadix());
 		transformers.add(new TransformPrintOnBase());
+		transformers.add(new TransformPrintString());
 		transformers.add(new TransformShow());
 		transformers.add(new TransformNewCreate());
 		transformers.add(new TransformNewCall());

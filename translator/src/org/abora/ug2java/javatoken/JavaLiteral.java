@@ -10,4 +10,9 @@ public class JavaLiteral extends JavaToken {
 	public JavaLiteral(String value) {
 		super(value);
 	}
+
+	public boolean isCharacter() {
+		// TODO what to really do here?
+		return value.startsWith("\'") && value.endsWith("\'");
+	}
 }

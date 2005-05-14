@@ -20,4 +20,8 @@ public class Smalltalk {
 		throw new UnsupportedOperationException();
 	}
 
+	public static Object at(String className) {
+		throw new UnsupportedOperationException();
+	}
+
 }

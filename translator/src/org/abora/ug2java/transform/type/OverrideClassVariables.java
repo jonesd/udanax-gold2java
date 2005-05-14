@@ -18,6 +18,14 @@ public class OverrideClassVariables implements ClassTransformer {
 		map.put("DiskManager.myFluidSpace", "Array");
 		map.put("DeleteExecutor.StorageArray", "PtrArray");
 
+		map.put("ActualHashSet.AddTallys", "IntArray");
+		map.put("ActualHashSet.DeleteTallys", "IntArray");
+		map.put("ActualHashSet.StepperTally", "IntArray");
+		map.put("ActualHashSet.TestTallys", "IntArray");
+		
+		map.put("ReadMemStream.myBuffer", "UInt8Array");
+		map.put("WriteMemStream.myCollection", "UInt8Array");
+
 		METHODS = Collections.unmodifiableMap(map);
 	}
 
@@ -38,6 +46,7 @@ public class OverrideClassVariables implements ClassTransformer {
 			String replacementType = overrideWith(javaClass, field);
 			if (replacementType != null) {
 				field.type = replacementType;
+				javaClass.includeImportForType(replacementType);
 			}
 		}
 	}

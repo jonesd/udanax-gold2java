@@ -24,6 +24,10 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("Heaper2UInt32Cache.make", "int");
 		//TODO should we really have to override this?
 		map.put("TextyRcvr.getCharToken", "char");
+		map.put("ActualHashSet.arrayStats", "IntArray");
+		//TODO we should be able to calculate the following based on their declared type: array {Array of: IntegerVar}
+		map.put("SnarfHandler.sortTest", "IntArray");
+		map.put("SnarfHandler.sortTestDown", "IntArray");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

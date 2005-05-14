@@ -710,6 +710,14 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nHashHelper.hashForEqual(blah);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testDOTputCharacter() {
+		String smalltalk = "test\noo DOTput: ((myBuffer uIntAt: j) basicCast: Character)!";
+
+		String expectedJava = "public void test() {\noo.print(((myBuffer.uIntAt(j))));\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 
 	public void testDouble() {
 		String smalltalk = "test\n187.123!";
@@ -1536,7 +1544,21 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void printOn(PrintWriter aStream) {\naStream.print(Integer.toString(myHashValue, 16));\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
-	
+
+	public void testPrintStringInt() {
+		String smalltalk = "test\n| i {UInt32} | i printString!";
+
+		String expectedJava = "public void test() {\nint i;\nInteger.toString(i);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testPrintStringDouble() {
+		String smalltalk = "test\n| d {IEEEDoubleVar} | d printString!";
+
+		String expectedJava = "public void test() {\ndouble d;\nDouble.toString(d);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 
 	public void testPrintStringRadix() {
 		String smalltalk = "test\nself flags printStringRadix: 2!";
@@ -1913,6 +1935,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testUInt8() {
+		String smalltalk = "test\nmyStream putByte: $) uint8!";
+
+		String expectedJava = "public void test() {\nmyStream.putByte(')');\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testUInt32Zero() {
 		String smalltalk = "test\nUInt32Zero + 2!";
 
