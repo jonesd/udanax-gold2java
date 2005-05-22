@@ -35,7 +35,7 @@ public class TransformClassReference extends AbstractMethodBodyTransformation {
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier token = (JavaIdentifier)tokens.get(i);
-		if (i < tokens.size() - 1 && (tokens.get(i + 1) instanceof JavaCallStart)) {
+		if (i < tokens.size() - 1 && ((tokens.get(i + 1) instanceof JavaCallStart) || (tokens.get(i+1) instanceof JavaIdentifier))) {
 			return i;
 		}
 		if (i > 0) {

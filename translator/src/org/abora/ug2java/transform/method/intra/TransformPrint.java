@@ -10,6 +10,7 @@ import java.util.List;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
+import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
@@ -45,12 +46,26 @@ public class TransformPrint extends AbstractMethodBodyTransformation {
 		tokens.add(endOfBlock+1, new JavaCallEnd());
 		tokens.remove(i);
 		tokens.add(i, new JavaCallKeywordStart("print"));
-		int startOfBlock = javaMethod.methodBody.findStartOfExpression(i-1);
-		//TODO watchc out for "AboraSupport.getPrintWriter()." case
-		if (startOfBlock + 1 != i && tokens.get(startOfBlock) instanceof JavaIdentifier && !((JavaIdentifier)tokens.get(startOfBlock)).value.equals("AboraSupport")) {
+		//Watch out for immediately proceeding comment TODO would prefer to keep it
+		if (tokens.get(i-1) instanceof JavaComment) {
+			tokens.remove(i-1);
+			i -= 1;
+		}
+		int startOfBlock = javaMethod.methodBody.findStartOfExpressionMinimal(i-1);
+		//TODO special comment handling...
+		if (startOfBlock + 2 < i && tokens.get(startOfBlock) instanceof JavaComment) {
+				startOfBlock += 1;
+		}
+		if (startOfBlock + 2 < i && tokens.get(startOfBlock) instanceof JavaIdentifier) {
+		
 			JavaIdentifier identifier = (JavaIdentifier)tokens.get(startOfBlock);
 			tokens.add(i, new JavaStatementTerminator());
 			tokens.add(i + 1, new JavaIdentifier(identifier.value));
+			// watch out for "AboraSupport.logger." case
+			if (tokens.get(startOfBlock+1) instanceof JavaIdentifier) {
+				JavaIdentifier identifier2 = (JavaIdentifier)tokens.get(startOfBlock+1);
+				tokens.add(i+2, new JavaIdentifier(identifier2.value));
+			}
 		}
 		
 		return i;

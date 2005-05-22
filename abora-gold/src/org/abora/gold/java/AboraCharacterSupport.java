@@ -19,5 +19,9 @@ public class AboraCharacterSupport {
 	public static char backspace() {
 		throw new UnsupportedOperationException();
 	}
+	
+	public static char nullx() {
+		throw new UnsupportedOperationException();
+	}
 
 }

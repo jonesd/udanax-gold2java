@@ -17,6 +17,8 @@ public class ClassTransformers implements ClassTransformer {
 		List list = new ArrayList();
 		list.add(new OverrideClassVariables());
 		list.add(new TransformReceiverConstructor());
+		list.add(new AddMethod());
+		list.add(new AddDefaultParameter());
 		list.add(new TransformInterMethodCalls());
 		transformers = Collections.unmodifiableList(list);
 	}

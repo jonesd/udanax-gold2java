@@ -36,8 +36,7 @@ public TransformCerr() {
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		tokens.remove(i);
 		tokens.add(i, new JavaIdentifier("AboraSupport"));
-		tokens.add(i+1, new JavaCallStart("getPrintWriter"));
-		tokens.add(i+2, new JavaCallEnd());
+		tokens.add(i+1, new JavaIdentifier("logger"));
 		return i;
 	}
 }

@@ -454,7 +454,7 @@ public class TestWriteMethod extends TestCase {
 	public void testCerr() {
 		String smalltalk = "test\ncerr << 'hello'!";
 
-		String expectedJava = "public void test() {\nAboraSupport.getPrintWriter().print(\"hello\");\n}\n";
+		String expectedJava = "public void test() {\nAboraSupport.logger.print(\"hello\");\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1553,6 +1553,28 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testPrintPrintLiterals() {
+		String smalltalk = "test: aStream { ostream }\n'extra'. \"hello\" aStream << 'one' << 'two' << 'three'!";
+
+		String expectedJava = "public void test(PrintWriter aStream) {\n\"extra\";\n/* hello */\naStream.print(\"one\");\naStream.print(\"two\");\naStream.print(\"three\");\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testPrintPrintWithLogger() {
+		String smalltalk = "test\ncerr << 12 + 1 << 13 + 2 << 14 + 3!";
+
+		String expectedJava = "public void test() {\nAboraSupport.logger.print(12 + 1);\nAboraSupport.logger.print(13 + 2);\nAboraSupport.logger.print(14 + 3);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testPrintPrintWithComment() {
+		String smalltalk = "test\ncerr \"<< count << ' cells '\" << handler spaceLeft << ' spaceLeft.'.!";
+
+		String expectedJava = "public void test() {\nAboraSupport.logger.print(handler.spaceLeft());\nAboraSupport.logger.print(\" spaceLeft.\");\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+
 	public void testPrintOn() {
 		String smalltalk = "printOn: aStream\naStream << self blah: 34!";
 
@@ -1687,7 +1709,7 @@ public class TestWriteMethod extends TestCase {
 	public void testShow() {
 		String smalltalk = "test\nTranscript show: '.'!";
 
-		String expectedJava = "public void test() {\nAboraSupport.getPrintWriter().print(\".\");\n}\n";
+		String expectedJava = "public void test() {\nAboraSupport.logger.print(\".\");\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 	
@@ -1918,7 +1940,7 @@ public class TestWriteMethod extends TestCase {
 	public void testTranscript() {
 		String smalltalk = "test\nTranscript << 'hello'!";
 
-		String expectedJava = "public void test() {\nAboraSupport.getPrintWriter().print(\"hello\");\n}\n";
+		String expectedJava = "public void test() {\nAboraSupport.logger.print(\"hello\");\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

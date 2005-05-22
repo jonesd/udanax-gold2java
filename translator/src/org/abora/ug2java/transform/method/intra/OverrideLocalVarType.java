@@ -40,6 +40,8 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 
 		map.put("MuTable.test.iTable", "IntegerTable");
 		
+		map.put("TextyRcvr.receiveBooleanVar.result", "char");
+		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");
 		
