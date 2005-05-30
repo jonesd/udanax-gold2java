@@ -36,10 +36,13 @@ public class TransformIsKindOf extends AbstractMethodBodyTransformation {
 	}
 	
 	protected int transform(JavaMethod javaMethod, List methodBodyTokens, int i) {
-		methodBodyTokens.remove(i + 3);
-		methodBodyTokens.remove(i + 1);
-		methodBodyTokens.add(i + 1, new JavaKeyword("instanceof"));
-		
+		JavaIdentifier var = (JavaIdentifier)methodBodyTokens.get(i+2);
+		String varType = javaMethod.findTypeOfVariable(var.value);
+		if (!"Category".equals(varType)) {
+			methodBodyTokens.remove(i + 3);
+			methodBodyTokens.remove(i + 1);
+			methodBodyTokens.add(i + 1, new JavaKeyword("instanceof"));
+		}
 		return i;
 	}
 }

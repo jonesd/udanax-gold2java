@@ -10,10 +10,11 @@
  */
 package org.abora.gold.java.missing.handle;
 
+import org.abora.gold.java.Fn;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xpp.basic.Heaper;
 
-public class VHBFn extends Heaper {
+public class VHBFn extends Fn {
 
 	public VHBFn(Rcvr rcvr) {
 		super(rcvr);

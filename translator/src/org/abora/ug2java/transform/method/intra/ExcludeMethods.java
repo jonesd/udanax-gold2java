@@ -7,8 +7,10 @@ package org.abora.ug2java.transform.method.intra;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
+import org.abora.ug2java.JavaField;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.transform.method.MethodTransformation;
 
@@ -38,6 +40,7 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("TableStepper.forPositions");
 		list.add("TableStepper.forPromisedPairs");
 		list.add("RecorderFossil.reanimate");
+		list.add("FullPropChange.joinProp"); // suspended
 		
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
@@ -48,18 +51,27 @@ public class ExcludeMethods implements MethodTransformation {
 		List list = new ArrayList();
 		list.add("ImmuSet.with"); 
 		list.add("IntegerPos.IntegerVar");
+		list.add("ImmuSet.create");
+		list.add("ImmuSet.make(Object)");
+		list.add("MuSet.make(Object)");
+		list.add("ArrayAccumulator.create");
+		list.add("OffsetArrayStepper.create");
+		list.add("OffsetScruTableStepper.create");
+		list.add("IntegerTableStepper.createWithOrderSpec");
 
 		STATIC_METHODS = Collections.unmodifiableList(list);
 	}
 
 	
 	public void transform(JavaMethod javaMethod) {
-		String shortName = javaMethod.name;
-		String fullName = javaMethod.javaClass.className+"."+shortName;
-		if (!javaMethod.isStatic() && (INSTANCE_METHODS.contains(shortName) || INSTANCE_METHODS.contains(fullName))
-				|| javaMethod.isStatic() && (STATIC_METHODS.contains(shortName) || STATIC_METHODS.contains(fullName))) {
+		String shortName = javaMethod.getName();
+		String fullName = javaMethod.getQualifiedName();
+		String parameterName = javaMethod.getQualifiedSignature();
+		if (!javaMethod.isStatic() && (INSTANCE_METHODS.contains(shortName) || INSTANCE_METHODS.contains(fullName) || INSTANCE_METHODS.contains(parameterName))
+				|| javaMethod.isStatic() && (STATIC_METHODS.contains(shortName) || STATIC_METHODS.contains(fullName) || STATIC_METHODS.contains(parameterName))) {
 			javaMethod.shouldInclude = false;
 		}
 	}
+	
 
 }

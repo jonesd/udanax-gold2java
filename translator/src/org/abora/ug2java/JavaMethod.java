@@ -88,4 +88,35 @@ public class JavaMethod extends JavaClassElement {
 	public JavaField getParameter(int i) {
 		return (JavaField)parameters.get(i);
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getQualifiedName() {
+		return javaClass.className+"."+getName();
+	}
+	
+	public String getSignature() {
+		return getName()+getParameterDeclaration();
+	}
+	
+	public String getQualifiedSignature() {
+		return getQualifiedName() + getParameterDeclaration();
+	}
+	
+	private String getParameterDeclaration() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append('(');
+		for (Iterator iter = parameters.iterator(); iter.hasNext();) {
+			JavaField parameter = (JavaField) iter.next();
+			buffer.append(parameter.type);
+			if(iter.hasNext()) {
+				buffer.append(',');
+			}
+		}
+		buffer.append(')');
+		return buffer.toString();
+	}
+
 }

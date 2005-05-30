@@ -8,10 +8,8 @@ package org.abora.ug2java.transform.method.intra;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
-import org.abora.ug2java.javatoken.JavaAssignment;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallStart;
-import org.abora.ug2java.javatoken.JavaCast;
 import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
@@ -20,12 +18,12 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformReceiverReceiveHeaper extends AbstractMethodBodyTransformation {
+public class TransformSendHeaper extends AbstractMethodBodyTransformation {
 
-	public TransformReceiverReceiveHeaper() {
+	public TransformSendHeaper() {
 		super();
 	}
-	public TransformReceiverReceiveHeaper(TokenMatcherFactory factory) {
+	public TransformSendHeaper(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
@@ -33,35 +31,23 @@ public class TransformReceiverReceiveHeaper extends AbstractMethodBodyTransforma
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaIdentifier.class),
-				factory.token(JavaAssignment.class),
+				factory.token(JavaCallStart.class, "sendHeaper"),
 				factory.token(JavaIdentifier.class),
-				factory.token(JavaCallStart.class, "receiveHeaper"),
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		JavaIdentifier variable = (JavaIdentifier)tokens.get(i);
-		JavaCallStart call = (JavaCallStart)tokens.get(i+3);
+		JavaIdentifier variable = (JavaIdentifier)tokens.get(i+2);
+		JavaCallStart call = (JavaCallStart)tokens.get(i+1);
 		String type = javaMethod.findTypeOfVariable(variable.value);
 		if (type == null) {
 			return i;
 		}
 		if (type.equals("float") || type.equals("double")) {
-			call.value = "receiveIEEEDoubleVar";
-			tokens.add(i+5, new JavaComment("TODO was receiveHeaper"));
-		}
-		if (!type.equals("Heaper") && !type.equals("double")) {
-			tokens.add(i + 2, new JavaCast(type));
+			call.value = "sendIEEEDoubleVar";
+			tokens.add(i+4, new JavaComment("TODO was sendHeaper"));
 		}
 		
 		return i;
-	}
-	
-	private String transformName(String name) {
-		if (name.startsWith("at") && name.length() >= 3 && Character.isUpperCase(name.charAt(2))) {
-			String reducedName = Character.toString(Character.toLowerCase(name.charAt(2))) + name.substring(3);
-			return reducedName;
-		}
-		return name;
 	}
 }

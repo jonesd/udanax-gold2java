@@ -35,10 +35,10 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new OverrideArgumentType());
 		transformers.add(new OverrideLocalVarType());
 		transformers.add(new TransformAndOrs());
-		transformers.add(new EnsureIfTestInParentheses());
 		transformers.add(new EnsureReasonableStatementTermination());
 		transformers.add(new ExcludeStaticHeaper());
 		transformers.add(new ExcludeMethods());
+		transformers.add(new ConvertToStaticBlocks());
 		transformers.add(new DeprecatedMethods());
 		transformers.add(new EnsureUniqueLocalVarNames());
 		//TODO this only produces a snapshot of locals
@@ -47,6 +47,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		
 		transformers.add(new TransformSelfSends());
 		transformers.add(new TransformUses());
+		transformers.add(new TransformRequires());
 //		transformers.add(new TransformSmalltalkOnly());
 		transformers.add(new TransformTranslateOnlyString());
 		transformers.add(new TransformCall());
@@ -89,7 +90,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformPrintStringRadix());
 		transformers.add(new TransformPrintOnBase());
 		transformers.add(new TransformPrintString());
-		transformers.add(new TransformShow());
+		transformers.add(new RenameCall());
 		transformers.add(new TransformNewCreate());
 		transformers.add(new TransformNewCall());
 		transformers.add(new TransformFluidAccess());
@@ -97,16 +98,20 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformDefineFluid());
 		transformers.add(new TransformReanimate());
 		transformers.add(new TransformUnaryOperator());
+		transformers.add(new TransformSendHeaper());
 		transformers.add(new TransformSendIntegerVar());
 		transformers.add(new TransformNextPutPrint());
 		transformers.add(new TransformAssert());
 		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformCastIntoOthers());
+		transformers.add(new TransformCastCheck());
 		transformers.add(new TransformNotNULLElse());		
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new ChooseTransformOnly());
 		transformers.add(new TransformStreamContents());
+		transformers.add(new TransformLog());
+		transformers.add(new TransformStringAsTextWriteStream());
 		transformers.add(new TransformInitializeLocalVariable());
 		transformers.add(new TransformNewBecome());
 		transformers.add(new TransformOperatorIntNull());
@@ -117,7 +122,9 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformBlockReturn());
 		transformers.add(new TransformSocket());
 		transformers.add(new TransformCharacterStaticCall());
+		transformers.add(new TransformPointerToStaticMember());
 				
+		transformers.add(new EnsureIfTestInParentheses());
 		transformers.add(new TransformExcessParantheses());
 		transformers.add(new TransformClassX());
 		transformers.add(new TransformStaticCall());

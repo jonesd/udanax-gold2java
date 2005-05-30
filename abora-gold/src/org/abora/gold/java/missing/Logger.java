@@ -21,4 +21,12 @@ public class Logger extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 
+	public static Logger get(String myLoggerName) {
+		throw new UnsupportedOperationException();
+	}
+
+	public void init(String myDirective) {
+		throw new UnsupportedOperationException();
+	}
+
 }

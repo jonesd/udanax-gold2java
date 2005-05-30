@@ -68,6 +68,13 @@ public class ClassWriter {
 		return indentation;
 	}
 
+	private void writeStaticBlocks(PrintWriter writer) {
+		for (Iterator iter = javaClass.staticBlocks.iterator(); iter.hasNext();) {
+			JavaMethod javaMethod = (JavaMethod) iter.next();
+			writeStaticBlock(javaMethod, writer);
+		}
+	}
+	
 	private void writeMethods(PrintWriter writer) {
 		for (Iterator iter = javaClass.methods.iterator(); iter.hasNext();) {
 			JavaMethod javaMethod = (JavaMethod) iter.next();
@@ -75,7 +82,17 @@ public class ClassWriter {
 		}
 	}
 
-	public void writeMethod(JavaMethod javaMethod, PrintWriter writer) {
+	
+	public void writeStaticBlock(JavaMethod javaMethod, PrintWriter writer) {
+		writer.println("static {");
+		writeMethodBody(javaMethod.methodBody, writer);
+		if (quoteSmalltalk) {
+			writeAsQuote(writer, javaMethod.smalltalkSource.context, javaMethod.smalltalkSource.text);
+		}
+		writer.println("}");
+	}
+
+		public void writeMethod(JavaMethod javaMethod, PrintWriter writer) {
 		if (javaMethod.name.startsWith("inspect")) {
 			javaMethod.shouldInclude = false;
 		}
@@ -172,6 +189,7 @@ public class ClassWriter {
 				ChunkDetails comment = (ChunkDetails) e.nextElement();
 				writeAsQuote(writer, comment.context, comment.contents);
 			}
+			writeStaticBlocks(writer);
 			writeMethods(writer);
 			writer.println("}");
 		} finally {

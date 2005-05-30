@@ -37,7 +37,7 @@ public class TransformUnreachableCode extends AbstractMethodBodyTransformation {
 			// top level - so can remove the rest of the method
 			endOfBlock = tokens.size();
 		} else {
-			endOfBlock = javaMethod.methodBody.findNextTokenOfTypeQuietFail(end+1, JavaBlockEnd.class);
+			endOfBlock = javaMethod.methodBody.findEndOfBlockQuietFail(i);
 			if (endOfBlock == -1) {
 				endOfBlock = tokens.size();
 			}

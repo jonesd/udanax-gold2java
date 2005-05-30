@@ -9,6 +9,8 @@
 
 package org.abora.gold.java.exception;
 
+import org.abora.gold.java.AboraHeaper;
+
 public class AboraRuntimeException extends RuntimeException {
 
 	private static final long serialVersionUID = -7665468138537610579L;
@@ -230,6 +232,26 @@ public class AboraRuntimeException extends RuntimeException {
 	 */
 	public AboraRuntimeException(Throwable cause) {
 		super(cause);
+	}
+
+	public void returnx() {
+		throw new UnsupportedOperationException();
+	}
+
+	public String PROBLEM() {
+		throw new UnsupportedOperationException();
+	}
+
+	public String parameter() {
+		throw new UnsupportedOperationException();
+	}
+
+	public AboraRuntimeException initialContext() {
+		throw new UnsupportedOperationException();
+	}
+
+	public AboraHeaper sender() {
+		throw new UnsupportedOperationException();
 	}
 
 }

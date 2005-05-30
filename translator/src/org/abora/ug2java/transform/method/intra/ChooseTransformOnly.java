@@ -46,6 +46,9 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("ActualHashSet.distanceFromHome");
 		//TODO actually would like the debug info...
 		list.add("TestPacker.mustBeInsideTransaction");
+		list.add("IEEE32Pos.asIEEE");
+		list.add("IEEE32Pos.asIEEE64");
+		
 		
 		//TODO only for tests...
 		list.add("translateOnly");

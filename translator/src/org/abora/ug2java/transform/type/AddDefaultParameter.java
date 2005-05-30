@@ -1,11 +1,7 @@
 package org.abora.ug2java.transform.type;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.abora.ug2java.JavaClass;
 import org.abora.ug2java.JavaField;
@@ -27,6 +23,10 @@ public class AddDefaultParameter implements ClassTransformer {
 	public void transform(JavaClass javaClass) {
 		if (javaClass.className.equals("SHTO")) {
 			addStatic(javaClass, "SHTO", "make", new String[] {"String", "aString"}, "0");
+		} else if (javaClass.className.equals("BeEdition")) {
+				addInstance(javaClass, "Stepper", "retrieve", new String[] {"XnRegion", "region", "OrderSpec", "order"}, "0");
+				addInstance(javaClass, "Stepper", "retrieve", new String[] {"XnRegion", "region"}, "null");
+				addInstance(javaClass, "Stepper", "retrieve", new String[] {}, "null");
 		}
 	}
 	
@@ -35,6 +35,18 @@ public class AddDefaultParameter implements ClassTransformer {
 	}
 	
 	public void addStatic(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam, String call) {
+		addMethod(javaClass, "static ", returnType, name, params, additionalParam, call);
+	}
+
+	public void addInstance(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam) {
+		addInstance(javaClass, returnType, name, params, additionalParam, name);
+	}
+	
+	public void addInstance(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam, String call) {
+		addMethod(javaClass, "", returnType, name, params, additionalParam, call);
+	}
+
+	public void addMethod(JavaClass javaClass, String modifiers, String returnType, String name, String[] params, String additionalParam, String call) {
 		JavaMethod method = new JavaMethod(returnType, name);
 		List tokens = new ArrayList();
 		if (!returnType.equals("void")) {
@@ -51,7 +63,7 @@ public class AddDefaultParameter implements ClassTransformer {
 		tokens.add(new JavaLiteral(additionalParam));
 		tokens.add(new JavaCallEnd());
 		tokens.add(new JavaStatementTerminator());
-		method.modifiers = "static ";
+		method.modifiers = modifiers;
 		method.methodBody = new MethodBody(tokens);
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();

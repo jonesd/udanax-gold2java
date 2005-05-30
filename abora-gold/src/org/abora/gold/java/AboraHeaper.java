@@ -98,6 +98,8 @@ public class AboraHeaper {
 	
 	public static final PrintWriter BlastLog = null;
 	public static final PrintWriter ErrorLog = null;
+	public static final PrintWriter FooLog = null;
+	public static final PrintWriter VanillaLog = null;
 
 	/**
 	 * Constructor for AboraHeaper.
@@ -195,6 +197,10 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	
+	public boolean isEqualOrSubclassOf(Category cat) {
+		//TODO should be added to Category?
+		throw new UnsupportedOperationException();
+	}
 	public boolean isKindOf(Category cat) {
 		throw new UnsupportedOperationException();
 	}
@@ -202,6 +208,9 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	public void fixup() {
+		throw new UnsupportedOperationException();
+	}
+	public static Fn pointerToStaticMember(String name, String handlerType) {
 		throw new UnsupportedOperationException();
 	}
 }

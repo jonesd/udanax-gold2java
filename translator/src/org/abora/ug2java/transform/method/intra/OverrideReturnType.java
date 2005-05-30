@@ -13,13 +13,20 @@ public class OverrideReturnType implements MethodTransformation {
 
 	public void transform(JavaMethod javaMethod) {
 		String methodName = javaMethod.name;
-		String methodNameWithClass = javaMethod.javaClass.className+"."+methodName;
+		String methodNameWithClass = javaMethod.getQualifiedName();
+		String methodSignature = javaMethod.getQualifiedSignature();
 		String returnType = javaMethod.returnType;
-		if (ClassParser.OVERRIDE_RETURN_TYPE.containsKey(methodNameWithClass)) {
+		if (ClassParser.OVERRIDE_RETURN_TYPE.containsKey(methodSignature)) {
+			returnType = (String) ClassParser.OVERRIDE_RETURN_TYPE.get(methodSignature);
+		} else if (ClassParser.OVERRIDE_RETURN_TYPE.containsKey(methodNameWithClass)) {
 			returnType = (String) ClassParser.OVERRIDE_RETURN_TYPE.get(methodNameWithClass);
+		} else if (returnType.equals("void") && ClassParser.OVERRIDE_VOID_RETURN_TYPE.containsKey(methodSignature)) {
+			returnType = (String) ClassParser.OVERRIDE_VOID_RETURN_TYPE.get(methodSignature);
 		} else if (returnType.equals("void") && ClassParser.OVERRIDE_VOID_RETURN_TYPE.containsKey(methodNameWithClass)) {
 			returnType = (String) ClassParser.OVERRIDE_VOID_RETURN_TYPE.get(methodNameWithClass);
 			//TODOreturnType = lookupType(returnType);
+		} else if (returnType.equals("void") && ClassParser.OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS.contains(methodSignature)) {
+			returnType = javaMethod.javaClass.className;
 		} else if (returnType.equals("void") && ClassParser.OVERRIDE_VOID_RETURN_TYPE_WITH_CLASS.contains(methodNameWithClass)) {
 			returnType = javaMethod.javaClass.className;
 		} else if (ClassParser.OVERRIDE_RETURN_TYPE.containsKey(methodName)) {

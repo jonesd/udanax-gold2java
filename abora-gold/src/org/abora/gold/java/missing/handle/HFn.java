@@ -9,10 +9,17 @@
 
 package org.abora.gold.java.missing.handle;
 
-public class HFn {
+import org.abora.gold.java.Fn;
+import org.abora.gold.xpp.basic.Heaper;
+
+public class HFn extends Fn {
 
 	public HFn() {
 		super();
+	}
+
+	public Heaper invokeFunction() {
+		throw new UnsupportedOperationException();
 	}
 
 }

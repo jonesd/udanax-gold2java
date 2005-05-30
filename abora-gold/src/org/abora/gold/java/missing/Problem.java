@@ -17,6 +17,10 @@ public class Problem extends Heaper {
 		super();
 	}
 
+	public Problem(String string, String string2, String string3, int i) {
+		throw new UnsupportedOperationException();
+	}
+
 	public String getProblemName() {
 		throw new UnsupportedOperationException();
 	}

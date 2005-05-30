@@ -81,35 +81,35 @@ public class TestWriteMethod extends TestCase {
 	public void testAlmostToDo() {
 		String smalltalk = "test\n0 almostTo: fred happy do: [:i {UInt32} | blah ]!";
 
-		String expectedJava = "public void test() {\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\nblah;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (int i = 0; i < fred.happy(); i ++ ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testAlmostToDoNoStepType() {
 		String smalltalk = "test\n0 almostTo: fred happy do: [:i | blah ]!";
 
-		String expectedJava = "public void test() {\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\nblah;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (int i = 0; i < fred.happy(); i ++ ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testAlmostToDoAfterIf() {
 		String smalltalk = "test\nmyValue == NULL ifTrue: [^VOID]. 0 almostTo: fred happy do: [:i {UInt32} | blah ]!";
 
-		String expectedJava = "public void test() {\nif (myValue == null) {\nreturn ;\n}\nfor (int i = 0 ; i < fred.happy() ; i ++ ) {\nblah;\n}\n}\n";
+		String expectedJava = "public void test() {\nif (myValue == null) {\nreturn ;\n}\nfor (int i = 0; i < fred.happy(); i ++ ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testAlmostToByDoPositive() {
 		String smalltalk = "test\n0 almostTo: fred happy by: 2 do: [:i {UInt32} | blah ]!";
 
-		String expectedJava = "public void test() {\nfor (int i = 0 ; i < fred.happy() ; i += 2 ) {\nblah;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (int i = 0; i < fred.happy(); i += 2 ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testAlmostToByDoNegative() {
 		String smalltalk = "test\n0 almostTo: fred happy by: -2 do: [:i {UInt32} | blah ]!";
 
-		String expectedJava = "public void test() {\nfor (int i = 0 ; i > fred.happy() ; i -= 2 ) {\nblah;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (int i = 0; i > fred.happy(); i -= 2 ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -122,9 +122,9 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testAsFloat() {
-		String smalltalk = "test\nfred asFloat!";
+		String smalltalk = "test\n^fred asFloat!";
 
-		String expectedJava = "public void test() {\n(float) fred;\n}\n";
+		String expectedJava = "public void test() {\nreturn (float) fred;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -139,6 +139,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nfred < 1 assert: 'hello'!";
 
 		String expectedJava = "public void test() {\nif (fred < 1) {\nthrow new AboraAssertionException(\"hello\");\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testAssertSufficientBrackets() {
+		String smalltalk = "test\n(a + b) < (c + d) assert: 'hello'!";
+
+		String expectedJava = "public void test() {\nif ((a + b) < (c + d)) {\nthrow new AboraAssertionException(\"hello\");\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -192,9 +199,9 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testBasicCastWithStar() {
-		String smalltalk = "test\nmyTrace basicCast: Heaper star!";
+		String smalltalk = "test\n^myTrace basicCast: Heaper star!";
 
-		String expectedJava = "public void test() {\n(Heaper) myTrace;\n}\n";
+		String expectedJava = "public void test() {\nreturn (Heaper) myTrace;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -368,30 +375,39 @@ public class TestWriteMethod extends TestCase {
 
 	public void testCascade() {
 		//TODO probably not good enough
-		String smalltalk = "test\none two; three!";
+		String smalltalk = "test\n	Transcript show: 'table printing:'; cr!";
 
-		String expectedJava = "public void test() {\none.two().three();\n}\n";
+		String expectedJava = "public void test() {\nAboraSupport.logger.print(\"table printing:\");\nAboraSupport.logger.println();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testCast() {
-		String smalltalk = "test\nblah cast: Peter!";
+		String smalltalk = "test\n^blah cast: Peter!";
 
-		String expectedJava = "public void test() {\n(Peter) blah;\n}\n";
+		String expectedJava = "public void test() {\nreturn (Peter) blah;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testCastCall() {
-		String smalltalk = "test\nself happy cast: Peter!";
+		String smalltalk = "test\n^self happy cast: Peter!";
 
-		String expectedJava = "public void test() {\n(Peter) happy();\n}\n";
+		String expectedJava = "public void test() {\nreturn (Peter) happy();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testCastCheck() {
+		String smalltalk = "test\na cast: CoordinateSpace!";
+
+		String expectedJava = "public void test() {\nCoordinateSpace aCast = (CoordinateSpace) a;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+
 
 	public void testCastShouldOverrideType() {
-		String smalltalk = "test\nblah cast: UInt32!";
+		String smalltalk = "test\n^blah cast: UInt32!";
 
-		String expectedJava = "public void test() {\n(int) blah;\n}\n";
+		String expectedJava = "public void test() {\nreturn (int) blah;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -406,6 +422,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nblah cast: Pair into: [:pair | pair left]!";
 
 		String expectedJava = "public void test() {\nif (blah instanceof Pair) {\nPair pair = (Pair) blah;\npair.left();\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void XtestCastIntoMultipleTypes() {
+		String smalltalk = "test\nblah cast: (Pair | Dsp) into: [:pair | pair left]!";
+
+		String expectedJava = "public void test() {\nif (blah instanceof Pair) {\nPair pair = (Pair) blah;\npair.left();\n} else if (blah instanceof Dsp) {\nDsp pair = (Dsp) pair;\npair.left();\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -627,6 +650,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testCreateCallAfter() {
+		String smalltalk = "test\nmyBranch createAfter: self!";
+
+		String expectedJava = "public void test() {\nmyBranch.createAfter(this);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testCreateCallSelf() {
 		String smalltalk = "test\nself create: 12!";
 
@@ -754,7 +784,7 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public static void test() {\nA1 a1;\nreturn make((A2) a1);\n}\n";
 		
 		String actualJava = writeMethod(smalltalk, "static ");
-		assertEquals(expectedJava, actualJava);
+		assertMethodBodyEquals(expectedJava, actualJava);
 	}
 
 	public void testDowncastArgument2() {
@@ -773,7 +803,7 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public static void test() {\nA1 a1;\nA1 a11;\nreturn make((A2) a1, (A3) a11);\n}\n";
 		
 		String actualJava = writeMethod(smalltalk, "static ");
-		assertEquals(expectedJava, actualJava);
+		assertMethodBodyEquals(expectedJava, actualJava);
 	}
 	
 	public void testDowncastArgument2WithCast() {
@@ -792,7 +822,7 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public static void test() {\nA1 a1;\nA1 a11;\nreturn make(((A2) a1), (A3) a11);\n}\n";
 		
 		String actualJava = writeMethod(smalltalk, "static ");
-		assertEquals(expectedJava, actualJava);
+		assertMethodBodyEquals(expectedJava, actualJava);
 	}
 
 	public void testDowncastStaticCallAssignmentSubclass() {
@@ -851,7 +881,7 @@ public class TestWriteMethod extends TestCase {
 	public void testDownToDo() {
 		String smalltalk = "test\n10 downTo: fred happy do: [:i {UInt32} | blah ]!";
 
-		String expectedJava = "public void test() {\nfor (int i = 10 ; i >= fred.happy() ; i -= 1 ) {\nblah;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (int i = 10; i >= fred.happy(); i -= 1 ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -900,7 +930,7 @@ public class TestWriteMethod extends TestCase {
 	public void testForEach() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| element]!";
 
-		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos) stomp1.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred; stomp1.hasValue(); stomp1.step()) {\nIntegerPos element = (IntegerPos) stomp1.fetch();\nelement;\n}\n}\n";
 		/*
 		 * "public void test() {\nfor (Stepper stepper = fred ;
 		 * stepper.hasValue() ; stepper.step()) {\nIntegerPos element =
@@ -912,28 +942,28 @@ public class TestWriteMethod extends TestCase {
 	public void testForEachHeaper() {
 		String smalltalk = "test\nfred forEach: [:element | element]!";
 
-		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nHeaper element = stomp1.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred; stomp1.hasValue(); stomp1.step()) {\nHeaper element = stomp1.fetch();\nelement;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testForEachNested() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| blah forEach: [:element2 {RealPos} | element + element2]]!";
 
-		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos element = (IntegerPos) stomp1.fetch();\nfor (Stepper stomp2 = blah ; stomp2.hasValue() ; stomp2.step()) {\nRealPos element2 = (RealPos) stomp2.fetch();\nelement + element2;\n}\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (Stepper stomp1 = fred; stomp1.hasValue(); stomp1.step()) {\nIntegerPos element = (IntegerPos) stomp1.fetch();\nfor (Stepper stomp2 = blah; stomp2.hasValue(); stomp2.step()) {\nRealPos element2 = (RealPos) stomp2.fetch();\nelement + element2;\n}\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testForIndices() {
 		String smalltalk = "test\nfred forIndices: [:i {IntegerVar} :value {IntegerRegion}| element]!";
 
-		String expectedJava = "public void test() {\nfor (TableStepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nint i = (int) stomp1.index();\nIntegerRegion value = (IntegerRegion) stomp1.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (TableStepper stomp1 = fred; stomp1.hasValue(); stomp1.step()) {\nint i = (int) stomp1.index();\nIntegerRegion value = (IntegerRegion) stomp1.fetch();\nelement;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testForPositions() {
 		String smalltalk = "test\nfred forPositions: [:key {IntegerPos} :value {IntegerRegion}| element]!";
 
-		String expectedJava = "public void test() {\nfor (TableStepper stomp1 = fred ; stomp1.hasValue() ; stomp1.step()) {\nIntegerPos key = (IntegerPos) stomp1.position();\nIntegerRegion value = (IntegerRegion) stomp1.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (TableStepper stomp1 = fred; stomp1.hasValue(); stomp1.step()) {\nIntegerPos key = (IntegerPos) stomp1.position();\nIntegerRegion value = (IntegerRegion) stomp1.fetch();\nelement;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1197,6 +1227,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testIsKindOfCategory() {
+		String smalltalk = "test\n| cat {Category}|blah isKindOf: cat!";
+
+		String expectedJava = "public void test() {\nCategory cat;\nblah.isKindOf(cat);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testJavaDocComment() {
 		String smalltalk = "test\n\"Hello there\"!";
 
@@ -1246,8 +1283,21 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nAboraSocketSupport.listenFor(aSocket, 5);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
-	
 
+	public void testLocalVarWithReservedName() {
+		String smalltalk = "test\n| byte {Int32}| ^byte!";
+
+		String expectedJava = "public void test() {\nint bytex;\nreturn bytex;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testLOG() {
+		String smalltalk = "test\nErrorLog LOG: [:ooo | ooo << 'human ' << self]!";
+
+		String expectedJava = "public void test() {\nPrintWriter ooo = ErrorLog;\nooo.print(\"human \");\nooo.print(this);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	       		
 	public void testMax() {
 		String smalltalk = "test\none max: two!";
 
@@ -1287,6 +1337,20 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nself blah.Extra: 1!";
 
 		String expectedJava = "public void test() {\nblahExtra(1);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testMethodNameWith() {
+		String smalltalk = "make.CoordinateSpace: cs {CoordinateSpace} with.CoordinateSpace: rs {CoordinateSpace}!";
+
+		String expectedJava = "public Test makeCoordinateSpace(CoordinateSpace cs, CoordinateSpace rs) {\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testMethodNameCallWith() {
+		String smalltalk = "test\nself make.CoordinateSpace: c with.CoordinateSpace: rs!";
+
+		String expectedJava = "public void test() {\nmakeCoordinateSpace(c, rs);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1539,6 +1603,21 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+public void testPasseIndentedWithTrailingCode() {
+		String smalltalk = "test\na ifTrue: [1 + 2. self passe. a ifTrue: [^1] ifFalse: [^2]]. ^3!";
+
+		String expectedJava = "/**\n * @deprecated\n */\npublic void test() {\nif (a) {\n1 + 2;\nthrow new PasseException();\n}\nreturn 3;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+public void testPointerToStaticMember() {
+	String smalltalk = "test\nPromiseManager pointerToStaticMember: #noRequest: with: 'VHFn'!";
+
+	String expectedJava = "public void test() {\n(VHFn) PromiseManager.pointerToStaticMember(\"NO_REQUEST_\", \"VHFn\");\n}\n";
+	assertInstanceMethod(expectedJava, smalltalk);
+}
+
+	
 	public void testPrint() {
 		String smalltalk = "test: aStream { ostream }\naStream << self blah: 34!";
 
@@ -1612,9 +1691,9 @@ public class TestWriteMethod extends TestCase {
 	}
 	
 	public void testQuickCast() {
-		String smalltalk = "test\nblah quickCast: Peter!";
+		String smalltalk = "test\n^blah quickCast: Peter!";
 
-		String expectedJava = "public void test() {\n(Peter) blah;\n}\n";
+		String expectedJava = "public void test() {\nreturn (Peter) blah;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1632,10 +1711,44 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testReceiveHeaper() {
+		String smalltalk = "test\n| h { Heaper } | h := rcvr receiveHeaper!";
+
+		String expectedJava = "public void test() {\nHeaper h;\nh = rcvr.receiveHeaper();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testReceiveHeaperNonHeaper() {
+		String smalltalk = "test\n| region { XnRegion } | region := rcvr receiveHeaper!";
+
+		String expectedJava = "public void test() {\nXnRegion region;\nregion = (XnRegion) rcvr.receiveHeaper();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testReceiveHeaperDouble() {
+		String smalltalk = "test\n| d { IEEE64 } | d := rcvr receiveHeaper!";
+
+		String expectedJava = "public void test() {\ndouble d;\nd = rcvr.receiveIEEEDoubleVar()\n/* TODO was receiveHeaper */\n;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	public void testReceiveHeaperFloat() {
+		String smalltalk = "test\n| f { IEEE32 } | f := rcvr receiveHeaper!";
+
+		String expectedJava = "public void test() {\nfloat f;\nf = (float) rcvr.receiveIEEEDoubleVar()\n/* TODO was receiveHeaper */\n;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testReceiveIntegerVarForDeclaredBoolean() {
 		String smalltalk = "test\n| startsInside { Boolean } | startsInside := rcvr receiveIntegerVar!";
 
 		String expectedJava = "public void test() {\nboolean startsInside;\nstartsInside = rcvr.receiveBooleanVar();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testRequires() {
+		String smalltalk = "test\nself REQUIRES: Stepper!";
+
+		String expectedJava = "public void test() {\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 	
@@ -1675,6 +1788,20 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\nself kill. self one: 2!";
 
 		String expectedJava = "public void test() {\nkill();\none(2);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testSendHeaper() {
+		String smalltalk = "test\n| region { XnRegion } | xmtr sendHeaper: region!";
+
+		String expectedJava = "public void test() {\nXnRegion region;\nxmtr.sendHeaper(region);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testSendHeaperDouble() {
+		String smalltalk = "test\n| d { IEEE64 } | xmtr sendHeaper: d!";
+
+		String expectedJava = "public void test() {\ndouble d;\nxmtr.sendIEEEDoubleVar(d)\n/* TODO was sendHeaper */\n;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1804,6 +1931,14 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testStringAsTextWriteStream() {
+		String smalltalk = "test\noo := '' asText writeStream.!";
+
+		String expectedJava = "public void test() {\nStringWriter stringWriter = new StringWriter();\noo = new PrintWriter(stringWriter);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	
 	public void testStringDeclaration() {
 		String smalltalk = "test: string {Character star}\nstring!";
 
@@ -1919,14 +2054,14 @@ public class TestWriteMethod extends TestCase {
 	public void testTimesRepeat() {
 		String smalltalk = "test\n4 timesRepeat: [self blah]!";
 
-		String expectedJava = "public void test() {\nfor (int i = 0 ; i < 4 ; i ++ ) {\nblah();\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (int i = 0; i < 4; i ++ ) {\nblah();\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testToDo() {
 		String smalltalk = "test\n1 to: fred happy do: [:i {UInt32} | blah ]!";
 
-		String expectedJava = "public void test() {\nfor (int i = 1 ; i <= fred.happy() ; i ++ ) {\nblah;\n}\n}\n";
+		String expectedJava = "public void test() {\nfor (int i = 1; i <= fred.happy(); i ++ ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -2107,6 +2242,11 @@ public class TestWriteMethod extends TestCase {
 
 	protected void assertInstanceMethod(String expectedJava, String smalltalkSource) {
 		String actualJava = writeInstanceMethod(smalltalkSource);
+		assertMethodBodyEquals(expectedJava, actualJava);
+	}
+
+	private void assertMethodBodyEquals(String expectedJava, String actualJava) {
+		actualJava = actualJava.replaceAll(System.getProperty("line.separator"), "\n");
 		assertEquals(expectedJava, actualJava);
 	}
 

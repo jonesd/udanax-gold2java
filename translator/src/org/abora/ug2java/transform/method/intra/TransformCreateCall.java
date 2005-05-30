@@ -7,6 +7,7 @@ package org.abora.ug2java.transform.method.intra;
 
 import java.util.List;
 
+import org.abora.ug2java.ClassParser;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
@@ -33,6 +34,9 @@ public class TransformCreateCall extends AbstractMethodBodyTransformation {
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
+		if (ClassParser.NON_CONSTRUCTORS.contains(call.value)) {
+			return i;
+		}
 		if (i > 0 && (tokens.get(i - 1) instanceof JavaIdentifier)) {
 			JavaToken token = (JavaToken) tokens.get(i - 1);
 			if (token.value.equals("super")) {

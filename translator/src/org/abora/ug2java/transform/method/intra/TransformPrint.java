@@ -32,20 +32,25 @@ public class TransformPrint extends AbstractMethodBodyTransformation {
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.token(JavaKeyword.class, "<<");
+		return factory.token(JavaKeyword.class, "<<|;");
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
+		JavaKeyword call = (JavaKeyword)tokens.get(i);
 		int endOfBlock = javaMethod.methodBody.findEndOfExpression(i+1);
 		for (int j = i + 2; j < endOfBlock; j ++) {
 			JavaToken token = (JavaToken)tokens.get(j);
-			if ((token instanceof JavaKeyword) && token.value.equals("<<")) {
+			if ((token instanceof JavaKeyword) && (token.value.equals("<<") || token.value.equals(";"))) {
 				endOfBlock = j - 1;
 			}
 		}
-		tokens.add(endOfBlock+1, new JavaCallEnd());
-		tokens.remove(i);
-		tokens.add(i, new JavaCallKeywordStart("print"));
+		if (call.value.equals("<<")) {
+			tokens.add(endOfBlock+1, new JavaCallEnd());
+		}
+			tokens.remove(i);
+		if (call.value.equals("<<")) {
+			tokens.add(i, new JavaCallKeywordStart("print"));
+		}
 		//Watch out for immediately proceeding comment TODO would prefer to keep it
 		if (tokens.get(i-1) instanceof JavaComment) {
 			tokens.remove(i-1);

@@ -37,6 +37,7 @@ public class TransformInitializeLocalVariable extends AbstractMethodBodyTransfor
 		set.add("PrimPtrTable.hashFind.loc");
 		set.add("PrimPtrTable.hashFind.removed");
 		set.add("RealRegion.make.flag");
+		set.add("ActualHashSet.arrayStats.totCnt");
 		
 		//TODO just for tests
 		set.add("Test.test.shouldInitialize");

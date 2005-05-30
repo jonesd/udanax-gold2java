@@ -158,6 +158,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("AboraSocketSupport", "org.abora.gold.java");
 		packageLookup.put("AboraSupport", "org.abora.gold.java");
 		packageLookup.put("Abstract", "org.abora.gold.java");
+		packageLookup.put("Fn", "org.abora.gold.java");
 		packageLookup.put("HashHelper", "org.abora.gold.java");
 
 		packageLookup.put("AboraAssertionException", "org.abora.gold.java.exception");

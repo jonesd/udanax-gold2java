@@ -32,6 +32,7 @@ public class JavaClass {
 	public final List methods = new ArrayList();
 	public final JavaCodebase javaCodebase;
 	public SortedSet importedPackages = new TreeSet();
+	public final List staticBlocks = new ArrayList();
 
 	static final String PACKAGE_SEPARATOR = ".";
 
@@ -67,7 +68,7 @@ public class JavaClass {
 	}
 
 	public String getPackageDirectory() {
-		return classCategory.replaceAll("\\.", File.separator);
+		return classCategory.replace('.', File.separatorChar);
 	}
 
 	public void includeImportForType(String type) {

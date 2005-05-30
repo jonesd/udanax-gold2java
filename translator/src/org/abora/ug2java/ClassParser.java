@@ -24,6 +24,7 @@ import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaLiteral;
+import org.abora.ug2java.javatoken.JavaLoopTerminator;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
@@ -71,6 +72,7 @@ public class ClassParser {
 		table.put("IEEEFloatVar", "float");
 		table.put("IEEE64", "double");
 		table.put("IEEE32", "float");
+		table.put("IEEE8", "float"); //TODO what to do here?
 		
 //		table.put("Category", "Class");
 				
@@ -137,6 +139,8 @@ public class ClassParser {
 		table.put("fetchNewRawSpace", "Array");
 		table.put("fluidSpace", "Array");	
 		table.put("LPPrimeSizeProvider.make", "PrimeSizeProvider");
+		table.put("ActualHashSet.arrayStats", "void");
+
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -177,6 +181,16 @@ public class ClassParser {
 		table.put("asOrderedCollection", "OrderedCollection");
 		table.put("SimpleTurtle.make", "Turtle");
 		table.put("Category.name", "String");
+		table.put("HashSet.make", "MuSet");
+		table.put("HashSet.makeIntegerVar", "MuSet");
+		table.put("HashSet.makeHeaper", "MuSet");
+		table.put("ActualHashSet.make", "MuSet");
+		table.put("ActualHashSet.makeIntegerVar", "MuSet");
+		table.put("ActualHashSet.makeHeaper", "MuSet");
+		table.put("CrossMapping.make(Object)", "Mapping");
+		table.put("SnarfPacker.consistentCount", "int");
+		table.put("CBlockTrackingPacker.consistentCount", "int");
+		table.put("SnarfPacker.make(String)", "DiskManager");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -282,6 +296,7 @@ public class ClassParser {
 
 		while (scanner.token.tokenType != ScannerToken.TOKEN_TEMPS) {
 			String tempName = scanner.token.tokenString;
+			tempName = getJavaSafeWord(tempName);
 			scannerAdvance(scanner);
 
 			String tempType = parseParameterType(scanner);
@@ -414,7 +429,7 @@ public class ClassParser {
 		if (existingKeywords.length() != 0) {
 			w = Character.toUpperCase(w.charAt(0)) + w.substring(1, w.length());
 		}
-		if (existingKeywords.length() > 0 && w.equals("With")) {
+		if (existingKeywords.length() > 0 && w.startsWith("With")) {
 			// ignore
 		} else {
 			existingKeywords = existingKeywords + w;
@@ -516,6 +531,7 @@ public class ClassParser {
 		boolean atExpressionStart = true;
 		boolean endOfUnit = false;
 		boolean endOfExpression = false;
+		boolean cascadeBreak = false;
 		JavaCallKeywordStart existingKeyword = null;
 		boolean hasIf = false;
 		
@@ -805,11 +821,11 @@ scannerAdvance(scanner);
 							expression.add(startIndex + 2, new JavaType(STEPPER_CLASS));
 							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(startIndex + 4, new JavaKeyword("="));
-							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaLoopTerminator());
 							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(new JavaCallStart("hasValue"));
 							expression.add(new JavaCallEnd());
-							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaLoopTerminator());
 							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(new JavaCallStart("step"));
 							expression.add(new JavaCallEnd());
@@ -823,11 +839,11 @@ scannerAdvance(scanner);
 							expression.add(startIndex + 2, new JavaType(TABLE_STEPPER_CLASS));
 							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(startIndex + 4, new JavaKeyword("="));
-							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaLoopTerminator());
 							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(new JavaCallStart("hasValue"));
 							expression.add(new JavaCallEnd());
-							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaLoopTerminator());
 							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(new JavaCallStart("step"));
 							expression.add(new JavaCallEnd());
@@ -841,11 +857,11 @@ scannerAdvance(scanner);
 							expression.add(startIndex + 2, new JavaType(TABLE_STEPPER_CLASS));
 							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(startIndex + 4, new JavaKeyword("="));
-							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaLoopTerminator());
 							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(new JavaCallStart("hasValue"));
 							expression.add(new JavaCallEnd());
-							expression.add(new JavaKeyword(";"));
+							expression.add(new JavaLoopTerminator());
 							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
 							expression.add(new JavaCallStart("step"));
 							expression.add(new JavaCallEnd());
@@ -908,6 +924,7 @@ scannerAdvance(scanner);
 					}
 				case ScannerToken.TOKEN_CASCADE :
 					{
+						cascadeBreak = true;
 						scannerAdvance(scanner);
 						break;
 					}
@@ -922,7 +939,7 @@ scannerAdvance(scanner);
 						throw new IllegalStateException("Unexpected token type while writing method");
 					}
 			}
-			if (endOfUnit || endOfExpression) {
+			if (endOfUnit || endOfExpression || cascadeBreak) {
 				if (existingKeyword != null) {
 					JavaToken closingKeyword = new JavaCallEnd();
 					if (expression.get(expression.size() - 1) instanceof JavaStatementTerminator) {
@@ -931,11 +948,19 @@ scannerAdvance(scanner);
 						expression.add(closingKeyword);
 					}
 				}
+				if (cascadeBreak) {
+					expression.add(new JavaKeyword(";"));
+				}
 				tokens.addAll(expression);
 
 				expression = new Vector();
 				endOfExpression = false;
-				atExpressionStart = true;
+				if (cascadeBreak) {
+					atExpressionStart = false;
+				} else {
+					atExpressionStart = true;
+				}
+				cascadeBreak = false;
 				existingKeyword = null;
 				hasIf = false;
 				hasForEach = false;

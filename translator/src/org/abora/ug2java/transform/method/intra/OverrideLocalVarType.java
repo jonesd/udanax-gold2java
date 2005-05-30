@@ -32,6 +32,9 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		map.put("ActualHashSet.arrayStats.modeVal", "int");
 		map.put("ActualHashSet.arrayStats.totCnt", "int");
 		map.put("ActualHashSet.arrayStats.cv", "int");
+		map.put("ActualHashSet.arrayStats.avg", "float");
+		map.put("ActualHashSet.arrayStats.oo", "PrintWriter");
+		
 		
 		map.put("GrandHashTableTester.runTest.str", "WriteStream");
 		map.put("GrandHashTableTester.stomp.table", "GrandHashTable");
@@ -41,6 +44,11 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		map.put("MuTable.test.iTable", "IntegerTable");
 		
 		map.put("TextyRcvr.receiveBooleanVar.result", "char");
+		
+		map.put("RequestHandler.printOn.staticFn", "Fn");
+		
+		map.put("FlockInfo.registerInfo.shep", "Abraham");
+		map.put("FlockInfo.registerInfo.cat", "Category");
 		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");

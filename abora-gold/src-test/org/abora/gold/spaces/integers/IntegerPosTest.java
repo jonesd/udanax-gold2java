@@ -1,4 +1,4 @@
-package org.abora.gold.spaces.integers.test;
+package org.abora.gold.spaces.integers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

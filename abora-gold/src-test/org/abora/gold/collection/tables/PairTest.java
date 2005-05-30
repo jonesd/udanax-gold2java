@@ -1,4 +1,4 @@
-package org.abora.gold.collection.tables.test;
+package org.abora.gold.collection.tables;
 
 import org.abora.gold.collection.tables.Pair;
 import org.abora.gold.java.exception.AboraRuntimeException;

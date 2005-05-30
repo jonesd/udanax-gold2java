@@ -20,7 +20,8 @@ public class Array {
 		throw new UnsupportedOperationException();
 	}
 
-	public static Array newWithAll(int i, int i1) {
+	//TODO sort out this Array vs IntArray madness
+	public static IntArray newWithAll(int i, int i1) {
 		throw new UnsupportedOperationException();
 	}
 
