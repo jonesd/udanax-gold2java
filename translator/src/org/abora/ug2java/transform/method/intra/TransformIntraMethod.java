@@ -59,6 +59,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformRaisedTo());
 		transformers.add(new TransformWhileTrue());
 		transformers.add(new TransformTimesRepeat());
+		transformers.add(new TransformStringDo());
 		transformers.add(new TransformCritical());
 		transformers.add(new TransformValueNowOrOnOnUnwindDo());
 		transformers.add(new TransformAtCalls());

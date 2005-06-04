@@ -46,9 +46,7 @@ public class TransformShouldImplement extends AbstractMethodBodyTransformation {
 		tokens.add(i + 1, new JavaKeyword("new"));
 		tokens.add(i + 2, new JavaCallKeywordStart("ShouldImplementException"));
 		tokens.add(i + 3, new JavaLiteral("\""+type.value+"\""));
-		
-		javaMethod.javaClass.includeImportForType("ShouldImplementException");
-		
+				
 		if (i > 0) {
 			JavaToken preToken = (JavaToken)tokens.get(i - 1);
 			if ((preToken instanceof JavaKeyword) && preToken.value.equals("return")) {

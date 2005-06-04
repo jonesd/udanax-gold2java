@@ -9,7 +9,6 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.collection.steppers.Stepper;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class RandomStepper extends Heaper {

@@ -43,7 +43,6 @@ public class TransformMathCalls extends AbstractMethodBodyTransformation {
 		}
 		tokens.add(start, new JavaIdentifier("Math"));
 		tokens.add(start+1, new JavaCallKeywordStart(call.value));
-		javaMethod.javaClass.includeImportForType("Math");
 		
 		return i;
 	}

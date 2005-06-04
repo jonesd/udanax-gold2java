@@ -45,4 +45,8 @@ public class Array {
 		throw new UnsupportedOperationException();
 	}
 
+	public void basicAtPut(int i, Object arg1) {
+		throw new UnsupportedOperationException();
+	}
+
 }

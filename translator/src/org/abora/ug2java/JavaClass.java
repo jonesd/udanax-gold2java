@@ -14,6 +14,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaCast;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaToken;
@@ -71,25 +72,19 @@ public class JavaClass {
 		return classCategory.replace('.', File.separatorChar);
 	}
 
-	public void includeImportForType(String type) {
+	private void includeImportForType(String type) {
 		String importPackage = (String) javaCodebase.packageLookup.get(type);
+		//TODO should be able to filter out imports for our package
 		if (importPackage != null) {
 			importedPackages.add(importPackage + "." + type);
 		}
 	}
 
-	public static String lineSeparator() {
-		return System.getProperty("line.separator");
-	}
-
-
-
-
-	protected void includeAnyReferencedTypes(MethodBody body) {
+	private void includeAnyReferencedTypes(MethodBody body) {
 		List tokens = body.tokens;
 		for (int i = 0; i < tokens.size(); i++) {
 			JavaToken token = (JavaToken) tokens.get(i);
-			if ((token instanceof JavaIdentifier || token instanceof JavaType || token instanceof JavaCast)
+			if ((token instanceof JavaIdentifier || token instanceof JavaType || token instanceof JavaCast || token instanceof JavaCallStart)
 				&& Character.isJavaIdentifierStart(token.value.charAt(0))) {
 				includeImportForType(token.value);
 			}
@@ -155,6 +150,37 @@ public class JavaClass {
 		ToStringGenerator generator = new ToStringGenerator(this);
 		generator.add("name", className);
 		return generator.end();
+	}
+
+	public void generateImports() {
+		includeImportForType(superclassName);
+		for (Iterator iter = fields.iterator(); iter.hasNext();) {
+			JavaField field = (JavaField) iter.next();
+			includeImportForType(field.type);
+		}
+		includeAnyReferencedTypes(methods);
+		includeAnyReferencedTypes(staticBlocks);
+	}
+	
+	private void includeAnyReferencedTypes(List methodsList) {
+		for (Iterator iter = methodsList.iterator(); iter.hasNext();) {
+			JavaMethod method = (JavaMethod) iter.next();
+			if (method.shouldInclude) {
+				includeAnyReferencedTypes(method);
+			}
+		}
+	}
+
+	private void includeAnyReferencedTypes(JavaMethod method) {
+		if (!method.shouldInclude) {
+			return;
+		}
+		for (Iterator iter = method.parameters.iterator(); iter.hasNext();) {
+			JavaField field = (JavaField) iter.next();
+			includeImportForType(field.type);
+		}
+		includeImportForType(method.returnType);
+		includeAnyReferencedTypes(method.methodBody);
 	}
 
 }

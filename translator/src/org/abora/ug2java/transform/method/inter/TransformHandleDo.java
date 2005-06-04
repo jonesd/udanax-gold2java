@@ -146,8 +146,6 @@ public class TransformHandleDo extends AbstractMethodBodyTransformation {
 		
 		tokens.add(ii, new JavaKeyword("try"));
 
-		javaMethod.javaClass.includeImportForType(ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS);
-		
 		return i;
 	}
 

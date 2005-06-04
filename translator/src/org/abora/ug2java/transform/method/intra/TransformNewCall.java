@@ -37,9 +37,8 @@ public class TransformNewCall extends AbstractMethodBodyTransformation {
 		JavaCallStart call = (JavaCallStart)tokens.get(i+1);
 		
 		call.value = type.value;
-			javaMethod.javaClass.includeImportForType(type.value);
-			tokens.remove(i);
-			tokens.add(i, new JavaKeyword("new"));
+		tokens.remove(i);
+		tokens.add(i, new JavaKeyword("new"));
 		return i;
 	}
 }

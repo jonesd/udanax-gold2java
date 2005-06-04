@@ -93,10 +93,6 @@ public class ClassWriter {
 	}
 
 		public void writeMethod(JavaMethod javaMethod, PrintWriter writer) {
-		if (javaMethod.name.startsWith("inspect")) {
-			javaMethod.shouldInclude = false;
-		}
-		
 		if (javaMethod.shouldInclude) {
 			writeMethodJavaDoc(javaMethod, writer);
 		

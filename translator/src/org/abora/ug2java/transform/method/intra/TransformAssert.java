@@ -47,7 +47,6 @@ public class TransformAssert extends AbstractMethodBodyTransformation {
 		tokens.add(i+1, new JavaKeyword("throw"));
 		tokens.add(i+2, new JavaKeyword("new"));
 		call.value = "AboraAssertionException";
-		javaMethod.javaClass.includeImportForType("AboraAssertionException");
 		
 		if (i > 0 && (!(tokens.get(expressionStart) instanceof JavaParenthesisStart) || !(tokens.get(i - 1) instanceof JavaParenthesisEnd))) {
 			tokens.add(i, new JavaParenthesisEnd());

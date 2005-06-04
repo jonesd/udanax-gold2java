@@ -59,7 +59,6 @@ public class TransformNewBecome extends AbstractMethodBodyTransformation {
 			if (tokens.get(i-1) instanceof JavaIdentifier) {
 				JavaIdentifier type = (JavaIdentifier)tokens.get(i-1);
 				call.value = type.value;
-				javaMethod.javaClass.includeImportForType(type.value);
 				tokens.remove(i-1);
 				tokens.remove(i-2);
 			} else {

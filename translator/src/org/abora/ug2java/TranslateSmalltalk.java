@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -27,10 +28,19 @@ import org.abora.ug2java.writer.ClassWriter;
 public class TranslateSmalltalk {
 	private static final char CHUNK_SEPARATOR = '!';
 
-	private static final Set SKIP_METHOD_CATEGORIES = new HashSet();
-	{
-		SKIP_METHOD_CATEGORIES.add("Heaper class methodsFor: 'stubble PROXY'!");
-		SKIP_METHOD_CATEGORIES.add("Heaper class methodsFor: 'locking'!");
+	private static final Set SKIP_METHOD_CATEGORIES;
+	static {
+		Set set = new HashSet();
+		set.add("Heaper class methodsFor: 'stubble PROXY'!");
+		set.add("Heaper class methodsFor: 'locking'!");
+		SKIP_METHOD_CATEGORIES = Collections.unmodifiableSet(set);
+	}
+	
+	private static final Set SKIP_CLASSES;
+	static {
+		Set set = new HashSet();
+		set.add("ExtractMethodConstant");
+		SKIP_CLASSES = Collections.unmodifiableSet(set);
 	}
 
 	public TranslateSmalltalk() {
@@ -384,19 +394,33 @@ public class TranslateSmalltalk {
 	}
 
 	private void writeClasses(String outputDirectoryName, List javaClasses) throws Exception {
-		System.out.println();
-		System.out.println("Parsing Java");
-		System.out.println("-------------------------------------------------------");
+	
+		parseClasses(javaClasses);
+		transformClasses(javaClasses);
+		generateImports(javaClasses);
 		
-		ClassParser classParser = new ClassParser();
-
+		writeJavaClasses(outputDirectoryName, javaClasses);
+	}
+	private void writeJavaClasses(String outputDirectoryName, List javaClasses) throws Exception {
+		System.out.println();
+		System.out.println("Writing Classes");
+		System.out.println("-------------------------------------------------------");
 		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
 			JavaClass javaClass = (JavaClass) iter.next();
-			classParser.setJavaClass(javaClass);
-			System.out.println("Parse: "+javaClass.className);
-			classParser.parse();
+			//TODO consider skipping classes while being read in?
+			if (!SKIP_CLASSES.contains(javaClass.className)) {
+				ClassWriter classWriter = new ClassWriter(javaClass);
+				classWriter.write(outputDirectoryName);
+			}
 		}
-
+	}
+	private void generateImports(List javaClasses) {
+		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
+			JavaClass javaClass = (JavaClass) iter.next();
+			javaClass.generateImports();
+		}
+	}
+	private void transformClasses(List javaClasses) {
 		System.out.println();
 		System.out.println("Transforming Classes");
 		System.out.println("-------------------------------------------------------");
@@ -406,14 +430,19 @@ public class TranslateSmalltalk {
 			System.out.println("Transform: "+javaClass.className);
 			classTransformer.transform(javaClass);
 		}
-
+	}
+	private void parseClasses(List javaClasses) throws Exception {
 		System.out.println();
-		System.out.println("Writing Classes");
+		System.out.println("Parsing Java");
 		System.out.println("-------------------------------------------------------");
+
+		ClassParser classParser = new ClassParser();
+
 		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
 			JavaClass javaClass = (JavaClass) iter.next();
-			ClassWriter classWriter = new ClassWriter(javaClass);
-			classWriter.write(outputDirectoryName);
+			classParser.setJavaClass(javaClass);
+			System.out.println("Parse: "+javaClass.className);
+			classParser.parse();
 		}
 	}
 

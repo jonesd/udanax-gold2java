@@ -42,7 +42,6 @@ public TransformBlast() {
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));
 		call.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS;
-		javaMethod.javaClass.includeImportForType(call.value);
 		message.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS+"." + message.value;
 		
 		if (i > 0 && (tokens.get(i-1) instanceof JavaIdentifier)) {

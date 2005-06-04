@@ -24,4 +24,8 @@ public class AboraCharacterSupport {
 		throw new UnsupportedOperationException();
 	}
 
+	public static String println() {
+		throw new UnsupportedOperationException();
+	}
+
 }

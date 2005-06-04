@@ -35,7 +35,6 @@ public class TransformSubclassResponsibility extends AbstractMethodBodyTransform
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));
 		call.value = "SubclassResponsibilityException";
-		javaMethod.javaClass.includeImportForType("SubclassResponsibilityException");
 		
 		//handle ^self subclassResponsibility
 		if (i > 0 && tokens.get(i-1) instanceof JavaKeyword) {

@@ -38,7 +38,6 @@ public TransformUnimplemented() {
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));
 		call.value = "UnimplementedException";
-		javaMethod.javaClass.includeImportForType("UnimplementedException");
 		
 		return i;
 	}

@@ -2,7 +2,6 @@ package org.abora.gold.java;
 
 import org.abora.gold.backrec.ResultRecorder;
 import org.abora.gold.fossil.RecorderFossil;
-import org.abora.gold.java.missing.smalltalk.BlockClosure;
 import org.abora.gold.snarf.DiskManager;
 import org.abora.gold.xpp.fluid.FluidVar;
 

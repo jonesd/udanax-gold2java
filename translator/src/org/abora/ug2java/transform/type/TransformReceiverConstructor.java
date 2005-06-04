@@ -62,7 +62,6 @@ public class TransformReceiverConstructor implements ClassTransformer {
 		tokens.add(new JavaStatementTerminator());
 		MethodBody body = new MethodBody(tokens);		
 		method.methodBody = body;
-		javaClass.includeImportForType("Rcvr");
 		
 		return method;
 	}

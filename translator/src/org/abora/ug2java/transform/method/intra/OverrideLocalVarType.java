@@ -50,6 +50,8 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		map.put("FlockInfo.registerInfo.shep", "Abraham");
 		map.put("FlockInfo.registerInfo.cat", "Category");
 		
+		map.put("StaticFunctionPointer.invokeFunction.args", "Array");
+		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");
 		

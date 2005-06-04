@@ -50,7 +50,6 @@ public class TransformClassReference extends AbstractMethodBodyTransformation {
 			// classname
 			tokens.add(i + 3, new JavaIdentifier("class"));
 			tokens.add(i+4, new JavaCallEnd());
-			javaMethod.javaClass.includeImportForType("AboraSupport");
 		}
 		return i;
 	}

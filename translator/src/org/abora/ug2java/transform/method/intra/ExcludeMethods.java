@@ -68,7 +68,9 @@ public class ExcludeMethods implements MethodTransformation {
 		String fullName = javaMethod.getQualifiedName();
 		String parameterName = javaMethod.getQualifiedSignature();
 		if (!javaMethod.isStatic() && (INSTANCE_METHODS.contains(shortName) || INSTANCE_METHODS.contains(fullName) || INSTANCE_METHODS.contains(parameterName))
-				|| javaMethod.isStatic() && (STATIC_METHODS.contains(shortName) || STATIC_METHODS.contains(fullName) || STATIC_METHODS.contains(parameterName))) {
+				|| javaMethod.isStatic() && (STATIC_METHODS.contains(shortName) || STATIC_METHODS.contains(fullName) || STATIC_METHODS.contains(parameterName))
+				//TODO include inspect in lookup mechanism
+				|| javaMethod.name.startsWith("inspect")) {
 			javaMethod.shouldInclude = false;
 		}
 	}

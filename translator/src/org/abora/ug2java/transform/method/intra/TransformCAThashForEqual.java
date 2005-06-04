@@ -37,7 +37,6 @@ public class TransformCAThashForEqual extends AbstractMethodBodyTransformation {
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier javaIdentifier = (JavaIdentifier)tokens.get(i);
 		javaIdentifier.value = "HashHelper";
-		javaMethod.javaClass.includeImportForType("HashHelper");
 		tokens.remove(i + 1);
 		tokens.add(i + 1, new JavaCallKeywordStart("hashForEqual"));
 		tokens.add(i + 2, new JavaIdentifier("this"));

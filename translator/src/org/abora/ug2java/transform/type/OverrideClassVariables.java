@@ -46,7 +46,6 @@ public class OverrideClassVariables implements ClassTransformer {
 			String replacementType = overrideWith(javaClass, field);
 			if (replacementType != null) {
 				field.type = replacementType;
-				javaClass.includeImportForType(replacementType);
 			}
 		}
 	}

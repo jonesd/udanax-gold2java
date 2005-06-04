@@ -43,7 +43,6 @@ public class TransformCreateCall extends AbstractMethodBodyTransformation {
 				return i;
 			}
 			call.value = token.value;
-			javaMethod.javaClass.includeImportForType(call.value);
 			tokens.remove(i - 1);
 			tokens.add(i - 1, new JavaKeyword("new"));
 		} else {

@@ -43,7 +43,6 @@ public class OverrideArgumentType implements MethodTransformation {
 				type = (String)METHODS.get(shortName);
 			}
 			field.type = type;
-			javaMethod.javaClass.includeImportForType(type);
 			
 		}
 	}

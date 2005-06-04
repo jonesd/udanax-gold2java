@@ -30,7 +30,7 @@ public class ConvertToStaticBlocks implements MethodTransformation {
 		String fullName = javaMethod.javaClass.className+"."+shortName;
 		String parameterName = fullName+parameterDeclaration(javaMethod);
 		if (javaMethod.isStatic() && (STATIC_METHODS.contains(shortName) || STATIC_METHODS.contains(fullName) || STATIC_METHODS.contains(parameterName))) {
-			javaMethod.shouldInclude = false;
+			javaMethod.javaClass.methods.remove(javaMethod);
 			//TODO nicer implementation
 			javaMethod.javaClass.staticBlocks.add(javaMethod);
 		}

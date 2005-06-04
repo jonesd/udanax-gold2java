@@ -1953,6 +1953,15 @@ public void testPointerToStaticMember() {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testStringDo() {
+		String smalltalk = "test\nstring do: [:ch {Character} | self putByte: ch]!";
+
+		String expectedJava = "public void test() {\nfor (int doIndex = 0; doIndex < string.length(); doIndex ++ ) {\nchar ch = string.charAt(doIndex);\nputByte(ch);\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	
+				
 	public void testStringWrapped() {
 		String smalltalk = "test\n'hi there\nand here\n'!";
 

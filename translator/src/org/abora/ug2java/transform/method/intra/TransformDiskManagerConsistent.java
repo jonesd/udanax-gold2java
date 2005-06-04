@@ -106,7 +106,6 @@ public class TransformDiskManagerConsistent extends AbstractMethodBodyTransforma
 				tokens.remove(i);
 			}
 			
-			javaMethod.javaClass.includeImportForType("AboraBlockSupport");
 		}
 		return i;
 	}

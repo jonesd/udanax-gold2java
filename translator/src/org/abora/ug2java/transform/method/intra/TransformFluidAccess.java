@@ -74,7 +74,6 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 		JavaIdentifier identifier = (JavaIdentifier)tokens.get(i);
 		if (FLUID_MAPPINGS.containsKey(identifier.value)) {
 			String type = (String)FLUID_MAPPINGS.get(identifier.value);
-			javaMethod.javaClass.includeImportForType(type);
 			tokens.add(i + 2, new JavaParenthesisEnd());
 			tokens.add(i, new JavaParenthesisStart());
 			tokens.add(i + 1, new JavaCast(type));

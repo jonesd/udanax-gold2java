@@ -36,7 +36,7 @@ public class JavaWriter {
 	}
 	
 	public void newLine() {
-		printWriter.print(JavaClass.lineSeparator());
+		printWriter.print(JavaWriter.lineSeparator());
 		atStartOfLine = true;
 		lastCharacter = ' ';
 	}
@@ -63,6 +63,10 @@ public class JavaWriter {
 		if (!atStartOfLine) {
 			newLine();
 		}
+	}
+
+	public static String lineSeparator() {
+		return System.getProperty("line.separator");
 	}
 
 }

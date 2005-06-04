@@ -85,6 +85,7 @@ public class ClassParser {
 		//TODO mispelling?
 		table.put("IDRegio", "IDRegion");
 		table.put("Symbol", "String");
+		table.put("Selector", "String");
 
 		table.put("ostream", "PrintWriter");
 		LOOKUP_TYPES = Collections.unmodifiableMap(table);
@@ -191,6 +192,8 @@ public class ClassParser {
 		table.put("SnarfPacker.consistentCount", "int");
 		table.put("CBlockTrackingPacker.consistentCount", "int");
 		table.put("SnarfPacker.make(String)", "DiskManager");
+		table.put("StaticFunctionPointer.staticClass", "Class");
+		table.put("StaticFunctionPointer.selector", "String");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -245,7 +248,7 @@ public class ClassParser {
 		String type = overrideTypeIfNecessary(xanaduType);
 
 		//TODO ugly double duty
-		javaClass.includeImportForType(type);
+//		javaClass.includeImportForType(type);
 
 		return type;
 	}
@@ -331,7 +334,8 @@ public class ClassParser {
 			if (type.equals("void")) {
 				scannerAdvance(scanner);
 				if (scanner.token.tokenType == ScannerToken.TOKEN_WORD && scanner.token.tokenString.equals("star")) {
-					type = "PrimArray";
+					//type = "PrimArray";
+					type = "PtrArray";
 				}
 			} else if (type.equals("Character") || type.equals("char")) {
 				scannerAdvance(scanner);
@@ -493,7 +497,7 @@ public class ClassParser {
 		stompLevel = 1;/*hack*/
 		javaMethod.methodBody = readMethodUnit(scanner);
 		methodTransformer.transform(javaMethod);
-		javaClass.includeAnyReferencedTypes(javaMethod.methodBody);
+//		javaClass.includeAnyReferencedTypes(javaMethod.methodBody);
 		lookupType(javaMethod.returnType);
 
 			SmalltalkSource smalltalkSource = new SmalltalkSource();
@@ -521,7 +525,7 @@ public class ClassParser {
 	
 	public void parse() throws Exception {
 		parseClassDefinition();
-		javaClass.includeImportForType(javaClass.superclassName);
+//		javaClass.includeImportForType(javaClass.superclassName);
 	}
 
 	protected MethodBody readMethodUnit(SmalltalkScanner scanner) {

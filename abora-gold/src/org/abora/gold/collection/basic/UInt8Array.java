@@ -173,4 +173,8 @@ public class UInt8Array extends PrimIntArray {
 		throw new UnsupportedOperationException();
 	}
 
+	public static void bombReleaseGuts(UInt8Array buffer) {
+		throw new UnsupportedOperationException();
+	}
+
 }

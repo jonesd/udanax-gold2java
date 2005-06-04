@@ -149,9 +149,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		tokens.add(blockStart+1, new JavaCallStart(call));
 		tokens.add(blockStart+2, new JavaCallEnd());
 		tokens.add(blockStart+3, new JavaStatementTerminator());
-		
-		javaMethod.javaClass.includeImportForType("AboraSupport");
-		
+				
 		return i;
 	}
 }
