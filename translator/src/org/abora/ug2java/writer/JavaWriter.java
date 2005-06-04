@@ -2,8 +2,6 @@ package org.abora.ug2java.writer;
 
 import java.io.PrintWriter;
 
-import org.abora.ug2java.JavaClass;
-
 
 
 public class JavaWriter {

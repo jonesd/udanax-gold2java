@@ -25,6 +25,12 @@ public class RenameCall extends AbstractMethodBodyTransformation {
 		Map map = new HashMap();
 		map.put("show", "print");
 		map.put("cr", "println");
+		map.put("nextPut", "print");
+		map.put("ActualHashSet.linkTimeNonInherited.Array", "IntArray");
+		map.put("GrandHashTable.subTable.makeCoordinateSpace", "make");
+		
+		//TODO only for tests
+		map.put("Test.testRename.Array", "IntArray");
 		RENAME_CALLS = Collections.unmodifiableMap(map);
 	}
 	
@@ -36,16 +42,26 @@ public RenameCall() {
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.token(JavaCallStart.class, regularExpressionOr(RENAME_CALLS.keySet()));
+		return factory.token(JavaCallStart.class, regularExpressionOrTrailing(RENAME_CALLS.keySet()));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
-		String newCall = (String)RENAME_CALLS.get(call.value);
-		if (newCall == null) {
-			throw new IllegalStateException("Failed to find expected match for rename:"+this);
+		String shortCall = call.value;
+		String methodCall = javaMethod.name+"."+shortCall;
+		String fullCall = javaMethod.javaClass.className+"."+methodCall;
+		String lookup = null;
+		if (RENAME_CALLS.containsKey(fullCall)) {
+			lookup = fullCall;
+		} else if (RENAME_CALLS.containsKey(methodCall)) {
+			lookup = methodCall;
+		} else if (RENAME_CALLS.containsKey(shortCall)) {
+			lookup = shortCall;
 		}
-		call.value = newCall;
+		if (lookup != null) {
+			String newCallName = (String)RENAME_CALLS.get(lookup);
+			call.value = newCallName;
+		}
 		return i;
 	}
 }

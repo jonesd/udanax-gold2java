@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaAssignment;
-import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
@@ -29,13 +28,13 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class CopyOfTransformCastIntoOthers2 extends AbstractMethodBodyTransformation {
+public class TransformCastIntoOthers2 extends AbstractMethodBodyTransformation {
 
 
-	public CopyOfTransformCastIntoOthers2() {
+	public TransformCastIntoOthers2() {
 		super();
 	}
-	public CopyOfTransformCastIntoOthers2(TokenMatcherFactory factory) {
+	public TransformCastIntoOthers2(TokenMatcherFactory factory) {
 		super(factory);
 	}
 

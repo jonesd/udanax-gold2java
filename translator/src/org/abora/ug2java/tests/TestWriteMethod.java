@@ -1744,6 +1744,21 @@ public void testPointerToStaticMember() {
 		String expectedJava = "public void test() {\nboolean startsInside;\nstartsInside = rcvr.receiveBooleanVar();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+
+	public void testRemoveCall() {
+		String smalltalk = "test\n^blah asSymbol!";
+
+		String expectedJava = "public void test() {\nreturn blah;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testRenameCall() {
+		String smalltalk = "testRename\nAddTallys _ Array new: 500 withAll: 0.!";
+
+		String expectedJava = "public void testRename() {\nAddTallys = new IntArray(500, 0);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	
 	public void testRequires() {
 		String smalltalk = "test\nself REQUIRES: Stepper!";

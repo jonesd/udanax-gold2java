@@ -50,7 +50,6 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformRequires());
 //		transformers.add(new TransformSmalltalkOnly());
 		transformers.add(new TransformTranslateOnlyString());
-		transformers.add(new TransformCall());
 		transformers.add(new TransformNewCreateCallOnClass());
 		transformers.add(new TransformSuperCreate());
 		transformers.add(new TransformCreateCall());
@@ -91,9 +90,10 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformPrintStringRadix());
 		transformers.add(new TransformPrintOnBase());
 		transformers.add(new TransformPrintString());
-		transformers.add(new RenameCall());
 		transformers.add(new TransformNewCreate());
 		transformers.add(new TransformNewCall());
+		transformers.add(new RenameCall());
+		transformers.add(new RemoveCall());
 		transformers.add(new TransformFluidAccess());
 		transformers.add(new TransformFluidBindDuring());
 		transformers.add(new TransformDefineFluid());

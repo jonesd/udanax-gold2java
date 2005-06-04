@@ -20,6 +20,10 @@ public class IntArray {
 		throw new UnsupportedOperationException();
 	}
 
+	public IntArray(int i, int j) {
+		throw new UnsupportedOperationException();
+	}
+
 	public static IntArray newWithAll(int i, int i1) {
 		throw new UnsupportedOperationException();
 	}

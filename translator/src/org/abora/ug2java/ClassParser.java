@@ -141,6 +141,7 @@ public class ClassParser {
 		table.put("fluidSpace", "Array");	
 		table.put("LPPrimeSizeProvider.make", "PrimeSizeProvider");
 		table.put("ActualHashSet.arrayStats", "void");
+		table.put("GrandHashTable.make(CoordinateSpace)", "MuTable");
 
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
@@ -194,6 +195,14 @@ public class ClassParser {
 		table.put("SnarfPacker.make(String)", "DiskManager");
 		table.put("StaticFunctionPointer.staticClass", "Class");
 		table.put("StaticFunctionPointer.selector", "String");
+		table.put("Emulsion.imageEmulsion", "Emulsion");
+		table.put("DeletedHeaper.isKindOf", "boolean");
+		table.put("DeletedHeaper.getCategory", "Category");
+		table.put("Category.getCategory", "Category");
+		table.put("PrimSet.create", "PrimSet");
+		table.put("IntegerTableStepper.create", "IntegerTableStepper");
+		table.put("GrandHashSet.make()", "MuSet");
+		table.put("GrandHashSet.make(int)", "MuSet");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -342,6 +351,12 @@ public class ClassParser {
 				if (scanner.token.tokenType == ScannerToken.TOKEN_WORD
 					&& (scanner.token.tokenString.equals("star") || scanner.token.tokenString.equals("vector"))) {
 					type = "String";
+				}
+			} else if (type.equals("UInt8")) {
+				scannerAdvance(scanner);
+				if (scanner.token.tokenType == ScannerToken.TOKEN_WORD
+					&& (scanner.token.tokenString.equals("vector"))) {
+					type = "UInt8Array";
 				}
 			}
 			type = lookupType(type);

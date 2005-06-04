@@ -8,8 +8,6 @@ package org.abora.ug2java.transform.method.intra;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
-import org.abora.ug2java.javatoken.JavaCallEnd;
-import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;

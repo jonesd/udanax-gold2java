@@ -5,7 +5,6 @@
  */
 package org.abora.ug2java.transform.tokenmatcher;
 
-import org.abora.ug2java.javatoken.JavaType;
 
 
 

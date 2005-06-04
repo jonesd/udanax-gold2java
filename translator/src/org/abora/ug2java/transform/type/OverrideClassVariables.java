@@ -25,6 +25,10 @@ public class OverrideClassVariables implements ClassTransformer {
 		
 		map.put("ReadMemStream.myBuffer", "UInt8Array");
 		map.put("WriteMemStream.myCollection", "UInt8Array");
+		
+		map.put("Emulsion.TheImageEmulsion", "Emulsion");
+		map.put("Emulsion.myFluids", "OrderedCollection");
+		map.put("Emulsion.myFluidsUsed", "boolean");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

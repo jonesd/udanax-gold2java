@@ -7,10 +7,8 @@ package org.abora.ug2java.transform.method.intra;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import org.abora.ug2java.JavaField;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.transform.method.MethodTransformation;
 
@@ -58,6 +56,9 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("OffsetArrayStepper.create");
 		list.add("OffsetScruTableStepper.create");
 		list.add("IntegerTableStepper.createWithOrderSpec");
+		list.add("MuTable.test");
+		list.add("IntegerTable.make(Heaper)");
+		list.add("IntegerTableStepper.create(IntegerTable,OrderSpec)");
 
 		STATIC_METHODS = Collections.unmodifiableList(list);
 	}

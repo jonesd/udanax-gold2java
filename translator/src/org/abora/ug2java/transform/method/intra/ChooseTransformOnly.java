@@ -76,6 +76,14 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		SMALLTALK_METHODS = Collections.unmodifiableList(list);
 	}
 
+	private static final List NEITHER_METHODS;
+	static {
+		List list = new ArrayList();
+		list.add("ExponentialHashMap.linkTimeNonInherited");
+
+		NEITHER_METHODS = Collections.unmodifiableList(list);
+	}
+
 	public ChooseTransformOnly() {
 		super();
 	}
@@ -103,15 +111,16 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		
 		boolean shouldTranslate = TRANSLATE_METHODS.contains(shortName) || TRANSLATE_METHODS.contains(className) || TRANSLATE_METHODS.contains(fullName);
 		boolean shouldSmalltalk = SMALLTALK_METHODS.contains(shortName) || SMALLTALK_METHODS.contains(className) ||SMALLTALK_METHODS.contains(fullName);
+		boolean shouldDelete = NEITHER_METHODS.contains(shortName) || NEITHER_METHODS.contains(className) ||NEITHER_METHODS.contains(fullName);
 		
 		if (isTranslateOnly) {
 			if (shouldTranslate) {
 				return acceptOnlyBlock(javaMethod, tokens, i);
-			} else if (shouldSmalltalk) {
+			} else if (shouldSmalltalk || shouldDelete) {
 				return rejectOnlyBlock(javaMethod, tokens, i, call);
 			}
 		} else {
-			if (shouldTranslate) {
+			if (shouldTranslate || shouldDelete) {
 				return rejectOnlyBlock(javaMethod, tokens, i, call);
 			} else if (shouldSmalltalk) {
 				return acceptOnlyBlock(javaMethod, tokens, i);

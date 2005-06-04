@@ -5,8 +5,6 @@
  */
 package org.abora.ug2java.transform.method.intra;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;

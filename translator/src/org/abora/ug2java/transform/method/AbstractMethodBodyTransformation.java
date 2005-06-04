@@ -8,7 +8,6 @@ package org.abora.ug2java.transform.method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,6 +52,16 @@ public abstract class AbstractMethodBodyTransformation implements MethodTransfor
 		System.arraycopy(array1, 0, array12, 0, array1.length);
 		System.arraycopy(array2, 0, array12, array1.length, array2.length);
 		return regularExpressionOr(Arrays.asList(array12));
+	}
+
+	protected String regularExpressionOrTrailing(Collection c) {
+		List trailing = new ArrayList();
+		for (Iterator iter = c.iterator(); iter.hasNext();) {
+			String s = (String) iter.next();
+			int lastSplitter = s.lastIndexOf('.');
+			trailing.add(s.substring(lastSplitter+1));
+		}
+		return regularExpressionOr(trailing);
 	}
 
 	protected String regularExpressionOr(Collection c) {
