@@ -39,6 +39,8 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("TableStepper.forPromisedPairs");
 		list.add("RecorderFossil.reanimate");
 		list.add("FullPropChange.joinProp"); // suspended
+		list.add("Binary2Rcvr.uint8"); // TODO Could be an earlier parsing problem behind why we have these?
+		list.add("Binary2Xmtr.uint8"); // TODO Could be an earlier parsing problem behind why we have these?
 		
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);

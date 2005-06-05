@@ -355,7 +355,7 @@ public class ClassParser {
 			} else if (type.equals("UInt8")) {
 				scannerAdvance(scanner);
 				if (scanner.token.tokenType == ScannerToken.TOKEN_WORD
-					&& (scanner.token.tokenString.equals("vector"))) {
+					&& (scanner.token.tokenString.equals("star") || scanner.token.tokenString.equals("vector"))) {
 					type = "UInt8Array";
 				}
 			}

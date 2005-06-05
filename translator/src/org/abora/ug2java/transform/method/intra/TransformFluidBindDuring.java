@@ -44,7 +44,8 @@ public class TransformFluidBindDuring extends AbstractMethodBodyTransformation {
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier identifier = (JavaIdentifier)tokens.get(i);
-		String oldValueVariable = identifier.value+"OldValue";
+		//TODO library way to lowercase first letter
+		String oldValueVariable = String.valueOf(Character.toLowerCase(identifier.value.charAt(0)))+identifier.value.substring(1)+"OldValue";
 		int argumentStart = javaMethod.methodBody.findNextTokenOfType(i+1, JavaCallArgumentSeparator.class);
 		int startOfBlack = argumentStart+1;
 		if (tokens.get(startOfBlack) instanceof JavaComment) {

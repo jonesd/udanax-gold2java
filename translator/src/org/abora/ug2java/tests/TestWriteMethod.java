@@ -895,14 +895,14 @@ public class TestWriteMethod extends TestCase {
 	public void testFluidBindDuring() {
 		String smalltalk = "test\nCurrentTrace fluidBind: myEnt newTrace during: [result := BeClub make: desc]!";
 
-		String expectedJava = "public void test() {\nObject CurrentTraceOldValue = AboraBlockSupport.enterFluidBindDuring(CurrentTrace, myEnt.newTrace());\ntry {\nresult = BeClub.make(desc);\n}\nfinally {\nAboraBlockSupport.exitFluidBindDuring(CurrentTrace, CurrentTraceOldValue);\n}\n}\n";
+		String expectedJava = "public void test() {\nObject currentTraceOldValue = AboraBlockSupport.enterFluidBindDuring(CurrentTrace, myEnt.newTrace());\ntry {\nresult = BeClub.make(desc);\n}\nfinally {\nAboraBlockSupport.exitFluidBindDuring(CurrentTrace, currentTraceOldValue);\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testFluidBindDuringWithComment() {
 		String smalltalk = "test\nCurrentTrace fluidBind: myEnt newTrace during: \"comment\" [result := BeClub make: desc]!";
 
-		String expectedJava = "public void test() {\nObject CurrentTraceOldValue = AboraBlockSupport.enterFluidBindDuring(CurrentTrace, myEnt.newTrace());\ntry \n/* comment */\n{\nresult = BeClub.make(desc);\n}\nfinally {\nAboraBlockSupport.exitFluidBindDuring(CurrentTrace, CurrentTraceOldValue);\n}\n}\n";
+		String expectedJava = "public void test() {\nObject currentTraceOldValue = AboraBlockSupport.enterFluidBindDuring(CurrentTrace, myEnt.newTrace());\ntry \n/* comment */\n{\nresult = BeClub.make(desc);\n}\nfinally {\nAboraBlockSupport.exitFluidBindDuring(CurrentTrace, currentTraceOldValue);\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

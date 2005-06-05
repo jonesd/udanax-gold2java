@@ -28,6 +28,8 @@ public class RenameCall extends AbstractMethodBodyTransformation {
 		map.put("nextPut", "print");
 		map.put("ActualHashSet.linkTimeNonInherited.Array", "IntArray");
 		map.put("GrandHashTable.subTable.makeCoordinateSpace", "make");
+		map.put("IEEE8Pos.sendSelfTo.sendInt32", "sendIEEEDoubleVar");
+		map.put("FeWorkSet.unionWith.notSharedWIth", "notSharedWith");
 		
 		//TODO only for tests
 		map.put("Test.testRename.Array", "IntArray");

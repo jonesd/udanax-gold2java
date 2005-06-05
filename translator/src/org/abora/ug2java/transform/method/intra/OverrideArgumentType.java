@@ -28,6 +28,9 @@ public class OverrideArgumentType implements MethodTransformation {
 		//TODO we should be able to calculate the following based on their declared type: array {Array of: IntegerVar}
 		map.put("SnarfHandler.sortTest", "IntArray");
 		map.put("SnarfHandler.sortTestDown", "IntArray");
+		map.put("SimpleShuffler.shuffle16", "UInt8Array");
+		map.put("SimpleShuffler.shuffle32", "UInt8Array");
+		map.put("SimpleShuffler.shuffle64", "UInt8Array");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

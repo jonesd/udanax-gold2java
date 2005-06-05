@@ -40,7 +40,6 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new ExcludeMethods());
 		transformers.add(new ConvertToStaticBlocks());
 		transformers.add(new DeprecatedMethods());
-		transformers.add(new EnsureUniqueLocalVarNames());
 		//TODO this only produces a snapshot of locals
 		transformers.add(new RecordLocalVars());
 		transformers.add(new ForceReturn());
@@ -125,6 +124,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformCharacterStaticCall());
 		transformers.add(new TransformPointerToStaticMember());
 				
+		transformers.add(new EnsureUniqueLocalVarNames());
 		transformers.add(new EnsureIfTestInParentheses());
 		transformers.add(new TransformExcessParantheses());
 		transformers.add(new TransformClassX());
