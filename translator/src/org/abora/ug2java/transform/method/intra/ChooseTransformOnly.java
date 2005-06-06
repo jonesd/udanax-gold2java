@@ -69,6 +69,10 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("SHTO.printOn");
 		list.add("ShepherdLocked.isReallyUnlocked");
 		list.add("CloseExecutor.execute");
+		list.add("PrimIEEE32.actualHashForEqual");
+		list.add("PrimIEEE64.actualHashForEqual");
+		list.add("PrimIEEE32.exponent");
+		list.add("PrimIEEE64.exponent");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");

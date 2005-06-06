@@ -34,29 +34,39 @@ public class TransformDowncastArgument extends AbstractMethodBodyTransformation 
 	}
 	
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.seq(
+//		return factory.seq(
 				//TODO simple first case
-				factory.token(JavaKeyword.class, "return"),
-				factory.token(JavaCallKeywordStart.class)
+//				factory.token(JavaKeyword.class, "return"),
+return				factory.token(JavaCallKeywordStart.class);
 //				factory.token(JavaIdentifier.class),
 //				factory.token(JavaCallEnd.class)
-			);
+			//);
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		if (!javaMethod.isStatic()) {
-			return i;
+		JavaClass receiverClass = javaMethod.javaClass;
+		
+		if (i > 0 && tokens.get(i-1) instanceof JavaIdentifier) {
+			JavaIdentifier callSource = (JavaIdentifier)tokens.get(i-1);
+			receiverClass = javaMethod.getJavaCodebase().getJavaClass(callSource.value);
+			if (receiverClass == null) {
+				return i;
+			}
 		}
 
-		String callName = ((JavaCallStart)tokens.get(i+1)).value;
-		int callEnd = javaMethod.methodBody.findClosingCallEnd(i+1);
+		String callName = ((JavaCallStart)tokens.get(i)).value;
+		int callEnd = javaMethod.methodBody.findClosingCallEndQuietFail(i);
+		//TODO why do we need to use the failQuiet version?
+		if (callEnd == -1) {
+			return i;
+		}
 
 		JavaCodebase javaCodebase = javaMethod.javaClass.javaCodebase;
 
 		List argumentTypes = new ArrayList();
 		List argumentStarts = new ArrayList();
 
-		int j = i + 2;
+		int j = i + 1;
 		while (j < callEnd) {
 			//TODO Simple find type of expression code - extract
 			argumentStarts.add(new Integer(j));
@@ -100,41 +110,58 @@ public class TransformDowncastArgument extends AbstractMethodBodyTransformation 
 					return i;
 				}
 			}
-			JavaClass argumentType = javaCodebase.getJavaClass(argumentTypeName);
-			if (argumentType == null) {
-				return i;
+			if (!isPrimitiveType(argumentTypeName)) {
+				JavaClass argumentType = javaCodebase.getJavaClass(argumentTypeName);
+				if (argumentType == null) {
+					return i;
+				}
 			}
-			argumentTypes.add(argumentType);
+			argumentTypes.add(argumentTypeName);
 		}
 		
-		JavaMethod method = findOnlyMatchingMethod(javaMethod.javaClass, callName, argumentTypes.size());
-		if (method == null) {
+		JavaMethod method = findOnlyMatchingMethod(receiverClass, callName, argumentTypes.size());
+		//TODO rather than the static limitation, allow checking of inherited classes...
+		if (method == null || !method.isStatic()) {
 			return i;
 		}
 		for (int k = argumentTypes.size() - 1; k >= 0; k -= 1) {
-			JavaClass expectedType = method.getParameter(k).getJavaClass(javaCodebase);
-			if (expectedType == null) {
-				continue;
-				//TODOreturn i;
-			}
-			JavaClass actualType = (JavaClass)argumentTypes.get(k);
-			if (expectedType.isSubclassAnyDepthOf(actualType)) {
+			String expectedTypeName = method.getParameter(k).type;
+			String actualTypeName = (String)argumentTypes.get(k);
+			if (shouldDowncast(actualTypeName, expectedTypeName, javaCodebase)) {
 				int p = ((Integer)argumentStarts.get(k)).intValue();
-				tokens.add(p, new JavaCast(expectedType.className));
+				tokens.add(p, new JavaCast(expectedTypeName));
 			}
-			
 		}
 				
 		return i;
 	}
-
-	private JavaClass findArgumentType(JavaClass callerClass, String callName) {
-		JavaMethod method = findOnlyMatchingMethod(callerClass, callName, 1);
-		if (method != null) {
-			return method.getParameter(0).getJavaClass(callerClass.getJavaCodebase());
+	
+	private boolean shouldDowncast(String actualTypeName, String expectedTypeName, JavaCodebase javaCodebase) {
+		if (isPrimitiveType(actualTypeName) || isPrimitiveType(expectedTypeName)) {
+			return shouldDowncastPrimitive(actualTypeName, expectedTypeName);
 		} else {
-			return null;
+			return shouldDowncastClass(actualTypeName, expectedTypeName, javaCodebase);
 		}
+	}
+
+	private boolean shouldDowncastClass(String actualTypeName, String expectedTypeName, JavaCodebase javaCodebase) {
+		JavaClass actualType = javaCodebase.getJavaClass(actualTypeName);
+		if (actualType == null) {
+			return false;
+		}
+		JavaClass expectedType = javaCodebase.getJavaClass(expectedTypeName);
+		if (expectedType == null) {
+			return false;
+		}
+		return expectedType.isSubclassAnyDepthOf(actualType);
+	}
+	
+	private boolean shouldDowncastPrimitive(String actualTypeName, String expectedTypeName) {
+		return ("float".equals(expectedTypeName) && "double".equals(actualTypeName)); 
+	}
+	
+	private boolean isPrimitiveType(String typeName) {
+		return "float".equals(typeName) || "double".equals(typeName);
 	}
 
 	private JavaMethod findOnlyMatchingMethod(JavaClass callerClass, String callName, int totalParameters) {

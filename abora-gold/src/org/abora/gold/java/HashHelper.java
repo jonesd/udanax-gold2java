@@ -19,4 +19,12 @@ public class HashHelper {
 	public static int hashForEqual(int value) {
 		throw new UnsupportedOperationException();
 	}
+
+	public static int hashForEqual(double d) {
+		throw new UnsupportedOperationException();
+	}
+
+	public static int hashForEqual(float f) {
+		throw new UnsupportedOperationException();
+	}
 }

@@ -31,6 +31,7 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("SimpleShuffler.shuffle16", "UInt8Array");
 		map.put("SimpleShuffler.shuffle32", "UInt8Array");
 		map.put("SimpleShuffler.shuffle64", "UInt8Array");
+		map.put("Category.Category", "Class");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

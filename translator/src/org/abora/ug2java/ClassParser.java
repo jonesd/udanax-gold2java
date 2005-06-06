@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -524,23 +525,33 @@ public class ClassParser {
 	}
 	
 	public void parseClassDefinition() throws Exception {
-		
-				String classDefinition = ((ChunkDetails) javaClass.classQuotes.firstElement()).contents;
-				ChunkParser parser = new ChunkParser(classDefinition);
-				for (int i = 0; i < 5; i++) {
-					parser.nextWord();
-				}
-				parseVariables(parser, "");
-				parser.nextWord();
-				parseVariables(parser, "static ");
+		for (Iterator iter = javaClass.classQuotes.iterator(); iter.hasNext();) {
+			ChunkDetails chunk = (ChunkDetails) iter.next();
+			if (chunk.contents.indexOf("instanceVariableNames:") != -1) {
+				ChunkParser parser = new ChunkParser(chunk.contents);
+				String word = parser.nextWord();
+				word = parser.nextWord();
+				if (word.equals("class")) {
+					word = parser.nextWord();
+					//TODO just reading in class insts as static - not technically the same thing...
+					parseVariables(parser, "static ");
+				} else if (word.equals("subclass:")) {
+					word = parser.nextWord();
+					word = parser.nextWord();
+					word = parser.nextWord();
 
-				parseMethods(javaClass.instanceMethodChunks, "");
-				parseMethods(javaClass.classMethodChunks, "static ");
+					parseVariables(parser, "");
+					word = parser.nextWord();
+					parseVariables(parser, "static ");
+			}
+		}
+		}	
+		parseMethods(javaClass.instanceMethodChunks, "");
+		parseMethods(javaClass.classMethodChunks, "static ");
 	}
 	
 	public void parse() throws Exception {
 		parseClassDefinition();
-//		javaClass.includeImportForType(javaClass.superclassName);
 	}
 
 	protected MethodBody readMethodUnit(SmalltalkScanner scanner) {

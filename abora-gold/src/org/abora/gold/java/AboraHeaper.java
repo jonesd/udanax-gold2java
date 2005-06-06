@@ -66,6 +66,8 @@ public class AboraHeaper {
 	public static final String MAKE_WRAPPER_ = "MakeWrapper";
 	public static final String NO_ENCRYPTER = "NO_ENCRYPTER";
 	public static final String NO_REQUEST_ = "NO_REQUEST_";
+	public static final String PACKAGE = "PACKAGE";
+	public static final String PACKAGEHOOK = "PACKAGEHOOK";
 	public static final String SET_SPEC_ = "SetSpec";
 	public static final String XPP_CUISINE = "XPP_CUISINE";
 	

@@ -32,6 +32,8 @@ public class AddMethod implements ClassTransformer {
 			addRecipeDefineGlobal(javaClass);
 		} else if (javaClass.className.equals("DiskManager")) {
 			addDiskManagerDestroyAbandoned(javaClass);			
+		} else if (javaClass.className.equals("Abraham")) {
+			addAbrahamGetCategoryFromStub(javaClass);			
 		}
 	}
 	
@@ -129,6 +131,23 @@ public class AddMethod implements ClassTransformer {
 
 	public void addDiskManagerDestroyAbandoned(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("void", "destroyAbandoned");
+		List tokens = new ArrayList();
+		tokens.add(new JavaKeyword("throw"));
+		tokens.add(new JavaKeyword("new"));
+		tokens.add(new JavaCallStart("UnsupportedOperationException"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: "+this;
+		javaClass.addMethod(method);
+	}
+
+	public void addAbrahamGetCategoryFromStub(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("Category", "getCategoryFromStub");
 		List tokens = new ArrayList();
 		tokens.add(new JavaKeyword("throw"));
 		tokens.add(new JavaKeyword("new"));

@@ -38,6 +38,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new EnsureReasonableStatementTermination());
 		transformers.add(new ExcludeStaticHeaper());
 		transformers.add(new ExcludeMethods());
+		transformers.add(new RewriteMethodBody());
 		transformers.add(new ConvertToStaticBlocks());
 		transformers.add(new DeprecatedMethods());
 		//TODO this only produces a snapshot of locals
@@ -72,7 +73,9 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformDOTCalls());
 		transformers.add(new TransformDOThashForEqual());
 		transformers.add(new TransformCAThashForEqual());
+		transformers.add(new TransformHashDouble());
 		transformers.add(new TransformDOTputCharacter());
+		transformers.add(new TransformExponentDouble());
 		transformers.add(new TransformIntegerIntegerVar());
 		transformers.add(new TransformPrint());
 		transformers.add(new TransformBinaryOperator());

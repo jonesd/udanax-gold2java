@@ -84,6 +84,10 @@ public class UInt8Array extends PrimIntArray {
 		throw new UnsupportedOperationException();
 	}
 
+	public void store(int index, /* IntegerVar */ int value) {
+		throw new UnsupportedOperationException();
+	}
+
 	public void storeInteger(int index, /* IntegerVar */ int value) {
 		throw new UnsupportedOperationException();
 	}

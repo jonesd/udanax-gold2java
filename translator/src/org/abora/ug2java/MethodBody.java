@@ -77,6 +77,15 @@ public class MethodBody {
 	}
 
 	public int findClosingCallEnd(int callStart) {
+		int callEnd = findClosingCallEndQuietFail(callStart);
+		if (callEnd == -1) {
+			throw new IllegalStateException("Could not find closing callend");
+		} else {
+			return callEnd;
+		}
+	}
+	
+	public int findClosingCallEndQuietFail(int callStart) {
 		int earlyCalls = 0;
 		for (int i = callStart + 1; i < tokens.size(); i++) {
 			JavaToken token = (JavaToken) tokens.get(i);
@@ -89,7 +98,7 @@ public class MethodBody {
 				}
 			}
 		}
-		throw new IllegalStateException("Could not find closing callend");
+		return -1;
 	}
 
 	public JavaToken findExistingJavaCallKeyword(Vector expression) {

@@ -775,8 +775,9 @@ public class TestWriteMethod extends TestCase {
 		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
 
 		JavaMethod method = new JavaMethod("", "make");
-		method.addParameter(new JavaField("static", "A2", "arg1"));
+		method.addParameter(new JavaField("A2", "arg1"));
 		method.methodBody = new MethodBody(new ArrayList());
+		method.modifiers = "static ";
 		javaClass.addMethod(method);
 		
 		String smalltalk = "test\n| a1 {A1} | ^ self make: a1!";
@@ -793,9 +794,10 @@ public class TestWriteMethod extends TestCase {
 		new JavaClass("A3", "A1", javaClass.getJavaCodebase());
 
 		JavaMethod method = new JavaMethod("", "make");
-		method.addParameter(new JavaField("static", "A2", "arg1"));
-		method.addParameter(new JavaField("static", "A3", "arg2"));
+		method.addParameter(new JavaField("A2", "arg1"));
+		method.addParameter(new JavaField("A3", "arg2"));
 		method.methodBody = new MethodBody(new ArrayList());
+		method.modifiers = "static ";
 		javaClass.addMethod(method);
 		
 		String smalltalk = "test\n| a1 {A1} a11 {A1}| ^ self make: a1 with: a11!";
@@ -812,9 +814,10 @@ public class TestWriteMethod extends TestCase {
 		new JavaClass("A3", "A1", javaClass.getJavaCodebase());
 
 		JavaMethod method = new JavaMethod("", "make");
-		method.addParameter(new JavaField("static", "A2", "arg1"));
-		method.addParameter(new JavaField("static", "A3", "arg2"));
+		method.addParameter(new JavaField("A2", "arg1"));
+		method.addParameter(new JavaField("A3", "arg2"));
 		method.methodBody = new MethodBody(new ArrayList());
+		method.modifiers = "static ";
 		javaClass.addMethod(method);
 		
 		String smalltalk = "test\n| a1 {A1} a11 {A1}| ^ self make: (a1 cast: A2) with: a11!";
@@ -823,6 +826,50 @@ public class TestWriteMethod extends TestCase {
 		
 		String actualJava = writeMethod(smalltalk, "static ");
 		assertMethodBodyEquals(expectedJava, actualJava);
+	}
+
+	public void testDowncastArgumentFloatDouble() {
+		JavaClass a1 = new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		JavaMethod method = new JavaMethod("", "make");
+		method.addParameter(new JavaField("float", "arg1"));
+		method.modifiers = "static ";
+		method.methodBody = new MethodBody(new ArrayList());
+		a1.addMethod(method);
+		
+		String smalltalk = "test:d {IEEE64} ^ A1 make: d!";
+
+		String expectedJava = "public void test(double d) {\nreturn A1.make((float) d);\n}\n";
+		
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testDowncastArgumentFloatDoubleSameClass() {
+		JavaMethod method = new JavaMethod("", "make");
+		method.addParameter(new JavaField("float", "arg1"));
+		method.modifiers = "static ";
+		method.methodBody = new MethodBody(new ArrayList());
+		javaClass.addMethod(method);
+		
+		String smalltalk = "test:d {IEEE64} ^ Test make: d!";
+
+		String expectedJava = "public void test(double d) {\nreturn Test.make((float) d);\n}\n";
+		
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testDowncastArgumentFloatDoubleNonStaticShouldBeIgnored() {
+		JavaMethod method = new JavaMethod("", "make");
+		method.addParameter(new JavaField("float", "arg1"));
+		//Method NOT static
+		method.modifiers = "";
+		method.methodBody = new MethodBody(new ArrayList());
+		javaClass.addMethod(method);
+		
+		String smalltalk = "test:d {IEEE64} ^ Test make: d!";
+
+		String expectedJava = "public void test(double d) {\nreturn Test.make(d);\n}\n";
+		
+		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testDowncastStaticCallAssignmentSubclass() {
@@ -889,6 +936,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test!";
 
 		String expectedJava = "public void test() {\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testExponentDouble() {
+		String smalltalk = "test: a {IEEE32}\n^a exponent!";
+
+		String expectedJava = "public void test(float a) {\nreturn AboraSupport.exponent(a);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1021,6 +1075,13 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\n(Heaper problems.AllBlasts) handle: [:ex | ^false] do: [self blahblah]!";
 
 		String expectedJava = "public void test() {\ntry {\nblahblah();\n}\ncatch (AboraRuntimeException ex) {\nreturn false;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testHashDoublee() {
+		String smalltalk = "test: a {IEEE32}\n^a hash!";
+
+		String expectedJava = "public void test(float a) {\nreturn HashHelper.hashForEqual(a);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

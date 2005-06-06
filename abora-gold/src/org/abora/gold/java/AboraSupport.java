@@ -37,6 +37,18 @@ public class AboraSupport {
 	public static int xuTime() {
 		throw new UnsupportedOperationException();
 	}
-	
+	public static int exponent(float f) {
+		throw new UnsupportedOperationException();
+	}
+	public static int exponent(double d) {
+		throw new UnsupportedOperationException();
+	}
+
+	public static boolean isANumber(double myValue) {
+		throw new UnsupportedOperationException();
+	}
+	public static boolean isANumber(float myValue) {
+		throw new UnsupportedOperationException();
+	}
 	
 }
