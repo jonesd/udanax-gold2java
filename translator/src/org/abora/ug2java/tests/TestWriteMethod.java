@@ -309,6 +309,13 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nthrow new AboraRuntimeException(AboraRuntimeException.OUT_OF_BOUNDS);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testBlastWithString() {
+		String smalltalk = "test\nCookbook BLAST: 'class name not recognized'!";
+
+		String expectedJava = "public void test() {\nthrow new AboraRuntimeException(\"class name not recognized\");\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
 
 	public void testBlock() {
 		String smalltalk = "test\n[one two]!";

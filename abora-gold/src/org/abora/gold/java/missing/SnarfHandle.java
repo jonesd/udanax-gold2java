@@ -9,6 +9,7 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.collection.basic.UInt8Array;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class SnarfHandle extends Heaper {
@@ -19,7 +20,7 @@ public class SnarfHandle extends Heaper {
 	public int get32(int unknown) {
 		throw new UnsupportedOperationException();
 	}
-	public byte getDataP() {
+	public UInt8Array getDataP() {
 		throw new UnsupportedOperationException();
 	}
 	public int getSnarfID() {

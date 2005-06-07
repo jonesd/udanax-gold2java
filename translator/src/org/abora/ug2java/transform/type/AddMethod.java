@@ -34,6 +34,8 @@ public class AddMethod implements ClassTransformer {
 			addDiskManagerDestroyAbandoned(javaClass);			
 		} else if (javaClass.className.equals("Abraham")) {
 			addAbrahamGetCategoryFromStub(javaClass);			
+		} else if (javaClass.className.equals("SnarfRecord")) {
+			addSnarfRecordGetReadHandler(javaClass);			
 		}
 	}
 	
@@ -148,6 +150,23 @@ public class AddMethod implements ClassTransformer {
 
 	public void addAbrahamGetCategoryFromStub(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("Category", "getCategoryFromStub");
+		List tokens = new ArrayList();
+		tokens.add(new JavaKeyword("throw"));
+		tokens.add(new JavaKeyword("new"));
+		tokens.add(new JavaCallStart("UnsupportedOperationException"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: "+this;
+		javaClass.addMethod(method);
+	}
+
+	public void addSnarfRecordGetReadHandler(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("SnarfHandler", "getReadHandler");
 		List tokens = new ArrayList();
 		tokens.add(new JavaKeyword("throw"));
 		tokens.add(new JavaKeyword("new"));

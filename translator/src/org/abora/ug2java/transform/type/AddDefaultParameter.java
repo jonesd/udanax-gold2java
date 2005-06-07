@@ -27,6 +27,10 @@ public class AddDefaultParameter implements ClassTransformer {
 				addInstance(javaClass, "Stepper", "retrieve", new String[] {"XnRegion", "region", "OrderSpec", "order"}, "0");
 				addInstance(javaClass, "Stepper", "retrieve", new String[] {"XnRegion", "region"}, "null");
 				addInstance(javaClass, "Stepper", "retrieve", new String[] {}, "null");
+		} else if (javaClass.className.equals("Encrypter")) {
+			addStatic(javaClass, "Encrypter", "make", new String[] {"Sequence", "identifier", "UInt8Array", "publicKey"}, "null");
+		} else if (javaClass.className.equals("DiskManager")) {
+			addInstance(javaClass, "void", "purgeClean", new String[] {}, "false");
 		}
 	}
 	

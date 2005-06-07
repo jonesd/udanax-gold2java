@@ -52,6 +52,11 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		
 		map.put("StaticFunctionPointer.invokeFunction.args", "Array");
 		
+		map.put("MainDummy.toFileRunString.aStream", "PrintWriter");
+		map.put("MainDummy.toFileRunString.saveCerr", "PrintWriter");
+		
+		map.put("Binary2Rcvr.receiveBooleanVar.result", "int");
+		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");
 		

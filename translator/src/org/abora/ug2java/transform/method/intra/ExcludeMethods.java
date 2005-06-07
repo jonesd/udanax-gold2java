@@ -41,6 +41,7 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("FullPropChange.joinProp"); // suspended
 		list.add("Binary2Rcvr.uint8"); // TODO Could be an earlier parsing problem behind why we have these?
 		list.add("Binary2Xmtr.uint8"); // TODO Could be an earlier parsing problem behind why we have these?
+		list.add("DiskManager.consistent");
 		
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
@@ -61,6 +62,9 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("MuTable.test");
 		list.add("IntegerTable.make(Heaper)");
 		list.add("IntegerTableStepper.create(IntegerTable,OrderSpec)");
+		list.add("Encrypter.make(Sequence,Sequence)");
+		list.add("DiskManager.consistent");
+		list.add("DiskManager.insistent");
 
 		STATIC_METHODS = Collections.unmodifiableList(list);
 	}

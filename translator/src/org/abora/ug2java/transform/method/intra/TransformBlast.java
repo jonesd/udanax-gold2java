@@ -13,6 +13,8 @@ import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
+import org.abora.ug2java.javatoken.JavaLiteral;
+import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -32,17 +34,21 @@ public TransformBlast() {
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaCallKeywordStart.class, "BLAST"),
-				factory.token(JavaIdentifier.class), 
+				factory.any(
+						factory.token(JavaLiteral.class),
+						factory.token(JavaIdentifier.class)), 
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i);
-		JavaIdentifier message = (JavaIdentifier)tokens.get(i + 1);
+		JavaToken message = (JavaToken)tokens.get(i + 1);
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));
 		call.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS;
-		message.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS+"." + message.value;
+		if (message instanceof JavaIdentifier) { 
+			message.value = ClassParser.ABORA_RUNTIME_EXCEPTION_CLASS+"." + message.value;
+		}
 		
 		if (i > 0 && (tokens.get(i-1) instanceof JavaIdentifier)) {
 			tokens.remove(i-1);
