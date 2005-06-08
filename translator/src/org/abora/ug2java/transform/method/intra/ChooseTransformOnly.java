@@ -48,6 +48,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("TestPacker.mustBeInsideTransaction");
 		list.add("IEEE32Pos.asIEEE");
 		list.add("IEEE32Pos.asIEEE64");
+		list.add("PromiseManager.make");
 		
 		
 		//TODO only for tests...

@@ -488,6 +488,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testCharacterCharx() {
+		String smalltalk = "test\n^Character char: myStream getByte!";
+
+		String expectedJava = "public void test() {\nreturn (char) (myStream.getByte());\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testCharacterLiteral() {
 		String smalltalk = "test\n$a. $-. $\\. $'!";
 

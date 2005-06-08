@@ -68,6 +68,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformIsKindOf());
 		transformers.add(new TransformStar());
 		transformers.add(new TransformCast());
+		transformers.add(new TransformCharacterCharx());
 		transformers.add(new TransformAlmostTo());
 		transformers.add(new TransformSubclassResponsibility());
 		transformers.add(new TransformDOTCalls());
