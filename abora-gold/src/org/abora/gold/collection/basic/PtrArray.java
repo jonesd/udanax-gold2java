@@ -9,6 +9,7 @@
 
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.collection.steppers.Stepper;
 import org.abora.gold.java.missing.smalltalk.Stream;
 import org.abora.gold.wparray.XnExecutor;
 import org.abora.gold.x.PrimSpec;
@@ -224,6 +225,10 @@ public class PtrArray extends PrimArray {
 
 	//TODO can this be removed?
 	public void put(int estateIndex, Heaper object) {
+		throw new UnsupportedOperationException();
+	}
+
+	public Stepper stepper() {
 		throw new UnsupportedOperationException();
 	}
 

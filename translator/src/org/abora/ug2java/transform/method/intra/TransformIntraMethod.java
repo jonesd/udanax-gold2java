@@ -97,6 +97,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformNewCall());
 		transformers.add(new RenameCall());
 		transformers.add(new RemoveCall());
+		transformers.add(new TransformSmalltalkAtIfAbsent());
 		transformers.add(new TransformFluidAccess());
 		transformers.add(new TransformFluidBindDuring());
 		transformers.add(new TransformDefineFluid());

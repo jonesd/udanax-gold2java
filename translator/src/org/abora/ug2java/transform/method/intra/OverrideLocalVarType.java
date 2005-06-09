@@ -57,6 +57,8 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		
 		map.put("Binary2Rcvr.receiveBooleanVar.result", "int");
 		
+		map.put("ActualCookbook.sendClassList.rec", "Recipe");
+		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");
 		

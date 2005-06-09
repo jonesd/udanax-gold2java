@@ -1555,6 +1555,8 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	
+							 
 	public void testNULL() {
 		String smalltalk = "test\nfred := NULL!";
 
@@ -1970,6 +1972,13 @@ public void testPointerToStaticMember() {
 		//Should have sorted signal names
 		assertEquals("MUST_BE_OWNER", iter.next());
 		assertEquals("NOT_IN_TABLE", iter.next());
+	}
+
+	public void testSmalltalkAtIfAbsent() {
+		String smalltalk = "test\ncl _ Smalltalk at: clName asSymbol ifAbsent: [Cookbook BLAST: 'class name not recognized']!";
+
+		String expectedJava = "public void test() {\nCategory ifAbsent = Smalltalk.at(clName);\nif (ifAbsent != null) {\ncl = ifAbsent;\n}\nelse {\nthrow new AboraRuntimeException(\"class name not recognized\");\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testSmalltalkOnly() {

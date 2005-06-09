@@ -9,12 +9,17 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class PackageCategory extends Heaper {
 
 	public PackageCategory() {
 		super();
+	}
+
+	public Category getSuperCategory() {
+		throw new UnsupportedOperationException();
 	}
 
 }

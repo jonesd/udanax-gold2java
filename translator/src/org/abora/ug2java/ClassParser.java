@@ -83,6 +83,7 @@ public class ClassParser {
 //		table.put("size", "int");
 		table.put("UNKNOWN", "Object");
 		table.put("SnarfID", "int");
+		table.put("fd.U.set", "int"); // definitely wrong!
 		//TODO mispelling?
 		table.put("IDRegio", "IDRegion");
 		table.put("Symbol", "String");

@@ -9,6 +9,7 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.fluid.FluidVar;
 
 
@@ -18,11 +19,11 @@ public class Smalltalk {
 		super();
 	}
 
-	public static Object at(Symbol className) {
+	public static Category at(Symbol className) {
 		throw new UnsupportedOperationException();
 	}
 
-	public static Object at(String className) {
+	public static Category at(String className) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -31,6 +32,14 @@ public class Smalltalk {
 	}
 
 	public static void safeAtPut(String varName, FluidVar var) {
+		throw new UnsupportedOperationException();
+	}
+
+	public static Category ifAbsent(String clName) {
+		throw new UnsupportedOperationException();
+	}
+
+	public static Category ifAbsent(String varName, Object object) {
 		throw new UnsupportedOperationException();
 	}
 
