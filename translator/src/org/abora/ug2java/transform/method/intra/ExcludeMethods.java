@@ -67,6 +67,10 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("DiskManager.consistent");
 		list.add("DiskManager.insistent");
 		list.add("PropChanger.make(CanopyCrum,PropChange)");
+		//Seems to be incorrect default parameter code
+		list.add("CrossOrderSpec.make(Object)");
+		//Seems to be incorrect default parameter code
+		list.add("CrossOrderSpec.make(Object,Object)");
 
 		STATIC_METHODS = Collections.unmodifiableList(list);
 	}

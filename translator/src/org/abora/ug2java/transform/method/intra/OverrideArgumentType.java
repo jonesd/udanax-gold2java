@@ -8,6 +8,7 @@ package org.abora.ug2java.transform.method.intra;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.abora.ug2java.JavaField;
 import org.abora.ug2java.JavaMethod;
@@ -32,6 +33,7 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("SimpleShuffler.shuffle32", "UInt8Array");
 		map.put("SimpleShuffler.shuffle64", "UInt8Array");
 		map.put("Category.Category", "Class");
+		map.put("TupleStepper.make(Object,Object)", "CrossSpace,PtrArray");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}
@@ -40,14 +42,22 @@ public class OverrideArgumentType implements MethodTransformation {
 	public void transform(JavaMethod javaMethod) {
 		String shortName = javaMethod.name;
 		String fullName = javaMethod.javaClass.className+"."+shortName;
-		if (!javaMethod.parameters.isEmpty() && (METHODS.containsKey(shortName) || METHODS.containsKey(fullName))) {
-			JavaField field =  (JavaField)javaMethod.parameters.get(0);
-			String type = (String)METHODS.get(fullName);
-			if (type == null) {
-				type = (String)METHODS.get(shortName);
+		String parameterName = javaMethod.getQualifiedSignature();
+		if (!javaMethod.parameters.isEmpty() && (METHODS.containsKey(shortName) || METHODS.containsKey(fullName) || METHODS.containsKey(parameterName))) {
+			String typeNames = (String)METHODS.get(parameterName);
+			if (typeNames == null) {
+				typeNames = (String)METHODS.get(fullName);
 			}
-			field.type = type;
-			
+			if (typeNames == null) {
+				typeNames = (String)METHODS.get(shortName);
+			}
+			int argument = 0;
+			for (StringTokenizer tokenizer = new StringTokenizer(typeNames, ","); tokenizer.hasMoreTokens();) {
+				String typeName = tokenizer.nextToken();
+				JavaField field =  (JavaField)javaMethod.parameters.get(argument);
+				field.type = typeName;
+				argument += 1;
+			}
 		}
 	}
 

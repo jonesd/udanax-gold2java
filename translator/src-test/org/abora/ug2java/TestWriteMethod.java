@@ -446,6 +446,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testCastIntoOthersEmpty() {
+		String smalltalk = "test\nblah cast: Pair into: [:pair | pair left] others: []!";
+
+		String expectedJava = "public void test() {\nif (blah instanceof Pair) {\nPair pair = (Pair) blah;\npair.left();\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testCastIntoCastIntoOthers() {
 		String smalltalk = "test\nblah cast: Pair into: [:pair | pair left] cast: Region into: [:region | region size] others: [1]!";
 
@@ -871,7 +878,7 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
-	public void testDowncastArgumentFloatDoubleNonStaticShouldBeIgnored() {
+	public void testDowncastArgumentFloatDoubleNonStaticShouldBeFound() {
 		JavaMethod method = new JavaMethod("", "make");
 		method.addParameter(new JavaField("float", "arg1"));
 		//Method NOT static
@@ -881,7 +888,7 @@ public class TestWriteMethod extends TestCase {
 		
 		String smalltalk = "test:d {IEEE64} ^ Test make: d!";
 
-		String expectedJava = "public void test(double d) {\nreturn Test.make(d);\n}\n";
+		String expectedJava = "public void test(double d) {\nreturn Test.make((float) d);\n}\n";
 		
 		assertInstanceMethod(expectedJava, smalltalk);
 	}

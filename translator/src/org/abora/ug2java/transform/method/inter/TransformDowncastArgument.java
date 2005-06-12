@@ -6,7 +6,6 @@
 package org.abora.ug2java.transform.method.inter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.abora.ug2java.JavaClass;
@@ -109,7 +108,7 @@ return				factory.token(JavaCallKeywordStart.class);
 					return i;
 				}
 			}
-			if (!isPrimitiveType(argumentTypeName)) {
+			if (!javaCodebase.isPrimitiveType(argumentTypeName)) {
 				JavaClass argumentType = javaCodebase.getJavaClass(argumentTypeName);
 				if (argumentType == null) {
 					return i;
@@ -118,67 +117,20 @@ return				factory.token(JavaCallKeywordStart.class);
 			argumentTypes.add(argumentTypeName);
 		}
 		
-		JavaMethod method = findOnlyMatchingMethod(receiverClass, callName, argumentTypes.size());
-		//TODO rather than the static limitation, allow checking of inherited classes...
-		if (method == null || !method.isStatic()) {
+		JavaMethod method = receiverClass.findMatchingMethod(callName, argumentTypes.size(), false); 
+		if (method == null) {
 			return i;
 		}
+
 		for (int k = argumentTypes.size() - 1; k >= 0; k -= 1) {
 			String expectedTypeName = method.getParameter(k).type;
 			String actualTypeName = (String)argumentTypes.get(k);
-			if (shouldDowncast(actualTypeName, expectedTypeName, javaCodebase)) {
+			if (javaCodebase.shouldDowncast(actualTypeName, expectedTypeName)) {
 				int p = ((Integer)argumentStarts.get(k)).intValue();
 				tokens.add(p, new JavaCast(expectedTypeName));
 			}
 		}
 				
 		return i;
-	}
-	
-	private boolean shouldDowncast(String actualTypeName, String expectedTypeName, JavaCodebase javaCodebase) {
-		if (isPrimitiveType(actualTypeName) || isPrimitiveType(expectedTypeName)) {
-			return shouldDowncastPrimitive(actualTypeName, expectedTypeName);
-		} else {
-			return shouldDowncastClass(actualTypeName, expectedTypeName, javaCodebase);
-		}
-	}
-
-	private boolean shouldDowncastClass(String actualTypeName, String expectedTypeName, JavaCodebase javaCodebase) {
-		JavaClass actualType = javaCodebase.getJavaClass(actualTypeName);
-		if (actualType == null) {
-			return false;
-		}
-		JavaClass expectedType = javaCodebase.getJavaClass(expectedTypeName);
-		if (expectedType == null) {
-			return false;
-		}
-		return expectedType.isSubclassAnyDepthOf(actualType);
-	}
-	
-	private boolean shouldDowncastPrimitive(String actualTypeName, String expectedTypeName) {
-		return ("float".equals(expectedTypeName) && "double".equals(actualTypeName)); 
-	}
-	
-	private boolean isPrimitiveType(String typeName) {
-		return "float".equals(typeName) || "double".equals(typeName);
-	}
-
-	private JavaMethod findOnlyMatchingMethod(JavaClass callerClass, String callName, int totalParameters) {
-		//TODO search parent classses for matching methods
-		//TODO take into account full method signature
-		JavaMethod matchingMethod = null;
-		for (Iterator iter = callerClass.methods.iterator(); iter.hasNext();) {
-			JavaMethod javaMethod = (JavaMethod) iter.next();
-			if (javaMethod.name.equals(callName)) {
-				if (javaMethod.parameters.size() == totalParameters) {
-					if (matchingMethod == null) {
-						matchingMethod = javaMethod;
-					} else {
-						return null;
-					}
-				}
-			}
-		}
-		return matchingMethod;
 	}
 }

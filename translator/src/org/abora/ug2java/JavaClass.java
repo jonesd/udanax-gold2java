@@ -183,4 +183,47 @@ public class JavaClass {
 		includeAnyReferencedTypes(method.methodBody);
 	}
 
+	public String findMatchingMethodReturnType(String callName, int numberOfArgs, boolean onlyStatic) {
+		//TODO take into account full method signature
+		String returnTypeName = null;
+		JavaClass currentClass = this;
+		do {
+			for (Iterator iter = currentClass.methods.iterator(); iter.hasNext();) {
+				JavaMethod javaMethod = (JavaMethod) iter.next();
+				if ((!onlyStatic || javaMethod.isStatic()) && javaMethod.name.equals(callName) && javaMethod.parameters.size() == numberOfArgs) {
+					String methodReturnType = javaMethod.returnType;
+					if (returnTypeName == null) {
+						returnTypeName = methodReturnType;
+					} else if (!returnTypeName.equals(methodReturnType)) {
+						return null;
+					}
+				}
+			}
+			currentClass = currentClass.getSuperClass();
+		} while (currentClass != null);
+		
+		return returnTypeName;
+	}
+
+	public JavaMethod findMatchingMethod(String callName, int numberOfArgs, boolean onlyStatic) {
+		//TODO take into account full method signature
+		JavaMethod match = null;
+		JavaClass currentClass = this;
+		do {
+			for (Iterator iter = currentClass.methods.iterator(); iter.hasNext();) {
+				JavaMethod javaMethod = (JavaMethod) iter.next();
+				if ((!onlyStatic || javaMethod.isStatic()) && javaMethod.name.equals(callName) && javaMethod.parameters.size() == numberOfArgs) {
+					if (match == null) {
+						match = javaMethod;
+					} else {
+						return null;
+					}
+				}
+			}
+			currentClass = currentClass.getSuperClass();
+		} while (currentClass != null);
+		
+		return match;
+	}
+
 }

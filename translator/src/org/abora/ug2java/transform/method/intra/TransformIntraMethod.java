@@ -136,6 +136,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformStaticCall());
 		transformers.add(new TransformReturnVoid());
 		transformers.add(new TransformClassReference());
+		transformers.add(new TransformEmptyElseBlock());
 		transformers.add(new TransformCompilerFodder());
 		transformers.add(new TransformUnreachableCode());
 		return Collections.unmodifiableList(transformers);

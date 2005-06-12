@@ -31,6 +31,9 @@ public class AddDefaultParameter implements ClassTransformer {
 			addStatic(javaClass, "Encrypter", "make", new String[] {"Sequence", "identifier", "UInt8Array", "publicKey"}, "null");
 		} else if (javaClass.className.equals("DiskManager")) {
 			addInstance(javaClass, "void", "purgeClean", new String[] {}, "false");
+		} else if (javaClass.className.equals("CrossOrderSpec")) {
+			addStatic(javaClass, "CrossOrderSpec", "make", new String[] {"CrossSpace", "space"}, "null");
+			addStatic(javaClass, "CrossOrderSpec", "make", new String[] {"CrossSpace", "space", "PtrArray", "subOrderings"}, "null");
 		}
 	}
 	

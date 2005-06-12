@@ -269,9 +269,12 @@ public class ClassWriter {
 		} else {
 			for (int i = 0; i < Math.min(existingContents.length(), generatedContents.length()); i++) {
 				if (existingContents.charAt(i) != generatedContents.charAt(i)) {
+					String shared = existingContents.substring(i-10, i);
+					String existingAfter = existingContents.substring(i, i+10);
+					String generatedAfter = generatedContents.substring(i, i+10);
 					String e = highlightText(existingContents, i);
 					String g = highlightText(generatedContents, i);
-					return "'"+e+"' -> '"+g+"' "+i;
+					return plainText(shared)+"<"+plainText(existingAfter)+"/"+plainText(generatedAfter)+"> "+i;
 				}
 			}
 			if (existingContents.length() != generatedContents.length()) {
@@ -280,7 +283,15 @@ public class ClassWriter {
 		}
 		return "";
 	}
-	
+
+	private String plainText(String text) {
+		String highlight = text;
+		highlight = highlight.replace('\n', '.');
+		highlight = highlight.replace('\r', '.');
+		highlight = highlight.replace('\t', '.');
+		return highlight;
+	}
+
 	private String highlightText(String text, int pointOfHighlight) {
 		String highlight = text.substring(pointOfHighlight - 10, pointOfHighlight + 10);
 		highlight = highlight.replace('\n', '.');

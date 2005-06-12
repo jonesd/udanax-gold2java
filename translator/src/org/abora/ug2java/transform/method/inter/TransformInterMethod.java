@@ -32,7 +32,7 @@ public class TransformInterMethod implements MethodTransformation {
 	private static List createTransformers() {		
 		List transformers = new ArrayList();
 		
-		transformers.add(new TransformDowncastStaticCallAssignment());
+		transformers.add(new TransformDowncastCallResult());
 		transformers.add(new TransformDowncastArgument());
 		transformers.add(new TransformHandleDo());
 		
