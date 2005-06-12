@@ -49,6 +49,9 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("IEEE32Pos.asIEEE");
 		list.add("IEEE32Pos.asIEEE64");
 		list.add("PromiseManager.make");
+		//char vs byte problems in this whole area
+		list.add("ReadArrayStream.next");
+		list.add("ReadMemStream.next");
 		
 		
 		//TODO only for tests...

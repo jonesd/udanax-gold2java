@@ -9,6 +9,7 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.fluid.FluidVar;
 
@@ -40,6 +41,10 @@ public class Smalltalk {
 	}
 
 	public static Category ifAbsent(String varName, Object object) {
+		throw new UnsupportedOperationException();
+	}
+
+	public static Recipe associationAt(String xpp_cuisine) {
 		throw new UnsupportedOperationException();
 	}
 

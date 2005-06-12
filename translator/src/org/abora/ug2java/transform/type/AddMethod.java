@@ -54,7 +54,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 
@@ -73,7 +73,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 
@@ -91,7 +91,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 
@@ -109,7 +109,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 
@@ -128,7 +128,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 
@@ -145,7 +145,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 
@@ -162,7 +162,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 
@@ -179,7 +179,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 
@@ -196,7 +196,7 @@ public class AddMethod implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
 }

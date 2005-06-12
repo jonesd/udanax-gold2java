@@ -42,6 +42,7 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("Binary2Rcvr.uint8"); // TODO Could be an earlier parsing problem behind why we have these?
 		list.add("Binary2Xmtr.uint8"); // TODO Could be an earlier parsing problem behind why we have these?
 		list.add("DiskManager.consistent");
+		list.add("XnRegion.mapping");
 		
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
@@ -65,6 +66,7 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("Encrypter.make(Sequence,Sequence)");
 		list.add("DiskManager.consistent");
 		list.add("DiskManager.insistent");
+		list.add("PropChanger.make(CanopyCrum,PropChange)");
 
 		STATIC_METHODS = Collections.unmodifiableList(list);
 	}

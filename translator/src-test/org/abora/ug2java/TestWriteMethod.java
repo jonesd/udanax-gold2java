@@ -3,7 +3,7 @@
  * Part of the Abora hypertext project: http://www.abora.org
  * Copyright 2003, 2005 David G Jones
  */
-package org.abora.ug2java.tests;
+package org.abora.ug2java;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -891,7 +891,9 @@ public class TestWriteMethod extends TestCase {
 		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
 		
 		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
-		m.addMethod(new JavaMethod("A2", "make"));
+		JavaMethod javaMethod = new JavaMethod("A2", "make");
+		javaMethod.modifiers = "static ";
+		m.addMethod(javaMethod);
 		
 		String smalltalk = "test\n| a1 {A1} | a1 := M make!";
 
@@ -904,8 +906,12 @@ public class TestWriteMethod extends TestCase {
 		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
 		
 		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
-		m.addMethod(new JavaMethod("A1", "make"));
-		m.addMethod(new JavaMethod("Heaper", "make"));
+		JavaMethod javaMethod = new JavaMethod("A1", "make");
+		javaMethod.modifiers = "static ";
+		m.addMethod(javaMethod);
+		javaMethod = new JavaMethod("Heaper", "make");
+		javaMethod.modifiers = "static ";
+		m.addMethod(javaMethod);
 		
 		String smalltalk = "test\n| a2 {A2} | a2 := M make!";
 
@@ -918,24 +924,58 @@ public class TestWriteMethod extends TestCase {
 		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
 
 		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
-		m.addMethod(new JavaMethod("A1", "make"));
+		JavaMethod javaMethod = new JavaMethod("A1", "make");
+		javaMethod.modifiers = "static ";
+		m.addMethod(javaMethod);
 		
 		String smalltalk = "test\n| a2 {A2} | a2 := M make!";
 
 		String expectedJava = "public void test() {\nA2 a2;\na2 = (A2) M.make();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testDowncastStaticCallAssignmentReturn() {
+		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
+		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
+
+		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
+		JavaMethod javaMethod = new JavaMethod("A1", "make");
+		javaMethod.modifiers = "static ";
+		m.addMethod(javaMethod);
+		
+		String smalltalk = "{A2} test\n^ M make!";
+
+		String expectedJava = "public A2 test() {\nreturn (A2) M.make();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 
 	public void testDowncastStaticCallAssignmentSameType() {
 		new JavaClass("A1", "Heaper", javaClass.getJavaCodebase());
 		new JavaClass("A2", "A1", javaClass.getJavaCodebase());
 		
 		JavaClass m = new JavaClass("M", "Heaper", javaClass.getJavaCodebase());
-		m.addMethod(new JavaMethod("A2", "make"));
+		JavaMethod javaMethod = new JavaMethod("A2", "make");
+		javaMethod.modifiers = "static ";
+		m.addMethod(javaMethod);
 		
 		String smalltalk = "test\n| a2 {A2} | a2 := M make!";
 
 		String expectedJava = "public void test() {\nA2 a2;\na2 = M.make();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testDowncastCallAssignment() {
+		new JavaClass("Heaper", "AboraHeaper", javaClass.getJavaCodebase());
+		new JavaClass("Recipe", "Heaper", javaClass.getJavaCodebase());
+
+		JavaClass stepper = new JavaClass("Stepper", "Heaper", javaClass.getJavaCodebase());
+		JavaMethod javaMethod = new JavaMethod("Heaper", "fetch");
+		stepper.addMethod(javaMethod);
+
+		String smalltalk = "test\n| stomp {Stepper} rec {Recipe} | rec := stomp fetch!";
+
+		String expectedJava = "public void test() {\nStepper stomp;\nRecipe rec;\nrec = (Recipe) stomp.fetch();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

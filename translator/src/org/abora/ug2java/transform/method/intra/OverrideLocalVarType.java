@@ -59,6 +59,8 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		
 		map.put("ActualCookbook.sendClassList.rec", "Recipe");
 		
+		map.put("CopyRecipe.parse.result", "Heaper");
+		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");
 		

@@ -263,10 +263,22 @@ public class TranslateSmalltalk {
 
 	private void initializeNonTranslatedClasses(JavaCodebase javaCodebase) {
 		new JavaClass("Object", javaCodebase);
+		//TODO should read all of this info in by parsing our own java classes...
 		new JavaClass("AboraHeaper", "Object", javaCodebase);
-		new JavaClass("PtrArray", "PrimArray", javaCodebase);
+		JavaClass primArray = new JavaClass("PrimArray", "Heaper", javaCodebase);
+		JavaMethod m = new JavaMethod("PrimArray", "copyGrow");
+		m.addParameter(new JavaField("int", "i"));
+		primArray.addMethod(m);
+		JavaClass ptrArray = new JavaClass("PtrArray", "PrimArray", javaCodebase);
+		m = new JavaMethod("Heaper", "at");
+		m.addParameter(new JavaField("int", "i"));
+		ptrArray.addMethod(m);
 		JavaClass weakPtrArray = new JavaClass("WeakPtrArray", "PtrArray", javaCodebase);
-		weakPtrArray.addMethod(new JavaMethod("PtrArray", "make"));
+		m = new JavaMethod("PtrArray", "make");
+		m.addParameter(new JavaField("XnExecutor", "executor"));
+		m.addParameter(new JavaField("int", "i"));
+		m.modifiers = "static ";
+		weakPtrArray.addMethod(m);
 		
 	}
 	private List readAllSourcesFiles(String[] sources, JavaCodebase javaCodebase) throws FileNotFoundException, IOException, Exception {

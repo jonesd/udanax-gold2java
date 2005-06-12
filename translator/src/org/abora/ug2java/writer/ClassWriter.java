@@ -257,10 +257,35 @@ public class ClassWriter {
 		String generatedContents = generate();
 		String existingContents = readExistingFile(javaFile);
 		if (!generatedContents.equals(existingContents)) {
-			System.out.println("Writing class: " + javaClass.getPackage() + "." + javaClass.className);
-			javaFile.delete();
+			System.out.println("Writing class: " + javaClass.getPackage() + "." + javaClass.className+" ["+summarizeDifference(existingContents, generatedContents)+"]");
+//			javaFile.delete();
 			writeContents(generatedContents, javaFile);
 		}
+	}
+	
+	private String summarizeDifference(String existingContents, String generatedContents) {
+		if (existingContents == null) {
+			return "New";
+		} else {
+			for (int i = 0; i < Math.min(existingContents.length(), generatedContents.length()); i++) {
+				if (existingContents.charAt(i) != generatedContents.charAt(i)) {
+					String e = highlightText(existingContents, i);
+					String g = highlightText(generatedContents, i);
+					return "'"+e+"' -> '"+g+"' "+i;
+				}
+			}
+			if (existingContents.length() != generatedContents.length()) {
+				return "Differente Size";
+			}
+		}
+		return "";
+	}
+	
+	private String highlightText(String text, int pointOfHighlight) {
+		String highlight = text.substring(pointOfHighlight - 10, pointOfHighlight + 10);
+		highlight = highlight.replace('\n', '.');
+		highlight = highlight.replace('\r', '.');
+		return highlight;
 	}
 
 	private void writeContents(String contents, File javaFile) throws IOException {

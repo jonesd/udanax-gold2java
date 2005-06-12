@@ -17,6 +17,7 @@ import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
+import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
@@ -69,10 +70,10 @@ public class MethodBody {
 	public void shouldMatch(int index, Class aClass, String value) {
 		JavaToken tokenToRemove = (JavaToken)tokens.get(index);
 		if (aClass != null && !(aClass.isInstance(tokenToRemove))) {
-			throw new IllegalStateException("Removing index:"+index+" expected class:"+aClass+" but found:"+tokenToRemove);
+			throw new IllegalStateException("Body index:"+index+" expected class:"+aClass+" but found:"+tokenToRemove);
 		}
 		if (value != null && !value.equals(tokenToRemove.value)) {
-			throw new IllegalStateException("Removing index:"+index+" expected value:"+value+" but found:"+tokenToRemove);
+			throw new IllegalStateException("Body index:"+index+" expected value:"+value+" but found:"+tokenToRemove);
 		}
 	}
 
@@ -330,4 +331,28 @@ public class MethodBody {
 		}
 		throw new IllegalStateException("Could not find matching open: "+openingType);
 	}
+	
+	public int findNumberOfCallArgs(int callStart) {
+		shouldMatch(callStart, JavaCallStart.class);
+		int args = 0;
+		
+		int earlyCalls = 0;
+		for (int i = callStart + 1; i < tokens.size(); i++) {
+			JavaToken token = (JavaToken) tokens.get(i);
+			if (token instanceof JavaCallStart) {
+				earlyCalls++;
+			} else if (token instanceof JavaCallEnd) {
+				earlyCalls--;
+				if (earlyCalls < 0) {
+					return args;
+				}
+			} else if (token instanceof JavaCallArgumentSeparator && earlyCalls == 0) {
+				args += 1;
+			} else if (!(token instanceof JavaComment) && args == 0) {
+				args = 1;
+			}
+		}
+		throw new IllegalStateException("Could not find closing callend while calculating number of args");
+	}
+
 }

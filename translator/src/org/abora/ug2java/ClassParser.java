@@ -144,6 +144,9 @@ public class ClassParser {
 		table.put("LPPrimeSizeProvider.make", "PrimeSizeProvider");
 		table.put("ActualHashSet.arrayStats", "void");
 		table.put("GrandHashTable.make(CoordinateSpace)", "MuTable");
+		table.put("FeClub.make(FeEdition)", "FeWork");
+		table.put("ActualHashTable.make(CoordinateSpace)", "MuTable");
+		table.put("MuArray.makeIntegerVar(int)", "IntegerTable");
 
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}

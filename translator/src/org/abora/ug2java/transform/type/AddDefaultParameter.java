@@ -72,7 +72,7 @@ public class AddDefaultParameter implements ClassTransformer {
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();
 		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: "+this;
+		method.smalltalkSource.text = "Generated during transformation: AddDefaultParameter";
 		javaClass.addMethod(method);
 	}
 }
