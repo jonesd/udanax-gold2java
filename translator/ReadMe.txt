@@ -3,7 +3,7 @@ UdanaxGold2Java - Translator
 
 The Translator is a small Java app to automatically translate from the
 Udanax-Gold Smalltalk(ish) source code into (approximate) Java. The
-end result will *NOT* be compilable (currently ~5000 compilation
+end result will *NOT* be compilable (currently ~500 compilation
 problems), but may prove useful for non-Smalltalk users who are
 interested in reading the Udanax-Gold code and also forms the basis of my
 AboraWhite project.
@@ -32,6 +32,10 @@ machine. You should find approximately 500 classes generated.
 
 The generated Java files are placed in ../abora-gold/src-gen directory
 under the org.abora.gold java package. 
+
+If you 
+
+> ant translate
 
 
 Extending the Translator

@@ -1,4 +1,4 @@
-<project name="ug2java-translator" default="translate" basedir=".">
+<project name="ug2java-translator" default="translate-full" basedir=".">
     <description>
     	Translate Udanax-Gold Smalltalk source into approximate Java
     </description>
@@ -34,9 +34,14 @@
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
   </target>
+	
+	<target name="clean-translated">
+	  	<delete dir="${translated.dir}"/>
+	</target>
   
+	<target name="translate-full" depends="clean-translated, translate"/>
+	
   <target name="translate" depends="compile">
-  	<delete dir="${translated.dir}"/>
   	<java classname="org.abora.ug2java.TranslateSmalltalk">
   		<arg value="${translated.dir}"/>
   		<arg value="${udanaxgold.dir}/udanax-top.st"/>

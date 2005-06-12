@@ -7,7 +7,11 @@
 package org.abora.ug2java.writer;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Enumeration;
@@ -245,26 +249,69 @@ public class ClassWriter {
 	}
 
 	public void write(String baseDirectory) throws Exception {
-		System.out.println("Writing class: " + javaClass.getPackage() + "." + javaClass.className);
 	
 		File dir = new File(baseDirectory, javaClass.getPackageDirectory());
 		dir.mkdirs();
 	
 		File javaFile = new File(dir, javaClass.className + ".java");
-		FileWriter fileWriter = new FileWriter(javaFile);
-		PrintWriter writer = new PrintWriter(fileWriter);
-		try {
-			String classDefinition = writeClassDefinition();
-	
-			writeFileComment(writer);
-			writer.println("package " + javaClass.getPackage() + ";");
-			writer.println();
-			writeImports(writer);
-			writer.println();
-			writer.print(classDefinition);
-		} finally {
-			fileWriter.close();
+		String generatedContents = generate();
+		String existingContents = readExistingFile(javaFile);
+		if (!generatedContents.equals(existingContents)) {
+			System.out.println("Writing class: " + javaClass.getPackage() + "." + javaClass.className);
+			javaFile.delete();
+			writeContents(generatedContents, javaFile);
 		}
+	}
+
+	private void writeContents(String contents, File javaFile) throws IOException {
+		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(javaFile, false), "UTF-8");
+		try {
+			writer.write(contents);
+		} finally {
+			writer.close();
+		}
+	}
+
+	private String readExistingFile(File javaFile) throws IOException {
+		if (!javaFile.exists()) {
+			return null;
+		}
+		InputStreamReader reader = new InputStreamReader(new FileInputStream(javaFile), "UTF-8");
+		try {
+			StringBuffer stringBuffer = new StringBuffer();
+			char[] buffer = new char[2048];
+			int read;
+			
+			while ((read = reader.read(buffer)) != -1) {
+				stringBuffer.append(buffer, 0, read);
+			}
+			return stringBuffer.toString();
+		} finally {
+			reader.close();
+		}
+	}
+
+	private String generate() throws Exception {
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(stringWriter);
+		try {
+			write(printWriter);
+			printWriter.flush();
+			return stringWriter.toString();
+		} finally {
+			printWriter.close();
+		}
+	}
+
+	public void write(PrintWriter writer) throws Exception {
+		String classDefinition = writeClassDefinition();
+
+		writeFileComment(writer);
+		writer.println("package " + javaClass.getPackage() + ";");
+		writer.println();
+		writeImports(writer);
+		writer.println();
+		writer.print(classDefinition);
 	}
 
 	protected String stringReplaceWith(String s, String find, String replaceWith) {
