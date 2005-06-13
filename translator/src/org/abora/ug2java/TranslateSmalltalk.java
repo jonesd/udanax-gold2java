@@ -72,10 +72,9 @@ public class TranslateSmalltalk {
 		packageLookup.put("Calc", "org.abora.gold.java.missing");
 		//	packageLookup.put("Category", "org.abora.gold.java.missing");
 		packageLookup.put("CxxClassDescription", "org.abora.gold.java.missing");
-		packageLookup.put("Dean", "org.abora.gold.java.missing");
+		packageLookup.put("Developer", "org.abora.gold.java.missing");
 		//	packageLookup.put("Emulsion", "org.abora.gold.java.missing");	
 		packageLookup.put("EncrypterConstructor", "org.abora.gold.java.missing");
-		packageLookup.put("Eric", "org.abora.gold.java.missing");
 		packageLookup.put("FeCompletionDetector", "org.abora.gold.java.missing");
 		packageLookup.put("FeDirectWrapperChecker", "org.abora.gold.java.missing");
 		packageLookup.put("FeDirectWrapperMaker", "org.abora.gold.java.missing");
@@ -93,7 +92,6 @@ public class TranslateSmalltalk {
 		packageLookup.put("IEEE8", "org.abora.gold.java.missing");
 		packageLookup.put("IntegerVar", "org.abora.gold.java.missing");
 		packageLookup.put("IObject", "org.abora.gold.java.missing");
-		packageLookup.put("MarkM", "org.abora.gold.java.missing");
 		packageLookup.put("MuWordArray", "org.abora.gold.java.missing");
 		packageLookup.put("Logger", "org.abora.gold.java.missing");
 		packageLookup.put("OccludingCategoryTable", "org.abora.gold.java.missing");
@@ -103,8 +101,6 @@ public class TranslateSmalltalk {
 		packageLookup.put("Problem", "org.abora.gold.java.missing");
 		packageLookup.put("PropJoint", "org.abora.gold.java.missing");
 		packageLookup.put("RandomStepper", "org.abora.gold.java.missing");
-		packageLookup.put("Ravi", "org.abora.gold.java.missing");
-		packageLookup.put("RaviNow", "org.abora.gold.java.missing");
 		packageLookup.put("Sema4", "org.abora.gold.java.missing");
 		packageLookup.put("SensorPropJoint", "org.abora.gold.java.missing");
 		packageLookup.put("SequenceDsp", "org.abora.gold.java.missing");
@@ -114,7 +110,6 @@ public class TranslateSmalltalk {
 		packageLookup.put("SnarfID", "org.abora.gold.java.missing");
 		packageLookup.put("SnarfHandle", "org.abora.gold.java.missing");
 		packageLookup.put("SocketPortal", "org.abora.gold.java.missing");
-		packageLookup.put("Someone", "org.abora.gold.java.missing");
 		packageLookup.put("SplayEntLoaf", "org.abora.gold.java.missing");
 		packageLookup.put("Stamp", "org.abora.gold.java.missing");
 		packageLookup.put("TransclusionRecorder", "org.abora.gold.java.missing");

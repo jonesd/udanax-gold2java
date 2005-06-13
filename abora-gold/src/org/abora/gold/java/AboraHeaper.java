@@ -11,6 +11,7 @@ package org.abora.gold.java;
 
 import java.io.PrintWriter;
 
+import org.abora.gold.java.missing.Developer;
 import org.abora.gold.java.missing.OrderEnum;
 import org.abora.gold.rcmain.ServerChunk;
 import org.abora.gold.spaces.integers.IntegerPos;
@@ -49,6 +50,14 @@ public class AboraHeaper {
 	public static Recipe XppCuisine;
 	
 	public static ServerChunk CurrentChunk;
+	
+	// Developer notes
+	public static final Developer Dean = new Developer("Dean");
+	public static final Developer Eric = new Developer("Eric");
+	public static final Developer MarkM = new Developer("MarkM");
+	public static final Developer Ravi = new Developer("Ravi");
+	public static final Developer RaviNow = new Developer("RaviNow");
+	public static final Developer Someone = new Developer("Someone");
 
 	//TODO what to really do with these, often Smalltalk Symbols?
 	public static final String ALL_TESTS_ON_ = "AllTestsOn";
@@ -112,23 +121,12 @@ public class AboraHeaper {
 	public AboraHeaper(Rcvr receiver) {
 		throw new UnsupportedOperationException();
 	}
+	
 
-	public static void knownBug() {
-		throw new UnsupportedOperationException();
-	}
-	public static void thingToDo() {
-		throw new UnsupportedOperationException();
-	}
-	public static void shouldImplement() {
-		throw new UnsupportedOperationException();
-	}
 	public static void shouldNotImplement() {
 		throw new UnsupportedOperationException();
 	}
 	public static void error(String message) {
-		throw new UnsupportedOperationException();
-	}
-	public static void hack() {
 		throw new UnsupportedOperationException();
 	}
 	public static void willNotImplement() {
@@ -143,10 +141,10 @@ public class AboraHeaper {
 	public void stubbleForSubclassResponsibility() {
 		throw new UnsupportedOperationException();
 	}
-	public int asOop() {
+	public int halt() {
 		throw new UnsupportedOperationException();
 	}
-	public void halt() {
+	public int asOop() {
 		throw new UnsupportedOperationException();
 	}
 	public Object inspect() {
@@ -165,7 +163,7 @@ public class AboraHeaper {
 	}
 	
 	// Temp replace Heaper implementation
-	public static Category getCategory() {
+	public Category getCategory() {
 		throw new UnsupportedOperationException();
 	}
 	

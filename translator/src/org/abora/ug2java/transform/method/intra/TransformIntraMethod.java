@@ -50,6 +50,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformRequires());
 //		transformers.add(new TransformSmalltalkOnly());
 		transformers.add(new TransformTranslateOnlyString());
+		transformers.add(new TransformDeveloperAnnotation());
 		transformers.add(new TransformNewCreateCallOnClass());
 		transformers.add(new TransformSuperCreate());
 		transformers.add(new TransformCreateCall());
