@@ -34,6 +34,7 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("SimpleShuffler.shuffle64", "UInt8Array");
 		map.put("Category.Category", "Class");
 		map.put("TupleStepper.make(Object,Object)", "CrossSpace,PtrArray");
+		map.put("Category.sendSelfTo(Object)", "Xmtr");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

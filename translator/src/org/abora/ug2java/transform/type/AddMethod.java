@@ -27,16 +27,19 @@ public class AddMethod implements ClassTransformer {
 		} else if (javaClass.className.equals("MuSet")) {
 			addMuSetMakeIntegerVar(javaClass);
 		} else if (javaClass.className.equals("RequestHandler")) {
-			addRequestHandlerInstVarAt(javaClass);
+			addUnsupportedMethod(javaClass, "", "Fn", "instVarAt", new String[] {"int", "i"});
 		} else if (javaClass.className.equals("Recipe")) {
-			addRecipeDefineGlobal(javaClass);
+			addUnsupportedMethod(javaClass, "static ", "void", "defineGlobal", new String[] {"String", "s", "Heaper", "h"});
 		} else if (javaClass.className.equals("DiskManager")) {
-			addDiskManagerDestroyAbandoned(javaClass);			
+			addUnsupportedMethod(javaClass, "", "void", "destroyAbandoned", new String[] {});
 		} else if (javaClass.className.equals("Abraham")) {
-			addAbrahamGetCategoryFromStub(javaClass);			
+			addUnsupportedMethod(javaClass, "", "Category", "getCategoryFromStub", new String[] {});
 		} else if (javaClass.className.equals("SnarfRecord")) {
-			addSnarfRecordGetReadHandler(javaClass);			
-			addSnarfRecordReleaseReadHandler(javaClass);			
+			addUnsupportedMethod(javaClass, "", "SnarfHandler", "getReadHandler", new String[] {});
+			addUnsupportedMethod(javaClass, "", "void", "releaseReadHandler", new String[] {});
+		} else if (javaClass.className.equals("Heaper")) {
+			addUnsupportedMethod(javaClass, "static ", "boolean", "isConstructed", new String[] {"Heaper", "h"});			
+			addUnsupportedMethod(javaClass, "static ", "boolean", "isDestructed", new String[] {"Heaper", "h"});			
 		}
 	}
 	
@@ -95,103 +98,18 @@ public class AddMethod implements ClassTransformer {
 		javaClass.addMethod(method);
 	}
 
-	public void addRequestHandlerInstVarAt(JavaClass javaClass) {
-		JavaMethod method = new JavaMethod("Fn", "instVarAt");
-		method.addParameter(new JavaField("int", "i"));
+	public void addUnsupportedMethod(JavaClass javaClass, String modifiers, String returnType, String name, String[] args) {
+		JavaMethod method = new JavaMethod(returnType, name);
+		for (int i = 0; i < args.length; i+=2) {
+			method.addParameter(new JavaField(args[i], args[i+1]));
+		}
 		List tokens = new ArrayList();
 		tokens.add(new JavaKeyword("throw"));
 		tokens.add(new JavaKeyword("new"));
 		tokens.add(new JavaCallStart("UnsupportedOperationException"));
 		tokens.add(new JavaCallEnd());
 		tokens.add(new JavaStatementTerminator());
-		method.modifiers = "";
-		method.methodBody = new MethodBody(tokens);
-		//TODO add a generated source
-		method.smalltalkSource = new SmalltalkSource();
-		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: AddMethod";
-		javaClass.addMethod(method);
-	}
-
-	public void addRecipeDefineGlobal(JavaClass javaClass) {
-		JavaMethod method = new JavaMethod("void", "defineGlobal");
-		method.addParameter(new JavaField("String", "s"));
-		method.addParameter(new JavaField("Heaper", "h"));
-		List tokens = new ArrayList();
-		tokens.add(new JavaKeyword("throw"));
-		tokens.add(new JavaKeyword("new"));
-		tokens.add(new JavaCallStart("UnsupportedOperationException"));
-		tokens.add(new JavaCallEnd());
-		tokens.add(new JavaStatementTerminator());
-		method.modifiers = "static ";
-		method.methodBody = new MethodBody(tokens);
-		//TODO add a generated source
-		method.smalltalkSource = new SmalltalkSource();
-		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: AddMethod";
-		javaClass.addMethod(method);
-	}
-
-	public void addDiskManagerDestroyAbandoned(JavaClass javaClass) {
-		JavaMethod method = new JavaMethod("void", "destroyAbandoned");
-		List tokens = new ArrayList();
-		tokens.add(new JavaKeyword("throw"));
-		tokens.add(new JavaKeyword("new"));
-		tokens.add(new JavaCallStart("UnsupportedOperationException"));
-		tokens.add(new JavaCallEnd());
-		tokens.add(new JavaStatementTerminator());
-		method.modifiers = "";
-		method.methodBody = new MethodBody(tokens);
-		//TODO add a generated source
-		method.smalltalkSource = new SmalltalkSource();
-		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: AddMethod";
-		javaClass.addMethod(method);
-	}
-
-	public void addAbrahamGetCategoryFromStub(JavaClass javaClass) {
-		JavaMethod method = new JavaMethod("Category", "getCategoryFromStub");
-		List tokens = new ArrayList();
-		tokens.add(new JavaKeyword("throw"));
-		tokens.add(new JavaKeyword("new"));
-		tokens.add(new JavaCallStart("UnsupportedOperationException"));
-		tokens.add(new JavaCallEnd());
-		tokens.add(new JavaStatementTerminator());
-		method.modifiers = "";
-		method.methodBody = new MethodBody(tokens);
-		//TODO add a generated source
-		method.smalltalkSource = new SmalltalkSource();
-		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: AddMethod";
-		javaClass.addMethod(method);
-	}
-
-	public void addSnarfRecordGetReadHandler(JavaClass javaClass) {
-		JavaMethod method = new JavaMethod("SnarfHandler", "getReadHandler");
-		List tokens = new ArrayList();
-		tokens.add(new JavaKeyword("throw"));
-		tokens.add(new JavaKeyword("new"));
-		tokens.add(new JavaCallStart("UnsupportedOperationException"));
-		tokens.add(new JavaCallEnd());
-		tokens.add(new JavaStatementTerminator());
-		method.modifiers = "";
-		method.methodBody = new MethodBody(tokens);
-		//TODO add a generated source
-		method.smalltalkSource = new SmalltalkSource();
-		method.smalltalkSource.context = "";
-		method.smalltalkSource.text = "Generated during transformation: AddMethod";
-		javaClass.addMethod(method);
-	}
-
-	public void addSnarfRecordReleaseReadHandler(JavaClass javaClass) {
-		JavaMethod method = new JavaMethod("void", "releaseReadHandler");
-		List tokens = new ArrayList();
-		tokens.add(new JavaKeyword("throw"));
-		tokens.add(new JavaKeyword("new"));
-		tokens.add(new JavaCallStart("UnsupportedOperationException"));
-		tokens.add(new JavaCallEnd());
-		tokens.add(new JavaStatementTerminator());
-		method.modifiers = "";
+		method.modifiers = modifiers;
 		method.methodBody = new MethodBody(tokens);
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();

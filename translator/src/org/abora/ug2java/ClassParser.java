@@ -154,7 +154,7 @@ public class ClassParser {
 	public static final Map OVERRIDE_VOID_RETURN_TYPE;
 	static {
 		Map table  = new Hashtable();
-		table.put("stepper", STEPPER_CLASS);
+		table.put("stepper()", STEPPER_CLASS);
 		table.put("isGenerated", "boolean");
 		table.put("SnarfPacker.conistentCount", "int");
 		table.put("ScruTable.stepper", "TableStepper");

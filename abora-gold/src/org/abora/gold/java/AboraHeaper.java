@@ -18,6 +18,7 @@ import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
+import org.abora.gold.xpp.basic.Heaper;
 import org.abora.gold.xpp.fluid.FluidVar;
 
 public class AboraHeaper {
@@ -178,12 +179,6 @@ public class AboraHeaper {
 	}
 	
 	// Temp replace Heaper implementation
-	public static boolean isDestructed(AboraHeaper h) {
-		throw new UnsupportedOperationException();
-	}
-	public static boolean isConstructed(AboraHeaper h) {
-		throw new UnsupportedOperationException();
-	}
 	public static void setGC(boolean a) {
 		throw new UnsupportedOperationException();
 	}
