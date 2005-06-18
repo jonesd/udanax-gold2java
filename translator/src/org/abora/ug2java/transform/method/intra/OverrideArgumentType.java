@@ -35,6 +35,9 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("Category.Category", "Class");
 		map.put("TupleStepper.make(Object,Object)", "CrossSpace,PtrArray");
 		map.put("Category.sendSelfTo(Object)", "Xmtr");
+		map.put("XnReadStream.getBytes(PtrArray,int)", "UInt8Array,int");
+		map.put("XnReadStream.getBytes(PtrArray,int,int)", "UInt8Array,int,int");
+		map.put("XnBufferedReadStream.getBytes(PtrArray,int,int)", "UInt8Array,int,int");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

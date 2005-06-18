@@ -1756,6 +1756,13 @@ public void testPointerToStaticMember() {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testPrintPrintConditional() {
+		String smalltalk = "test: aStream { ostream }\naStream << 12 + 1 << ((a < b) ifTrue: ['one'] ifFalse: ['two']) << 14 + 3!";
+
+		String expectedJava = "public void test(PrintWriter aStream) {\naStream.print(12 + 1);\naStream.print(((a < b) ? \"one\" : \"two\"));\naStream.print(14 + 3);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testPrintPrintLiterals() {
 		String smalltalk = "test: aStream { ostream }\n'extra'. \"hello\" aStream << 'one' << 'two' << 'three'!";
 

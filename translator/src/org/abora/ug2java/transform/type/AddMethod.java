@@ -39,7 +39,9 @@ public class AddMethod implements ClassTransformer {
 			addUnsupportedMethod(javaClass, "", "void", "releaseReadHandler", new String[] {});
 		} else if (javaClass.className.equals("Heaper")) {
 			addUnsupportedMethod(javaClass, "static ", "boolean", "isConstructed", new String[] {"Heaper", "h"});			
-			addUnsupportedMethod(javaClass, "static ", "boolean", "isDestructed", new String[] {"Heaper", "h"});			
+			addUnsupportedMethod(javaClass, "static ", "boolean", "isDestructed", new String[] {"Heaper", "h"});
+		} else if (javaClass.className.equals("Category")) {
+			addUnsupportedMethod(javaClass, "", "Category", "makeHooked", new String[] {});
 		}
 	}
 	

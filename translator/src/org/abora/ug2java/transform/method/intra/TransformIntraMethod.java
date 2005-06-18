@@ -79,6 +79,8 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformDOTputCharacter());
 		transformers.add(new TransformExponentDouble());
 		transformers.add(new TransformIntegerIntegerVar());
+		transformers.add(new TransformAssert());
+		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformPrint());
 		transformers.add(new TransformBinaryOperator());
 		transformers.add(new TransformDiskManagerConsistent());
@@ -107,8 +109,6 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformSendHeaper());
 		transformers.add(new TransformSendIntegerVar());
 		transformers.add(new TransformNextPutPrint());
-		transformers.add(new TransformAssert());
-		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformCastIntoOthers());
 		transformers.add(new TransformCastCheck());
 		transformers.add(new TransformNotNULLElse());		

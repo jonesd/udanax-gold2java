@@ -5,7 +5,10 @@
  */
 package org.abora.ug2java.transform.method.intra;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
@@ -20,6 +23,14 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 public class TransformCast extends AbstractMethodBodyTransformation {
 
+	private static final Map OVERRIDE_CAST;
+	static {
+		Map map = new HashMap();
+		map.put("XnBufferedReadStream.getBytes.String", "");
+		map.put("XnReadStream.getBytes.String", "");
+		OVERRIDE_CAST = Collections.unmodifiableMap(map);
+	}
+	
 	public TransformCast() {
 		super();
 	}
@@ -39,11 +50,23 @@ public class TransformCast extends AbstractMethodBodyTransformation {
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier type = (JavaIdentifier)tokens.get(i + 1);
+		String castType = findCastType(javaMethod, type);
 		int start = javaMethod.methodBody.findStartOfExpression(i - 1);
 		tokens.remove(i + 2);
 		tokens.remove(i + 1);
 		tokens.remove(i);
-		tokens.add(start, new JavaCast(type.value));
+		if (!castType.equals("")) {
+			tokens.add(start, new JavaCast(castType));
+		}
 		return i;
+	}
+	
+	private String findCastType(JavaMethod javaMethod, JavaIdentifier type) {
+		String name = javaMethod.javaClass.className+"."+javaMethod.name+"."+type.value;
+		String castType = (String)OVERRIDE_CAST.get(name);
+		if (castType == null) {
+			castType = type.value;
+		}
+		return castType;
 	}
 }

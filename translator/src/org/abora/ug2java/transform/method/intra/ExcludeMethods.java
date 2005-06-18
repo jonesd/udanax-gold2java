@@ -43,6 +43,7 @@ public class ExcludeMethods implements MethodTransformation {
 		list.add("Binary2Xmtr.uint8"); // TODO Could be an earlier parsing problem behind why we have these?
 		list.add("DiskManager.consistent");
 		list.add("XnRegion.mapping");
+		list.add("Xmtr.send(Object)");
 		
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
