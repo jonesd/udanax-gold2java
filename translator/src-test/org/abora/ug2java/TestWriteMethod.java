@@ -2213,6 +2213,12 @@ public void testPointerToStaticMember() {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testTimeMillisecondsToRun() {
+		String smalltalk = "test\ntime _ Time millisecondsToRun: [self blah]!";
+
+		String expectedJava = "public void test() {\nlong timeStart = System.currentTimeMillis();\nblah();\ntime = System.currentTimeMillis() - timeStart;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
 	public void testTimesRepeat() {
 		String smalltalk = "test\n4 timesRepeat: [self blah]!";
 
@@ -2238,6 +2244,13 @@ public void testPointerToStaticMember() {
 		String smalltalk = "test\nTranscript << 'hello'!";
 
 		String expectedJava = "public void test() {\nAboraSupport.logger.print(\"hello\");\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testTranscriptEndEntry() {
+		String smalltalk = "test\nTranscript endEntry!";
+
+		String expectedJava = "public void test() {\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -2371,6 +2384,13 @@ public void testPointerToStaticMember() {
 		String smalltalk = "test\n[agenda step] whileTrue!";
 
 		String expectedJava = "public void test() {\nwhile (agenda.step());\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testWriteStreamOnString() {
+		String smalltalk = "test\n| str {StreamWriter} | str _ WriteStream on: (String new: 200). str contents!";
+
+		String expectedJava = "public void test() {\nStreamWriter str;\nStringWriter strString = new StringWriter();\nstr = new PrintWriter(strString);\nstrString.toString();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

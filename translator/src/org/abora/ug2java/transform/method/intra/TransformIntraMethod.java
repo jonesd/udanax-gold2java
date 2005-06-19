@@ -114,10 +114,14 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformNotNULLElse());		
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
+		transformers.add(new TransformTimeMillisecondsToRun());
 		transformers.add(new ChooseTransformOnly());
 		transformers.add(new TransformStreamContents());
 		transformers.add(new TransformLog());
 		transformers.add(new TransformStringAsTextWriteStream());
+		transformers.add(new TransformWriteStreamOnString());
+		transformers.add(new TransformWriteStreamContents());
+		transformers.add(new TransformTranscriptEndEntry());
 		transformers.add(new TransformInitializeLocalVariable());
 		transformers.add(new TransformNewBecome());
 		transformers.add(new TransformOperatorIntNull());

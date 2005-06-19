@@ -61,6 +61,10 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		
 		map.put("CopyRecipe.parse.result", "Heaper");
 		
+		map.put("Tester.tryTest.time", "long");
+		map.put("Tester.tryTest.str", "PrintWriter");
+		map.put("GrandHashTableTester.runTest.str", "PrintWriter");
+		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");
 		
