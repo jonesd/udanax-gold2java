@@ -14,7 +14,7 @@ import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
-import org.abora.ug2java.javatoken.JavaLiteral;
+import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -32,13 +32,13 @@ public class TransformTranslateOnlyString extends AbstractMethodBodyTransformati
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaLiteral.class), 
+				factory.token(StringLiteral.class), 
 				factory.token(JavaCallStart.class, "translateOnly"), 
 				factory.token(JavaCallEnd.class));
 	}
 	
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		JavaLiteral javaLiteral = (JavaLiteral)tokens.get(i);
+		StringLiteral javaLiteral = (StringLiteral)tokens.get(i);
 		//TODO general insanity here. Why didn't we just remember the original value?
 		String cleanSource = stipStringWrapping(javaLiteral.value);
 		

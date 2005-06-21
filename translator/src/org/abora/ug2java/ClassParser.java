@@ -21,14 +21,17 @@ import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaCast;
+import org.abora.ug2java.javatoken.CharacterLiteral;
 import org.abora.ug2java.javatoken.JavaComment;
+import org.abora.ug2java.javatoken.FloatingPointLiteral;
 import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.javatoken.JavaLoopTerminator;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
+import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.javatoken.JavaType;
 import org.abora.ug2java.stscanner.ChunkDetails;
@@ -761,26 +764,14 @@ scannerAdvance(scanner);
 					}
 				case ScannerToken.TOKEN_INTEGER :
 					{
-						String value = "";
-						if (scanner.token.tokenIntRadix == 16) {
-							value = "0x";
-						} else if (scanner.token.tokenIntRadix == 8) {
-							value = "0";
-							// TODO ignore any other radixes and show in base 10 instead
-						}
-						value = value + Long.toString(scanner.token.tokenInt, scanner.token.tokenIntRadix);
-						if (scanner.token.tokenInt > Integer.MAX_VALUE || scanner.token.tokenInt < Integer.MIN_VALUE) {
-							value = value + "L";
-						}
-						expression.add(new JavaLiteral(value));
+						expression.add(new IntegerLiteral(scanner.token.tokenInt, scanner.token.tokenIntRadix));
 						atExpressionStart = false;
 						scannerAdvance(scanner);
 						break;
 					}
 				case ScannerToken.TOKEN_DOUBLE :
 					{
-						String value = Double.toString(scanner.token.tokenDouble);
-						expression.add(new JavaLiteral(value));
+						expression.add(new FloatingPointLiteral(scanner.token.tokenDouble));
 						atExpressionStart = false;
 						scannerAdvance(scanner);
 						break;
@@ -800,21 +791,20 @@ scannerAdvance(scanner);
 							expression.add(new JavaCallEnd());
 						} else {
 							if (word.equals("UInt32Zero") || word.equals("Int32Zero") || word.equals("Int0")) {
-								expression.add(new JavaLiteral("0"));
+								expression.add(new IntegerLiteral(0));
 							} else if ((word.equals("IntegerVar0")) || word.equals("IntegerVarZero")) {
 								//TODO IntegerVar choice!!
-								expression.add(new JavaLiteral("0"));
+								expression.add(new IntegerLiteral(0));
 //								expression.add(new JavaIdentifier("IntegerVar"));
 //								expression.add(new JavaCallStart("zero"));
 //								expression.add(new JavaCallEnd());
 							} else if (word.equals("Int32Min") || word.equals("UInt32Min")) {
-								//TODO use Integer.MIN_VALUE
-								expression.add(new JavaLiteral("0x80000000"));
+								expression.add(new IntegerLiteral(Integer.MIN_VALUE, 16));
 							} else if (word.equals("Int32Max") || word.equals("UInt32Max")) {
 								//TODO use Integer.MAX_VALUE
-								expression.add(new JavaLiteral("0x7fffffff"));
+								expression.add(new IntegerLiteral(Integer.MIN_VALUE, 16));
 							} else if (word.equals("UInt8Max")) {
-								expression.add(new JavaLiteral("0xff"));
+								expression.add(new IntegerLiteral(255, 16));
 							} else {
 								expression.add(new JavaIdentifier(word));
 							}
@@ -919,8 +909,7 @@ scannerAdvance(scanner);
 						String safeString = stringReplaceWith(scanner.token.tokenString, "\\", "\\\\");
 						safeString = stringReplaceWith(safeString, "\"", "\\\"");
 						safeString = stringReplaceWith(safeString, "\n", "\\n\"+\n\"");
-						safeString = "\"" + safeString + "\"";
-						expression.add(new JavaLiteral(safeString));
+						expression.add(new StringLiteral(safeString));
 						scannerAdvance(scanner);
 						atExpressionStart = false;
 						break;
@@ -950,8 +939,7 @@ scannerAdvance(scanner);
 					}
 				case ScannerToken.TOKEN_CHARACTER :
 					{
-						String value = "'" + scanner.token.tokenString + "'";
-						expression.add(new JavaLiteral(value));
+						expression.add(new CharacterLiteral(scanner.token.tokenString));
 						scannerAdvance(scanner);
 						atExpressionStart = false;
 						break;

@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -38,7 +38,7 @@ public class TransformOperatorIntNull extends AbstractMethodBodyTransformation {
 		String type = javaMethod.findTypeOfVariable(var.value);
 		if ("int".equals(type)) {
 			methodBodyTokens.remove(i + 2);
-			methodBodyTokens.add(i+2, new JavaLiteral("0"));
+			methodBodyTokens.add(i+2, new IntegerLiteral(0));
 		}
 		return i;
 	}

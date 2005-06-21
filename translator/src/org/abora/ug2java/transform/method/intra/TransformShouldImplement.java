@@ -13,7 +13,7 @@ import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
+import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
@@ -45,7 +45,7 @@ public class TransformShouldImplement extends AbstractMethodBodyTransformation {
 		tokens.add(i, new JavaKeyword("throw"));
 		tokens.add(i + 1, new JavaKeyword("new"));
 		tokens.add(i + 2, new JavaCallKeywordStart("ShouldImplementException"));
-		tokens.add(i + 3, new JavaLiteral("\""+type.value+"\""));
+		tokens.add(i + 3, new StringLiteral(type.value));
 				
 		if (i > 0) {
 			JavaToken preToken = (JavaToken)tokens.get(i - 1);

@@ -12,9 +12,10 @@ import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
+import org.abora.ug2java.javatoken.JavaToken;
 
 
 
@@ -67,7 +68,19 @@ public class AddDefaultParameter implements ClassTransformer {
 			tokens.add(new JavaIdentifier(paramName));
 			tokens.add(new JavaCallArgumentSeparator());
 		}
-		tokens.add(new JavaLiteral(additionalParam));
+		JavaToken additional;
+		if (additionalParam.equals("0")) {
+			additional = new IntegerLiteral(0);
+		} else if (additionalParam.equals("null")) {
+			additional = new JavaKeyword("null");
+		} else if (additionalParam.equals("false")) {
+			additional = new JavaKeyword("false");
+		} else if (additionalParam.equals("true")) {
+			additional = new JavaKeyword("true");
+		} else {
+			throw new IllegalArgumentException("Cant interpret additional param: "+additionalParam);
+		}
+		tokens.add(additional);
 		tokens.add(new JavaCallEnd());
 		tokens.add(new JavaStatementTerminator());
 		method.modifiers = modifiers;

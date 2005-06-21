@@ -5,7 +5,7 @@
  */
 package org.abora.ug2java.javatoken;
 
-public class JavaLiteral extends JavaToken {
+public abstract class JavaLiteral extends JavaToken {
 
 	public JavaLiteral(String value) {
 		super(value);

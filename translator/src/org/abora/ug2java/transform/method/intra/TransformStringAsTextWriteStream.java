@@ -14,8 +14,8 @@ import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
+import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.javatoken.JavaType;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
@@ -37,7 +37,7 @@ public class TransformStringAsTextWriteStream extends AbstractMethodBodyTransfor
 		return factory.seq(
 				factory.token(JavaIdentifier.class),
 				factory.token(JavaAssignment.class),
-				factory.token(JavaLiteral.class, "\"\""),
+				factory.token(StringLiteral.class, "\"\""),
 				factory.token(JavaCallStart.class, "asText"),
 				factory.token(JavaCallEnd.class),
 				factory.token(JavaCallStart.class, "writeStream"),

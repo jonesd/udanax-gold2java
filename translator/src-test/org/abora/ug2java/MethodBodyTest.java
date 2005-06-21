@@ -11,8 +11,8 @@ import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
 
 
 
@@ -60,7 +60,7 @@ public class MethodBodyTest extends TestCase {
 	public void testFindNumberOfCallArgsWith1Arg() {
 		tokens.add(new JavaIdentifier("test"));
 		tokens.add(new JavaCallKeywordStart("call"));
-		tokens.add(new JavaLiteral("189"));
+		tokens.add(new IntegerLiteral(189));
 		tokens.add(new JavaCallEnd());
 		
 		assertEquals(1, body.findNumberOfCallArgs(1));
@@ -69,7 +69,7 @@ public class MethodBodyTest extends TestCase {
 	public void testFindNumberOfCallArgsWith2Args() {
 		tokens.add(new JavaIdentifier("test"));
 		tokens.add(new JavaCallKeywordStart("call"));
-		tokens.add(new JavaLiteral("189"));
+		tokens.add(new IntegerLiteral(189));
 		tokens.add(new JavaCallArgumentSeparator());
 		tokens.add(new JavaIdentifier("blah"));
 		tokens.add(new JavaCallEnd());

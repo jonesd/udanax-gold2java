@@ -12,8 +12,8 @@ import org.abora.ug2java.javatoken.JavaAssignment;
 import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.javatoken.JavaLoopTerminator;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
@@ -59,7 +59,7 @@ public class TransformTimesRepeat extends AbstractMethodBodyTransformation {
 		tokens.add(start + 2, new JavaType("int"));
 		tokens.add(start + 3, new JavaIdentifier(incrementVariable));
 		tokens.add(start + 4, new JavaAssignment());
-		tokens.add(start + 5, new JavaLiteral("0"));
+		tokens.add(start + 5, new IntegerLiteral(0));
 		tokens.add(start + 6, new JavaLoopTerminator());
 		tokens.add(start + 7, new JavaIdentifier(incrementVariable));
 		tokens.add(start + 8, new JavaKeyword("<"));

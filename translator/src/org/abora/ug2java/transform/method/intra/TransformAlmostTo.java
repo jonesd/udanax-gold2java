@@ -11,8 +11,8 @@ import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaAssignment;
 import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
+import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.javatoken.JavaLoopTerminator;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
@@ -55,8 +55,8 @@ public class TransformAlmostTo extends AbstractMethodBodyTransformation {
 
 		int byValue = 1;
 		if (isBy) {
-			JavaLiteral byToken = (JavaLiteral)tokens.get(blockStart - 2);
-			byValue = Integer.parseInt(byToken.value);
+			IntegerLiteral byToken = (IntegerLiteral)tokens.get(blockStart - 2);
+			byValue = byToken.getIntValue();
 		} else if (call.value.indexOf("down") != -1) {
 			byValue = -1;
 		}

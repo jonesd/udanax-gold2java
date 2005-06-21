@@ -13,7 +13,7 @@ import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLiteral;
+import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
@@ -35,7 +35,7 @@ public TransformBlast() {
 		return factory.seq(
 				factory.token(JavaCallKeywordStart.class, "BLAST"),
 				factory.any(
-						factory.token(JavaLiteral.class),
+						factory.token(StringLiteral.class),
 						factory.token(JavaIdentifier.class)), 
 				factory.token(JavaCallEnd.class));
 	}

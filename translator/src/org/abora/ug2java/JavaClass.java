@@ -226,4 +226,13 @@ public class JavaClass {
 		return match;
 	}
 
+	public JavaMethod getMethodOrInherited(String problemsName) {
+		JavaMethod method = getMethod(problemsName);
+		if (method == null && getSuperClass() != null) {
+			return getSuperClass().getMethodOrInherited(problemsName);
+		}
+		return method;
+		
+	}
+
 }

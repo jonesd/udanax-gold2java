@@ -14,6 +14,7 @@ import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCast;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaLiteral;
+import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -46,7 +47,7 @@ public TransformPointerToStaticMember() {
 		//TODO
 		if (!member.value.startsWith("\"")) {
 			tokens.remove(i+2);
-			tokens.add(i+2, new JavaLiteral("\""+member.value+"\""));
+			tokens.add(i+2, new StringLiteral(member.value));
 		}
 		String castType = memberType.value;
 		if (castType.startsWith("\"")) {

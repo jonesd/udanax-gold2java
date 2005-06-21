@@ -11,7 +11,7 @@ import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
-import org.abora.ug2java.javatoken.JavaLiteral;
+import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -31,14 +31,13 @@ public class TransformMuSetMake extends AbstractMethodBodyTransformation {
 		return factory.seq(
 				factory.token(JavaIdentifier.class, "MuSet"), 
 				factory.token(JavaCallKeywordStart.class, "make"), 
-				factory.token(JavaLiteral.class), 
+				factory.token(IntegerLiteral.class), 
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i+1);
 		call.value = "makeIntegerVar";
-		//TODO assumed literal was integer
 		return i;
 	}
 }

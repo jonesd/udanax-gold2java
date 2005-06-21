@@ -6,6 +6,7 @@
 
 package org.abora.ug2java;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
@@ -355,4 +356,34 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find closing callend while calculating number of args");
 	}
 
+	public List extractCallArgExpressions(int callStart) {
+		shouldMatch(callStart, JavaCallStart.class);
+		List args = new ArrayList();
+		
+		List expression = new ArrayList();
+		int earlyCalls = 0;
+		for (int i = callStart + 1; i < tokens.size(); i++) {
+			JavaToken token = (JavaToken) tokens.get(i);
+			if (token instanceof JavaCallStart) {
+				earlyCalls++;
+				expression.add(token);
+			} else if (token instanceof JavaCallEnd) {
+				earlyCalls--;
+				if (earlyCalls < 0) {
+					args.add(new MethodBody(expression));
+					return args;
+				} else {
+					expression.add(token);
+				}
+			} else if (token instanceof JavaCallArgumentSeparator && earlyCalls == 0) {
+				args.add(new MethodBody(expression));
+				expression = new ArrayList();
+			} else {
+				expression.add(token);
+			}
+			
+		}
+		throw new IllegalStateException("Could not find closing callend while calculating number of args");
+	}
+	
 }

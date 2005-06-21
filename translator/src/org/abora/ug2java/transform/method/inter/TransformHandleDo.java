@@ -70,7 +70,7 @@ public class TransformHandleDo extends AbstractMethodBodyTransformation {
 		if (problemsClassName.equals("Heaper") && problemsName.equals("problemsAllBlasts")) {
 			allBlasts = true;
 		} else {
-			JavaMethod problemsMethod = javaMethod.getJavaCodebase().getJavaClass(problemsClassName).getMethod(problemsName);
+			JavaMethod problemsMethod = javaMethod.getJavaCodebase().getJavaClass(problemsClassName).getMethodOrInherited(problemsName);
 			if (problemsMethod == null) {
 				System.out.println("--Failed to find signals match for handleDo: "+problemsClassName+"."+problemsName);
 				return i;

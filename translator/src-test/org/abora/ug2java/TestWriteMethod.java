@@ -17,13 +17,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.abora.ug2java.Annotation;
-import org.abora.ug2java.ClassParser;
-import org.abora.ug2java.JavaClass;
-import org.abora.ug2java.JavaCodebase;
-import org.abora.ug2java.JavaField;
-import org.abora.ug2java.JavaMethod;
-import org.abora.ug2java.MethodBody;
 import org.abora.ug2java.stscanner.ChunkDetails;
 import org.abora.ug2java.transform.type.ClassTransformer;
 import org.abora.ug2java.transform.type.ClassTransformers;
