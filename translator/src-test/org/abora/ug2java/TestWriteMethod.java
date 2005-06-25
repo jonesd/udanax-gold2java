@@ -71,6 +71,19 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testArraySingle() {
+		String smalltalk = "test\narray _ #('Promise cast 1' delayCast:)!";
+		String expectedJava = "public void test() {\narray = \n{\"Promise cast 1\", \"delayCast:\"};\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testArrayDouble() {
+		String smalltalk = "test\narray _ #(('Promise cast 1' delayCast:)('Promise isKindOf 1' testKindOf:))!";
+		String expectedJava = "public void test() {\narray = \n{\n{\"Promise cast 1\", \"delayCast:\"}, \n{\"Promise isKindOf 1\", \"testKindOf:\"}};\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+
 	public void testAlmostToDo() {
 		String smalltalk = "test\n0 almostTo: fred happy do: [:i {UInt32} | blah ]!";
 
@@ -2188,7 +2201,7 @@ public void testPointerToStaticMember() {
 	public void testSymbolArrayNew() {
 		String smalltalk = "test\n#()!";
 
-		String expectedJava = "public void test() {\nnew Array();\n}\n";
+		String expectedJava = "public void test() {\n\n{};\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

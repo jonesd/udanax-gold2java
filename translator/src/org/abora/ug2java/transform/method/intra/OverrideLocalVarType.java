@@ -65,6 +65,8 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		map.put("Tester.tryTest.str", "PrintWriter");
 		map.put("GrandHashTableTester.runTest.str", "PrintWriter");
 		
+		map.put("Package.makePackage.result", "Package");
+		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");
 		

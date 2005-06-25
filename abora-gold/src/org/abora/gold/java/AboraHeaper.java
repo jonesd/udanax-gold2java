@@ -208,4 +208,7 @@ public class AboraHeaper {
 	public static Fn pointerToStaticMember(String name, String handlerType) {
 		throw new UnsupportedOperationException();
 	}
+	public static Fn pointerToStaticMember(String name) {
+		throw new UnsupportedOperationException();
+	}
 }

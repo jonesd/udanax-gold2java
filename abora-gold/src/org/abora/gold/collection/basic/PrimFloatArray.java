@@ -94,4 +94,8 @@ public class PrimFloatArray extends PrimDataArray {
 	protected PrimArray makeNew(int size, PrimArray source, int sourceOffset, int count, int destOffset) {
 		throw new UnsupportedOperationException();
 	}
+
+	public void copyToBuffer(PrimArray array, int size, int count, int start) {
+		throw new UnsupportedOperationException();
+	}
 }

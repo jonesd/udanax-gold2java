@@ -25,7 +25,11 @@ public class OrderedCollection {
 		throw new UnsupportedOperationException();
 	}
 
-	public void add(Heaper heaper) {
+	public void add(Object heaper) {
+		throw new UnsupportedOperationException();
+	}
+
+	public int size() {
 		throw new UnsupportedOperationException();
 	}
 

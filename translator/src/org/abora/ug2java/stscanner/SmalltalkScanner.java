@@ -249,6 +249,8 @@ public class SmalltalkScanner {
 			id.tokenString = id.tokenString.replace('.', '_');
 			id.tokenString = id.tokenString.replace(' ', '_');
 			id.tokenString = id.tokenString.replace(':', '_');
+		} else if (c == '(') {
+			id = new ScannerToken(ScannerToken.TOKEN_SYMBOL, "(");
 		} else {
 			id = readId(false);
 		}

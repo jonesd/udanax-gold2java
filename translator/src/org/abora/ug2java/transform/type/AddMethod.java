@@ -46,6 +46,9 @@ public class AddMethod implements ClassTransformer {
 			addUnsupportedMethod(javaClass, "", "void", "perform", new String[] {"String", "test", "PrintWriter", "out"});			
 			addUnsupportedMethod(javaClass, "static ", "String", "spyTest", new String[] {"String", "test"});			
 			addUnsupportedMethod(javaClass, "static ", "String", "runTest", new String[] {"String", "test"});			
+		} else if (javaClass.className.equals("Package")) {
+			addUnsupportedMethod(javaClass, "static ", "String", "fetchAttribute", new String[] {"String", "attributeName"});
+			addUnsupportedMethod(javaClass, "static ", "boolean", "hasAttribute", new String[] {"String", "attributeName"});
 		}
 	}
 	

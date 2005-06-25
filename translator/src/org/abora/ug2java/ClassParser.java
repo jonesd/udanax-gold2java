@@ -13,6 +13,8 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.abora.ug2java.javatoken.JavaArrayInitializerEnd;
+import org.abora.ug2java.javatoken.JavaArrayInitializerStart;
 import org.abora.ug2java.javatoken.JavaAssignment;
 import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
@@ -214,6 +216,7 @@ public class ClassParser {
 		table.put("GrandHashSet.make()", "MuSet");
 		table.put("GrandHashSet.make(int)", "MuSet");
 		table.put("StaticFunctionPointer.invokeFunction", "Object");
+		table.put("Binary2Rcvr.endPacket", "boolean");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -952,6 +955,9 @@ scannerAdvance(scanner);
 							expression.add(new JavaCallStart("new"));
 							expression.add(new JavaCallEnd());
 							scannerAdvance(scanner);
+						} else if (value.startsWith("(")) {
+							parseArray(scanner, expression);
+							scannerAdvance(scanner);
 						} else {
 							String symbol = transformSmalltalkSymbolToJava(value);
 							expression.add(new JavaIdentifier(symbol));
@@ -1015,6 +1021,34 @@ scannerAdvance(scanner);
 		return new MethodBody(tokens);
 	}
 	
+	private void parseArray(SmalltalkScanner scanner, Vector expression) {
+		int maxDepth = 1;
+		int depth = 1;
+		expression.add(new JavaArrayInitializerStart());
+		
+		
+		do {
+			scannerAdvance(scanner);
+			JavaToken lastToken = (JavaToken) expression.lastElement();
+			if (scanner.token.tokenType == ScannerToken.TOKEN_BRACKET_START) {
+				depth += 1;
+				maxDepth = Math.max(depth, maxDepth);
+				if (!(lastToken instanceof JavaArrayInitializerStart)) {
+					expression.add(new JavaCallArgumentSeparator());
+				}
+				expression.add(new JavaArrayInitializerStart());
+			} else if (scanner.token.tokenType == ScannerToken.TOKEN_BRACKET_END) {
+				depth -= 1;
+				expression.add(new JavaArrayInitializerEnd());
+			} else {
+				if (lastToken instanceof StringLiteral) {
+					expression.add(new JavaCallArgumentSeparator());
+				}
+				expression.add(new StringLiteral(scanner.token.tokenString));
+			}
+		} while (!(scanner.token.tokenType == ScannerToken.TOKEN_BRACKET_END && depth == 0));
+	}
+
 	//TODO do something about this. Sideffect of incorrect #(Blah Again) handling
 	public static String transformSmalltalkSymbolToJava(String value) {
 		StringBuffer buffer = new StringBuffer();

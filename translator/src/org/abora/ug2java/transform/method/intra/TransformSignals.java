@@ -12,10 +12,10 @@ import java.util.TreeSet;
 import org.abora.ug2java.Annotation;
 import org.abora.ug2java.ClassParser;
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.javatoken.JavaArrayInitializerStart;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
-import org.abora.ug2java.javatoken.JavaCallStart;
-import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaToken;
+import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -34,7 +34,7 @@ public class TransformSignals extends AbstractMethodBodyTransformation {
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaCallKeywordStart.class, "signals"),
-				factory.token(JavaIdentifier.class)
+				factory.token(JavaArrayInitializerStart.class)
 				);
 	}
 
@@ -48,18 +48,11 @@ public class TransformSignals extends AbstractMethodBodyTransformation {
 		int j = i + 1;
 		while (j < endOfCall) {
 			JavaToken javaIdentifier = (JavaToken)tokens.get(j);
-			String problem = javaIdentifier.value;
-			//TODO earlier parsing bug for #(Blah)
-			if (problem.startsWith("(")) {
-				problem = problem.substring(1);
+			if (javaIdentifier instanceof StringLiteral) {
+				StringLiteral stringLiteral = (StringLiteral)javaIdentifier;
+				String problem = ClassParser.transformSmalltalkSymbolToJava(stringLiteral.getStringValue());
+				signals.add(problem);
 			}
-			//TODO further #(Blah Again) parsing issues
-			if (javaIdentifier instanceof JavaCallStart) {
-				//skip callEnd
-				j += 1;
-				problem = ClassParser.transformSmalltalkSymbolToJava(problem);
-			}
-			signals.add(problem);
 			j += 1;
 		}
 		javaMethod.getAnnotations().put(Annotation.PROBLEM_SIGNALS, signals);

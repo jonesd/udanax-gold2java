@@ -9,10 +9,16 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import java.io.PrintWriter;
+
 public class Filename {
 
 	public Filename() {
 		super();
+	}
+
+	public PrintWriter writeStream() {
+		throw new UnsupportedOperationException();
 	}
 
 }

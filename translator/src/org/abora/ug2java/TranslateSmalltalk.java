@@ -345,7 +345,12 @@ public class TranslateSmalltalk {
 					classesToWrite.add(javaClass);
 					if (superClassName.equals("Object") /*&& classWriter.className.equals("Heaper")*/
 						) {
-						superClassName = "AboraHeaper";
+						//TODO make up mind about superclass, or list overrides in a data structure
+						if (className.equals("DeletedHeaper")) {
+							superClassName = "Heaper";
+						} else {
+							superClassName = "AboraHeaper";
+						}
 					}
 					javaClass.superclassName = superClassName;
 					parser.moveToWord("category:");
