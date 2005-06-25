@@ -993,6 +993,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testErrorCall() {
+		String smalltalk = "test\nself error: 'Attempted to add a package to a hook-generated category'!";
+
+		String expectedJava = "public void test() {\nthrow new AboraRuntimeException(\"Attempted to add a package to a hook-generated category\");\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testExponentDouble() {
 		String smalltalk = "test: a {IEEE32}\n^a exponent!";
 
@@ -2206,6 +2213,13 @@ public void testPointerToStaticMember() {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testThisInStaticMethod() {
+		String smalltalk = "test\n^this!";
+
+		String expectedJava = "public static void test() {\nreturn Test.class;\n}\n";
+		assertStaticMethod(expectedJava, smalltalk);
+	}
+
 	public void testTimeMillisecondsToRun() {
 		String smalltalk = "test\ntime _ Time millisecondsToRun: [self blah]!";
 
@@ -2398,6 +2412,10 @@ public void testPointerToStaticMember() {
 		return writeMethod(smalltalk, "");
 	}
 
+	protected String writeStaticMethod(String smalltalk) {
+		return writeMethod(smalltalk, "static ");
+	}
+
 	protected String writeMethod(String smalltalk, String modifiers) {
 		ChunkDetails details = new ChunkDetails("", smalltalk);
 		StringWriter stringWriter = new StringWriter();
@@ -2417,6 +2435,11 @@ public void testPointerToStaticMember() {
 
 	protected void assertInstanceMethod(String expectedJava, String smalltalkSource) {
 		String actualJava = writeInstanceMethod(smalltalkSource);
+		assertMethodBodyEquals(expectedJava, actualJava);
+	}
+
+	protected void assertStaticMethod(String expectedJava, String smalltalkSource) {
+		String actualJava = writeStaticMethod(smalltalkSource);
 		assertMethodBodyEquals(expectedJava, actualJava);
 	}
 

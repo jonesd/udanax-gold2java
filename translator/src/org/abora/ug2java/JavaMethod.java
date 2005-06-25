@@ -26,6 +26,7 @@ public class JavaMethod extends JavaClassElement {
 	public boolean shouldInclude = true;
 	public boolean isDeprecated = false;
 	private final Annotation annotations = new Annotation(); 
+	public String methodCategory = "";
 	
 	public JavaMethod() {
 		super();

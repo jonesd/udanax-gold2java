@@ -30,7 +30,7 @@ public class OverrideClassVariables implements ClassTransformer {
 		map.put("Emulsion.myFluids", "OrderedCollection");
 		map.put("Emulsion.myFluidsUsed", "boolean");
 		
-		map.put("Category.myClass", "Class");
+		map.put("Category.myClass", "AboraClass");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

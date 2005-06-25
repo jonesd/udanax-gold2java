@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 public class IntegerLiteralTest extends TestCase {
 
 	public void testValue() {
+		// Numbers taken from "The Java Language Specification Second Edition", James Gosling, etc 3.10.1 pg.21
 		assertEquals("0", new IntegerLiteral(0).value);
 		assertEquals("00", new IntegerLiteral(0, 8).value);
 		assertEquals("0x0", new IntegerLiteral(0, 16).value);

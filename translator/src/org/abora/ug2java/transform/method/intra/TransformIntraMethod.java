@@ -34,13 +34,16 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new OverrideReturnType());
 		transformers.add(new OverrideArgumentType());
 		transformers.add(new OverrideLocalVarType());
+		transformers.add(new StubOutMethodBodyForLater());
 		transformers.add(new TransformAndOrs());
 		transformers.add(new EnsureReasonableStatementTermination());
 		transformers.add(new ExcludeStaticHeaper());
-		transformers.add(new ExcludeMethods());
+		transformers.add(new ExcludeMethodsByName());
+		transformers.add(new ExcludeMethodsByMethodCategory());
 		transformers.add(new RewriteMethodBody());
 		transformers.add(new ConvertToStaticBlocks());
 		transformers.add(new DeprecatedMethods());
+		transformers.add(new TransformPasseMethodCategory());
 		//TODO this only produces a snapshot of locals
 		transformers.add(new RecordLocalVars());
 		transformers.add(new ForceReturn());
@@ -66,6 +69,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformIntegerZero());
 		transformers.add(new TransformUint8());
 		transformers.add(new TransformBlast());
+		transformers.add(new TransformErrorCall());
 		transformers.add(new TransformIsKindOf());
 		transformers.add(new TransformStar());
 		transformers.add(new TransformCast());
@@ -133,6 +137,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformSocket());
 		transformers.add(new TransformCharacterStaticCall());
 		transformers.add(new TransformPointerToStaticMember());
+		transformers.add(new TransformStaticThis());
 				
 		transformers.add(new EnsureUniqueLocalVarNames());
 		transformers.add(new EnsureIfTestInParentheses());

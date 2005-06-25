@@ -125,6 +125,8 @@ public class TranslateSmalltalk {
 		packageLookup.put("XnWriteFile", "org.abora.gold.java.missing");
 		packageLookup.put("XuRegion", "org.abora.gold.java.missing");
 
+		// Standin for Smalltalk Class that doesn't have a name collision with Java Class
+		packageLookup.put("AboraClass", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Array", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Behavior", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("BlockClosure", "org.abora.gold.java.missing.smalltalk");
@@ -304,6 +306,7 @@ public class TranslateSmalltalk {
 			boolean methodsFor = false;
 			boolean methodsForClass = false;
 			String methodsForDescription = "";
+			String methodCategory = null;
 			boolean skipMethodCategory = false;
 			while (true) {
 				int chunkLineNumber = reader.getLineNumber();
@@ -355,6 +358,7 @@ public class TranslateSmalltalk {
 					skipMethodCategory = false;
 					methodsForClass = chunk.indexOf(" class ") != -1;
 					methodsForDescription = chunk;
+					//TODO would like to remove this, but it uncovers a parsing problem
 					if (SKIP_METHOD_CATEGORIES.contains(chunk)) {
 						skipMethodCategory = true;
 					}
@@ -408,10 +412,13 @@ public class TranslateSmalltalk {
 		
 		writeJavaClasses(outputDirectoryName, javaClasses);
 	}
-	private void writeJavaClasses(String outputDirectoryName, List javaClasses) throws Exception {
+	private void logSectionHeader(String title) {
 		System.out.println();
-		System.out.println("Writing Classes");
+		System.out.println(title);
 		System.out.println("-------------------------------------------------------");
+	}
+	private void writeJavaClasses(String outputDirectoryName, List javaClasses) throws Exception {
+		logSectionHeader("Writing Classes");
 		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
 			JavaClass javaClass = (JavaClass) iter.next();
 			//TODO consider skipping classes while being read in?
@@ -428,9 +435,8 @@ public class TranslateSmalltalk {
 		}
 	}
 	private void transformClasses(List javaClasses) {
-		System.out.println();
-		System.out.println("Transforming Classes");
-		System.out.println("-------------------------------------------------------");
+		logSectionHeader("Transforming Classes");
+
 		ClassTransformer classTransformer = new ClassTransformers();
 		for (Iterator iter = javaClasses.iterator(); iter.hasNext();) {
 			JavaClass javaClass = (JavaClass) iter.next();
@@ -439,9 +445,7 @@ public class TranslateSmalltalk {
 		}
 	}
 	private void parseClasses(List javaClasses) throws Exception {
-		System.out.println();
-		System.out.println("Parsing Java");
-		System.out.println("-------------------------------------------------------");
+		logSectionHeader("Parsing Java");
 
 		ClassParser classParser = new ClassParser();
 

@@ -32,7 +32,7 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("SimpleShuffler.shuffle16", "UInt8Array");
 		map.put("SimpleShuffler.shuffle32", "UInt8Array");
 		map.put("SimpleShuffler.shuffle64", "UInt8Array");
-		map.put("Category.Category", "Class");
+		map.put("Category.Category", "AboraClass");
 		map.put("TupleStepper.make(Object,Object)", "CrossSpace,PtrArray");
 		map.put("Category.sendSelfTo(Object)", "Xmtr");
 		map.put("XnReadStream.getBytes(PtrArray,int)", "UInt8Array,int");

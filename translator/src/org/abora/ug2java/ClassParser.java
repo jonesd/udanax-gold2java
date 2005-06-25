@@ -91,6 +91,7 @@ public class ClassParser {
 		table.put("IDRegio", "IDRegion");
 		table.put("Symbol", "String");
 		table.put("Selector", "String");
+		table.put("Class", "AboraClass");
 
 		table.put("ostream", "PrintWriter");
 		LOOKUP_TYPES = Collections.unmodifiableMap(table);
@@ -177,13 +178,14 @@ public class ClassParser {
 		table.put("GlobalEmulsion.make", "Emulsion");
 		table.put("GenericCrossDsp.make", "Mapping");
 		table.put("Abraham.dismantleStatistics", "IdentityDictionary");
-		table.put("Category.brotherClass", "Class");
+		table.put("Category.brotherClass", "AboraClass");
 		table.put("FakePackageCategory.contentsCategory", "Category");
 		table.put("FakePackageCategory.originalContentsCategory", "Category");
 		table.put("FakePackageCategory.isConcretePackage", "boolean");
 		table.put("FakeCategory.getSuperCategory", "Category");
 		table.put("FakeCategory.isEqualOrSubclassOf", "boolean");
-		table.put("FakeCategory.originalClass", "Class");
+		table.put("FakeCategory.originalClass", "AboraClass");
+		table.put("Package.originalClass", "AboraClass");
 		table.put("PrimSet.createWithExecutor", "PrimSet");
 		table.put("HeightChanger.make", "PropChanger");
 		table.put("SnarfInfoHandler.create", "SnarfInfoHandler");
@@ -201,7 +203,7 @@ public class ClassParser {
 		table.put("SnarfPacker.consistentCount", "int");
 		table.put("CBlockTrackingPacker.consistentCount", "int");
 		table.put("SnarfPacker.make(String)", "DiskManager");
-		table.put("StaticFunctionPointer.staticClass", "Class");
+		table.put("StaticFunctionPointer.staticClass", "AboraClass");
 		table.put("StaticFunctionPointer.selector", "String");
 		table.put("Emulsion.imageEmulsion", "Emulsion");
 		table.put("DeletedHeaper.isKindOf", "boolean");
@@ -211,6 +213,7 @@ public class ClassParser {
 		table.put("IntegerTableStepper.create", "IntegerTableStepper");
 		table.put("GrandHashSet.make()", "MuSet");
 		table.put("GrandHashSet.make(int)", "MuSet");
+		table.put("StaticFunctionPointer.invokeFunction", "Object");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -470,6 +473,7 @@ public class ClassParser {
 			return null;
 		}
 	
+		String methodCategory = parseMethodCategory(methodDetails.description);
 		String methodName = "";
 		List parameterList = new ArrayList();
 		SmalltalkScanner scanner = new SmalltalkScanner(smalltalkMethod);
@@ -512,6 +516,7 @@ public class ClassParser {
 		javaMethod.name = methodName;
 		javaMethod.javaClass = javaClass;
 		javaMethod.parameters = parameterList;
+		javaMethod.methodCategory = methodCategory;
 
 		if (scanner.token.tokenType == ScannerToken.TOKEN_COMMENT) {
 			javaMethod.comment = scanner.token.tokenString;
@@ -531,6 +536,23 @@ public class ClassParser {
 		return javaMethod;
 	}
 	
+	private String parseMethodCategory(String smalltalkMethodsFor) {
+		if (smalltalkMethodsFor == null) {
+			return "";
+		}
+		
+		SmalltalkScanner parser = new SmalltalkScanner(smalltalkMethodsFor);
+		ScannerToken token = parser.advance();
+		if ("class".equals(token.tokenString)) {
+			token = parser.advance();
+		}
+		if (!"methodsFor:".equals(token.tokenString)) {
+			throw new IllegalStateException("Expected methodsFor: but instead: "+token.tokenString);
+		}
+		token = parser.advanceAndCheckType(ScannerToken.TOKEN_STRING);
+		return token.tokenString;
+	}
+
 	public void parseClassDefinition() throws Exception {
 		for (Iterator iter = javaClass.classQuotes.iterator(); iter.hasNext();) {
 			ChunkDetails chunk = (ChunkDetails) iter.next();

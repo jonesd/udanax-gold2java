@@ -12,7 +12,7 @@ import java.util.List;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.transform.method.MethodTransformation;
 
-public class ExcludeMethods implements MethodTransformation {
+public class ExcludeMethodsByName implements MethodTransformation {
 
 	private static final List INSTANCE_METHODS;
 	static {
