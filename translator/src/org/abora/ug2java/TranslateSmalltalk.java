@@ -90,6 +90,7 @@ public class TranslateSmalltalk {
 		//BAD	packageLookup.put("IDRegio", "org.abora.gold.java.missing");
 		packageLookup.put("IEEE128", "org.abora.gold.java.missing");
 		packageLookup.put("IEEE8", "org.abora.gold.java.missing");
+		packageLookup.put("Initializer", "org.abora.gold.java.missing");
 		packageLookup.put("IntegerVar", "org.abora.gold.java.missing");
 		packageLookup.put("IObject", "org.abora.gold.java.missing");
 		packageLookup.put("MuWordArray", "org.abora.gold.java.missing");

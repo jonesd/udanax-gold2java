@@ -20,6 +20,7 @@ import org.abora.ug2java.javatoken.JavaType;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
+import org.abora.ug2java.util.ClassHelper;
 
 
 
@@ -35,7 +36,7 @@ public class TransformStreamContents extends AbstractMethodBodyTransformation {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaKeyword.class, "return"),
+//				factory.token(JavaKeyword.class, "return"),
 				factory.token(JavaIdentifier.class, "String"),
 				factory.token(JavaCallKeywordStart.class, "streamContents"),
 				factory.token(JavaBlockStart.class),
@@ -45,10 +46,14 @@ public class TransformStreamContents extends AbstractMethodBodyTransformation {
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		int blockEnd = javaMethod.methodBody.findEndOfBlock(i+3);
+		int statementStart = javaMethod.methodBody.findStartOfStatement(i-1);
+		int blockEnd = javaMethod.methodBody.findEndOfBlockQuietFail(i+2);
+		if (blockEnd == -1) {
+			System.out.println("--Failed to find end of block for:"+ClassHelper.getShortName(this.getClass())+" method:"+javaMethod.getQualifiedSignature());
+			return i;
+		}
 		tokens.remove(blockEnd+1);
 		tokens.remove(blockEnd);
-		tokens.remove(i+4);
 		tokens.remove(i+3);
 		tokens.remove(i+2);
 		tokens.remove(i+1);
@@ -66,11 +71,13 @@ public class TransformStreamContents extends AbstractMethodBodyTransformation {
 		tokens.add(i+11, new JavaCallKeywordStart("PrintWriter"));
 		tokens.add(i+12, new JavaIdentifier("stringWriter"));
 		tokens.add(i+13, new JavaCallEnd());
-		int newEnd = blockEnd+13-5; 
-		tokens.add(newEnd, new JavaKeyword("return"));
-		tokens.add(newEnd+1, new JavaIdentifier("stringWriter"));
-		tokens.add(newEnd+2, new JavaCallStart("toString"));
-		tokens.add(newEnd+3, new JavaCallEnd());
+		int newEnd = blockEnd+13-4;
+		tokens.add(newEnd+0, new JavaIdentifier("stringWriter"));
+		tokens.add(newEnd+1, new JavaCallStart("toString"));
+		tokens.add(newEnd+2, new JavaCallEnd());
+		
+		javaMethod.methodBody.copy(statementStart, i, newEnd);
+		javaMethod.methodBody.remove(statementStart, i);
 		
 		return i;
 	}

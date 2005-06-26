@@ -385,5 +385,39 @@ public class MethodBody {
 		}
 		throw new IllegalStateException("Could not find closing callend while calculating number of args");
 	}
-	
+
+	public void copy(int sourceStartInclusive, int sourceEndExclusive, int newStart) {
+		List subList = new ArrayList(tokens.subList(sourceStartInclusive, sourceEndExclusive));
+		tokens.addAll(newStart, subList);
+	}
+
+	public int findStartOfStatement(int endIndex) {
+		int laterParentheses = 0;
+		int laterBlocks = 0;
+		for (int i = endIndex; i >= 0; i--) {
+			JavaToken token = (JavaToken) tokens.get(i);
+			if (token instanceof JavaParenthesisStart || token instanceof JavaCallStart) {
+				laterParentheses--;
+			} else if (token instanceof JavaParenthesisEnd || token instanceof JavaCallEnd) {
+				laterParentheses++;
+			} else if (token instanceof JavaBlockStart) {
+				laterBlocks--;
+			} else if (token instanceof JavaBlockEnd) {
+				laterBlocks--;
+//				laterBlocks++;
+			} else if (token instanceof JavaStatementTerminator) {
+				if (laterParentheses == 0 && laterBlocks == 0) {
+					return i + 1;
+				}
+			}
+			if ((laterParentheses < 0 && laterBlocks == 0) || (laterParentheses == 0 && laterBlocks < 0)) {
+				return i + 1;
+			}
+			if (laterParentheses == 0 && laterBlocks == 0 && i == 0) {
+				return 0;
+			}
+		}
+		return 0;
+	}
+
 }

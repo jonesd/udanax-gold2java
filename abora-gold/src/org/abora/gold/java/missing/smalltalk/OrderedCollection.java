@@ -11,6 +11,7 @@ package org.abora.gold.java.missing.smalltalk;
 
 import org.abora.gold.xpp.basic.Heaper;
 
+
 public class OrderedCollection {
 
 	public OrderedCollection() {
@@ -30,6 +31,10 @@ public class OrderedCollection {
 	}
 
 	public int size() {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Object get(int index) {
 		throw new UnsupportedOperationException();
 	}
 

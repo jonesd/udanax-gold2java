@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.abora.ug2java.JavaClass;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
@@ -50,13 +51,29 @@ public class TransformCast extends AbstractMethodBodyTransformation {
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier type = (JavaIdentifier)tokens.get(i + 1);
-		String castType = findCastType(javaMethod, type);
+		String castTypeName = findCastType(javaMethod, type);
 		int start = javaMethod.methodBody.findStartOfExpression(i - 1);
 		tokens.remove(i + 2);
 		tokens.remove(i + 1);
 		tokens.remove(i);
-		if (!castType.equals("")) {
-			tokens.add(start, new JavaCast(castType));
+		if (i > 0 && tokens.get(i-1) instanceof JavaIdentifier) {
+			JavaIdentifier var = (JavaIdentifier)tokens.get(i-1);
+			String varTypeName = javaMethod.findTypeOfVariable(var.value);
+			if (varTypeName != null && javaMethod.methodBody.findStartOfExpressionMinimal(i-1) == i-1) {
+				if (varTypeName.equals(castTypeName)) {
+//				if (!javaMethod.getJavaCodebase().shouldDowncast(varType, castType)) {
+					castTypeName = "";
+				} else {
+					JavaClass castType = javaMethod.getJavaCodebase().getJavaClass(castTypeName);
+					JavaClass varType = javaMethod.getJavaCodebase().getJavaClass(varTypeName);
+					if (castType != null && varType != null && varType.isSubclassOf(castType)) {
+						castTypeName = "";
+					}
+				}
+			}
+		}
+		if (!castTypeName.equals("")) {
+			tokens.add(start, new JavaCast(castTypeName));
 		}
 		return i;
 	}

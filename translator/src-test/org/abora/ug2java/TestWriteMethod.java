@@ -775,7 +775,14 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
-	public void testDOhashForEqual() {
+	public void testDo() {
+		String smalltalk = "test\nmyFluids do: [ :f | f fluidSet: nil ]!";
+
+		String expectedJava = "public void test() {\nfor (int doIndex = 0; doIndex < myFluids.size(); doIndex ++ ) {\nObject f = (Object) myFluids.get(doIndex);\nf.fluidSet(null);\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testDOThashForEqual() {
 		String smalltalk = "test\nblah DOThashForEqual!";
 
 		String expectedJava = "public void test() {\nHashHelper.hashForEqual(blah);\n}\n";
@@ -2082,7 +2089,14 @@ public void testPointerToStaticMember() {
 		String expectedJava = "public void test() {\nStringWriter stringWriter = new StringWriter();\nPrintWriter aStream = new PrintWriter(stringWriter);\naStream.print(\"hello\");\nreturn stringWriter.toString();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
-	
+
+	public void testStreamContentsForAssignment() {
+		String smalltalk = "test\na := String streamContents: [:aStream | aStream print: 'hello']!";
+
+		String expectedJava = "public void test() {\nStringWriter stringWriter = new StringWriter();\nPrintWriter aStream = new PrintWriter(stringWriter);\naStream.print(\"hello\");\na = stringWriter.toString();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testStrlen() {
 		String smalltalk = "test\nString strlen: 'hi there'!";
 

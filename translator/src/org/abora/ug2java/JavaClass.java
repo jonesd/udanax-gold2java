@@ -235,4 +235,14 @@ public class JavaClass {
 		
 	}
 
+	public boolean isSubclassOf(JavaClass cast) {
+		if (this == cast) {
+			return true;
+		} else if (getSuperClass() != null) {
+			return getSuperClass().isSubclassOf(cast);
+		} else {
+			return false;
+		}
+	}
+
 }
