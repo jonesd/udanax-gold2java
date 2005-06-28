@@ -28,6 +28,7 @@ public class AboraHeaper {
 	public static FluidVar CurrentBertCrum;
 	public static FluidVar CurrentGrandMap;
 	public static FluidVar CurrentKeyMaster;
+	public static FluidVar CurrentMainReceiver;
 	public static FluidVar CurrentPacker;
 	public static FluidVar CurrentSensorCanopyCache;
 	public static FluidVar CurrentServer;
@@ -43,6 +44,7 @@ public class AboraHeaper {
 	public static FluidVar InitialSponsor;
 	public static FluidVar InsideTransactionFlag;
 	public static FluidVar InsideAgenda;
+	public static FluidVar MainActiveThunk;
 	
 	public static Recipe BootCuisine;
 	public static Recipe CalcCuisine;
@@ -80,6 +82,7 @@ public class AboraHeaper {
 	public static final String PACKAGEHOOK = "PACKAGEHOOK";
 	public static final String SET_SPEC_ = "SetSpec";
 	public static final String XPP_CUISINE = "XPP_CUISINE";
+	public static final String INIT_IMAGE_EMULSION = "initImageEmulsion";
 	
 	public static final String FE_BOO_LOCK_SMITH = "FE_BOO_LOCK_SMITH";
 	public static final String FE_CHALLENGE_LOCK_SMITH = "FE_CHALLENGE_LOCK_SMITH";

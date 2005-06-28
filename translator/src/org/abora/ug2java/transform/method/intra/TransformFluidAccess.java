@@ -32,6 +32,7 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 		map.put("CurrentAuthor", "ID");
 		map.put("CurrentBertCanopyCache", "CanopyCache");
 		map.put("CurrentBertCrum", "BertCrum");
+		map.put("CurrentMainReceiver", "Rcvr");
 		map.put("CurrentPacker", "DiskManager");
 		map.put("CurrentGrandMap", "BeGrandMap");
 		map.put("CurrentKeyMaster", "FeKeyMaster");
@@ -49,6 +50,7 @@ public class TransformFluidAccess extends AbstractMethodBodyTransformation {
 		map.put("InitialSponsor", "ID");
 		map.put("InsideTransactionFlag", "Boolean");
 		map.put("InsideAgenda", "Boolean");
+		map.put("MainActiveThunk", "Heaper");
 		FLUID_MAPPINGS = Collections.unmodifiableMap(map);
 	}
 	

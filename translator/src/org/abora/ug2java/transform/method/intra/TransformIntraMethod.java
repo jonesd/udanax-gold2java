@@ -54,6 +54,7 @@ public class TransformIntraMethod implements MethodTransformation {
 //		transformers.add(new TransformSmalltalkOnly());
 		transformers.add(new TransformTranslateOnlyString());
 		transformers.add(new TransformDeveloperAnnotation());
+		transformers.add(new TransformUInt8Vector());
 		transformers.add(new TransformNewCreateCallOnClass());
 		transformers.add(new TransformSuperCreate());
 		transformers.add(new TransformCreateCall());
@@ -64,6 +65,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformTimesRepeat());
 		transformers.add(new TransformStringDo());
 		transformers.add(new TransformDo());
+		transformers.add(new TransformAllSubclassesDo());
 		transformers.add(new TransformCritical());
 		transformers.add(new TransformValueNowOrOnOnUnwindDo());
 		transformers.add(new TransformAtCalls());
@@ -109,6 +111,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformFluidAccess());
 		transformers.add(new TransformFluidBindDuring());
 		transformers.add(new TransformDefineFluid());
+		transformers.add(new TransformInitializer());
 		transformers.add(new TransformReanimate());
 		transformers.add(new TransformUnaryOperator());
 		transformers.add(new TransformSendHeaper());

@@ -10,9 +10,8 @@
 package org.abora.gold.java.missing;
 
 import org.abora.gold.xcvr.XnReadStream;
-import org.abora.gold.xpp.basic.Heaper;
 
-public class XnReadFile extends Heaper {
+public class XnReadFile extends XnReadStream {
 
 	public XnReadFile() {
 		super();

@@ -2,6 +2,8 @@ package org.abora.gold.java;
 
 import java.io.PrintWriter;
 
+import org.abora.gold.java.missing.smalltalk.AboraClass;
+import org.abora.gold.java.missing.smalltalk.OrderedCollection;
 import org.abora.gold.xpp.basic.Category;
 
 
@@ -48,6 +50,16 @@ public class AboraSupport {
 		throw new UnsupportedOperationException();
 	}
 	public static boolean isANumber(float myValue) {
+		throw new UnsupportedOperationException();
+	}
+	public static OrderedCollection allSubclasses(Class c) {
+		throw new UnsupportedOperationException();
+	}
+
+	public static OrderedCollection subclasses(Class class1) {
+		throw new UnsupportedOperationException();
+	}
+	public static OrderedCollection subclasses(AboraClass class1) {
 		throw new UnsupportedOperationException();
 	}
 	

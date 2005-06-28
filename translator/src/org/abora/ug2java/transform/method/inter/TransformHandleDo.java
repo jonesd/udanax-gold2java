@@ -5,8 +5,12 @@
  */
 package org.abora.ug2java.transform.method.inter;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.abora.ug2java.Annotation;
@@ -32,6 +36,13 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 public class TransformHandleDo extends AbstractMethodBodyTransformation {
 
+	private static final Map HANDLES;
+	static {
+		Map map = new HashMap();
+		map.put("TextyRcvr.blastIdentifierTooLong", "IDENTIFIER_TOO_LONG");
+		HANDLES = Collections.unmodifiableMap(map);
+	}
+	
 	public TransformHandleDo() {
 		super();
 	}
@@ -69,6 +80,9 @@ public class TransformHandleDo extends AbstractMethodBodyTransformation {
 		
 		if (problemsClassName.equals("Heaper") && problemsName.equals("problemsAllBlasts")) {
 			allBlasts = true;
+		} else if (HANDLES.containsKey(problemsClassName+"."+problemsName)) {
+			signals = new HashSet();
+			signals.add(HANDLES.get(problemsClassName+"."+problemsName));
 		} else {
 			JavaMethod problemsMethod = javaMethod.getJavaCodebase().getJavaClass(problemsClassName).getMethodOrInherited(problemsName);
 			if (problemsMethod == null) {

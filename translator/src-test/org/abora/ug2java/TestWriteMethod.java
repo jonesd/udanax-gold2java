@@ -111,6 +111,15 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nfor (int i = 0; i < fred.happy(); i += 2 ) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testAllSubclassesDo() {
+		String smalltalk = "test\nHeaper allSubclassesDo: [:cls {Behavior} | cls name]!";
+
+		//TODO shouldn't have findCategory stuff
+		String expectedJava = "public void test() {\nOrderedCollection allSubclasses = AboraSupport.allSubclasses(AboraSupport.findCategory(Heaper.class));\nfor (int doIndex = 0; doIndex < allSubclasses.size(); doIndex ++ ) {\nAboraClass cls = (AboraClass) allSubclasses.get(doIndex);\ncls.name();\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 
 	public void testAlmostToByDoNegative() {
 		String smalltalk = "test\n0 almostTo: fred happy by: -2 do: [:i {UInt32} | blah ]!";
@@ -781,7 +790,14 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nfor (int doIndex = 0; doIndex < myFluids.size(); doIndex ++ ) {\nObject f = (Object) myFluids.get(doIndex);\nf.fluidSet(null);\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
-	
+
+	public void testDoExpression() {
+		String smalltalk = "test\nmyFluids reversed do: [ :f | f fluidSet: nil ]!";
+
+		String expectedJava = "public void test() {\nOrderedCollection doSource = myFluids.reversed();\nfor (int doIndex = 0; doIndex < doSource.size(); doIndex ++ ) {\nObject f = (Object) doSource.get(doIndex);\nf.fluidSet(null);\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testDOThashForEqual() {
 		String smalltalk = "test\nblah DOThashForEqual!";
 
@@ -1242,6 +1258,21 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\n/* TODO variable may not be initialized before being used */\nint shouldInitialize = 0;\nreturn shouldInitialize;\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testInitializer() {
+		String smalltalk = "test\nInitializer doMain: [^2]!";
+
+		String expectedJava = "public void test() {\nInitializer.enterDoMain();\ntry {\nreturn 2;\n}\nfinally {\nInitializer.exitDoMain();\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testInitialize2() {
+		String smalltalk = "test\nInitializer with: argc with: argv doMain: [^2]!";
+
+		String expectedJava = "public void test() {\nInitializer.enterDoMain(argc, argv);\ntry {\nreturn 2;\n}\nfinally {\nInitializer.exitDoMain();\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 
 	public void testInt32Min() {
 		String smalltalk = "test\nInt32Min + 2!";
@@ -2327,6 +2358,13 @@ public void testPointerToStaticMember() {
 		String smalltalk = "test\nmyStream putByte: $) uint8!";
 
 		String expectedJava = "public void test() {\nmyStream.putByte(')');\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testUInt8Vector() {
+		String smalltalk = "test\n^UInt8 vector create: MaxNumberLength!";
+
+		String expectedJava = "public void test() {\nreturn new UInt8Array(MaxNumberLength);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 	

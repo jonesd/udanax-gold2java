@@ -38,6 +38,10 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("XnReadStream.getBytes(PtrArray,int)", "UInt8Array,int");
 		map.put("XnReadStream.getBytes(PtrArray,int,int)", "UInt8Array,int,int");
 		map.put("XnBufferedReadStream.getBytes(PtrArray,int,int)", "UInt8Array,int,int");
+		map.put("Emulsion.initImageEmulsions", "AboraClass");
+		map.put("MainDummy.run", "String");
+		map.put("MainDummy.runString", "String");
+		map.put("MainDummy.XUUMAIN(int,String)", "int,Array");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

@@ -19,7 +19,6 @@ public class ForceReturn implements MethodTransformation {
 	static {
 		List list = new ArrayList();
 		list.add("HistoryCrum.displayString"); 
-		list.add("Binary2Rcvr.endPacket"); 
 		
 		//TODO testcase
 		list.add("Test.testForceReturn");

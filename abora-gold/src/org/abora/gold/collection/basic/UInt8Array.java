@@ -28,6 +28,11 @@ public class UInt8Array extends PrimIntArray {
 		super(-1, -1);
 		throw new UnsupportedOperationException();
 	}
+	
+	public UInt8Array(int count) {
+		super(count, -1);
+		throw new UnsupportedOperationException();
+	}
 
 	/** create a UInt8Array filled with zeros */
 	public static UInt8Array make(int count) {

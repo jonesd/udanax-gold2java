@@ -216,7 +216,7 @@ public class ClassParser {
 		table.put("GrandHashSet.make()", "MuSet");
 		table.put("GrandHashSet.make(int)", "MuSet");
 		table.put("StaticFunctionPointer.invokeFunction", "Object");
-		table.put("Binary2Rcvr.endPacket", "boolean");
+		table.put("MainDummy.runString", "int");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -403,6 +403,8 @@ public class ClassParser {
 			if (typeWords.size() > 1 && typeWords.get(1).equals("star")) {
 				type = "String";
 			}
+		} else if (type.equals("UInt8") && typeWords.size() > 1 && (typeWords.get(1).equals("vector") || typeWords.get(1).equals("star"))) {
+			type = "UInt8Array";
 		}
 		type = lookupType(type);
 		return type;

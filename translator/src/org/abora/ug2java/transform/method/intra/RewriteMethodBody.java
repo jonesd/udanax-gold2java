@@ -22,6 +22,8 @@ public class RewriteMethodBody implements MethodTransformation {
 		if (javaMethod.name.equals("isANumber")
 				&& (javaMethod.javaClass.className.equals("PrimIEEE32") || javaMethod.javaClass.className.equals("PrimIEEE64"))) {
 			rewritePrimIEEE64isANumber(javaMethod);
+		} else if (javaMethod.name.equals("endPacket") && javaMethod.javaClass.className.equals("Binary2Rcvr")) {
+			rewriteAsUntranslated(javaMethod);
 		}
 	}
 	
@@ -33,6 +35,19 @@ public class RewriteMethodBody implements MethodTransformation {
 		tokens.add(new JavaIdentifier("AboraSupport"));
 		tokens.add(new JavaCallKeywordStart("isANumber"));
 		tokens.add(new JavaIdentifier("myValue"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		
+		method.methodBody = new MethodBody(tokens);
+	}
+
+	public void rewriteAsUntranslated(JavaMethod method) {
+		
+		List tokens = new ArrayList();
+		tokens.add(new JavaComment("Transform: Rewrote body"));
+		tokens.add(new JavaKeyword("throw"));
+		tokens.add(new JavaKeyword("new"));
+		tokens.add(new JavaCallKeywordStart("UnsupportedOperationException"));
 		tokens.add(new JavaCallEnd());
 		tokens.add(new JavaStatementTerminator());
 		

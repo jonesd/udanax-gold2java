@@ -61,4 +61,12 @@ public class AboraClass extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 
+	public OrderedCollection allInstances() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isMeta() {
+		throw new UnsupportedOperationException();
+	}
+	
 }

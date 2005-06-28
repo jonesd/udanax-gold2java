@@ -5,6 +5,7 @@
  */
 package org.abora.ug2java.transform.method.intra;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,7 @@ public class TransformDo extends AbstractMethodBodyTransformation {
 		String sizeCallName = "size";
 		String elementTypeName = "Object";
 		String elementAccessorName = "get";
+		String collectionTypeName = "OrderedCollection";
 		public DoDetails() {
 			super();
 		}
@@ -49,6 +51,12 @@ public class TransformDo extends AbstractMethodBodyTransformation {
 			this.elementTypeName = elementTypeName;
 			this.elementAccessorName = elementAccessorName;
 		}
+		public DoDetails(String sizeCallName, String elementTypeName, String elementAccessorName, String collectionTypeName) {
+			this.sizeCallName = sizeCallName;
+			this.elementTypeName = elementTypeName;
+			this.elementAccessorName = elementAccessorName;
+			this.collectionTypeName = collectionTypeName;
+		}
 	};
 	
 	private final static Map LOOKUP;
@@ -56,6 +64,8 @@ public class TransformDo extends AbstractMethodBodyTransformation {
 		Map map = new HashMap();
 		map.put("Emulsion.fluidsSpace", new DoDetails("FluidVar"));
 		map.put("Emulsion.destructAll", new DoDetails("FluidVar"));
+		map.put("Emulsion.reset", new DoDetails("FluidVar"));
+		map.put("Emulsion.cleanupGarbage", new DoDetails("Emulsion"));
 		LOOKUP = Collections.unmodifiableMap(map);
 	}
 
@@ -68,7 +78,7 @@ public class TransformDo extends AbstractMethodBodyTransformation {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaToken.class),
+//				factory.token(JavaToken.class),
 				factory.token(JavaCallKeywordStart.class, "dox"),
 				factory.token(JavaBlockStart.class)
 //				factory.token(JavaType.class, "Character"),
@@ -78,12 +88,17 @@ public class TransformDo extends AbstractMethodBodyTransformation {
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		if (!(tokens.get(i) instanceof JavaIdentifier)) {
-			return i;
-		}
-		JavaIdentifier sourceVar = (JavaIdentifier)tokens.get(i);
+		boolean collectSource = false;
+		String sourceVarName;
+		int statementStart = javaMethod.methodBody.findStartOfStatement(i-1);
 		
-		String sourceVarName = sourceVar.value;
+		if (tokens.get(i-1) instanceof JavaIdentifier) {
+			JavaIdentifier sourceVar = (JavaIdentifier)tokens.get(i-1);
+			sourceVarName = sourceVar.value;
+		} else {
+			collectSource = true;
+			sourceVarName = "doSource";
+		}
 		
 		DoDetails details = (DoDetails)LOOKUP.get(javaMethod.getQualifiedName());
 		if (details == null) {
@@ -101,7 +116,9 @@ public class TransformDo extends AbstractMethodBodyTransformation {
 		
 		tokens.remove(blockEnd+2);
 		tokens.remove(blockEnd+1);
-		
+
+		int insertSource = -1;
+
 		int j = i;
 		tokens.add(j++, new JavaKeyword("for"));
 		tokens.add(j++, new JavaParenthesisStart());
@@ -119,7 +136,7 @@ public class TransformDo extends AbstractMethodBodyTransformation {
 		tokens.add(j++, new JavaIdentifier("doIndex"));
 		tokens.add(j++, new JavaKeyword("++"));
 		tokens.add(j++, new JavaParenthesisEnd());
-		tokens.remove(j);
+//		tokens.remove(j);
 		tokens.remove(j);
 		j++;
 		tokens.remove(j);
@@ -131,6 +148,18 @@ public class TransformDo extends AbstractMethodBodyTransformation {
 		tokens.add(j++, new JavaCallKeywordStart(details.elementAccessorName));
 		tokens.add(j++, new JavaIdentifier("doIndex"));
 		tokens.add(j++, new JavaCallEnd());
+		
+		if (collectSource) {
+			tokens.add(i, new JavaStatementTerminator());			
+
+			j = statementStart;
+			tokens.add(j++, new JavaType(details.collectionTypeName));
+			tokens.add(j++, new JavaIdentifier(sourceVarName));
+			tokens.add(j++, new JavaAssignment());
+		} else {
+			tokens.remove(i-1);
+		}
+		
 		
 		return i;
 	}

@@ -9,12 +9,26 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.java.missing.smalltalk.Array;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class Initializer extends Heaper {
 
 	public Initializer() {
 		super();
+	}
+
+	public static void enterDoMain() {
+		throw new UnsupportedOperationException();
+	}
+
+	public static void exitDoMain() {
+		throw new UnsupportedOperationException();
+	}
+
+	//TODO Array argv shouldn't it be String[]
+	public static void enterDoMain(int argc, Array argv) {
+		throw new UnsupportedOperationException();
 	}
 
 }
