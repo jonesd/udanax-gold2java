@@ -62,5 +62,9 @@ public class AboraSupport {
 	public static OrderedCollection subclasses(AboraClass class1) {
 		throw new UnsupportedOperationException();
 	}
+
+	public static OrderedCollection allInstances(Class class1) {
+		throw new UnsupportedOperationException();
+	}
 	
 }

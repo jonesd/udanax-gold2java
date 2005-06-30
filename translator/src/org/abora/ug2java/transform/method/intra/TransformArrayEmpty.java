@@ -8,40 +8,43 @@ package org.abora.ug2java.transform.method.intra;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.javatoken.JavaArrayInitializerEnd;
+import org.abora.ug2java.javatoken.JavaArrayInitializerStart;
+import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallEnd;
+import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.JavaKeyword;
+import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformCharacterStaticCall extends AbstractMethodBodyTransformation {
+public class TransformArrayEmpty extends AbstractMethodBodyTransformation {
 
-	public TransformCharacterStaticCall() {
+	public TransformArrayEmpty() {
 		super();
 	}
-	public TransformCharacterStaticCall(TokenMatcherFactory factory) {
+	public TransformArrayEmpty(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaIdentifier.class, "Character"),
-			factory.token(JavaCallStart.class),
-			factory.token(JavaCallEnd.class)
-			);
+				factory.token(JavaArrayInitializerStart.class),
+				factory.token(JavaArrayInitializerEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		JavaIdentifier cl = (JavaIdentifier)tokens.get(i);
-		cl.value = "AboraCharacterSupport";
-		JavaCallStart call = (JavaCallStart)tokens.get(i+1);
-		// TODO handle in a more generic fashion
-		if (call.value.equals("null")) {
-			call.value = "nullx";
-		}
+		tokens.remove(i+1);
+		tokens.remove(i);
+		
+		tokens.add(i, new JavaKeyword("new"));
+		tokens.add(i+1, new JavaCallStart("Array"));
+		tokens.add(i+2, new JavaCallEnd());
 		return i;
 	}
 }

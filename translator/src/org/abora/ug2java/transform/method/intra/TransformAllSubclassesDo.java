@@ -40,7 +40,7 @@ public class TransformAllSubclassesDo extends AbstractMethodBodyTransformation {
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
 				factory.token(JavaIdentifier.class),
-				factory.token(JavaCallKeywordStart.class, "allSubclassesDo|subclassesDo"),
+				factory.token(JavaCallKeywordStart.class, "allSubclassesDo|subclassesDo|allInstancesDo"),
 				factory.token(JavaBlockStart.class)
 //				factory.token(JavaType.class, "Character"),
 //				factory.token(JavaIdentifier.class),
@@ -60,6 +60,9 @@ public class TransformAllSubclassesDo extends AbstractMethodBodyTransformation {
 		
 		String sizeCallName = "size";
 		String elementTypeName = "AboraClass";
+		if (call.value.equals("allInstancesDo")) {
+			elementTypeName = sourceVar.value;
+		}
 		String elementAccessorName = "get";
 		
 		tokens.remove(blockEnd+2);

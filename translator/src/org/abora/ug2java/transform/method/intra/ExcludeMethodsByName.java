@@ -45,6 +45,7 @@ public class ExcludeMethodsByName implements MethodTransformation {
 		list.add("XnRegion.mapping");
 		list.add("Xmtr.send(Object)");
 		list.add("FluidPromiseVar.Emulsion");
+		list.add("FluidVar.fluidBindDuring");
 		
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);

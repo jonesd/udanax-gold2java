@@ -90,6 +90,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformPrint());
 		transformers.add(new TransformBinaryOperator());
+		transformers.add(new TransformArrayEmpty());
 		transformers.add(new TransformDiskManagerConsistent());
 		transformers.add(new TransformCategoryName());
 		transformers.add(new TransformReceiverReceiveHeaper());

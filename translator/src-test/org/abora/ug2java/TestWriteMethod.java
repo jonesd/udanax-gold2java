@@ -530,7 +530,14 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public void test() {\nAboraCharacterSupport.tab();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
-	
+
+	public void testCharacterNull() {
+		String smalltalk = "test\nCharacter null!";
+
+		String expectedJava = "public void test() {\nAboraCharacterSupport.nullx();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testClassCall() {
 		String smalltalk = "test\nHeaper blah!";
 
@@ -2246,7 +2253,7 @@ public void testPointerToStaticMember() {
 	public void testSymbolArrayNew() {
 		String smalltalk = "test\n#()!";
 
-		String expectedJava = "public void test() {\n\n{};\n}\n";
+		String expectedJava = "public void test() {\nnew Array();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

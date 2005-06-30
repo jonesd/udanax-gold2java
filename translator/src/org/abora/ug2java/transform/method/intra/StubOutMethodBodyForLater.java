@@ -23,6 +23,7 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		Set set = new HashSet();
 		set.add("CoordinateSpace.verify");
 		set.add("GenericCrossSpace.makeRcvr");
+		set.add("Recipe.staticTimeNonInherited");
 		METHODS = Collections.unmodifiableSet(set);
 	}
 

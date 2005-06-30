@@ -166,7 +166,7 @@ public class ClassParser {
 		table.put("ScruTable.stepper", "TableStepper");
 		table.put("SetTable.stepper", "TableStepper");
 		table.put("FluidVar.emulsion", "Emulsion");
-		table.put("FluidVar.fluidVar", "Heaper");
+		table.put("FluidVar.fluidVar", "Object");
 		table.put("FluidVar.fluidFetch", "Object");
 		table.put("FluidVar.fluidGet", "Object");
 		table.put("FluidVar.initialValue", "Heaper");

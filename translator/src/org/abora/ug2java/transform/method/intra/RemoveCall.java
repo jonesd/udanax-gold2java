@@ -24,6 +24,7 @@ public class RemoveCall extends AbstractMethodBodyTransformation {
 	static {
 		Set set = new HashSet();
 		set.add("asSymbol");
+		set.add("asString");
 		REMOVE_CALLS = Collections.unmodifiableSet(set);
 	}
 	
