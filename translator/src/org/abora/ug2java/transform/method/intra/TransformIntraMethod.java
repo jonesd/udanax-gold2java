@@ -120,7 +120,9 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformNextPutPrint());
 		transformers.add(new TransformCastIntoOthers());
 		transformers.add(new TransformCastCheck());
-		transformers.add(new TransformNotNULLElse());		
+		transformers.add(new TransformNotNULLElse());
+		//TODO duplicate conditional operator
+		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new TransformTimeMillisecondsToRun());
@@ -143,6 +145,9 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformCharacterStaticCall());
 		transformers.add(new TransformPointerToStaticMember());
 		transformers.add(new TransformStaticThis());
+		
+		transformers.add(new TransformHashSetTestFalse());
+		transformers.add(new TransformGrandHashSetRemove());
 				
 		transformers.add(new EnsureUniqueLocalVarNames());
 		transformers.add(new EnsureIfTestInParentheses());

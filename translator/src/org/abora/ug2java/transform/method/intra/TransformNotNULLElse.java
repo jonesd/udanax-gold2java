@@ -50,6 +50,7 @@ public class TransformNotNULLElse extends AbstractMethodBodyTransformation {
 		String tempType = ((JavaType)tokens.get(i+2)).value;
 		String tempName = ((JavaIdentifier)tokens.get(i+3)).value;
 		
+		
 		int expressionStart = javaMethod.methodBody.findStartOfExpression(i-1);
 		int ifBlockEnd = javaMethod.methodBody.findEndOfBlock(i+1);
 		int callEnd = ifBlockEnd+1;
@@ -76,18 +77,34 @@ public class TransformNotNULLElse extends AbstractMethodBodyTransformation {
 		tokens.remove(i+2);
 		
 		tokens.remove(i);
-		tokens.add(i, new JavaStatementTerminator());
-		tokens.add(i+1, new JavaKeyword("if"));
-		tokens.add(i+2, new JavaParenthesisStart());
-		tokens.add(i+3, new JavaIdentifier(tempName));
-		tokens.add(i+4, new JavaKeyword("!="));
-		tokens.add(i+5, new JavaKeyword("null"));
-		tokens.add(i+6, new JavaParenthesisEnd());
+		
+		int j = i;
+		tokens.add(j++, new JavaStatementTerminator());
+
+		boolean replacedAssignment = false;
+		if (expressionStart > 1 && tokens.get(expressionStart-2) instanceof JavaIdentifier && tokens.get(expressionStart-1) instanceof JavaAssignment) {
+			replacedAssignment = true;
+			String variableName = ((JavaIdentifier)tokens.get(expressionStart-2)).value;
+			tokens.add(j++, new JavaIdentifier(variableName));
+			tokens.add(j++, new JavaAssignment());
+		}
+
+		tokens.add(j++, new JavaKeyword("if"));
+		tokens.add(j++, new JavaParenthesisStart());
+		tokens.add(j++, new JavaIdentifier(tempName));
+		tokens.add(j++, new JavaKeyword("!="));
+		tokens.add(j++, new JavaKeyword("null"));
+		tokens.add(j++, new JavaParenthesisEnd());
 		
 		tokens.add(expressionStart, new JavaType(tempType));
 		tokens.add(expressionStart+1, new JavaIdentifier(tempName));
 		tokens.add(expressionStart+2, new JavaAssignment());
 		tokens.add(expressionStart+3, new JavaCast(tempType));
+		
+		if (replacedAssignment) {
+			tokens.remove(expressionStart - 1);
+			tokens.remove(expressionStart - 2);
+		}
 		return i;
 	}
 }

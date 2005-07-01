@@ -18,7 +18,6 @@ import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
-import org.abora.gold.xpp.basic.Heaper;
 import org.abora.gold.xpp.fluid.FluidVar;
 
 public class AboraHeaper {
@@ -69,6 +68,7 @@ public class AboraHeaper {
 	public static final String CALC_CUISINE = "CalcCuisine";
 	public static final String CHECK_ = "Check";
 	public static final String CONCRETE = "Concrete";
+	public static final String COPY = "COPY";
 	public static final String CURRENT_CHUNK = "CurrentChunk";
 	public static final String DISK_CUISINE = "DiskCuisine";
 	public static final String DONT_CHANGE_TURTLES_BOOT_HEAPER = "DontChangeTurtlesBootHeaper";

@@ -9,10 +9,10 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.java.Fn;
 import org.abora.gold.nkernel.FeEdition;
-import org.abora.gold.xpp.basic.Heaper;
 
-public class FeDirectWrapperChecker extends Heaper {
+public class FeDirectWrapperChecker extends Fn {
 
 	public FeDirectWrapperChecker() {
 		super();

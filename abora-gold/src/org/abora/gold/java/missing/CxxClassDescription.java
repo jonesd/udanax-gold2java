@@ -17,4 +17,12 @@ public class CxxClassDescription extends Heaper {
 		super();
 	}
 
+	public String fetchDirectory() {
+		throw new UnsupportedOperationException();
+	}
+
+	public String fetchAttribute(String copy) {
+		throw new UnsupportedOperationException();
+	}
+
 }

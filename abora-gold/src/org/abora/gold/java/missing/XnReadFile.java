@@ -21,4 +21,8 @@ public class XnReadFile extends XnReadStream {
 		throw new UnsupportedOperationException();
 	}
 
+	public static XnReadStream make(Object object) {
+		throw new UnsupportedOperationException();
+	}
+
 }

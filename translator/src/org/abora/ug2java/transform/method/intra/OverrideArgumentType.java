@@ -42,6 +42,7 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("MainDummy.run", "String");
 		map.put("MainDummy.runString", "String");
 		map.put("MainDummy.XUUMAIN(int,String)", "int,Array");
+		map.put("ServerChunk.fluidSpace", "Array");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

@@ -46,7 +46,7 @@ public class ExcludeMethodsByName implements MethodTransformation {
 		list.add("Xmtr.send(Object)");
 		list.add("FluidPromiseVar.Emulsion");
 		list.add("FluidVar.fluidBindDuring");
-		
+		list.add("FeServer.newClubDescription");
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
 	}
@@ -74,6 +74,8 @@ public class ExcludeMethodsByName implements MethodTransformation {
 		list.add("CrossOrderSpec.make(Object)");
 		//Seems to be incorrect default parameter code
 		list.add("CrossOrderSpec.make(Object,Object)");
+		list.add("Tester.defaultRcString");
+		list.add("Tester.publicClass");
 
 		STATIC_METHODS = Collections.unmodifiableList(list);
 	}

@@ -24,12 +24,33 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		set.add("CoordinateSpace.verify");
 		set.add("GenericCrossSpace.makeRcvr");
 		set.add("Recipe.staticTimeNonInherited");
+		set.add("GrandHashTableTester.stomp");
+		set.add("ActualCookbook.receiveClassList");
+		set.add("ActualCookbook.sendClassList");
+		set.add("GrandHashTableTester.runTest");
+		set.add("FilterSpace.makeRcvr");
+		set.add("Encrypter.DEFINEUENCRYPTER");
+		set.add("Encrypter.invokeFunction");
+		set.add("FeBooLockSmith.check");
+		set.add("FeWallLockSmith.check");
+		set.add("ExampleHIHHandler.handleRequest");
+		set.add("Abraham.restartAbraham(Rcvr)");
+		set.add("CBlockTrackingPacker.consistentCount");
+		set.add("CBlockTrackingPacker.checkTracker");
+		set.add("Mapping.make(Object,Object)");
+		set.add("StackExaminer.pointersOnStack");
+		set.add("StackExaminer.linkTimeNonInherited");
+		set.add("FeWrapperSpec.ABSTRACTWRAPPER");
+		set.add("FeWrapperSpec.DIRECTWRAPPER");
+		set.add("FeWrapperSpec.INDIRECTWRAPPER");
+		set.add("FakeCategory.makeHooked");
 		METHODS = Collections.unmodifiableSet(set);
 	}
 
 	public void transform(JavaMethod javaMethod) {
-		String fullName = javaMethod.javaClass.className + "." + javaMethod.name;
-		if (METHODS.contains(fullName)) {
+		String fullName = javaMethod.getQualifiedName();
+		String signature = javaMethod.getQualifiedSignature();
+		if (METHODS.contains(fullName) || METHODS.contains(signature)) {
 			replaceBodyWithThrow(javaMethod);
 		}
 	}

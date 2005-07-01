@@ -1660,6 +1660,12 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testNotNULLElseAssignment() {
+		String smalltalk = "test\ncuisine _ cxc fetchDirectory notNil: [:d | d key] else: ['Xanadu']!";
+
+		String expectedJava = "public void test() {\nObject d = (Object) cxc.fetchDirectory();\ncuisine = (d != null ) ? d.key() : \"Xanadu\";\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
 	
 							 
 	public void testNULL() {

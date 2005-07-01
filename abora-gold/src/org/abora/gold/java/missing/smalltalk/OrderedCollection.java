@@ -9,7 +9,6 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
-import org.abora.gold.xpp.basic.Heaper;
 
 
 public class OrderedCollection {

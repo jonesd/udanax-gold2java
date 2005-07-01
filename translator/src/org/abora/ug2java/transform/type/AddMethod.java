@@ -49,6 +49,13 @@ public class AddMethod implements ClassTransformer {
 		} else if (javaClass.className.equals("Package")) {
 			addUnsupportedMethod(javaClass, "static ", "String", "fetchAttribute", new String[] {"String", "attributeName"});
 			addUnsupportedMethod(javaClass, "static ", "boolean", "hasAttribute", new String[] {"String", "attributeName"});
+		} else if (javaClass.className.equals("ServerChunk")) {
+			addUnsupportedMethod(javaClass, "static ", "void", "defineGlobal", new String[] {"String", "name", "Object", "value"});
+		} else if (javaClass.className.equals("DeleteExecutor")) {
+			addUnsupportedMethod(javaClass, "static ", "void", "registerHolder", new String[] {"Heaper", "holder", "String", "storage"});
+		} else if (javaClass.className.equals("HashSetTester")) {
+			addUnsupportedMethod(javaClass, "", "void", "introduceTestsOn", new String[] {"PrintWriter", "oo", "MuSet", "set1", "SHTO", "object"});
+			addUnsupportedMethod(javaClass, "", "void", "storeTestsOn", new String[] {"PrintWriter", "oo", "MuSet", "set1", "SHTO", "object"});
 		}
 	}
 	

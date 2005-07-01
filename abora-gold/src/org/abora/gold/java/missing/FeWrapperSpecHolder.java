@@ -9,10 +9,10 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.java.Fn;
 import org.abora.gold.wrapper.FeWrapperSpec;
-import org.abora.gold.xpp.basic.Heaper;
 
-public class FeWrapperSpecHolder extends Heaper {
+public class FeWrapperSpecHolder extends Fn {
 
 	public FeWrapperSpecHolder() {
 		super();

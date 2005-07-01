@@ -68,5 +68,9 @@ public class AboraClass extends Heaper {
 	public boolean isMeta() {
 		throw new UnsupportedOperationException();
 	}
+
+	public void initImageEmulsion() {
+		throw new UnsupportedOperationException();
+	}
 	
 }

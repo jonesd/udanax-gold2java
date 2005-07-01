@@ -153,6 +153,7 @@ public class ClassParser {
 		table.put("FeClub.make(FeEdition)", "FeWork");
 		table.put("ActualHashTable.make(CoordinateSpace)", "MuTable");
 		table.put("MuArray.makeIntegerVar(int)", "IntegerTable");
+		table.put("WriteMemStream.contents", "PrimArray");
 
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
@@ -217,6 +218,8 @@ public class ClassParser {
 		table.put("GrandHashSet.make(int)", "MuSet");
 		table.put("StaticFunctionPointer.invokeFunction", "Object");
 		table.put("MainDummy.runString", "int");
+		table.put("Recipe.mapCuisine", "String");
+		table.put("Category.inheritsFrom", "boolean");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 

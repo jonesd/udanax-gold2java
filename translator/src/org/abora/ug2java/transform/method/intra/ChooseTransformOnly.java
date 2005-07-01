@@ -77,6 +77,10 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("PrimIEEE64.actualHashForEqual");
 		list.add("PrimIEEE32.exponent");
 		list.add("PrimIEEE64.exponent");
+		list.add("PrimIntegerSpec.canHold");
+		list.add("TextyRcvr.receiveString");
+		list.add("Binary2Rcvr.receiveString");
+		list.add("WriteMemStream.contents");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");
