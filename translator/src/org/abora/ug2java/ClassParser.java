@@ -220,6 +220,7 @@ public class ClassParser {
 		table.put("MainDummy.runString", "int");
 		table.put("Recipe.mapCuisine", "String");
 		table.put("Category.inheritsFrom", "boolean");
+		table.put("Binary2Rcvr.receiveString", "String");
 		OVERRIDE_VOID_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}
 
@@ -991,7 +992,7 @@ scannerAdvance(scanner);
 					}
 				default :
 					{
-						throw new IllegalStateException("Unexpected token type while writing method");
+						throw new IllegalStateException("Unexpected token type:"+scanner.token.tokenType+" while writing method");
 					}
 			}
 			if (endOfUnit || endOfExpression || cascadeBreak) {

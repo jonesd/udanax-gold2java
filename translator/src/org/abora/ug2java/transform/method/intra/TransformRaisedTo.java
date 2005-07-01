@@ -36,7 +36,7 @@ public TransformRaisedTo() {
 		int callEnd = javaMethod.methodBody.findClosingCallEnd(i);
 		tokens.remove(i);
 		tokens.add(i, new JavaCallArgumentSeparator());
-		tokens.add(expressionStart, new JavaIdentifier("Math"));
+		tokens.add(expressionStart, new JavaIdentifier("AboraSupport"));
 		tokens.add(expressionStart+1, new JavaCallKeywordStart("pow"));
 		return i;
 	}

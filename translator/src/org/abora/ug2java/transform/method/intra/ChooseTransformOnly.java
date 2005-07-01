@@ -81,6 +81,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("TextyRcvr.receiveString");
 		list.add("Binary2Rcvr.receiveString");
 		list.add("WriteMemStream.contents");
+		list.add("PromiseManager.respondBooleanVar");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");

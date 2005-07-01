@@ -35,6 +35,14 @@ public class TransformSocket extends AbstractMethodBodyTransformation {
 		JavaCallStart call = (JavaCallStart)tokens.get(i);
 		int expressionStart = javaMethod.methodBody.findStartOfExpressionMinimal(i-1);
 		
+		if (expressionStart == i-1 && tokens.get(i-1) instanceof JavaIdentifier) {
+			String varName = ((JavaIdentifier)tokens.get(i-1)).value;
+			String varType = javaMethod.findTypeOfVariable(varName);
+			if (varType != null && !varType.equals("int")) {
+				return i;
+			}
+		}
+		
 		tokens.remove(i);
 		if (call instanceof JavaCallKeywordStart) {
 			tokens.add(i, new JavaCallArgumentSeparator());

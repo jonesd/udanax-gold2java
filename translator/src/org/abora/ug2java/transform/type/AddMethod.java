@@ -56,6 +56,10 @@ public class AddMethod implements ClassTransformer {
 		} else if (javaClass.className.equals("HashSetTester")) {
 			addUnsupportedMethod(javaClass, "", "void", "introduceTestsOn", new String[] {"PrintWriter", "oo", "MuSet", "set1", "SHTO", "object"});
 			addUnsupportedMethod(javaClass, "", "void", "storeTestsOn", new String[] {"PrintWriter", "oo", "MuSet", "set1", "SHTO", "object"});
+		} else if (javaClass.className.equals("ByteShuffler")) {
+			addUnsupportedMethod(javaClass, "", "void", "shuffle", new String[] {"int", "precision", "PrimArray", "buffer", "int", "size"});
+		} else if (javaClass.className.equals("Binary2Rcvr")) {
+			addUnsupportedMethod(javaClass, "", "void", "getCharToken", new String[] {"char", "c"});
 		}
 	}
 	

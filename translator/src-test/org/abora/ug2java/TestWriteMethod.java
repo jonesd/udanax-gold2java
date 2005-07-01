@@ -588,6 +588,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testCloseStream() {
+		String smalltalk = "test\n| fd {char star}| fd close!";
+
+		String expectedJava = "public void test() {\nString fd;\nfd.close();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testComment() {
 		String smalltalk = "test\nfred := 1\n\"Hello There\"!";
 
@@ -1895,7 +1902,7 @@ public void testPointerToStaticMember() {
 	public void testRaisedTo() {
 		String smalltalk = "test\n2 raisedTo: height - 2!";
 
-		String expectedJava = "public void test() {\nMath.pow(2, height - 2);\n}\n";
+		String expectedJava = "public void test() {\nAboraSupport.pow(2, height - 2);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -2152,6 +2159,13 @@ public void testPointerToStaticMember() {
 		String smalltalk = "test\n'hi there'' \\\" '''' '!";
 
 		String expectedJava = "public void test() {\n\"hi there' \\\\\\\" '' \";\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testStringReadStream() {
+		String smalltalk = "test\n| string {char star} | ^string readStream!";
+
+		String expectedJava = "public void test() {\nString string;\nreturn AboraSupport.readStream(string);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

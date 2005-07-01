@@ -16,6 +16,10 @@ public class XnReadFile extends XnReadStream {
 	public XnReadFile() {
 		super();
 	}
+	
+	public XnReadFile(Object o) {
+		throw new UnsupportedOperationException();
+	}
 
 	public static XnReadStream make(String myReadName) {
 		throw new UnsupportedOperationException();

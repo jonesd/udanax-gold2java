@@ -66,5 +66,18 @@ public class AboraSupport {
 	public static OrderedCollection allInstances(Class class1) {
 		throw new UnsupportedOperationException();
 	}
+
+	public static int pow(int i, int j) {
+		throw new UnsupportedOperationException();
+	}
+
+	public static double pow(double d, float f) {
+		throw new UnsupportedOperationException();
+	}
+
+	public static String readStream(String string) {
+		throw new UnsupportedOperationException();
+	}
+
 	
 }

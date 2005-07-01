@@ -86,6 +86,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformDOTputCharacter());
 		transformers.add(new TransformExponentDouble());
 		transformers.add(new TransformIntegerIntegerVar());
+		transformers.add(new TransformStringCalls());
 		transformers.add(new TransformAssert());
 		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformPrint());
