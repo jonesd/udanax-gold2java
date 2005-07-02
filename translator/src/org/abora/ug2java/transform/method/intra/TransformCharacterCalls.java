@@ -20,20 +20,19 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformStringCalls extends AbstractMethodBodyTransformation {
+public class TransformCharacterCalls extends AbstractMethodBodyTransformation {
 
 	private static final Set CALLS;
 	static {
 		Set set = new HashSet();
-		set.add("readStream");
-		set.add("asCapitalized");
+		set.add("isSeparator");
 		CALLS = Collections.unmodifiableSet(set);
 	}
 	
-	public TransformStringCalls() {
+	public TransformCharacterCalls() {
 		super();
 	}
-	public TransformStringCalls(TokenMatcherFactory factory) {
+	public TransformCharacterCalls(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
@@ -48,11 +47,11 @@ public class TransformStringCalls extends AbstractMethodBodyTransformation {
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaIdentifier var = (JavaIdentifier)tokens.get(i);
 		String varName = var.value;
-		if (!"String".equals(javaMethod.findTypeOfVariable(varName))) {
+		if (!"char".equals(javaMethod.findTypeOfVariable(varName))) {
 			return i;
 		}
 		
-		var.value = "AboraSupport";
+		var.value = "AboraCharacterSupport";
 		tokens.add(i+2, new JavaIdentifier(varName));
 		return i;
 	}

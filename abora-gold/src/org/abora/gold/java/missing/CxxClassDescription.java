@@ -9,6 +9,7 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.java.missing.smalltalk.Association;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class CxxClassDescription extends Heaper {
@@ -17,7 +18,7 @@ public class CxxClassDescription extends Heaper {
 		super();
 	}
 
-	public String fetchDirectory() {
+	public Association fetchDirectory() {
 		throw new UnsupportedOperationException();
 	}
 

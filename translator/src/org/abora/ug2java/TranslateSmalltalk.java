@@ -129,6 +129,7 @@ public class TranslateSmalltalk {
 		// Standin for Smalltalk Class that doesn't have a name collision with Java Class
 		packageLookup.put("AboraClass", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Array", "org.abora.gold.java.missing.smalltalk");
+		packageLookup.put("Association", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Behavior", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("BlockClosure", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("Collection", "org.abora.gold.java.missing.smalltalk");
@@ -277,8 +278,13 @@ public class TranslateSmalltalk {
 		m.addParameter(new JavaField("int", "i"));
 		m.modifiers = "static ";
 		weakPtrArray.addMethod(m);
-		
+		JavaClass character = new JavaClass("Character", "Object", javaCodebase);
+		m = new JavaMethod("boolean", "isDigit");
+		m.addParameter(new JavaField("char", "c"));
+		m.modifiers = "static ";
+		character.addMethod(m);
 	}
+	
 	private List readAllSourcesFiles(String[] sources, JavaCodebase javaCodebase) throws FileNotFoundException, IOException, Exception {
 
 		System.out.println();

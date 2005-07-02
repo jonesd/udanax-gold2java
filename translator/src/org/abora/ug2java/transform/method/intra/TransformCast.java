@@ -29,6 +29,7 @@ public class TransformCast extends AbstractMethodBodyTransformation {
 		Map map = new HashMap();
 		map.put("XnBufferedReadStream.getBytes.String", "");
 		map.put("XnReadStream.getBytes.String", "");
+		map.put("Converter.CONVERT.to", "");
 		OVERRIDE_CAST = Collections.unmodifiableMap(map);
 	}
 	

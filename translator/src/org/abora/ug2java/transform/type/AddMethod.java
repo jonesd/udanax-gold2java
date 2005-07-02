@@ -8,6 +8,7 @@ import org.abora.ug2java.JavaField;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.MethodBody;
 import org.abora.ug2java.SmalltalkSource;
+import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
@@ -26,6 +27,8 @@ public class AddMethod implements ClassTransformer {
 			addImmuSetMakeMuSet(javaClass);
 		} else if (javaClass.className.equals("MuSet")) {
 			addMuSetMakeIntegerVar(javaClass);
+		} else if (javaClass.className.equals("FeWorkSet")) {
+			addFeWorkSet(javaClass);
 		} else if (javaClass.className.equals("RequestHandler")) {
 			addUnsupportedMethod(javaClass, "", "Fn", "instVarAt", new String[] {"int", "i"});
 		} else if (javaClass.className.equals("Recipe")) {
@@ -42,6 +45,9 @@ public class AddMethod implements ClassTransformer {
 			addUnsupportedMethod(javaClass, "static ", "boolean", "isDestructed", new String[] {"Heaper", "h"});
 		} else if (javaClass.className.equals("Category")) {
 			addUnsupportedMethod(javaClass, "", "Category", "makeHooked", new String[] {});
+			addUnsupportedMethod(javaClass, "", "Category", "fetchSuperCategory", new String[] {});
+			addUnsupportedMethod(javaClass, "", "Category", "registerPackageCategory", new String[] {"Object", "packageCategory"});
+			addUnsupportedMethod(javaClass, "", "AboraClass", "originalClass", new String[] {});
 		} else if (javaClass.className.equals("Tester")) {
 			addUnsupportedMethod(javaClass, "", "void", "perform", new String[] {"String", "test", "PrintWriter", "out"});			
 			addUnsupportedMethod(javaClass, "static ", "String", "spyTest", new String[] {"String", "test"});			
@@ -60,6 +66,8 @@ public class AddMethod implements ClassTransformer {
 			addUnsupportedMethod(javaClass, "", "void", "shuffle", new String[] {"int", "precision", "PrimArray", "buffer", "int", "size"});
 		} else if (javaClass.className.equals("Binary2Rcvr")) {
 			addUnsupportedMethod(javaClass, "", "void", "getCharToken", new String[] {"char", "c"});
+		} else if (javaClass.className.equals("XnReadStream")) {
+			addUnsupportedMethod(javaClass, "", "boolean", "end", new String[] {});
 		}
 	}
 	
@@ -137,4 +145,25 @@ public class AddMethod implements ClassTransformer {
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
 	}
+	
+	public void addFeWorkSet(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("", "FeWorkSet");
+		method.addParameter(new JavaField("FeEdition", "edition"));
+		method.addParameter(new JavaField("FeWrapperSpec", "spec"));
+		List tokens = new ArrayList();
+		tokens.add(new JavaCallKeywordStart("super"));
+		tokens.add(new JavaIdentifier("edition"));
+		tokens.add(new JavaCallArgumentSeparator());
+		tokens.add(new JavaIdentifier("spec"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+	}
+
 }

@@ -48,6 +48,26 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		set.add("PromiseManager.makeFloatArray");
 		set.add("PromiseManager.makeIntArray");
 		set.add("PromiseManager.mapOverride");
+		// May need to edition().newSharedWith() ?
+		set.add("FeWorkSet.unionWith");
+		set.add("FeWorkSet.works");
+		set.add("FeWorkSet.make(PtrArray)");
+		set.add("Binary2Rcvr.getIdentifier");
+		set.add("Recipe.Recipe");
+		set.add("SpecialistRcvr.basicReceiveInto");
+		set.add("TextyRcvr.receiveCategory");
+		set.add("TextyXmtr.sendCategory");
+		set.add("Category.inheritsFrom");
+		set.add("Category.find");
+		set.add("Category.create");
+		set.add("Category.getCategory");
+		set.add("Package.registerPackageCategory");
+		set.add("Package.originalClass");
+		set.add("Package.MAKEUHOOKED");
+		set.add("Package.makeHooked");
+		set.add("Package.Package(Heaper)");
+		set.add("FakeCategory.withAllSuperclasses");
+
 		METHODS = Collections.unmodifiableSet(set);
 	}
 

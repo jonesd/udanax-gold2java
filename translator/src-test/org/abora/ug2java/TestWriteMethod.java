@@ -517,6 +517,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 	
+	public void testCharacterIsSeparator() {
+		String smalltalk = "test\n| c {char} | ^c isSeparator not!";
+
+		String expectedJava = "public void test() {\nchar c;\nreturn ! AboraCharacterSupport.isSeparator(c);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testCharacterLiteral() {
 		String smalltalk = "test\n$a. $-. $\\. $'!";
 
@@ -1133,9 +1140,9 @@ public class TestWriteMethod extends TestCase {
 	}
 
 	public void testGetStatic() {
-		String smalltalk = "getCategory\n!";
+		String smalltalk = "unimplemented\n!";
 
-		String expectedJava = "public static void getCategory() {\n}\n";
+		String expectedJava = "public static void unimplemented() {\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

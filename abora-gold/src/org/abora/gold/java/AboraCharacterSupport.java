@@ -28,4 +28,8 @@ public class AboraCharacterSupport {
 		throw new UnsupportedOperationException();
 	}
 
+	public static boolean isSeparator(char c) {
+		throw new UnsupportedOperationException();
+	}
+
 }

@@ -87,6 +87,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformExponentDouble());
 		transformers.add(new TransformIntegerIntegerVar());
 		transformers.add(new TransformStringCalls());
+		transformers.add(new TransformCharacterCalls());
 		transformers.add(new TransformAssert());
 		transformers.add(new TransformConditionalOperator());
 		transformers.add(new TransformPrint());
@@ -146,9 +147,11 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformCharacterStaticCall());
 		transformers.add(new TransformPointerToStaticMember());
 		transformers.add(new TransformStaticThis());
+		transformers.add(new TransformName());
 		
 		transformers.add(new TransformHashSetTestFalse());
 		transformers.add(new TransformGrandHashSetRemove());
+		transformers.add(new TransformTextyRcvrString());
 				
 		transformers.add(new EnsureUniqueLocalVarNames());
 		transformers.add(new EnsureIfTestInParentheses());
@@ -158,6 +161,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformReturnVoid());
 		transformers.add(new TransformClassReference());
 		transformers.add(new TransformEmptyElseBlock());
+		transformers.add(new RemoveTrailingReturn());
 		transformers.add(new TransformCompilerFodder());
 		transformers.add(new TransformUnreachableCode());
 		return Collections.unmodifiableList(transformers);

@@ -35,6 +35,8 @@ public class OverrideClassVariables implements ClassTransformer {
 		map.put("ServerChunk.myFluidSpace", "Array");
 		
 		map.put("ListenerEmulsion.defaultFluidSpace", "Array");
+		
+		map.put("TextyRcvr.ReceiveStringBuffer", "UInt8Array");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

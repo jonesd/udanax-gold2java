@@ -67,7 +67,9 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		
 		map.put("Package.makePackage.result", "Package");
 		
-		map.put("Recipe.mapCuisine.d", "String");
+		map.put("Recipe.mapCuisine.d", "Association");
+		
+		map.put("Category.create.catName", "String");
 		
 		
 		//TODO just for tests

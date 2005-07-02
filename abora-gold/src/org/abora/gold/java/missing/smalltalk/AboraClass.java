@@ -72,5 +72,9 @@ public class AboraClass extends Heaper {
 	public void initImageEmulsion() {
 		throw new UnsupportedOperationException();
 	}
+
+	public boolean isEqualOrSubclassOf(AboraClass class1) {
+		throw new UnsupportedOperationException();
+	}
 	
 }

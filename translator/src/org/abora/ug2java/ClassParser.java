@@ -246,7 +246,7 @@ public class ClassParser {
 	static {
 		Set set  = new HashSet();
 		set.add("asOop");
-		set.add("getCategory");
+//		set.add("getCategory");
 		set.add("passe");
 		set.add("unimplemented");
 		OVERRIDE_STATIC = Collections.unmodifiableSet(set);
