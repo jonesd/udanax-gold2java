@@ -79,5 +79,8 @@ public class AboraSupport {
 		throw new UnsupportedOperationException();
 	}
 
+	public static String asCapitalized(String cuisine) {
+		throw new UnsupportedOperationException();
+	}
 	
 }

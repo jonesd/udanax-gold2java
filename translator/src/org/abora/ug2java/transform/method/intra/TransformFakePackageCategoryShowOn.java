@@ -9,46 +9,39 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaCallEnd;
+import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
+import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformName extends AbstractMethodBodyTransformation {
+public class TransformFakePackageCategoryShowOn extends AbstractMethodBodyTransformation {
 
-
-	public TransformName() {
+	public TransformFakePackageCategoryShowOn() {
 		super();
 	}
-	public TransformName(TokenMatcherFactory factory) {
+	public TransformFakePackageCategoryShowOn(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaCallStart.class, "name"),
+				factory.token(JavaCallStart.class, "contentsCategory"),
+				factory.token(JavaCallEnd.class),
+				factory.token(JavaCallStart.class, "inspectString"),
 				factory.token(JavaCallEnd.class));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		JavaCallStart call = (JavaCallStart)tokens.get(i);
-		if (i > 0) {
-			if (tokens.get(i-1) instanceof JavaIdentifier) {
-				JavaIdentifier var = (JavaIdentifier)tokens.get(i-1);
-				if (javaMethod.getJavaCodebase().getJavaClass(var.value) != null) {
-					call.value = "getName";
-					tokens.add(i, new JavaIdentifier("class"));
-				}
-			} else if (!(tokens.get(i-1) instanceof JavaCallEnd) && javaMethod.isStatic()) {
-					call.value = "getName";
-					tokens.add(i, new JavaIdentifier(javaMethod.javaClass.className));
-					tokens.add(i+1, new JavaIdentifier("class"));
-			}
+		if (!javaMethod.getQualifiedName().equals("FakePackageCategory.showOn")) {
+			return i;
 		}
-		
+		JavaCallStart call = (JavaCallStart)tokens.get(i+2);
+		call.value = "name";
 		return i;
 	}
 }

@@ -67,6 +67,15 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		set.add("Package.makeHooked");
 		set.add("Package.Package(Heaper)");
 		set.add("FakeCategory.withAllSuperclasses");
+		set.add("FakePackageCategory.makePackage");
+		set.add("FakePackageCategory.makeHooked");
+		set.add("Emulsion.initImageEmulsions");
+		set.add("FluidPromiseVar.FluidPromiseVar");
+		set.add("FluidPromiseVar.fluidSet");
+		set.add("FluidPromiseVar.make");
+		set.add("FluidVar.make(String,BlockClosure,Emulsion,AboraClass)");
+		set.add("FluidVar.cleanup");
+		set.add("Emulsion.initialize");
 
 		METHODS = Collections.unmodifiableSet(set);
 	}

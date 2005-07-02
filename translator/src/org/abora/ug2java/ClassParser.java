@@ -154,6 +154,7 @@ public class ClassParser {
 		table.put("ActualHashTable.make(CoordinateSpace)", "MuTable");
 		table.put("MuArray.makeIntegerVar(int)", "IntegerTable");
 		table.put("WriteMemStream.contents", "PrimArray");
+		table.put("FakePackageCategory.makeHooked", "Heaper");
 
 		OVERRIDE_RETURN_TYPE = Collections.unmodifiableMap(table);
 	}

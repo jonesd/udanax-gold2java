@@ -13,13 +13,11 @@ import org.abora.gold.java.AboraHeaper;
 
 
 public class Developer extends AboraHeaper {
+	private final String name;
 
-	public Developer() {
+	public Developer(String name) {
 		super();
-	}
-	
-	public Developer(String string) {
-		throw new UnsupportedOperationException();
+		this.name = name;
 	}
 
 	public void thingToDo() {

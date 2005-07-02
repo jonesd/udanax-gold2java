@@ -24,7 +24,9 @@ public class RenameCall extends AbstractMethodBodyTransformation {
 	static {
 		Map map = new HashMap();
 		map.put("show", "print");
-		map.put("cr", "println");
+		map.put("SnarfPacker.purgeClean.cr", "println");
+		map.put("TestPacker.purgeClean.cr", "println");
+		//map.put("cr", "println");
 		map.put("nextPut", "print");
 		map.put("ActualHashSet.linkTimeNonInherited.Array", "IntArray");
 		map.put("GrandHashTable.subTable.makeCoordinateSpace", "make");
@@ -36,6 +38,7 @@ public class RenameCall extends AbstractMethodBodyTransformation {
 		
 		//TODO only for tests
 		map.put("Test.testRename.Array", "IntArray");
+		map.put("Test.testCascade.cr", "println");
 		RENAME_CALLS = Collections.unmodifiableMap(map);
 	}
 	

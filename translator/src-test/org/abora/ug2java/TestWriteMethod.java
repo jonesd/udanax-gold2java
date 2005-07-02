@@ -397,9 +397,9 @@ public class TestWriteMethod extends TestCase {
 
 	public void testCascade() {
 		//TODO probably not good enough
-		String smalltalk = "test\n	Transcript show: 'table printing:'; cr!";
+		String smalltalk = "testCascade\nTranscript show: 'table printing:'; cr!";
 
-		String expectedJava = "public void test() {\nAboraSupport.logger.print(\"table printing:\");\nAboraSupport.logger.println();\n}\n";
+		String expectedJava = "public void testCascade() {\nAboraSupport.logger.print(\"table printing:\");\nAboraSupport.logger.println();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1562,6 +1562,13 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testName() {
+		String smalltalk = "test\n^self class name!";
+
+		String expectedJava = "public void test() {\nreturn Test.class.getName();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testNegated() {
 		String smalltalk = "test\na size negated!";
 
@@ -2173,6 +2180,13 @@ public void testPointerToStaticMember() {
 		String smalltalk = "test\n| string {char star} | ^string readStream!";
 
 		String expectedJava = "public void test() {\nString string;\nreturn AboraSupport.readStream(string);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testStringAsCapitalized() {
+		String smalltalk = "test\n| cuisine {char star} | ^cuisine asString asCapitalized, 'Cuisine'!";
+
+		String expectedJava = "public void test() {\nString cuisine;\nreturn AboraSupport.asCapitalized(cuisine) + \"Cuisine\";\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
