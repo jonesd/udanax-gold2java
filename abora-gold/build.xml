@@ -3,18 +3,71 @@
     	Abora Gold.
     </description>
 
+	  <property environment="env"/>
+
 	<!-- set global properties for this build -->
 	<property name="name" value="abora-gold"/>
 	<property name="Name" value="Abora-Gold"/>
 	
-	
 	<property name="src" value="${basedir}/src"/>
 	<property name="src-gen" value="${basedir}/src-gen"/>
+	  <property name="src.test" location="${basedir}/src-test"/>
+	  <property name="build" location="${basedir}/build"/>
+	  <property name="dist"  location="${basedir}/dist"/>
 	<property name="javadoc.dir" value="${basedir}/doc/api"/>
+	  <property name="ant.home" location="${env.ANT_HOME}"/>
+	  	
+	  <property name="tool.out.dir" location="${basedir}/tool"/>
+	  <property name="clover.out.dir" location="${tool.out.dir}/clover"/>
+	  <property name="junit.out.dir" location="${tool.out.dir}/junit"/>
+	  <property name="findbugs.out.dir" location="${tool.out.dir}/findbugs"/>
    
   <target name="init">
     <tstamp/>
+    <mkdir dir="${build}"/>
+  	<mkdir dir="${tool.out.dir}"/>
+  	<mkdir dir="${clover.out.dir}"/>
+ 	  	<mkdir dir="${junit.out.dir}"/>
+ 	  	<mkdir dir="${findbugs.out.dir}"/>
   </target>
+
+	  <target name="clean"
+	        description="clean up" >
+	    <delete dir="${build}"/>
+	    <delete dir="${dist}"/>
+	  </target>
+
+	  <target name="compile" depends="init"
+	        description="compile the source " >
+	    <javac destdir="${build}" extdirs="${lib.dir}">
+			<src path="${src}"/>
+	    		<src path="${src-gen}"/>
+	    		<src path="${src.test}"/>
+	    	</javac>
+	  </target>
+
+	  <target name="test" depends="compile">
+	  	<mkdir dir="${junit.out.dir}"/>
+	  	<junit printsummary="true">
+	  		<batchtest todir="${junit.out.dir}">
+	  			<fileset dir="${src.test}">
+	  				<include name="**/*Test*.java"/>
+	  			</fileset>
+	  		</batchtest>
+	  		<classpath>
+	  			<pathelement path="${build}"/>
+	  			<pathelement path="${ant.home}/lib/clover.jar"/>
+	  		</classpath>
+	  		<formatter type="xml"/>
+	  	</junit>
+	  	<junitreport todir="${junit.out.dir}">
+	  	  <fileset dir="${junit.out.dir}">
+	  	    <include name="TEST-*.xml"/>
+	  	  </fileset>
+	  	  <report format="frames" todir="${junit.out.dir}/html"/>
+	  	</junitreport>
+	  </target>
+
 
 	<target name="javadoc.br" depends="init">
 	<replaceregexp match="^(\s*)\* (.*)$" replace="\1\* \2&lt;br&gt;" byline="true">
@@ -57,5 +110,46 @@
 <!--    <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/> -->
 	</javadoc>
 </target>
+
+	<target name="clover.init">
+		<taskdef resource="clovertasks"/>
+	</target>
+	
+	<target name="with.clover" depends="clover.init">
+		<mkdir dir="${clover.out.dir}"/>
+		<clover-setup initString="${clover.out.dir}/mycoverage.db">
+			<files excludes="**/*Test*.*"/>
+		</clover-setup>
+	</target> 
+	
+	<target name="clover.html" depends="with.clover">
+		<clover-historypoint historyDir="${clover.out.dir}/hist"/>
+		<clover-report>
+			<current outfile="${clover.out.dir}/html" title="Abora Project: Abora-Gold">
+				<format type="html" srcLevel="false"/>
+			</current>
+			<historical outfile="${clover.out.dir}/historical.html" historyDir="${clover.out.dir}/hist" title="Abora Project: Abora-Gold">
+				<format type="html"/>
+			</historical> 
+		</clover-report>
+	</target> 
+
+	<target name="clover.view" depends="with.clover">
+		<clover-view/>
+	</target>
+	
+
+  <target name="findbugs" depends="compile">
+  	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
+	 <property name="findbugs.home" value="/Users/jonesd/Applications/findbugs-0.9.1" />
+	    <findbugs home="${findbugs.home}"
+	              output="html"
+	              outputFile="${findbugs.out.dir}/translator-fb.html"
+	    			jvmargs="-Xmx768m">
+	    	<auxClasspath path="${ant.home}/lib/junit.jar"/>
+	      <sourcePath path="${src-gen}" />
+	      <class location="${build}" />
+	    </findbugs>
+	  </target>
 
 </project>
