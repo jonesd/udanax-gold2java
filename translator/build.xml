@@ -12,12 +12,11 @@
   <property name="build" location="${basedir}/build"/>
   <property name="dist"  location="${basedir}/dist"/>
   <property name="lib.dir" location="${basedir}/lib"/>
+  <property name="docs.dir" location="${basedir}/docs"/>
   <property name="ant.home" location="${env.ANT_HOME}"/>
+  <property name="clover.historical.dir" location="${basedir}/.clover_historical"/>
+  <property name="clover.coverage.dir" location="${build}/clover_coverage"/>
   	
-  <property name="tool.out.dir" location="${basedir}/tool"/>
-  <property name="clover.out.dir" location="${tool.out.dir}/clover"/>
-  <property name="junit.out.dir" location="${tool.out.dir}/junit"/>
-  <property name="findbugs.out.dir" location="${tool.out.dir}/findbugs"/>
   
   <property name="udanaxgold.dir" location="${basedir}/../udanax-gold"/>
   <property name="translated.dir" location="${basedir}/../abora-gold/src-gen"/>
@@ -26,16 +25,16 @@
   <target name="init">
     <tstamp/>
     <mkdir dir="${build}"/>
-  	<mkdir dir="${tool.out.dir}"/>
-  	<mkdir dir="${clover.out.dir}"/>
- 	  	<mkdir dir="${junit.out.dir}"/>
- 	  	<mkdir dir="${findbugs.out.dir}"/>
+  	<mkdir dir="${clover.coverage.dir}"/>
+  	<mkdir dir="${dist}"/>
   </target>
 
   <target name="compile" depends="init"
         description="compile the source " >
-    <javac srcdir="${src}" destdir="${build}" extdirs="${lib.dir}" />
-    <javac srcdir="${src.test}" destdir="${build}" extdirs="${lib.dir}" />
+    <javac destdir="${build}" extdirs="${lib.dir}">
+	    	<src path="${src}"/>
+    		<src path="${src.test}"/>
+    	</javac>
   </target>
 
   <target name="dist" depends="compile"
@@ -73,9 +72,9 @@
   </target>
 
   <target name="test" depends="compile">
-  	<mkdir dir="${junit.out.dir}"/>
+  	<mkdir dir="${build}/junit_coverage"/>
   	<junit printsummary="true">
-  		<batchtest todir="${junit.out.dir}">
+  		<batchtest todir="${build}/junit_coverage">
   			<fileset dir="${src.test}">
   				<include name="**/*Test*.java"/>
   			</fileset>
@@ -86,11 +85,11 @@
   		</classpath>
   		<formatter type="xml"/>
   	</junit>
-  	<junitreport todir="${junit.out.dir}">
-  	  <fileset dir="${junit.out.dir}">
+  	<junitreport todir="${build}/junit_coverage">
+  	  <fileset dir="${build}/junit_coverage">
   	    <include name="TEST-*.xml"/>
   	  </fileset>
-  	  <report format="frames" todir="${junit.out.dir}/html"/>
+  	  <report format="frames" todir="${docs.dir}/junit_report"/>
   	</junitreport>
   </target>
 
@@ -100,19 +99,19 @@
 	</target>
 	
 	<target name="with.clover" depends="clover.init">
-		<mkdir dir="${clover.out.dir}"/>
-		<clover-setup initString="${clover.out.dir}/mycoverage.db">
+		<clover-setup initString="${clover.coverage.dir}/mycoverage.db">
 			<files excludes="**/*Test*.*"/>
 		</clover-setup>
 	</target> 
 	
 	<target name="clover.html" depends="with.clover">
-		<clover-historypoint historyDir="${clover.out.dir}/hist"/>
+		<property name="clover.includesource" value="false"/>
+		<clover-historypoint historyDir="${clover.historical.dir}"/>
 		<clover-report>
-			<current outfile="${clover.out.dir}/html" title="Abora Project: Udanax2Gold Translator">
-				<format type="html" srcLevel="false"/>
+			<current outfile="${docs.dir}/clover" title="Abora Project: Udanax2Gold Translator">
+				<format type="html" srcLevel="${clover.includesource}"/>
 			</current>
-			<historical outfile="${clover.out.dir}/historical.html" historyDir="${clover.out.dir}/hist" title="Abora Project: Udanax2Gold Translator">
+			<historical outfile="${docs.dir}/clover_historical" historyDir="${clover.historical.dir}" title="Abora Project: Udanax2Gold Translator">
 				<format type="html"/>
 			</historical> 
 		</clover-report>
@@ -126,11 +125,12 @@
   <target name="findbugs" depends="compile">
   	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
 	 <property name="findbugs.home" value="/Users/jonesd/Applications/findbugs-0.9.1" />
+  	<mkdir dir="${docs.dir}/findbugs"/>
 	    <findbugs home="${findbugs.home}"
 	              output="html"
-	              outputFile="${findbugs.out.dir}/translator-fb.html" >
+	              outputFile="${docs.dir}/findbugs/index.html" >
 	    	<auxClasspath path="${ant.home}/lib/junit.jar"/>
-	      <sourcePath path="${src}" />
+	      <sourcePath path="${src};${src.test}" />
 	      <class location="${build}" />
 	    </findbugs>
 	  </target>
