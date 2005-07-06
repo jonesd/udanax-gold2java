@@ -17,18 +17,19 @@ import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 
-public class Int32Array extends PrimIntArray {
-	private final int[] storage;
+//TODO use of char here is completely wrong!
+public class UInt16Array extends PrimIntArray {
+	private final char[] storage;
 
 	//////////////////////////////////////////////
 	// Constructors
 
-	protected Int32Array(int count) {
+	protected UInt16Array(int count) {
 		super();
-		storage = new int[count];
+		storage = new char[count];
 	}
 
-	protected Int32Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+	protected UInt16Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		this(size);
 		int n = count;
 		if (count == -1) {
@@ -37,7 +38,7 @@ public class Int32Array extends PrimIntArray {
 		copyElements(destOffset, from, sourceOffset, n);
 	}
 
-	protected Int32Array(int[] buffer) {
+	protected UInt16Array(char[] buffer) {
 		this(buffer.length);
 		System.arraycopy(buffer, 0, storage, 0, buffer.length);
 	}
@@ -45,35 +46,45 @@ public class Int32Array extends PrimIntArray {
 	//////////////////////////////////////////////
 	// Static Factory Methods
 
-	/** create an Int32Array filled with zeros */
-	public static Int32Array make(int count) {
-		return new Int32Array(count);
+	/** create an UInt16Array filled with zeros */
+	public static UInt16Array make(int count) {
+		return new UInt16Array(count);
 	}
 
-	/** create an Int32Array filled with the indicated data in 'from' */
-	public static Int32Array make(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
-		return new Int32Array(size, from, sourceOffset, count, destOffset);
+	/** create an Int16Array filled with the indicated data in 'from' */
+	public static UInt16Array make(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+		return new UInt16Array(size, from, sourceOffset, count, destOffset);
 	}
 
-	public static Int32Array make(int size, PrimArray from, int sourceOffset, int count) {
+	public static UInt16Array make(int size, PrimArray from, int sourceOffset, int count) {
 		return make(size, from, sourceOffset, count, 0);
 	}
 
-	public static Int32Array make(int size, PrimArray from, int sourceOffset) {
+	public static UInt16Array make(int size, PrimArray from, int sourceOffset) {
 		return make(size, from, sourceOffset, -1);
 	}
 
-	public static Int32Array make(int size, PrimArray from) {
+	public static UInt16Array make(int size, PrimArray from) {
 		return make(size, from, 0);
 	}
 
-	public static Int32Array make(PrimArray from) {
+	public static UInt16Array make(PrimArray from) {
 		return make(from.count(), from);
 	}
 
-	/** create an Int32Array filled with the data at 'buffer' */
-	public static Int32Array make(int[] buffer) {
-		return new Int32Array(buffer);
+	/** create an UInt16Array filled with the data at 'buffer' */
+	public static UInt16Array make(char[] buffer) {
+		return new UInt16Array(buffer);
+	}
+
+	/**
+	 * Return a new array filled with the specified string.
+	 * 
+	 * @param string string to fill array with.
+	 * @return a new array filled with the specified string.
+	 */
+	public static UInt16Array unicodeString(String string) {
+		return make(string.toCharArray());
 	}
 
 	protected PrimArray makeNew(int size, PrimArray source, int sourceOffset, int count, int destOffset) {
@@ -83,13 +94,13 @@ public class Int32Array extends PrimIntArray {
 	//////////////////////////////////////////////
 	// Accessing
 
-	/** Store a 32 bit signed integer value */
-	public void storeInt32(int index, int value) {
+	/** Store an 16 bit unsigned integer value */
+	public void storeUInt16(int index, char value) {
 		storage[index] = value;
 	}
 
-	/** Get a 32 bit signed actual integer value */
-	public int int32At(int index) {
+	/** Get an 16 bit signed actual integer value */
+	public char uInt16At(int index) {
 		return storage[index];
 	}
 
@@ -97,11 +108,11 @@ public class Int32Array extends PrimIntArray {
 		if (!((PrimIntegerSpec) spec()).canHold(value)) {
 			throw new IllegalArgumentException("ValueOutOfRange");
 		}
-		storeInt32(index, value);
+		storeUInt16(index, (char)value);
 	}
 
 	public int integerAt(int index) {
-		return int32At(index);
+		return uInt16At(index);
 	}
 
 	public void storeValue(int index, Heaper value) {
@@ -113,7 +124,7 @@ public class Int32Array extends PrimIntArray {
 	}
 
 	public Heaper fetchValue(int index) {
-		return IntegerPos.make(int32At(index));
+		return IntegerPos.make(uInt16At(index));
 	}
 
 	public int count() {
@@ -121,11 +132,12 @@ public class Int32Array extends PrimIntArray {
 	}
 
 	public PrimSpec spec() {
-		return PrimSpec.int32();
+		throw new UnsupportedOperationException();
+		//return PrimSpec.uInt16();
 	}
 
 	public int bitCount() {
-		return -32;
+		return 16;
 	}
 
 	//////////////////////////////////////////////
@@ -141,7 +153,7 @@ public class Int32Array extends PrimIntArray {
 	 * 			larger than available elements in the receiver
 	 * @param start index of first element in range
 	 */
-	public void copyToBuffer(int[] buffer, int count, int start) {
+	public void copyToBuffer(char[] buffer, int count, int start) {
 		int n;
 		if (count >= 0) {
 			n = count;
@@ -158,15 +170,15 @@ public class Int32Array extends PrimIntArray {
 	// Comparing and Hashing
 
 	protected int compareData(int start, PrimDataArray other, int otherStart, int count) {
-		if (other instanceof Int32Array) {
-			Int32Array o = (Int32Array) other;
+		if (other instanceof UInt16Array) {
+			UInt16Array o = (UInt16Array) other;
 			for (int i = 0; i < count; i += 1) {
-				int cmp1 = int32At(i + start);
-				int cmp2 = o.int32At(i + otherStart);
-				if (cmp1 < cmp2) {
+				char a = uInt16At(i + start);
+				char b = o.uInt16At(i + otherStart);
+				if (a < b) {
 					return -1;
-				} else if (cmp1 > cmp2) {
-					return +1;
+				} else if (a > b) {
+					return 1;
 				}
 			}
 			return 0;
@@ -177,10 +189,7 @@ public class Int32Array extends PrimIntArray {
 
 	protected int signOfNonZeroAfter(int index) {
 		for (int i = index; i < count(); i += 1) {
-			int val = int32At(i);
-			if (val < 0) {
-				return -1;
-			}
+			char val = uInt16At(i);
 			if (val > 0) {
 				return +1;
 			}
@@ -192,11 +201,11 @@ public class Int32Array extends PrimIntArray {
 	// Arithmetic Operations
 
 	protected void addData(int start, PrimDataArray other, int otherStart, int count) {
-		if (other instanceof Int32Array) {
-			Int32Array o = (Int32Array) other;
+		if (other instanceof UInt16Array) {
+			UInt16Array o = (UInt16Array) other;
 			for (int i = 0; i < count; i += 1) {
-				int resultant = int32At(i + start) + o.int32At(i + otherStart);
-				storeInt32(i + start, resultant);
+				int resultant = uInt16At(i + start) + o.uInt16At(i + otherStart);
+				storeUInt16(i + start, (char)resultant);
 			}
 		} else {
 			super.addData(start, other, otherStart, count);
@@ -204,11 +213,11 @@ public class Int32Array extends PrimIntArray {
 	}
 
 	protected void subtractData(int start, PrimDataArray other, int otherStart, int count) {
-		if (other instanceof Int32Array) {
-			Int32Array o = (Int32Array) other;
+		if (other instanceof UInt16Array) {
+			UInt16Array o = (UInt16Array) other;
 			for (int i = 0; i < count; i += 1) {
-				int resultant = int32At(i + start) - o.int32At(i + otherStart);
-				storeInt32(i + start, resultant);
+				int resultant = uInt16At(i + start) - o.uInt16At(i + otherStart);
+				storeUInt16(i + start, (char)resultant);
 			}
 		} else {
 			super.subtractData(start, other, otherStart, count);
@@ -219,14 +228,18 @@ public class Int32Array extends PrimIntArray {
 	// Printing
 
 	protected void printElementOn(int index, PrintWriter oo) {
-		oo.print(int32At(index));
+		//TODO should this print out in String format instead?
+		oo.print((int)uInt16At(index));
+	}
+	
+	//////////////////////////////////////////////
+	// Conversions
+	
+	public String asString() {
+		//TODO what to do about the name. don't know whether to stay
+		// clear of toString
+		
+		return String.copyValueOf(storage);
 	}
 
-	public int intAt(int estateIndex) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void storeInt(int myAvailableCount, int token) {
-		throw new UnsupportedOperationException();
-	}
 }

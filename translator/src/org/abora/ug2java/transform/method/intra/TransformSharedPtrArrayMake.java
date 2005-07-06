@@ -8,36 +8,36 @@ package org.abora.ug2java.transform.method.intra;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
-import org.abora.ug2java.javatoken.JavaCallKeywordStart;
-import org.abora.ug2java.javatoken.JavaStatementTerminator;
+import org.abora.ug2java.javatoken.JavaCallStart;
+import org.abora.ug2java.javatoken.JavaCast;
+import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
 
-public class TransformRequires extends AbstractMethodBodyTransformation {
+public class TransformSharedPtrArrayMake extends AbstractMethodBodyTransformation {
+	
 
-	public TransformRequires() {
+	public TransformSharedPtrArrayMake() {
 		super();
 	}
-	public TransformRequires(TokenMatcherFactory factory) {
+	public TransformSharedPtrArrayMake(TokenMatcherFactory factory) {
 		super(factory);
 	}
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
-		return factory.token(JavaCallKeywordStart.class, "REQUIRES");
+		return factory.seq(
+				factory.token(JavaIdentifier.class, "SharedPtrArray"),
+				factory.token(JavaCallStart.class, "make"));
 	}
 
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
-		int callEnd = javaMethod.methodBody.findClosingCallEnd(i);
-		if (callEnd + 1 < tokens.size() && (tokens.get(callEnd + 1) instanceof JavaStatementTerminator)) {
-			tokens.remove(callEnd + 1);
-		}
-		for (int j = callEnd; j >= i; j--) {
-			tokens.remove(j);
+		if (i == 0 || !(tokens.get(i-1) instanceof JavaCast)) {
+			tokens.add(i, new JavaCast("SharedPtrArray"));
 		}
 		
-		return i-1;
+		return i;
 	}
 }

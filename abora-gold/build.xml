@@ -118,8 +118,12 @@
 		</clover-setup>
 	</target> 
 	
-	<target name="clover.html" depends="with.clover">
+	<target name="clover.historypoint" depends="with.clover">
 		<clover-historypoint historyDir="${clover.historical.dir}"/>
+	</target>
+
+	
+	<target name="clover.html" depends="with.clover">
 		<clover-report>
 			<current outfile="${docs.dir}/clover" title="Abora Project: Abora-Gold">
 				<format type="html" srcLevel="false"/>

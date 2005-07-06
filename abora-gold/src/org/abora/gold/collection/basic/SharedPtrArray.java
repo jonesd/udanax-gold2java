@@ -1,40 +1,47 @@
 /*
- * Abora-Gold
+ * Abora-White
  * Part of the Abora hypertext project: http://www.abora.org
  * Copyright 2003 David G Jones
  * 
- * Based on Udanax-Gold source code: http://www.udanax.com
+ * Based on the Udanax-Gold source code: http://www.udanax.com
  * Copyright 1979-1999 Udanax.com. All rights reserved
+ * 
+ * $Id$
  */
-
 package org.abora.gold.collection.basic;
 
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xpp.basic.Heaper;
 
 public class SharedPtrArray extends PtrArray {
+	private int myShareCount = 0;
 
-	private int myShareCount;
+	//////////////////////////////////////////////
+	// Constructors
 
-	//	protected SharedPtrArray (Int32 count, TCSJ);
+	protected SharedPtrArray(int count) {
+		super(count);
+	}
 
 	protected SharedPtrArray(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
-		super(-1, -1);
-		throw new UnsupportedOperationException();
+		super(size, from, sourceOffset, count, destOffset);
 	}
 
-	protected SharedPtrArray(int count, int[] buffer) {
-		super(-1, -1);
-		throw new UnsupportedOperationException();
+	protected SharedPtrArray(Heaper[] buffer) {
+		super(buffer);
 	}
+
+	//////////////////////////////////////////////
+	// Static Factory Methods
 
 	/** create a PtrArray filled with NULLs */
-	public static SharedPtrArray make(int count) {
-		throw new UnsupportedOperationException();
+	public static PtrArray make(int count) {
+		return new SharedPtrArray(count);
 	}
 
 	/** create a SharedPtrArray filled with the indicated data in 'from' */
 	public static PtrArray make(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
-		throw new UnsupportedOperationException();
+		return new SharedPtrArray(size, from, sourceOffset, count, destOffset);
 	}
 
 	public static PtrArray make(int size, PrimArray from, int sourceOffset, int count) {
@@ -49,28 +56,35 @@ public class SharedPtrArray extends PtrArray {
 		return make(size, from, 0);
 	}
 
+	public static PtrArray make(PrimArray from) {
+		return make(from.count(), from, 0);
+	}
+
 	/** create a PtrArray filled with the data from 'buffer' */
-	public static PtrArray make(int count, int[] buffer) {
-		throw new UnsupportedOperationException();
-	}
-
-	public PrimSpec spec() {
-		throw new UnsupportedOperationException();
-	}
-
-	public int shareCount() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void shareLess() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void shareMore() {
-		throw new UnsupportedOperationException();
+	public static PtrArray make(Heaper[] buffer) {
+		return new SharedPtrArray(buffer);
 	}
 
 	protected PrimArray makeNew(int size, PrimArray source, int sourceOffset, int count, int destOffset) {
-		throw new UnsupportedOperationException();
+		return make(size, (PtrArray) source, sourceOffset, count, destOffset);
+	}
+
+	//////////////////////////////////////////////
+	// Accessing
+
+	public PrimSpec spec() {
+		return PrimSpec.sharedPointer();
+	}
+
+	public int shareCount() {
+		return myShareCount;
+	}
+
+	public void shareLess() {
+		myShareCount -= 1;
+	}
+
+	public void shareMore() {
+		myShareCount += 1;
 	}
 }

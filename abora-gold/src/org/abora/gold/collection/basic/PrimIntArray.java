@@ -1,73 +1,71 @@
 /*
- * Abora-Gold
+ * Abora-White
  * Part of the Abora hypertext project: http://www.abora.org
  * Copyright 2003 David G Jones
  * 
- * Based on Udanax-Gold source code: http://www.udanax.com
+ * Based on the Udanax-Gold source code: http://www.udanax.com
  * Copyright 1979-1999 Udanax.com. All rights reserved
+ * 
+ * $Id$
  */
-
 package org.abora.gold.collection.basic;
 
-import org.abora.gold.java.missing.smalltalk.Stream;
-import org.abora.gold.x.PrimSpec;
-import org.abora.gold.xpp.basic.Heaper;
 
-public class PrimIntArray extends PrimIntegerArray {
+public abstract class PrimIntArray extends PrimIntegerArray {
 
-	protected PrimIntArray(int count, int datumSize) {
-		super(count, datumSize);
+	//////////////////////////////////////////////
+	// Constructors
+
+	protected PrimIntArray() {
+		super();
 	}
+
+	//////////////////////////////////////////////
+	// Static Factory Methods
 
 	/**	
 	 * Make an array initialized to zeros. The values are signed if bitCount is
 	 * negative
 	 */
-	public static PrimIntArray zeros(/* IntegerVar */ int bitCount, /* IntegerVar */ int count) {
-		throw new UnsupportedOperationException();
+	public static PrimIntArray zeros(int numBits, int count) {
+		if (numBits == 8) {
+			return UInt8Array.make(count);
+		}
+		if (numBits == 32) {
+			return UInt32Array.make(count);
+		}
+		if (numBits == -32) {
+			return Int32Array.make(count);
+		}
+		throw new IllegalArgumentException("UnimplementedPrecision");
+		//		RPTR(PrimIntArray) PrimIntArray::zeros (IntegerVar numBits,
+		//							IntegerVar count)
+		//		{
+		//			/* Make an array initialized to zero values. The values are
+		//			   signed if numBits is negative. */
+		//
+		//			if (numBits == 8) {
+		//			return UInt8Array::make (count.asInt32());
+		//			}
+		//			if (numBits == 32) {
+		//			return UInt32Array::make (count.asInt32());
+		//			}
+		//			if (numBits == -32) {
+		//			return Int32Array::make (count.asInt32());
+		//			}
+		//			BLAST(UnimplementedPrecision);
+		//			/* compiler fodder */
+		//			return NULL;
+		//		}
 	}
 
-	/** Store an integer value */
-	public void storeInteger(int index, /* IntegerVar */ int value) {
-		throw new UnsupportedOperationException();
-	}
+	//////////////////////////////////////////////
+	// Accessing
 
-	/** Get an actual integer value */
-	public /* IntegerVar */ int integerAt(int index) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void storeValue(int index, Heaper value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Heaper fetchValue(int index) {
-		throw new UnsupportedOperationException();
-	}
-
-	public PrimSpec spec() {
-		throw new UnsupportedOperationException();
-	}
-
-	public int bitCount() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void copyToBuffer(int[] buffer, int size, int count, int start) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected int signOfNonZeroAfter(int start) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected void printElementOn(int index, Stream oo) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected PrimArray makeNew(int size, PrimArray source, int sourceOffset, int count, int destOffset) {
-		throw new UnsupportedOperationException();
-	}
+	/**
+	 * Return the maximum bits/entry that can be stored in this array
+	 */
+	public abstract int bitCount();
 
 	public void copyToBuffer(PrimArray array, int size, int count, int start) {
 		throw new UnsupportedOperationException();

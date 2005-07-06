@@ -104,9 +104,12 @@
 		</clover-setup>
 	</target> 
 	
+	<target name="clover.historypoint" depends="with.clover">
+		<clover-historypoint historyDir="${clover.historical.dir}"/>
+	</target>
+	
 	<target name="clover.html" depends="with.clover">
 		<property name="clover.includesource" value="false"/>
-		<clover-historypoint historyDir="${clover.historical.dir}"/>
 		<clover-report>
 			<current outfile="${docs.dir}/clover" title="Abora Project: Udanax2Gold Translator">
 				<format type="html" srcLevel="${clover.includesource}"/>

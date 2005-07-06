@@ -149,7 +149,9 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	public int asOop() {
-		throw new UnsupportedOperationException();
+		//TODO wrong!
+		return System.identityHashCode(this);
+		//throw new UnsupportedOperationException();
 	}
 	public Object inspect() {
 		throw new UnsupportedOperationException();

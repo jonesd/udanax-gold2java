@@ -283,6 +283,12 @@ public class TranslateSmalltalk {
 		m.addParameter(new JavaField("char", "c"));
 		m.modifiers = "static ";
 		character.addMethod(m);
+		//TODO relying on custom code...
+//		JavaClass sharedPtrArray = new JavaClass("SharedPtrArray", "PtrArray", javaCodebase);
+//		m = new JavaMethod("PtrArray", "make");
+//		m.addParameter(new JavaField("int", "count"));
+//		m.modifiers = "static ";
+//		sharedPtrArray.addMethod(m);
 	}
 	
 	private List readAllSourcesFiles(String[] sources, JavaCodebase javaCodebase) throws FileNotFoundException, IOException, Exception {

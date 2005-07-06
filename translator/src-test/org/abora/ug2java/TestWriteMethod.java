@@ -1975,13 +1975,20 @@ public void testPointerToStaticMember() {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
-	
 	public void testRequires() {
 		String smalltalk = "test\nself REQUIRES: Stepper!";
-
+		
 		String expectedJava = "public void test() {\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testRequiresMany() {
+		String smalltalk = "test\nself REQUIRES: IntegerSpace. \"Used in pseudoconstructor\" self REQUIRES: IntegerTable. self REQUIRES: HashTable.!";
+
+		String expectedJava = "public void test() {\n/* Used in pseudoconstructor */\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	
 	public void testReturn() {
 		String smalltalk = "test\n^fred!";
@@ -2057,6 +2064,13 @@ public void testPointerToStaticMember() {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testSharedPtrArrayMake() {
+		String smalltalk = "test\n^SharedPtrArray make: 1!";
+
+		String expectedJava = "public void test() {\nreturn (SharedPtrArray) SharedPtrArray.make(1);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testShouldImplement() {
 		String smalltalk = "test\n^Someone shouldImplement!";
 

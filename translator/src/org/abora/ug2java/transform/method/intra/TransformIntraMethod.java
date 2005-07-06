@@ -152,6 +152,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformGrandHashSetRemove());
 		transformers.add(new TransformTextyRcvrString());
 		transformers.add(new TransformFakePackageCategoryShowOn());
+		transformers.add(new TransformSharedPtrArrayMake());
 				
 		transformers.add(new EnsureUniqueLocalVarNames());
 		transformers.add(new EnsureIfTestInParentheses());

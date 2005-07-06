@@ -17,19 +17,23 @@ import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 
-public class UInt32Array extends PrimIntArray {
-	private final int[] storage;
+/**
+ * Concrete fixed size array that holds elements of the 16-bit signed integral type.
+ * This maps to the Java <code>short</int> primitive type.
+ */
 
+public class Int64Array extends PrimIntArray {
+	private final long[] storage;
 
 	//////////////////////////////////////////////
 	// Constructors
 
-	protected UInt32Array(int count) {
+	protected Int64Array(int count) {
 		super();
-		this.storage = new int[count];
+		storage = new long[count];
 	}
-	
-	protected UInt32Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+
+	protected Int64Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		this(size);
 		int n = count;
 		if (count == -1) {
@@ -38,89 +42,72 @@ public class UInt32Array extends PrimIntArray {
 		copyElements(destOffset, from, sourceOffset, n);
 	}
 
-	protected UInt32Array(long[] buffer) {
+	protected Int64Array(long[] buffer) {
 		this(buffer.length);
-		for (int i = 0; i < buffer.length; i++) {
-			long uInt32 = buffer[i];
-			storage[i] = toSignedByte(uInt32);
-		}
+		System.arraycopy(buffer, 0, storage, 0, buffer.length);
 	}
-
-	////////////////////////////////////////////////////////////////////////////
-	// Unsigned Util
-	
-	private long toUnsignedInt(int int32) {
-		return (long)(int32 & 0xffffffffL);
-	}
-	
-	private int toSignedByte(long uInt32) {
-		return (int)(uInt32 & 0xffffffffL);
-	}
-
 
 	//////////////////////////////////////////////
 	// Static Factory Methods
-	
-	/** create a UInt32Array filled with zeros */
-	public static UInt32Array make(int count) {
-		return new UInt32Array(count);
+
+	/** create an Int64Array filled with zeros */
+	public static Int64Array make(int count) {
+		return new Int64Array(count);
 	}
 
-	/** create a UInt32Array filled with the indicated data in 'from' */
-	public static UInt32Array make(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
-		return new UInt32Array(size, from, sourceOffset, count, destOffset);
+	/** create an Int64Array filled with the indicated data in 'from' */
+	public static Int64Array make(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
+		return new Int64Array(size, from, sourceOffset, count, destOffset);
 	}
 
-	public static UInt32Array make(int size, PrimArray from, int sourceOffset, int count) {
+	public static Int64Array make(int size, PrimArray from, int sourceOffset, int count) {
 		return make(size, from, sourceOffset, count, 0);
 	}
 
-	public static UInt32Array make(int size, PrimArray from, int sourceOffset) {
+	public static Int64Array make(int size, PrimArray from, int sourceOffset) {
 		return make(size, from, sourceOffset, -1);
 	}
 
-	public static UInt32Array make(int size, PrimArray from) {
+	public static Int64Array make(int size, PrimArray from) {
 		return make(size, from, 0);
 	}
 
-	public static UInt32Array make(PrimArray from) {
+	public static Int64Array make(PrimArray from) {
 		return make(from.count(), from);
 	}
 
-	/** create a UInt32Array filled with the data at 'buffer' */
-	public static UInt32Array make(long[] buffer) {
-		return new UInt32Array(buffer);
+	/** create an Int64Array filled with the data at 'buffer' */
+	public static Int64Array make(long[] buffer) {
+		return new Int64Array(buffer);
 	}
 
 	protected PrimArray makeNew(int size, PrimArray source, int sourceOffset, int count, int destOffset) {
 		return make(size, (PrimIntegerArray) source, sourceOffset, count, destOffset);
 	}
 
-
 	//////////////////////////////////////////////
 	// Accessing
 
-	/** Store a 32 bit unsigned integer value */
-	public void storeUInt32(int index, long value) {
-		storage[index] = toSignedByte(value);
+	/** Store an 64 bit signed integer value */
+	public void storeInt64(int index, long value) {
+		storage[index] = value;
 	}
 
-	/** Get a 32 bit unsigned actual integer value */
-	public long uInt32At(int index) {
-		return toUnsignedInt(storage[index]);
+	/** Get an 64 bit signed actual integer value */
+	public long int64At(int index) {
+		return storage[index];
 	}
 
 	public void storeInteger(int index, int value) {
 		if (!((PrimIntegerSpec) spec()).canHold(value)) {
 			throw new IllegalArgumentException("ValueOutOfRange");
 		}
-		//TODO review
-		storeUInt32(index, value);
+		storeInt64(index, value);
 	}
 
 	public int integerAt(int index) {
 		//TODO review
-		return (int)uInt32At(index);
+		return (int)int64At(index);
 	}
 
 	public void storeValue(int index, Heaper value) {
@@ -128,12 +115,13 @@ public class UInt32Array extends PrimIntArray {
 			throw new NullPointerException();
 		}
 		IntegerPos integerValue = (IntegerPos)value;
+		//TODO review
 		storeInteger(index, integerValue.asInt32());
 	}
 
 	public Heaper fetchValue(int index) {
-		//TODO review
-		return IntegerPos.make((int)uInt32At(index));
+		//TODO review cast
+		return IntegerPos.make((int)int64At(index));
 	}
 
 	public int count() {
@@ -141,17 +129,27 @@ public class UInt32Array extends PrimIntArray {
 	}
 
 	public PrimSpec spec() {
-		return PrimSpec.uInt32();
+		throw new UnsupportedOperationException();
+		//return PrimSpec.int64();
 	}
 
 	public int bitCount() {
-		return 32;
+		return -64;
 	}
 
-
 	//////////////////////////////////////////////
-	// Bulk Storing
-	
+	// Bulk Storage
+
+	/** 
+	 * Copy a consequitive range of elements from the receiver into the
+	 * supplied buffer.
+	 *  
+	 * @param buffer array to fill with receveirs elements
+	 * @param count number of consequentive elements in range or all
+	 * 			elements from start if -1. Silently truncate if count is
+	 * 			larger than available elements in the receiver
+	 * @param start index of first element in range
+	 */
 	public void copyToBuffer(long[] buffer, int count, int start) {
 		int n;
 		if (count >= 0) {
@@ -162,23 +160,22 @@ public class UInt32Array extends PrimIntArray {
 		if (n > buffer.length) {
 			n = buffer.length;
 		}
-		for (int i = 0; i < n; i++) {
-			long uInt32 = uInt32At(start + i);
-			buffer[i] = uInt32;
-		}
+		System.arraycopy(storage, start, buffer, 0, n);
 	}
 
-
 	//////////////////////////////////////////////
-	// Comparison and Hashing
-	
+	// Comparing and Hashing
+
 	protected int compareData(int start, PrimDataArray other, int otherStart, int count) {
-		if (other instanceof UInt32Array) {
-			UInt32Array o = (UInt32Array) other;
+		if (other instanceof Int64Array) {
+			Int64Array o = (Int64Array) other;
 			for (int i = 0; i < count; i += 1) {
-				long cmp = uInt32At(i + start) - o.uInt32At(i + otherStart);
-				if (cmp != 0) {
-					return cmp < 0 ? -1 : 1;
+				long cmp1 = int64At(i + start);
+				long cmp2 = o.int64At(i + otherStart);
+				if (cmp1 < cmp2) {
+					return -1;
+				} else if (cmp1 > cmp2) {
+					return +1;
 				}
 			}
 			return 0;
@@ -189,24 +186,26 @@ public class UInt32Array extends PrimIntArray {
 
 	protected int signOfNonZeroAfter(int index) {
 		for (int i = index; i < count(); i += 1) {
-			long value = uInt32At(i);
-			if (value > 0) {
+			long val = int64At(i);
+			if (val < 0) {
+				return -1;
+			}
+			if (val > 0) {
 				return +1;
 			}
 		}
 		return 0;
 	}
 
-
 	//////////////////////////////////////////////
 	// Arithmetic Operations
 
 	protected void addData(int start, PrimDataArray other, int otherStart, int count) {
-		if (other instanceof UInt32Array) {
-			UInt32Array o = (UInt32Array) other;
+		if (other instanceof Int64Array) {
+			Int64Array o = (Int64Array) other;
 			for (int i = 0; i < count; i += 1) {
-				long resultant = uInt32At(i + start) + o.uInt32At(i + otherStart);
-				storeUInt32(i + start, resultant);
+				long resultant = int64At(i + start) + o.int64At(i + otherStart);
+				storeInt64(i + start, resultant);
 			}
 		} else {
 			super.addData(start, other, otherStart, count);
@@ -214,35 +213,21 @@ public class UInt32Array extends PrimIntArray {
 	}
 
 	protected void subtractData(int start, PrimDataArray other, int otherStart, int count) {
-		if (other instanceof UInt32Array) {
-			UInt32Array o = (UInt32Array) other;
+		if (other instanceof Int64Array) {
+			Int64Array o = (Int64Array) other;
 			for (int i = 0; i < count; i += 1) {
-				long resultant = uInt32At(i + start) - o.uInt32At(i + otherStart);
-				storeUInt32(i + start, resultant);
+				long resultant = int64At(i + start) - o.int64At(i + otherStart);
+				storeInt64(i + start, resultant);
 			}
 		} else {
 			super.subtractData(start, other, otherStart, count);
 		}
 	}
 
-
 	//////////////////////////////////////////////
 	// Printing
 
 	protected void printElementOn(int index, PrintWriter oo) {
-		oo.print(uInt32At(index));
-	}
-
-	public void storeUInt(int index, int value) {
-		//TODO do we need this method?
-		storeUInt32(index, value);
-	}
-
-	public int uIntAt(int current) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void store(int i, int j) {
-		throw new UnsupportedOperationException();
+		oo.print(int64At(index));
 	}
 }
