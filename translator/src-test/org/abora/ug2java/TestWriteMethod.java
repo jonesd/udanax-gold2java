@@ -146,21 +146,21 @@ public class TestWriteMethod extends TestCase {
 	public void testAssert() {
 		String smalltalk = "test\n(fred < 1) assert!";
 
-		String expectedJava = "public void test() {\nif (fred < 1) {\nthrow new AboraAssertionException();\n}\n}\n";
+		String expectedJava = "public void test() {\nif ( ! (fred < 1)) {\nthrow new AboraAssertionException();\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testAssertWithMessage() {
 		String smalltalk = "test\nfred < 1 assert: 'hello'!";
 
-		String expectedJava = "public void test() {\nif (fred < 1) {\nthrow new AboraAssertionException(\"hello\");\n}\n}\n";
+		String expectedJava = "public void test() {\nif ( ! (fred < 1)) {\nthrow new AboraAssertionException(\"hello\");\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testAssertSufficientBrackets() {
 		String smalltalk = "test\n(a + b) < (c + d) assert: 'hello'!";
 
-		String expectedJava = "public void test() {\nif ((a + b) < (c + d)) {\nthrow new AboraAssertionException(\"hello\");\n}\n}\n";
+		String expectedJava = "public void test() {\nif ( ! ((a + b) < (c + d))) {\nthrow new AboraAssertionException(\"hello\");\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

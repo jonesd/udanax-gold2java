@@ -19,7 +19,7 @@
 	  <property name="ant.home" location="${env.ANT_HOME}"/>
 	  	
 	  <property name="clover.historical.dir" location="${basedir}/.clover_historical"/>
-	  <property name="clover.coverage.dir" location="${build}/clover_coverage"/>
+	  <property name="clover.coverage.dir" location="${basedir}/.clover_coverage"/>
    
   <target name="init">
     <tstamp/>

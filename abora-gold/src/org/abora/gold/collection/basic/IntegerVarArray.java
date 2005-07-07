@@ -216,6 +216,6 @@ public class IntegerVarArray extends PrimIntegerArray {
 	}
 
 	public static IntegerVarArray zeros(int n) {
-		throw new UnsupportedOperationException();
+		return IntegerVarArray.make(n);
 	}
 }

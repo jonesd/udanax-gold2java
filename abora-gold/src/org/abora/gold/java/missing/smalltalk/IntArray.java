@@ -9,19 +9,20 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import java.util.Arrays;
+
 
 public class IntArray {
 
-	public IntArray() {
-		super();
-	}
+	private final int[] array;
 	
 	public IntArray(int size) {
-		throw new UnsupportedOperationException();
+		array = new int[size];
 	}
 
-	public IntArray(int i, int j) {
-		throw new UnsupportedOperationException();
+	public IntArray(int size, int defaultValue) {
+		this(size);
+		Arrays.fill(array, defaultValue);
 	}
 
 	public static IntArray newWithAll(int i, int i1) {
@@ -29,7 +30,7 @@ public class IntArray {
 	}
 
 	public int size() {
-		throw new UnsupportedOperationException();
+		return array.length;
 	}
 	
 	public static IntArray with(int a) {
@@ -41,11 +42,11 @@ public class IntArray {
 	}
 
 	public int at(int i) {
-		throw new UnsupportedOperationException();
+		return array[i];
 	}
 	
 	public void put(int i, int v) {
-		throw new UnsupportedOperationException();
+		array[i] = v;
 	}
 
 }

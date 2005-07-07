@@ -5,3 +5,4 @@ build
 .xdoclet
 xdoclet-build.xml
 tool
+.clover_coverage

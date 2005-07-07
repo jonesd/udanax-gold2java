@@ -17,14 +17,17 @@ public class FHash extends Heaper {
 		super();
 	}
 	public static int fastHashUInt32(int i) {
-		throw new UnsupportedOperationException();
+		//TODO do something better here!
+		return i;
 	}
 	
 	public static int fastHash(int i) {
-		throw new UnsupportedOperationException();
+		//TODO do something better here!
+		return i;
 	}
 
 	public static int fastHash(double d) {
+		
 		throw new UnsupportedOperationException();
 	}
 

@@ -2,3 +2,4 @@ bin
 src-gen
 tool
 dist
+.clover_coverage

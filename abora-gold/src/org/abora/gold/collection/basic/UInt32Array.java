@@ -238,11 +238,13 @@ public class UInt32Array extends PrimIntArray {
 		storeUInt32(index, value);
 	}
 
-	public int uIntAt(int current) {
-		throw new UnsupportedOperationException();
+	public int uIntAt(int index) {
+		//TODO this is probably wrong!
+		return integerAt(index);
 	}
 
-	public void store(int i, int j) {
-		throw new UnsupportedOperationException();
+	public void store(int index, int value) {
+		//TODO do we need this method?
+		storeUInt32(index, value);
 	}
 }

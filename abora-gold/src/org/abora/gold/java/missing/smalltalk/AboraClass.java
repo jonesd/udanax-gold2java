@@ -13,8 +13,11 @@ import org.abora.gold.xpp.basic.Heaper;
 
 public class AboraClass extends Heaper {
 
-	public AboraClass() {
+	private final Class c;
+	
+	public AboraClass(Class c) {
 		super();
+		this.c = c;
 	}
 
 	public String fetchAttribute(Object attr) {
@@ -34,7 +37,7 @@ public class AboraClass extends Heaper {
 	}
 
 	public String name() {
-		throw new UnsupportedOperationException();
+		return c.getName();
 	}
 
 	public int preorderNumber() {

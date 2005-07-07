@@ -43,16 +43,28 @@ public class TransformAssert extends AbstractMethodBodyTransformation {
 		if (i > 0) {
 			expressionStart = javaMethod.methodBody.findStartOfExpression(i - 1);
 		}
-		tokens.add(i, new JavaBlockStart());
-		tokens.add(i+1, new JavaKeyword("throw"));
-		tokens.add(i+2, new JavaKeyword("new"));
+		tokens.add(i, new JavaParenthesisEnd());
+		tokens.add(i+1, new JavaBlockStart());
+		tokens.add(i+2, new JavaKeyword("throw"));
+		tokens.add(i+3, new JavaKeyword("new"));
 		call.value = "AboraAssertionException";
 		
-		if (i > 0 && (!(tokens.get(expressionStart) instanceof JavaParenthesisStart) || !(tokens.get(i - 1) instanceof JavaParenthesisEnd))) {
-			tokens.add(i, new JavaParenthesisEnd());
-			tokens.add(expressionStart, new JavaParenthesisStart());
+		if (i > 0) {
+			if (!(tokens.get(expressionStart) instanceof JavaParenthesisStart) || !(tokens.get(i - 1) instanceof JavaParenthesisEnd)) {
+				tokens.add(i, new JavaParenthesisEnd());
+				tokens.add(expressionStart, new JavaParenthesisStart());
+			} else if (tokens.get(i-1) instanceof JavaParenthesisEnd) {
+				int parenStart = javaMethod.methodBody.findOpeningTokenOfType(i-1, JavaParenthesisStart.class);
+				if (parenStart > expressionStart) {
+					tokens.add(i, new JavaParenthesisEnd());
+					tokens.add(expressionStart, new JavaParenthesisStart());
+				}
+
+			}
 		}
 		tokens.add(expressionStart, new JavaKeyword("if"));
+		tokens.add(expressionStart+1, new JavaParenthesisStart());
+		tokens.add(expressionStart+2, new JavaKeyword("!"));
 		return i;
 
 	}

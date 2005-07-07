@@ -45,6 +45,7 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("ServerChunk.fluidSpace", "Array");
 		map.put("TextyRcvr.getIdentifier", "UInt8Array,int");
 		map.put("Category.create", "Rcvr");
+		map.put("MuSet.isEqual", "Heaper");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

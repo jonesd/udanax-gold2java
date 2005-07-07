@@ -1,6 +1,8 @@
 package org.abora.gold.java;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.java.missing.smalltalk.OrderedCollection;
@@ -12,12 +14,30 @@ public class AboraSupport {
 
 	public static PrintWriter logger = null; 
 	
+	private static final Map categories = new HashMap();
+	private static final Map aboraClasses = new HashMap();
+	
 	public AboraSupport() {
 		super();
 	}
 
 	public static Category findCategory(Class c) {
-		throw new UnsupportedOperationException();
+		Category category = (Category)categories.get(c);
+		if (category == null) {
+			AboraClass aboraClass = findAboraClass(c);
+			category = new Category(aboraClass);
+			categories.put(c, category);
+		}
+		return category;
+	}
+	
+	public static AboraClass findAboraClass(Class c) {
+		AboraClass aboraClass = (AboraClass)aboraClasses.get(c);
+		if (aboraClass == null) {
+			aboraClass = new AboraClass(c);
+			aboraClasses.put(c, aboraClass);
+		}
+		return aboraClass;
 	}
 	
 	public static void smalltalkOnly() {
@@ -68,11 +88,13 @@ public class AboraSupport {
 	}
 
 	public static int pow(int i, int j) {
-		throw new UnsupportedOperationException();
+		//TODO review
+		return (int)Math.pow(i, j);
 	}
 
 	public static double pow(double d, float f) {
-		throw new UnsupportedOperationException();
+		//TODO review
+		return Math.pow(d, f);
 	}
 
 	public static String readStream(String string) {

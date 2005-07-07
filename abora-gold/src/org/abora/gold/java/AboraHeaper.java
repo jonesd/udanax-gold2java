@@ -170,17 +170,18 @@ public class AboraHeaper {
 	
 	// Temp replace Heaper implementation
 	public Category getCategory() {
-		throw new UnsupportedOperationException();
+		//TODO something more?
+		return AboraSupport.findCategory(this.getClass());
 	}
 	
 	// Temp replace Heaper implementation
 	public void delete() {
-		throw new UnsupportedOperationException();
+		//TODO Should do something here!
 	}
 
 	// Temp replace Heaper implementation
 	public void destructor() {
-		throw new UnsupportedOperationException();
+		//TODO Should do something here!
 	}
 	
 	// Temp replace Heaper implementation

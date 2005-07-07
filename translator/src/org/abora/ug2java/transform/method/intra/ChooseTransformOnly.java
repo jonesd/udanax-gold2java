@@ -82,9 +82,15 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("Binary2Rcvr.receiveString");
 		list.add("WriteMemStream.contents");
 		list.add("PromiseManager.respondBooleanVar");
+		list.add("PrimIntegerSpec.PrimIntegerSpec");
 		
+		//TODO just switched on for extra logging. Wrong?
 		list.add("ActualHashSet.ActualHashSet");
 		list.add("ActualHashSet.store");
+		list.add("ActualHashSet.linkTimeNonInherited");
+		list.add("ActualHashSet.stepper");
+		list.add("ActualHashSet.hasMember");
+		list.add("ActualHashSet.wipeAll");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");
