@@ -10,21 +10,32 @@
 package org.abora.gold.java;
 
 
+
 public class HashHelper {
 
 	public static int hashForEqual(Class clazz) {
-		throw new UnsupportedOperationException();
+		//TODO guess!
+		return hashForEqual(clazz.getName());
 	}
 	
 	public static int hashForEqual(int value) {
-		throw new UnsupportedOperationException();
+		//TODO guess!
+		return Math.abs(value);
 	}
 
 	public static int hashForEqual(double d) {
-		throw new UnsupportedOperationException();
+		//TODO guess!
+		return (int)Math.abs(d);
 	}
 
 	public static int hashForEqual(float f) {
-		throw new UnsupportedOperationException();
+		//TODO guess!
+		return (int)Math.abs(f);
 	}
+
+	public static int hashForEqual(String s) {
+		//TODO bad!! Probably shouldn't rely on Java hashCode behaviour
+		return s.hashCode();
+	}
+
 }

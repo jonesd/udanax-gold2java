@@ -76,6 +76,7 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		set.add("FluidVar.make(String,BlockClosure,Emulsion,AboraClass)");
 		set.add("FluidVar.cleanup");
 		set.add("Emulsion.initialize");
+		set.add("VolumeTester.allTestsOn");
 
 		METHODS = Collections.unmodifiableSet(set);
 	}

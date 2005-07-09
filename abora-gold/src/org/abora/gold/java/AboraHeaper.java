@@ -206,7 +206,8 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	public static int preorderMax() {
-		throw new UnsupportedOperationException();
+		//TODO made up number!
+		return 999;
 	}
 	public void fixup() {
 		throw new UnsupportedOperationException();

@@ -98,7 +98,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformReceiverReceiveIntegerVar());
 		transformers.add(new TransformIntegerCall());
 		transformers.add(new TransformSignals());
-		transformers.add(new TransformShouldImplement());
+		//transformers.add(new TransformShouldImplement());
 		transformers.add(new TransformStrcmp());
 		transformers.add(new TransformStrlen());
 		transformers.add(new TransformMathCalls());
@@ -147,6 +147,9 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformPointerToStaticMember());
 		transformers.add(new TransformStaticThis());
 		transformers.add(new TransformStringCalls());
+		transformers.add(new TransformModulo());
+		transformers.add(new TransformOperatorPrecedence());
+		transformers.add(new TransformExceptionReturn());
 		
 		transformers.add(new TransformHashSetTestFalse());
 		transformers.add(new TransformGrandHashSetRemove());

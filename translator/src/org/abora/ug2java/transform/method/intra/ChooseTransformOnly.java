@@ -53,6 +53,16 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("ReadArrayStream.next");
 		list.add("ReadMemStream.next");
 		
+		list.add("Abraham.becomeStub");
+		list.add("Abraham.dismantle");
+		list.add("Abraham.destroy");
+		list.add("Abraham.flockInfo");
+		list.add("Abraham.getInfo");
+		list.add("Abraham.token");
+		list.add("Abraham.Abraham");
+		list.add("Abraham.restartAbraham");
+		list.add("Abraham.initTimeNonInherited");
+		
 		
 		//TODO only for tests...
 		list.add("translateOnly");
@@ -83,6 +93,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("WriteMemStream.contents");
 		list.add("PromiseManager.respondBooleanVar");
 		list.add("PrimIntegerSpec.PrimIntegerSpec");
+		list.add("ExponentialHashMap.initTimeNonInherited");
 		
 		//TODO just switched on for extra logging. Wrong?
 		list.add("ActualHashSet.ActualHashSet");
@@ -91,6 +102,11 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("ActualHashSet.stepper");
 		list.add("ActualHashSet.hasMember");
 		list.add("ActualHashSet.wipeAll");
+		list.add("ActualHashSet.storeAll");
+		list.add("ActualHashSet.printInternals");
+		list.add("ActualHashSet.introduce");
+		list.add("ActualHashSet.wipe");
+		list.add("ActualHashSet.remove");
 
 		//TODO only for tests...
 		list.add("smalltalkOnly");

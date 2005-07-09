@@ -14,10 +14,15 @@ import org.abora.gold.xpp.basic.Heaper;
 public class AboraClass extends Heaper {
 
 	private final Class c;
+	//TODO just making up the preorder stuff!
+	private final int preorderNumber;
+	
+	private static int nextPreorderNumber = 0;
 	
 	public AboraClass(Class c) {
 		super();
 		this.c = c;
+		this.preorderNumber = nextPreorderNumber++;
 	}
 
 	public String fetchAttribute(Object attr) {
@@ -41,7 +46,8 @@ public class AboraClass extends Heaper {
 	}
 
 	public int preorderNumber() {
-		throw new UnsupportedOperationException();
+		//TODO made up!
+		return preorderNumber;
 	}
 
 	public Object perform(String mySelector) {

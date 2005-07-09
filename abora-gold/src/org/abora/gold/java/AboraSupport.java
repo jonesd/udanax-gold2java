@@ -7,6 +7,7 @@ import java.util.Map;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.java.missing.smalltalk.OrderedCollection;
 import org.abora.gold.xpp.basic.Category;
+import org.abora.gold.xpp.basic.Heaper;
 
 
 
@@ -16,6 +17,8 @@ public class AboraSupport {
 	
 	private static final Map categories = new HashMap();
 	private static final Map aboraClasses = new HashMap();
+	
+	private static final Map globals = new HashMap();
 	
 	public AboraSupport() {
 		super();
@@ -103,6 +106,32 @@ public class AboraSupport {
 
 	public static String asCapitalized(String cuisine) {
 		throw new UnsupportedOperationException();
+	}
+	
+	/**
+	 * Smalltalk implementation of modulo - handles negative
+	 * and rounding different from Java.
+	 */
+	public static int modulo(int dividend, int divisor) {
+		return dividend - (quotient(dividend, divisor) * divisor);
+	}
+	
+	/**
+	 * Smalltalk implementation of quotient - rounds towards negative
+	 * infinity, rather than the Java / operatior which rounds towards 0.
+	 */
+	public static int quotient(int dividend, int divisor) {
+		int q = dividend / divisor;
+		//TODO is this madness?
+		if (((dividend < 0  && divisor > 0) || (dividend > 0 && divisor < 0)) && dividend % divisor != 0) {
+			q -= 1;
+		}
+		return q;
+	}
+
+	public static void defineGlobal(String s, Heaper h) {
+		//TODO review
+		globals.put(s, h);
 	}
 	
 }

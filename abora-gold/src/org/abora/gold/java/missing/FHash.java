@@ -18,17 +18,17 @@ public class FHash extends Heaper {
 	}
 	public static int fastHashUInt32(int i) {
 		//TODO do something better here!
-		return i;
+		return Math.abs(i);
 	}
 	
 	public static int fastHash(int i) {
 		//TODO do something better here!
-		return i;
+		return Math.abs(i);
 	}
 
 	public static int fastHash(double d) {
-		
-		throw new UnsupportedOperationException();
+		//TODO do something better here!
+		return (int)Math.abs(d);
 	}
 
 	public static int fastHash(String s) {

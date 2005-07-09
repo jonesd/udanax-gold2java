@@ -71,6 +71,13 @@ public class OverrideLocalVarType extends AbstractMethodBodyTransformation {
 		
 		map.put("Category.create.catName", "String");
 		
+		map.put("VolumeTester.allTestsOn.protoArray", "UInt8Array");
+		map.put("VolumeTester.allTestsOn.count", "int");
+		map.put("VolumeTester.allTestsOn.chunk", "int");
+		map.put("VolumeTester.allTestsOn.result", "FeEdition");
+		map.put("VolumeTester.allTestsOn.server", "FeServer");
+		map.put("VolumeTester.allTestsOn.stepper", "RandomStepper");
+		
 		
 		//TODO just for tests
 		map.put("Test.test.shouldOverrideLocalVars", "int");

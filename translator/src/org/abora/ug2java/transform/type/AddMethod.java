@@ -12,6 +12,7 @@ import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
+import org.abora.ug2java.javatoken.JavaCast;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
@@ -32,7 +33,7 @@ public class AddMethod implements ClassTransformer {
 		} else if (javaClass.className.equals("RequestHandler")) {
 			addUnsupportedMethod(javaClass, "", "Fn", "instVarAt", new String[] {"int", "i"});
 		} else if (javaClass.className.equals("Recipe")) {
-			addUnsupportedMethod(javaClass, "static ", "void", "defineGlobal", new String[] {"String", "s", "Heaper", "h"});
+			addRecipeDefineGlobal(javaClass);
 		} else if (javaClass.className.equals("DiskManager")) {
 			addUnsupportedMethod(javaClass, "", "void", "destroyAbandoned", new String[] {});
 		} else if (javaClass.className.equals("Abraham")) {
@@ -60,8 +61,8 @@ public class AddMethod implements ClassTransformer {
 		} else if (javaClass.className.equals("DeleteExecutor")) {
 			addUnsupportedMethod(javaClass, "static ", "void", "registerHolder", new String[] {"Heaper", "holder", "String", "storage"});
 		} else if (javaClass.className.equals("HashSetTester")) {
-			addUnsupportedMethod(javaClass, "", "void", "introduceTestsOn", new String[] {"PrintWriter", "oo", "MuSet", "set1", "SHTO", "object"});
-			addUnsupportedMethod(javaClass, "", "void", "storeTestsOn", new String[] {"PrintWriter", "oo", "MuSet", "set1", "SHTO", "object"});
+			addHashSetTesterIntroduceTestsOn(javaClass);
+			addHashSetTesterStoreTestsOn(javaClass);
 		} else if (javaClass.className.equals("ByteShuffler")) {
 			addUnsupportedMethod(javaClass, "", "void", "shuffle", new String[] {"int", "precision", "PrimArray", "buffer", "int", "size"});
 		} else if (javaClass.className.equals("Binary2Rcvr")) {
@@ -158,6 +159,59 @@ public class AddMethod implements ClassTransformer {
 		tokens.add(new JavaCallEnd());
 		tokens.add(new JavaStatementTerminator());
 		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+	}
+
+	public void addHashSetTesterIntroduceTestsOn(JavaClass javaClass) {
+		this.addHashSetTesterTestsOn(javaClass, "introduceTestsOn");
+	}
+
+	public void addHashSetTesterStoreTestsOn(JavaClass javaClass) {
+		this.addHashSetTesterTestsOn(javaClass, "storeTestsOn");
+	}
+
+	private void addHashSetTesterTestsOn(JavaClass javaClass, String methodName) {
+		JavaMethod method = new JavaMethod("void", methodName);
+		method.addParameter(new JavaField("PrintWriter", "oo"));
+		method.addParameter(new JavaField("MuSet", "set"));
+		method.addParameter(new JavaField("SHTO", "shto"));
+		List tokens = new ArrayList();
+		tokens.add(new JavaCallKeywordStart(methodName));
+		tokens.add(new JavaIdentifier("oo"));
+		tokens.add(new JavaCallArgumentSeparator());
+		tokens.add(new JavaCast("HashSet"));
+		tokens.add(new JavaIdentifier("set"));
+		tokens.add(new JavaCallArgumentSeparator());
+		tokens.add(new JavaIdentifier("shto"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+	}
+
+	public void addRecipeDefineGlobal(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("void", "defineGlobal");
+		method.addParameter(new JavaField("String", "globalName"));
+		method.addParameter(new JavaField("Heaper", "initialValue"));
+		List tokens = new ArrayList();
+		tokens.add(new JavaIdentifier("AboraSupport"));
+		tokens.add(new JavaCallKeywordStart("defineGlobal"));
+		tokens.add(new JavaIdentifier("globalName"));
+		tokens.add(new JavaCallArgumentSeparator());
+		tokens.add(new JavaIdentifier("initialValue"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		method.modifiers = "static ";
 		method.methodBody = new MethodBody(tokens);
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();

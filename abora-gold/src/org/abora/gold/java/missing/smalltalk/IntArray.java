@@ -41,12 +41,20 @@ public class IntArray {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Return the integer value at the index.
+	 * 
+	 * @param i 1 based index
+	 */
 	public int at(int i) {
-		return array[i];
+		return array[i-1];
 	}
-	
+
+	/**
+	 * @param i 1 based index
+	 */
 	public void put(int i, int v) {
-		array[i] = v;
+		array[i-1] = v;
 	}
 
 }

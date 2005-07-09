@@ -21,4 +21,8 @@ public class Filename {
 		throw new UnsupportedOperationException();
 	}
 
+	public static Filename named(String string) {
+		throw new UnsupportedOperationException();
+	}
+
 }

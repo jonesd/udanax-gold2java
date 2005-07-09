@@ -21,13 +21,15 @@ public class Developer extends AboraHeaper {
 	}
 
 	public void thingToDo() {
-		throw new UnsupportedOperationException();
+		//TODO review
+		System.out.println("Thing to do: "+name);
 	}
 	public void shouldImplement() {
 		throw new UnsupportedOperationException();
 	}
 	public void knownBug() {
-		throw new UnsupportedOperationException();
+		//TODO review
+		System.out.println("Known bug: "+name);
 	}
 	public void hack() {
 		throw new UnsupportedOperationException();

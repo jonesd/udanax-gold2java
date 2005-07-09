@@ -299,4 +299,8 @@ public class UInt8Array extends PrimIntArray {
 		throw new UnsupportedOperationException();
 	}
 
+	public static UInt8Array basicNew() {
+		throw new UnsupportedOperationException();
+	}
+
 }

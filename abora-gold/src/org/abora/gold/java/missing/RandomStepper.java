@@ -9,27 +9,35 @@
 
 package org.abora.gold.java.missing;
 
+import java.util.Random;
+
 import org.abora.gold.xpp.basic.Heaper;
 
 public class RandomStepper extends Heaper {
+	private final Random random = new Random();
 
+	private int value;
+	
 	public RandomStepper() {
 		super();
+		step();
 	}
 
 	public static RandomStepper make(int i, int j, int k) {
-		throw new UnsupportedOperationException();
+		//TODO what about the params?
+		return new RandomStepper();
 	}
 
 	public static RandomStepper make(int i) {
-		throw new UnsupportedOperationException();
+		//TODO what about the params?
+		return new RandomStepper();
 	}
 
 	public int value() {
-		throw new UnsupportedOperationException();
+		return value;
 	}
 	
 	public void step() {
-		throw new UnsupportedOperationException();
+		value = random.nextInt();
 	}
 }

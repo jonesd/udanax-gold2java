@@ -1154,9 +1154,9 @@ public class TestWriteMethod extends TestCase {
 		problemsMethod.getAnnotations().put(Annotation.PROBLEM_SIGNALS, problems);
 		javaClass.addMethod(problemsMethod);
 		
-		String smalltalk = "test\nTest problems.Blah handle: [:ex | ^false] do: [self blahblah]!";
+		String smalltalk = "test\nTest problems.Blah handle: [:ex | a blah. ex return] do: [self blahblah]!";
 
-		String expectedJava = "public void test() {\ntry {\nblahblah();\n}\ncatch (AboraRuntimeException ex) {\nif (AboraRuntimeException.BLAH.equals(ex.getMessage())) {\nreturn false;\n}\nelse {\nthrow ex;\n}\n}\n}\n";
+		String expectedJava = "public void test() {\ntry {\nblahblah();\n}\ncatch (AboraRuntimeException ex) {\nif (AboraRuntimeException.BLAH.equals(ex.getMessage())) {\na.blah();\n}\nelse {\nthrow ex;\n}\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
@@ -1506,13 +1506,6 @@ public class TestWriteMethod extends TestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
-	public void testModulus() {
-		String smalltalk = "test\n11 \\\\ 2!";
-
-		String expectedJava = "public void test() {\n11 % 2;\n}\n";
-		assertInstanceMethod(expectedJava, smalltalk);
-	}
-
 	public void testMethodNameFullStop() {
 		String smalltalk = "test.Extra!";
 
@@ -1717,6 +1710,20 @@ public class TestWriteMethod extends TestCase {
 		String smalltalk = "test\n| a {Int32}| a ~~ nil!";
 
 		String expectedJava = "public void test() {\nint a;\na != 0;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testOperatorPrecedence() {
+		String smalltalk = "test\n^current + 1 * tSize!";
+
+		String expectedJava = "public void test() {\nreturn (current + 1) * tSize;\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testOperatorPrecedenceModulo() {
+		String smalltalk = "test\n^current + 1 \\\\ tSize!";
+
+		String expectedJava = "public void test() {\nreturn AboraSupport.modulo(current + 1, tSize);\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
