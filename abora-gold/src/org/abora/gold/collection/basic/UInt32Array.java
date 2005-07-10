@@ -112,7 +112,7 @@ public class UInt32Array extends PrimIntArray {
 
 	public void storeInteger(int index, int value) {
 		if (!((PrimIntegerSpec) spec()).canHold(value)) {
-			throw new IllegalArgumentException("ValueOutOfRange");
+			throw new IllegalArgumentException("ValueOutOfRange: "+value+" spec: "+spec());
 		}
 		//TODO review
 		storeUInt32(index, value);

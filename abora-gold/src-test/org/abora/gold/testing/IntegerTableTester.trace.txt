@@ -1,0 +1,115 @@
+Running all IntegerTable tests.
+Test 1
+Create tables with create, create: and create:with:
+Printing tables:
+org.abora.gold.collection.tables.ActualIntegerTable[]
+org.abora.gold.collection.tables.ActualIntegerTable[]
+org.abora.gold.collection.tables.ActualIntegerTable[]
+Test empty table: Empty
+Test introduce: org.abora.gold.collection.tables.ActualIntegerTable[0->0!!<[109 97 114 101]>,9->0!!<[102 105 108 108 121]>], table count now: 2
+Test introduce: org.abora.gold.collection.tables.ActualIntegerTable[-11->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,9->0!!<[102 105 108 108 121]>], table count now: 3
+Test introduce: org.abora.gold.collection.tables.ActualIntegerTable[-11->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,9->0!!<[102 105 108 108 121]>,47->0!!<[115 116 97 108 108 105 111 110]>], table count now: 4
+Test introduce: 
+Testing introduce and fetch boundary conditions
+fetch of (5) is I(5)
+fetch of (6) is I(6)
+fetch of (7) is I(7)
+fetch of (8) is I(8)
+fetch of (9) is I(9)
+table 3 now:
+org.abora.gold.collection.tables.ActualIntegerTable[5->I(5),6->I(6),7->I(7),8->I(8),9->I(9)]
+and its count is 5
+table 3 now:
+org.abora.gold.collection.tables.ActualIntegerTable[4->I(4),5->I(5),6->I(6),7->I(7),8->I(8),9->I(9),10->I(10),11->I(11)]
+and its count is 8
+
+Test 2
+Create tables.
+Starting table is:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+after replace:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[109 97 114 101]>,27->0!!<[115 116 97 108 108 105 111 110]>] and table count: 4
+Test replace() in unknown territory. 
+NotInTable blast caught, table now:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[109 97 114 101]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+and table count: 4
+
+Test 3
+Create tables.
+Starting table is:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+after store:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[109 97 114 101]>,27->0!!<[115 116 97 108 108 105 111 110]>] and table count: 4
+Test store() in unknown territory. 
+after store:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[109 97 114 101]>,2->0!!<[112 97 108 111 111 107 97]>,27->0!!<[115 116 97 108 108 105 111 110]>] and table count: 5
+Test store() with NULL. 
+NullInsertion blast caught, table now:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[109 97 114 101]>,2->0!!<[112 97 108 111 111 107 97]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+and table count: 5
+
+Test 4
+Create tables.
+Starting table is:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+with count 4
+Testing domain
+{[-1, 2), [27, 28)}
+Test get(1) 0!!<[102 105 108 108 121]>
+Test get() in unknown territory. 
+NotInTable blast caught, table now:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+and table count: 4
+
+Test 5
+Create tables.
+Starting table is:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+with count 4
+Now, testing remove(1)
+Table now:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+with count 3
+Test remove(1) in unknown territory. 
+NotInTable blast caught, table now:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+and table count: 3
+
+Test 6
+Create tables.
+Starting table is:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+with count 4
+Now, testing subTable(0,40)
+Table now:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+with count 4
+and the subtable is
+org.abora.gold.collection.tables.ActualIntegerTable[0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+and its count is 3.
+
+Test 7
+Create tables.
+Starting table is:
+org.abora.gold.collection.tables.ActualIntegerTable[-1->0!!<[99 111 108 116]>,0->0!!<[109 97 114 101]>,1->0!!<[102 105 108 108 121]>,27->0!!<[115 116 97 108 108 105 111 110]>]
+with count 4
+Now, testing domain
+And the results (ta ta TUM!!) 
+	{[-1, 2), [27, 28)}
+
+and now, run lengths....
+tab1 runAt.IntegerVar: -20 ->{}
+tab1 runAt.IntegerVar: -10 ->{}
+tab1 runAt.IntegerVar:  -9 ->{}
+tab1 runAt.IntegerVar:  -1 ->[-1, 0)
+tab1 runAt.IntegerVar:  0 ->[0, 1)
+tab1 runAt.IntegerVar:  1 ->[1, 2)
+tab1 runAt.IntegerVar:  2 ->[2, 27)
+tab1 runAt.IntegerVar:  3 ->[3, 27)
+tab1 runAt.IntegerVar:  4 ->[4, 27)
+tab1 runAt.IntegerVar:  26 ->[26, 27)
+tab1 runAt.IntegerVar:  27 ->[27, 28)
+tab1 runAt.IntegerVar:  28 ->{}
+tab1 runAt.IntegerVar:  30 ->{}
+tab1 runAt.IntegerVar:  31 ->{}
+tab1 runAt.IntegerVar:  32 ->{}

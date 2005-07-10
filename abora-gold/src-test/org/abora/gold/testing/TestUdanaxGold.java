@@ -1,5 +1,11 @@
 package org.abora.gold.testing;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.StringWriter;
 
 import junit.framework.TestCase;
@@ -21,6 +27,7 @@ import org.abora.gold.spaces.integers.IntegerRegionTester;
 import org.abora.gold.tabent.TableEntryTester;
 import org.abora.gold.xcvr.ShuffleTester;
 import org.abora.gold.xpp.become.BecomeTester;
+import org.xml.sax.InputSource;
 
 
 public class TestUdanaxGold extends TestCase {
@@ -32,158 +39,165 @@ public class TestUdanaxGold extends TestCase {
 	public TestUdanaxGold(String arg0) {
 		super(arg0);
 	}
-
-	public void testBecomeTester() {
-		BecomeTester tester = new BecomeTester();
+	
+	protected String runTester(Tester tester) {
 		StringWriter stringWriter = new StringWriter();
 		PrintWriter oo = new PrintWriter(stringWriter);
 		tester.allTestsOn(oo);
+		oo.flush();
+		return stringWriter.toString();
+	}
+	
+	protected void assertTester(Tester tester) throws IOException {
+		String actual = runTester(tester);
+		String expected = loadExpected(tester);
+		assertEquals(expected, actual);
+	}
+	
+	protected String loadExpected(Tester tester) throws IOException {
+		String filename = expectedFilename(tester);
+		InputStream inputStream = ClassLoader.getSystemResourceAsStream(filename);
+		assertNotNull("Found trace file named: "+filename, inputStream);
+		try {
+			String expected = readInputStream(inputStream);
+			return expected;
+		} finally {
+			inputStream.close();
+		}
+	}
+
+	private String readInputStream(InputStream inputStream) throws IOException {
+		StringBuffer expectedBuffer = new StringBuffer();
+		Reader reader = new InputStreamReader(inputStream);
+		try {
+			char[] bytes = new char[1024];
+			int read = -1;
+			while ((read = reader.read(bytes)) != -1) {
+				expectedBuffer.append(bytes, 0, read);
+			}
+		} finally {
+			reader.close();
+		}
+		String expected = expectedBuffer.toString();
+		return expected;
+	}
+
+	private String expectedFilename(Tester tester) {
+		String filename = this.getClass().getName();
+		filename = filename.substring(0, filename.lastIndexOf('.')+1);
+		String testerName = tester.getClass().getName();
+		filename += testerName.substring(testerName.lastIndexOf('.')+1);
+		filename = filename.replace('.', File.separatorChar) + ".trace.txt";
+		return filename;
+	}
+	
+	public void testBecomeTester() throws IOException {
+		BecomeTester tester = new BecomeTester();
+		assertTester(tester);
 	}
 
 	public void xtestDiskTester() {
 		DiskTester tester = new DiskTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
 	public void xtestGrandHashTableTester() {
 		GrandHashTableTester tester = new GrandHashTableTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
-	public void testHashSetTester() {
+	public void testHashSetTester() throws IOException {
 		HashSetTester tester = new HashSetTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 	
-	public void testHelloTester() {
+	public void testHelloTester() throws IOException {
 		HelloTester tester = new HelloTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 	
-	public void testHashTableTester() {
+	public void testHashTableTester() throws IOException {
 		HashTableTester tester = new HashTableTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 	
-	public void testImmuSetTester() {
+	public void testImmuSetTester() throws IOException {
 		ImmuSetTester tester = new ImmuSetTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 
-	public void testIntegerTableTester() {
+	public void testIntegerTableTester() throws IOException {
 		IntegerTableTester tester = new IntegerTableTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 
-	public void testPrimIndexTableTester() {
+	public void testPrimIndexTableTester() throws IOException {
 		PrimIndexTableTester tester = new PrimIndexTableTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 
-	public void testPrimPtrTableTester() {
+	public void testPrimPtrTableTester() throws IOException {
 		PrimPtrTableTester tester = new PrimPtrTableTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 
 	public void xtestRegionCrossTester() {
 		CrossTester tester = new CrossTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
 	public void xtestRegionFilterTester() {
 		FilterTester tester = new FilterTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
 	public void xtestRegionIDTester() {
 		IDTester tester = new IDTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
-	public void testRegionIntegerRegionTester() {
+	public void testRegionIntegerRegionTester() throws IOException {
 		IntegerRegionTester tester = new IntegerRegionTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 
-	public void xtestRegionRealTester() {
+	public void testRegionRealTester() throws IOException {
 		RealTester tester = new RealTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 
 	public void xtestRegionSequenceTester() {
 		SequenceTester tester = new SequenceTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
 	public void xtestSetTableTester() {
 		SetTableTester tester = new SetTableTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
 	public void xtestShepherdLockTester() {
 		ShepherdLockTester tester = new ShepherdLockTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
 	public void xtestShuffleTester() {
 		ShuffleTester tester = new ShuffleTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
-	public void testTableEntryTester() {
+	public void testTableEntryTester() throws IOException {
 		TableEntryTester tester = new TableEntryTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		assertTester(tester);
 	}
 
 	public void xtestVolumeTester() {
 		VolumeTester tester = new VolumeTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 
 	public void xtestWorksTester() {
 		WorksTester tester = new WorksTester();
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		runTester(tester);
 	}
 }

@@ -37,8 +37,8 @@ public class AboraClass extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean inheritsFrom(Object cat) {
-		throw new UnsupportedOperationException();
+	public boolean inheritsFrom(AboraClass clazz) {
+		return clazz.c.isAssignableFrom(c);
 	}
 
 	public String name() {

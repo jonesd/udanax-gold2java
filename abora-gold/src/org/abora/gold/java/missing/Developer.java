@@ -14,6 +14,8 @@ import org.abora.gold.java.AboraHeaper;
 
 public class Developer extends AboraHeaper {
 	private final String name;
+	
+	private static final boolean SHOW = false;
 
 	public Developer(String name) {
 		super();
@@ -22,14 +24,18 @@ public class Developer extends AboraHeaper {
 
 	public void thingToDo() {
 		//TODO review
-		System.out.println("Thing to do: "+name);
+		if (SHOW) {
+			System.out.println("Thing to do: "+name);
+		}
 	}
 	public void shouldImplement() {
 		throw new UnsupportedOperationException();
 	}
 	public void knownBug() {
 		//TODO review
-		System.out.println("Known bug: "+name);
+		if (SHOW) {
+			System.out.println("Known bug: "+name);
+		}
 	}
 	public void hack() {
 		throw new UnsupportedOperationException();

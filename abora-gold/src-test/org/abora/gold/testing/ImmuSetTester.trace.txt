@@ -1,0 +1,14 @@
+ImmuSet testing
+Start ScruSet testing
+testing isEmpty
+end of isEmpty tests
+testing hasMember and theOne
+end of hasMember and theOne tests
+testing contentsEqual() and contentsHash()
+end of ContentsEqual tests
+testing intersects
+end of intersects tests
+testing isSubsetOf
+end of isSubsetOf tests
+End of Scruset testing
+End of ImmuSet testing

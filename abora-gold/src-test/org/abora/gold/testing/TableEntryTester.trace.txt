@@ -1,0 +1,33 @@
+start of test 1 - basic stuff
+
+ent1 == org.abora.gold.collection.settable.PositionEntry(0!!<[111 110 101]> -> 0!!<[116 119 111]>); key is 0!!<[111 110 101]>; and value is 0!!<[116 119 111]>; next is null
+
+test match of ent1 with 0!!<[111 110 101]>: TRUE
+test match of ent1 with 0!!<[116 119 111]>: FALSE
+test matchValue of ent1 with 0!!<[111 110 101]>: FALSE
+test matchValue of ent1 with 0!!<[116 119 111]>: TRUE
+end of test one
+
+start of test 2 - linking stuff
+
+ent1 == org.abora.gold.collection.settable.PositionEntry(0!!<[111 110 101]> -> 0!!<[118 97 108 117 101]>); key is 0!!<[111 110 101]>; and value is 0!!<[118 97 108 117 101]>; next is null
+
+ent2 == org.abora.gold.collection.settable.PositionEntry(0!!<[116 119 111]> -> 0!!<[118 97 108 117 101]>); key is 0!!<[116 119 111]>; and value is 0!!<[118 97 108 117 101]>; next is null
+
+ent3 == org.abora.gold.collection.settable.PositionEntry(0!!<[116 104 114 101 101]> -> 0!!<[118 97 108 117 101]>); key is 0!!<[116 104 114 101 101]>; and value is 0!!<[118 97 108 117 101]>; next is null
+ent1 next now: org.abora.gold.collection.settable.PositionEntry(0!!<[116 119 111]> -> 0!!<[118 97 108 117 101]>)
+ent2 next now: org.abora.gold.collection.settable.PositionEntry(0!!<[116 104 114 101 101]> -> 0!!<[118 97 108 117 101]>)
+ent3 next now: null
+start of test 2 - different entry types
+
+ent1 == org.abora.gold.collection.settable.PositionEntry(0!!<[111 110 101]> -> 0!!<[118 97 108 117 101]>); key is 0!!<[111 110 101]>; and value is 0!!<[118 97 108 117 101]>; next is null
+
+ent2 == org.abora.gold.collection.settable.IndexEntry(I(1) -> 0!!<[118 97 108 117 101]>); key is I(1); and value is 0!!<[118 97 108 117 101]>; next is null
+
+ent2 == org.abora.gold.collection.settable.IndexEntry(I(1) -> 0!!<[118 97 108 117 101]>); key is I(1); and value is 0!!<[118 97 108 117 101]>; next is null
+
+ent3 == org.abora.gold.collection.settable.HeaperAsEntry(position of (0!!<[116 104 114 101 101]>) -> 0!!<[116 104 114 101 101]>); key is position of (0!!<[116 104 114 101 101]>); and value is 0!!<[116 104 114 101 101]>; next is null
+
+ent4 == org.abora.gold.collection.settable.HashIndexEntry(I(22) -> 0!!<[118 97 108 117 101]>); key is I(22); and value is 0!!<[118 97 108 117 101]>; next is null
+
+ent4 == org.abora.gold.collection.settable.HashIndexEntry(I(22) -> 0!!<[118 97 108 117 101]>); key is I(22); and value is 0!!<[118 97 108 117 101]>; next is null

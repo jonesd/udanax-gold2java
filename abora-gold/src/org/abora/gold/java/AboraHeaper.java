@@ -203,7 +203,9 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	public boolean isKindOf(Category cat) {
-		throw new UnsupportedOperationException();
+		Category category = getCategory();
+		//TODO should we really use category.inheritsFrom(...) instead?
+		return category.brotherClass().inheritsFrom(cat.brotherClass());
 	}
 	public static int preorderMax() {
 		//TODO made up number!
