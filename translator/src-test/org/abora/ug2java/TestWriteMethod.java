@@ -2545,8 +2545,6 @@ public void testPointerToStaticMember() {
 
 	protected String writeMethod(String smalltalk, String modifiers) {
 		ChunkDetails details = new ChunkDetails("", smalltalk);
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter printWriter = new PrintWriter(stringWriter);
 		ClassParser classParser = new ClassParser();
 		classParser.setJavaClass(javaClass);
 		JavaMethod javaMethod = classParser.parseMethod(details, modifiers);
@@ -2555,6 +2553,12 @@ public void testPointerToStaticMember() {
 		ClassTransformer classTransformer = new ClassTransformers();
 		classTransformer.transform(javaClass);
 		
+		return writeMethod(javaMethod);
+	}
+
+	private String writeMethod(JavaMethod javaMethod) {
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(stringWriter);
 		classWriter.writeMethod(javaMethod, printWriter);
 		printWriter.close();
 		return stringWriter.toString();

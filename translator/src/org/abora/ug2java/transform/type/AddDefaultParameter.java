@@ -18,7 +18,14 @@ import org.abora.ug2java.javatoken.JavaStatementTerminator;
 import org.abora.ug2java.javatoken.JavaToken;
 
 
-
+/**
+ * Support optional paramater by adding a new method which supplies a default value for the last
+ * argument in the signature of the method. This default value is for now one of a small number
+ * of simple literals. It is possible to support many optional parameters by filling in the
+ * parameters left to right with suitable default values.
+ * 
+ * Neither Smalltalk nor Java (before JDK 1.5) support optional paramers, though C does.
+ */
 public class AddDefaultParameter implements ClassTransformer {
 
 	public void transform(JavaClass javaClass) {
@@ -38,23 +45,23 @@ public class AddDefaultParameter implements ClassTransformer {
 		}
 	}
 	
-	public void addStatic(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam) {
-		addStatic(javaClass, returnType, name, params, additionalParam, name);
+	public JavaMethod addStatic(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam) {
+		return addStatic(javaClass, returnType, name, params, additionalParam, name);
 	}
 	
-	public void addStatic(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam, String call) {
-		addMethod(javaClass, "static ", returnType, name, params, additionalParam, call);
+	public JavaMethod addStatic(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam, String call) {
+		return addMethod(javaClass, "static ", returnType, name, params, additionalParam, call);
 	}
 
-	public void addInstance(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam) {
-		addInstance(javaClass, returnType, name, params, additionalParam, name);
+	public JavaMethod addInstance(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam) {
+		return addInstance(javaClass, returnType, name, params, additionalParam, name);
 	}
 	
-	public void addInstance(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam, String call) {
-		addMethod(javaClass, "", returnType, name, params, additionalParam, call);
+	public JavaMethod addInstance(JavaClass javaClass, String returnType, String name, String[] params, String additionalParam, String call) {
+		return addMethod(javaClass, "", returnType, name, params, additionalParam, call);
 	}
 
-	public void addMethod(JavaClass javaClass, String modifiers, String returnType, String name, String[] params, String additionalParam, String call) {
+	protected JavaMethod addMethod(JavaClass javaClass, String modifiers, String returnType, String name, String[] params, String additionalParam, String call) {
 		JavaMethod method = new JavaMethod(returnType, name);
 		List tokens = new ArrayList();
 		if (!returnType.equals("void")) {
@@ -71,12 +78,8 @@ public class AddDefaultParameter implements ClassTransformer {
 		JavaToken additional;
 		if (additionalParam.equals("0")) {
 			additional = new IntegerLiteral(0);
-		} else if (additionalParam.equals("null")) {
-			additional = new JavaKeyword("null");
-		} else if (additionalParam.equals("false")) {
-			additional = new JavaKeyword("false");
-		} else if (additionalParam.equals("true")) {
-			additional = new JavaKeyword("true");
+		} else if (additionalParam.equals("null") || additionalParam.equals("false") || additionalParam.equals("true")) {
+			additional = new JavaKeyword(additionalParam);
 		} else {
 			throw new IllegalArgumentException("Cant interpret additional param: "+additionalParam);
 		}
@@ -90,5 +93,6 @@ public class AddDefaultParameter implements ClassTransformer {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddDefaultParameter";
 		javaClass.addMethod(method);
+		return method;
 	}
 }
