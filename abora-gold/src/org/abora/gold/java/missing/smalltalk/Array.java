@@ -9,15 +9,20 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Array {
 
+	private final List contents;
+	
 	public Array() {
-		super();
+		this(10);
 	}
 	
 	public Array(int size) {
-		throw new UnsupportedOperationException();
+		contents = new ArrayList(size);
 	}
 
 	//TODO sort out this Array vs IntArray madness
@@ -26,27 +31,43 @@ public class Array {
 	}
 
 	public int size() {
-		throw new UnsupportedOperationException();
+		return contents.size();
 	}
 	
 	public static Array with(Object a) {
-		throw new UnsupportedOperationException();
+		Array array = new Array();
+		array.put(1, a);
+		return array;
 	}
 
 	public static Array with(Object a, Object b) {
-		throw new UnsupportedOperationException();
+		Array array = new Array();
+		array.put(1, a);
+		array.put(2, b);
+		return array;
 	}
 
-	public Object at(int i) {
-		throw new UnsupportedOperationException();
+	/**
+	 * @param i1 one-based index
+	 */
+	public Object at(int i1) {
+		return contents.get(i1-1);
 	}
 	
-	public void put(int i, Object v) {
-		throw new UnsupportedOperationException();
+	/**
+	 * @param i1 one-based index
+	 */
+	public void put(int i1, Object v) {
+		int i0 = i1 -1;
+		if (i0 == contents.size()) {
+			contents.add(v);
+		} else {
+			contents.set(i0, v);
+		}
 	}
 
 	public void basicAtPut(int i, Object arg1) {
-		throw new UnsupportedOperationException();
+		put(i, arg1);
 	}
 
 }

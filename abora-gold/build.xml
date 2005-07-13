@@ -45,7 +45,7 @@
 
 	  <target name="test" depends="compile">
 	  	<mkdir dir="${build}/junit_coverage"/>
-	  	<junit printsummary="true">
+	  	<junit printsummary="true" haltonfailure="true">
 	  		<batchtest todir="${build}/junit_coverage">
 	  			<fileset dir="${src.test}">
 	  				<include name="**/*Test*.java"/>
@@ -54,6 +54,8 @@
 	  		<classpath>
 	  			<pathelement path="${build}"/>
 	  			<pathelement path="${ant.home}/lib/clover.jar"/>
+	  			<!-- to read in tester trace.txt files -->
+	  			<pathelement path="${src.test}/"/>
 	  		</classpath>
 	  		<formatter type="xml"/>
 	  	</junit>

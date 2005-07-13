@@ -1,11 +1,29 @@
 package org.abora.gold.java;
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.abora.gold.be.basic.BeClub;
+import org.abora.gold.be.basic.BeGrandMap;
+import org.abora.gold.be.canopy.BertCrum;
+import org.abora.gold.be.canopy.SensorCrum;
+import org.abora.gold.be.ents.Ent;
+import org.abora.gold.cxx.classx.comm.CategoryRecipe;
+import org.abora.gold.fbtest.WorksBootMaker;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.java.missing.smalltalk.OrderedCollection;
+import org.abora.gold.nadmin.FePromiseSession;
+import org.abora.gold.nadmin.FeSession;
+import org.abora.gold.nkernel.FeServer;
+import org.abora.gold.nkernel.WorksTester;
+import org.abora.gold.rcmain.MainDummy;
+import org.abora.gold.rcmain.ServerLoop;
+import org.abora.gold.snarf.Abraham;
+import org.abora.gold.snarf.DiskManager;
+import org.abora.gold.snarf.FlockInfo;
+import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.basic.Heaper;
 
@@ -19,6 +37,8 @@ public class AboraSupport {
 	private static final Map aboraClasses = new HashMap();
 	
 	private static final Map globals = new HashMap();
+	
+	private static boolean initialized = false;
 	
 	public AboraSupport() {
 		super();
@@ -56,11 +76,13 @@ public class AboraSupport {
 	}
 
 	public static void defineFluid(Class class1, String name, Object value, Object value2) {
-		throw new UnsupportedOperationException();
+		//TODO do something here!
+		System.out.println("Ignoring defineFluid:"+name);
 	}
 
 	public static int xuTime() {
-		throw new UnsupportedOperationException();
+		//TODO absolutely wrong!!!! long -> int
+		return (int)(System.currentTimeMillis() / 1000);
 	}
 	public static int exponent(float f) {
 		throw new UnsupportedOperationException();
@@ -134,4 +156,29 @@ public class AboraSupport {
 		globals.put(s, h);
 	}
 	
+	public static void initializeSystem() {
+		if (initialized) {
+			return;
+		}
+		
+		BeClub.staticTimeNonInherited();
+		BeGrandMap.staticTimeNonInherited();
+		BertCrum.staticTimeNonInherited();
+		SensorCrum.staticTimeNonInherited();
+		Ent.staticTimeNonInherited();
+		//TODOCategoryRecipe.staticTimeNonInherited();
+		WorksBootMaker.staticTimeNonInherited();
+		FePromiseSession.staticTimeNonInherited();
+		FeSession.staticTimeNonInherited();
+		FeServer.staticTimeNonInherited();
+		WorksTester.staticTimeNonInherited();
+		MainDummy.staticTimeNonInherited();
+		ServerLoop.staticTimeNonInherited();
+		Abraham.staticTimeNonInherited();
+		DiskManager.staticTimeNonInherited();
+		FlockInfo.staticTimeNonInherited();
+		//TODORecipe.staticTimeNonInherited();
+		
+		initialized = true;
+	}
 }

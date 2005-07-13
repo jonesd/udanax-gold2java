@@ -10,24 +10,37 @@ import java.io.StringWriter;
 
 import junit.framework.TestCase;
 
+import org.abora.gold.cobbler.BootMaker;
+import org.abora.gold.cobbler.Connection;
 import org.abora.gold.collection.grand.GrandHashTableTester;
 import org.abora.gold.collection.settable.SetTableTester;
 import org.abora.gold.cross.CrossTester;
 import org.abora.gold.diskman.DiskTester;
+import org.abora.gold.fbtest.BackendBootMaker;
+import org.abora.gold.fbtest.WorksBootMaker;
+import org.abora.gold.java.AboraHeaper;
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.negoti8.ProtocolBroker;
 import org.abora.gold.nkernel.VolumeTester;
 import org.abora.gold.nkernel.WorksTester;
 import org.abora.gold.primtab.PrimIndexTableTester;
 import org.abora.gold.primtab.PrimPtrTableTester;
 import org.abora.gold.sheph.ShepherdLockTester;
+import org.abora.gold.snarf.DiskManager;
+import org.abora.gold.snarf.FakePacker;
+import org.abora.gold.snarf.MockTurtle;
 import org.abora.gold.spaces.basic.FilterTester;
 import org.abora.gold.spaces.basic.IDTester;
 import org.abora.gold.spaces.basic.RealTester;
 import org.abora.gold.spaces.basic.SequenceTester;
 import org.abora.gold.spaces.integers.IntegerRegionTester;
 import org.abora.gold.tabent.TableEntryTester;
+import org.abora.gold.xcvr.Binary2XcvrMaker;
+import org.abora.gold.xcvr.BogusXcvrMaker;
 import org.abora.gold.xcvr.ShuffleTester;
+import org.abora.gold.xcvr.TextyXcvrMaker;
+import org.abora.gold.xcvr.XcvrMaker;
 import org.abora.gold.xpp.become.BecomeTester;
-import org.xml.sax.InputSource;
 
 
 public class TestUdanaxGold extends TestCase {
@@ -57,7 +70,12 @@ public class TestUdanaxGold extends TestCase {
 	protected String loadExpected(Tester tester) throws IOException {
 		String filename = expectedFilename(tester);
 		InputStream inputStream = ClassLoader.getSystemResourceAsStream(filename);
+		if (inputStream == null) {
+			//TODO hack
+			inputStream = new FileInputStream("src-test/"+filename);
+		}
 		assertNotNull("Found trace file named: "+filename, inputStream);
+		
 		try {
 			String expected = readInputStream(inputStream);
 			return expected;
@@ -196,7 +214,40 @@ public class TestUdanaxGold extends TestCase {
 		runTester(tester);
 	}
 
-	public void xtestWorksTester() {
+	public void xxtestWorksTester() {
+		
+		AboraSupport.initializeSystem();
+		
+		BootMaker worksBootMaker = new WorksBootMaker();
+		Connection.registerBootPlan(worksBootMaker);
+		BackendBootMaker backendBootMaker = new BackendBootMaker();
+		Connection.registerBootPlan(backendBootMaker);
+//		AboraHeaper.CurrentPacker.fluidSet(new DiskManager());
+
+		ProtocolBroker.registerXcvrProtocol(Binary2XcvrMaker.make());
+		ProtocolBroker.registerXcvrProtocol(BogusXcvrMaker.make());
+		ProtocolBroker.registerXcvrProtocol(TextyXcvrMaker.make());
+		
+		//TODO have no idea why I must supply my own "binary1"...		
+		XcvrMaker binary1Make = new Binary2XcvrMaker() {
+			public String id() {
+				return "binary1";
+			}
+		};
+		ProtocolBroker.registerXcvrProtocol(binary1Make);
+		AboraHeaper.InsideTransactionFlag.fluidSet(Boolean.FALSE);
+		AboraHeaper.InsideAgenda.fluidSet(Boolean.FALSE);
+		
+//		new Honestly().execute();
+		if (((DiskManager) AboraHeaper.CurrentPacker.fluidFetch()) == null) {
+			//TestPacker.make(/*blastOnError*/true, /*persistInterval*/0);
+			//Turtle.make(null, /*myCategory*/null, ProtocolBroker.diskProtocol());
+			FakePacker.make();
+			MockTurtle.make(null);
+		}
+		//AboraHeaper.CurrentGrandMap.fluidSet(HonestAbeIniter.fetchGrandMap());
+
+		
 		WorksTester tester = new WorksTester();
 		runTester(tester);
 	}

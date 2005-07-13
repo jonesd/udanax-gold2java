@@ -63,6 +63,21 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("Abraham.restartAbraham");
 		list.add("Abraham.initTimeNonInherited");
 		
+		//TODO might need for debugging...
+		list.add("TokenSource.takeToken");
+		
+		list.add("DiskManager.emulsion");
+		list.add("FlockInfo.FlockInfo");
+		list.add("FlockInfo.token");
+		list.add("FlockInfo.fetchShepherd");
+		list.add("FlockInfo.registerInfo");
+		
+		list.add("Binary2Xmtr.linkTimeNonInherited");
+		// Duplicate for all & smalltalk
+		list.add("GrandEntry.GrandEntry");
+		
+		list.add("ServerChunk.emulsion");
+		
 		
 		//TODO only for tests...
 		list.add("translateOnly");
@@ -94,6 +109,10 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("PromiseManager.respondBooleanVar");
 		list.add("PrimIntegerSpec.PrimIntegerSpec");
 		list.add("ExponentialHashMap.initTimeNonInherited");
+		list.add("GlobalEmulsion.fetchNewRawSpace");
+		list.add("Ent.Ent");
+		list.add("CategoryRecipe.staticTimeNonInherited");
+		list.add("FlockInfo.staticTimeNonInherited");
 		
 		//TODO just switched on for extra logging. Wrong?
 		list.add("ActualHashSet.ActualHashSet");

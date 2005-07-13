@@ -38,7 +38,10 @@ public class Developer extends AboraHeaper {
 		}
 	}
 	public void hack() {
-		throw new UnsupportedOperationException();
+		//TODO review
+		if (SHOW) {
+			System.out.println("Hack: "+name);
+		}
 	}
 
 }

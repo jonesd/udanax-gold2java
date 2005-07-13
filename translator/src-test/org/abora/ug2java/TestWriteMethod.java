@@ -2078,13 +2078,6 @@ public void testPointerToStaticMember() {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 	
-	public void testShouldImplement() {
-		String smalltalk = "test\n^Someone shouldImplement!";
-
-		String expectedJava = "public void test() {\nthrow new ShouldImplementException(\"Someone\");\n}\n";
-		assertInstanceMethod(expectedJava, smalltalk);
-	}
-
 	public void testShow() {
 		String smalltalk = "test\nTranscript show: '.'!";
 

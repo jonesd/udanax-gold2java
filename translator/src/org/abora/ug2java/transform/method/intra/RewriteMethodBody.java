@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.MethodBody;
+import org.abora.ug2java.javatoken.JavaAssignment;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
+import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
@@ -24,6 +26,8 @@ public class RewriteMethodBody implements MethodTransformation {
 			rewritePrimIEEE64isANumber(javaMethod);
 		} else if (javaMethod.name.equals("endPacket") && javaMethod.javaClass.className.equals("Binary2Rcvr")) {
 			rewriteAsUntranslated(javaMethod);
+		} else if (javaMethod.getQualifiedSignature().equals("Abraham.restartAbraham(Rcvr)")) {
+			rewriteAbrahamRestartAbraham(javaMethod);
 		}
 	}
 	
@@ -54,4 +58,22 @@ public class RewriteMethodBody implements MethodTransformation {
 		method.methodBody = new MethodBody(tokens);
 	}
 
+	public void rewriteAbrahamRestartAbraham(JavaMethod method) {
+		
+		List tokens = new ArrayList();
+		tokens.add(new JavaComment("Transform: Rewrote body"));
+		
+		tokens.add(new JavaIdentifier("myToken"));
+		tokens.add(new JavaAssignment());
+		tokens.add(new JavaIdentifier("TheTokenSource"));
+		tokens.add(new JavaCallStart("takeToken"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		tokens.add(new JavaIdentifier("myInfo"));
+		tokens.add(new JavaAssignment());
+		tokens.add(new JavaIdentifier("null"));		
+		tokens.add(new JavaStatementTerminator());
+		
+		method.methodBody = new MethodBody(tokens);
+	}
 }

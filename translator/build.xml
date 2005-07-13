@@ -73,7 +73,7 @@
 
   <target name="test" depends="compile">
   	<mkdir dir="${build}/junit_coverage"/>
-  	<junit printsummary="true">
+  	<junit printsummary="true" haltonfailure="true">
   		<batchtest todir="${build}/junit_coverage">
   			<fileset dir="${src.test}">
   				<include name="**/*Test*.java"/>

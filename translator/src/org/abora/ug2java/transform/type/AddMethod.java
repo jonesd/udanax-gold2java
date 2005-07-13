@@ -32,8 +32,8 @@ public class AddMethod implements ClassTransformer {
 			addFeWorkSet(javaClass);
 		} else if (javaClass.className.equals("RequestHandler")) {
 			addUnsupportedMethod(javaClass, "", "Fn", "instVarAt", new String[] {"int", "i"});
-		} else if (javaClass.className.equals("Recipe")) {
-			addRecipeDefineGlobal(javaClass);
+		} else if (javaClass.className.equals("Recipe") || javaClass.className.equals("ServerChunk")) {
+			addDefineGlobal(javaClass);
 		} else if (javaClass.className.equals("DiskManager")) {
 			addUnsupportedMethod(javaClass, "", "void", "destroyAbandoned", new String[] {});
 		} else if (javaClass.className.equals("Abraham")) {
@@ -56,8 +56,6 @@ public class AddMethod implements ClassTransformer {
 		} else if (javaClass.className.equals("Package")) {
 			addUnsupportedMethod(javaClass, "static ", "String", "fetchAttribute", new String[] {"String", "attributeName"});
 			addUnsupportedMethod(javaClass, "static ", "boolean", "hasAttribute", new String[] {"String", "attributeName"});
-		} else if (javaClass.className.equals("ServerChunk")) {
-			addUnsupportedMethod(javaClass, "static ", "void", "defineGlobal", new String[] {"String", "name", "Object", "value"});
 		} else if (javaClass.className.equals("DeleteExecutor")) {
 			addUnsupportedMethod(javaClass, "static ", "void", "registerHolder", new String[] {"Heaper", "holder", "String", "storage"});
 		} else if (javaClass.className.equals("HashSetTester")) {
@@ -199,7 +197,7 @@ public class AddMethod implements ClassTransformer {
 		javaClass.addMethod(method);
 	}
 
-	public void addRecipeDefineGlobal(JavaClass javaClass) {
+	public void addDefineGlobal(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("void", "defineGlobal");
 		method.addParameter(new JavaField("String", "globalName"));
 		method.addParameter(new JavaField("Heaper", "initialValue"));

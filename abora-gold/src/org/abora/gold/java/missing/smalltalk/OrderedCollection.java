@@ -9,16 +9,22 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class OrderedCollection {
+	
+	private final List contents;
 
 	public OrderedCollection() {
-		super();
+		this(10);
 	}
 	
 	public OrderedCollection(int c) {
-		throw new UnsupportedOperationException();
+		super();
+		contents = new ArrayList(c);
 	}
 	
 	public static OrderedCollection with(Object a, Object b) {
@@ -26,15 +32,18 @@ public class OrderedCollection {
 	}
 
 	public void add(Object heaper) {
-		throw new UnsupportedOperationException();
+		contents.add(heaper);
 	}
 
 	public int size() {
-		throw new UnsupportedOperationException();
+		return contents.size();
 	}
 	
+	/**
+	 * @param index one-based index
+	 */
 	public Object get(int index) {
-		throw new UnsupportedOperationException();
+		return contents.get(index);
 	}
 
 }

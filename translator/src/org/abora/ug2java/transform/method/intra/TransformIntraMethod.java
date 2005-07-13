@@ -98,7 +98,6 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformReceiverReceiveIntegerVar());
 		transformers.add(new TransformIntegerCall());
 		transformers.add(new TransformSignals());
-		//transformers.add(new TransformShouldImplement());
 		transformers.add(new TransformStrcmp());
 		transformers.add(new TransformStrlen());
 		transformers.add(new TransformMathCalls());

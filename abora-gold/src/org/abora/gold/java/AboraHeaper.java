@@ -10,39 +10,47 @@
 package org.abora.gold.java;
 
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
+import org.abora.gold.be.basic.BeGrandMap;
+import org.abora.gold.cobbler.Connection;
+import org.abora.gold.java.exception.SubclassResponsibilityException;
 import org.abora.gold.java.missing.Developer;
 import org.abora.gold.java.missing.OrderEnum;
+import org.abora.gold.nadmin.FeSession;
 import org.abora.gold.rcmain.ServerChunk;
+import org.abora.gold.snarf.DiskManager;
 import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.fluid.FluidVar;
+import org.abora.gold.xpp.fluid.GlobalEmulsion;
 
 public class AboraHeaper {
+	//TODO these probably shouldn't be globals...
 	public static FluidVar ActiveClubs;
 	public static FluidVar CurrentAuthor;
 	public static FluidVar CurrentBertCanopyCache;
 	public static FluidVar CurrentBertCrum;
-	public static FluidVar CurrentGrandMap;
+	public static FluidVar CurrentGrandMap  = new FluidVar(null, GlobalEmulsion.make(), "CURRENT_GRAND_MAP", AboraSupport.findAboraClass(BeGrandMap.class));
 	public static FluidVar CurrentKeyMaster;
 	public static FluidVar CurrentMainReceiver;
-	public static FluidVar CurrentPacker;
+	public static FluidVar CurrentPacker = new FluidVar(null, GlobalEmulsion.make(), "CURRENT_PACKER", AboraSupport.findAboraClass(DiskManager.class));
 	public static FluidVar CurrentSensorCanopyCache;
 	public static FluidVar CurrentServer;
 	public static FluidVar CurrentServerConnection;
 	public static FluidVar CurrentServerLoop;
-	public static FluidVar CurrentSession;
+	public static FluidVar CurrentSession = new FluidVar(null, GlobalEmulsion.make(), "CURRENT_SESSION", AboraSupport.findAboraClass(FeSession.class));
 	public static FluidVar CurrentSessions;
 	public static FluidVar CurrentTrace;
-	public static FluidVar GrandConnection;
+	public static FluidVar GrandConnection = new FluidVar(null, GlobalEmulsion.make(), "GRAND_CONNECTION", AboraSupport.findAboraClass(Connection.class));
 	public static FluidVar InitialEditClub;
 	public static FluidVar InitialOwner;
 	public static FluidVar InitialReadClub;
 	public static FluidVar InitialSponsor;
-	public static FluidVar InsideTransactionFlag;
-	public static FluidVar InsideAgenda;
+	public static FluidVar InsideTransactionFlag = new FluidVar(null, GlobalEmulsion.make(), "INSIDE_TRANSACTION_FLAG", AboraSupport.findAboraClass(Boolean.class));
+	public static FluidVar InsideAgenda = new FluidVar(null, GlobalEmulsion.make(), "INSIDE_AGENDA", AboraSupport.findAboraClass(Boolean.class));
 	public static FluidVar MainActiveThunk;
 	
 	public static Recipe BootCuisine;
@@ -189,7 +197,11 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	public String printString() {
-		throw new UnsupportedOperationException();
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter writer = new PrintWriter(stringWriter);
+		printOn(writer);
+		writer.flush();
+		return stringWriter.toString();
 	}
 	public void markInstances(int i) {
 		throw new UnsupportedOperationException();
@@ -220,4 +232,13 @@ public class AboraHeaper {
 	public static Fn pointerToStaticMember(String name) {
 		throw new UnsupportedOperationException();
 	}
+	
+	public String toString() {
+		return printString();
+	}
+	
+	public void printOn(PrintWriter oo) {
+		throw new SubclassResponsibilityException();
+	}
+
 }

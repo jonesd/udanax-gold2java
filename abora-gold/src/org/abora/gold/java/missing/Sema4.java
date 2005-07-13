@@ -13,11 +13,14 @@ import org.abora.gold.xpp.basic.Heaper;
 
 public class Sema4 extends Heaper {
 
-	public Sema4() {
+	protected int a;
+	
+	public Sema4(int a) {
 		super();
+		this.a = a;
 	}
 	public static Sema4 make(int a) {
-		throw new UnsupportedOperationException();
+		return new Sema4(a);
 	}
 
 }

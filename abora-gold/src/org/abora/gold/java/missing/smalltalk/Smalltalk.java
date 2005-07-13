@@ -9,6 +9,9 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.fluid.FluidVar;
@@ -16,6 +19,8 @@ import org.abora.gold.xpp.fluid.FluidVar;
 
 public class Smalltalk {
 
+	private static final Map map = new HashMap();
+	
 	public Smalltalk() {
 		super();
 	}
@@ -25,7 +30,7 @@ public class Smalltalk {
 	}
 
 	public static Category at(String className) {
-		throw new UnsupportedOperationException();
+		return (Category)map.get(className);
 	}
 
 	public static void garbageCollect() {
@@ -45,7 +50,8 @@ public class Smalltalk {
 	}
 
 	public static Recipe associationAt(String xpp_cuisine) {
-		throw new UnsupportedOperationException();
+		//TODO this must be wrong!
+		return (Recipe)map.get(xpp_cuisine);
 	}
 
 }
