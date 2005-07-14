@@ -354,8 +354,6 @@ public class TranslateSmalltalk {
 					if (className.indexOf(":") != -1) {
 						throw new Exception("Corrupt classname: " + javaClass.className + " line:" + chunkLineNumber);
 					}
-					javaClass = new JavaClass(className, javaCodebase);
-					classesToWrite.add(javaClass);
 					if (superClassName.equals("Object") /*&& classWriter.className.equals("Heaper")*/
 						) {
 						//TODO make up mind about superclass, or list overrides in a data structure
@@ -365,7 +363,8 @@ public class TranslateSmalltalk {
 							superClassName = "AboraHeaper";
 						}
 					}
-					javaClass.superclassName = superClassName;
+					javaClass = new JavaClass(className, superClassName, javaCodebase);
+					classesToWrite.add(javaClass);
 					parser.moveToWord("category:");
 					parser.nextWord();
 					javaClass.classCategory = ClassParser.transformCategory(parser.nextWord());
@@ -397,7 +396,7 @@ public class TranslateSmalltalk {
 					if (first == -1 || last == -1) {
 						throw new Exception("Couldn't find class comment: " + chunkLineNumber);
 					}
-					javaClass.comment = chunk.substring(first + 1, last);
+					javaClass.setComment(chunk.substring(first + 1, last));
 					ChunkDetails chunkDetails = new ChunkDetails(smalltalkFile.getName(), chunkLineNumber, "", chunk);
 					javaClass.classQuotes.add(chunkDetails);
 				} else {

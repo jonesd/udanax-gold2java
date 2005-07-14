@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.abora.ug2java.stscanner.ChunkDetails;
@@ -26,24 +25,12 @@ import org.abora.ug2java.writer.ClassWriter;
  * JUnit test case for TestWriteMethod
  */
 
-public class TestWriteMethod extends TestCase {
+public class TestWriteMethod extends WriteMethodTestCase {
 
 	private static final Class THIS = TestWriteMethod.class;
 
-	private JavaClass javaClass;
-	private ClassWriter classWriter;
-
 	public TestWriteMethod(String name) {
 		super(name);
-	}
-
-	public void setUp() {
-		JavaCodebase javaCodebase = new JavaCodebase();
-		javaCodebase.packageLookup.put("Heaper", "org.abora.gold.xpp.basic");
-		javaClass = new JavaClass("Test", javaCodebase);
-		classWriter = new ClassWriter(javaClass);
-		classWriter.quoteSmalltalk = false;
-		classWriter.shouldIndent = false;
 	}
 
 	public static Test suite() {
@@ -856,7 +843,7 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public static void test() {\nA1 a1;\nreturn make((A2) a1);\n}\n";
 		
 		String actualJava = writeMethod(smalltalk, "static ");
-		assertMethodBodyEquals(expectedJava, actualJava);
+		assertBodyEquals(expectedJava, actualJava);
 	}
 
 	public void testDowncastArgument2() {
@@ -876,7 +863,7 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public static void test() {\nA1 a1;\nA1 a11;\nreturn make((A2) a1, (A3) a11);\n}\n";
 		
 		String actualJava = writeMethod(smalltalk, "static ");
-		assertMethodBodyEquals(expectedJava, actualJava);
+		assertBodyEquals(expectedJava, actualJava);
 	}
 	
 	public void testDowncastArgument2WithCast() {
@@ -896,7 +883,7 @@ public class TestWriteMethod extends TestCase {
 		String expectedJava = "public static void test() {\nA1 a1;\nA1 a11;\nreturn make(((A2) a1), (A3) a11);\n}\n";
 		
 		String actualJava = writeMethod(smalltalk, "static ");
-		assertMethodBodyEquals(expectedJava, actualJava);
+		assertBodyEquals(expectedJava, actualJava);
 	}
 
 	public void testDowncastArgumentFloatDouble() {
@@ -2556,27 +2543,14 @@ public void testPointerToStaticMember() {
 		return writeMethod(javaMethod);
 	}
 
-	private String writeMethod(JavaMethod javaMethod) {
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter printWriter = new PrintWriter(stringWriter);
-		classWriter.writeMethod(javaMethod, printWriter);
-		printWriter.close();
-		return stringWriter.toString();
-	}
-
 	protected void assertInstanceMethod(String expectedJava, String smalltalkSource) {
 		String actualJava = writeInstanceMethod(smalltalkSource);
-		assertMethodBodyEquals(expectedJava, actualJava);
+		assertBodyEquals(expectedJava, actualJava);
 	}
 
 	protected void assertStaticMethod(String expectedJava, String smalltalkSource) {
 		String actualJava = writeStaticMethod(smalltalkSource);
-		assertMethodBodyEquals(expectedJava, actualJava);
-	}
-
-	private void assertMethodBodyEquals(String expectedJava, String actualJava) {
-		actualJava = actualJava.replaceAll(System.getProperty("line.separator"), "\n");
-		assertEquals(expectedJava, actualJava);
+		assertBodyEquals(expectedJava, actualJava);
 	}
 
 }

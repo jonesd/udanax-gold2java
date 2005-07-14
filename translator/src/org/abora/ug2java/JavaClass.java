@@ -25,7 +25,7 @@ public class JavaClass {
 	public String className;
 	public String superclassName;
 	public String classCategory;
-	public String comment;
+	protected String comment;
 	public Vector classQuotes = new Vector();
 	public Vector instanceMethodChunks = new Vector();
 	public Vector classMethodChunks = new Vector();
@@ -243,6 +243,16 @@ public class JavaClass {
 		} else {
 			return false;
 		}
+	}
+
+	
+	public String getComment() {
+		return comment;
+	}
+
+	
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 }

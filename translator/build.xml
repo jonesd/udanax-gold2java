@@ -77,6 +77,7 @@
   		<batchtest todir="${build}/junit_coverage">
   			<fileset dir="${src.test}">
   				<include name="**/*Test*.java"/>
+  				<exclude name="**/*TestCase.java"/>
   			</fileset>
   		</batchtest>
   		<classpath>

@@ -6,36 +6,15 @@ import java.io.StringWriter;
 import org.abora.ug2java.JavaClass;
 import org.abora.ug2java.JavaCodebase;
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.WriteMethodTestCase;
 import org.abora.ug2java.writer.ClassWriter;
 
-import junit.framework.TestCase;
 
+public class AddDefaultParameterTest extends WriteMethodTestCase {
 
-public class AddDefaultParameterTest extends TestCase {
-
-	private JavaClass javaClass;
-	private ClassWriter classWriter;
-
-	public void setUp() {
-		JavaCodebase javaCodebase = new JavaCodebase();
-		javaCodebase.packageLookup.put("Heaper", "org.abora.gold.xpp.basic");
-		javaClass = new JavaClass("Test", javaCodebase);
-		classWriter = new ClassWriter(javaClass);
-		classWriter.quoteSmalltalk = false;
-		classWriter.shouldIndent = false;
-	}
 	
-	private String writeMethod(JavaMethod javaMethod) {
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter printWriter = new PrintWriter(stringWriter);
-		classWriter.writeMethod(javaMethod, printWriter);
-		printWriter.close();
-		return stringWriter.toString();
-	}
-
-	private void assertMethodBodyEquals(String expectedJava, String actualJava) {
-		actualJava = actualJava.replaceAll(System.getProperty("line.separator"), "\n");
-		assertEquals(expectedJava, actualJava);
+	public AddDefaultParameterTest(String name) {
+		super(name);
 	}
 
 	public void testInstance() {
@@ -44,7 +23,7 @@ public class AddDefaultParameterTest extends TestCase {
 		
 		String actual = writeMethod(method);
 		String expected = "public String method() {\nreturn method( false );\n}\n";
-		assertMethodBodyEquals(expected, actual);
+		assertBodyEquals(expected, actual);
 	}
 
 	public void testInstanceInteger0() {
@@ -53,7 +32,7 @@ public class AddDefaultParameterTest extends TestCase {
 		
 		String actual = writeMethod(method);
 		String expected = "public String method() {\nreturn method(0);\n}\n";
-		assertMethodBodyEquals(expected, actual);
+		assertBodyEquals(expected, actual);
 	}
 
 	public void testInstanceTrue() {
@@ -62,7 +41,7 @@ public class AddDefaultParameterTest extends TestCase {
 		
 		String actual = writeMethod(method);
 		String expected = "public String method() {\nreturn method( true );\n}\n";
-		assertMethodBodyEquals(expected, actual);
+		assertBodyEquals(expected, actual);
 	}
 
 	public void testInstanceNull() {
@@ -71,7 +50,7 @@ public class AddDefaultParameterTest extends TestCase {
 		
 		String actual = writeMethod(method);
 		String expected = "public String method() {\nreturn method( null );\n}\n";
-		assertMethodBodyEquals(expected, actual);
+		assertBodyEquals(expected, actual);
 	}
 
 	public void testInstanceNonLiteral() {
@@ -90,7 +69,7 @@ public class AddDefaultParameterTest extends TestCase {
 		
 		String actual = writeMethod(method);
 		String expected = "public String method(int var1, String var2) {\nreturn method(var1, var2, 0);\n}\n";
-		assertMethodBodyEquals(expected, actual);
+		assertBodyEquals(expected, actual);
 	}
 
 	public void testInstannceVoidReturn() {
@@ -99,7 +78,7 @@ public class AddDefaultParameterTest extends TestCase {
 		
 		String actual = writeMethod(method);
 		String expected = "public void method() {\nmethod(0);\n}\n";
-		assertMethodBodyEquals(expected, actual);
+		assertBodyEquals(expected, actual);
 	}
 
 	public void testStaticInteger0() {
@@ -108,7 +87,7 @@ public class AddDefaultParameterTest extends TestCase {
 		
 		String actual = writeMethod(method);
 		String expected = "public static String method() {\nreturn method(0);\n}\n";
-		assertMethodBodyEquals(expected, actual);
+		assertBodyEquals(expected, actual);
 	}
 
 }

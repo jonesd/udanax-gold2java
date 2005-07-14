@@ -29,7 +29,15 @@ import org.abora.ug2java.stscanner.ChunkDetails;
 
 public class ClassWriter {
 
+	public static final String DEFAULT_FILE_COMMENT = "Abora-Gold\n"
+					+ "Part of the Abora hypertext project: http://www.abora.org\n"
+					+ "Copyright 2003, 2005 David G Jones\n"
+					+ " \n"
+					+ "Translated from Udanax-Gold source code: http://www.udanax.com\n"
+					+ "Copyright 1979-1999 Udanax.com. All rights reserved";
+	
 	private final JavaClass javaClass;
+	private final String fileComment;
 	public boolean quoteSmalltalk = true;
 	public boolean shouldIndent = true;
 
@@ -38,10 +46,16 @@ public class ClassWriter {
 	private static final boolean INCLUDE_METHOD_BODIES = true;
 
 	public ClassWriter(JavaClass javaClass) {
-		this.javaClass = javaClass;
+		//TODO file comment should come from a general configuration object
+		this(javaClass, DEFAULT_FILE_COMMENT);
 	}
 	
-	protected void writeVariables(PrintWriter writer) throws Exception {
+	public ClassWriter(JavaClass javaClass, String fileComment) {
+		this.javaClass = javaClass;
+		this.fileComment = fileComment;
+	}
+	
+	protected void writeVariables(PrintWriter writer) {
 		for (Iterator iter = javaClass.getFields().iterator(); iter.hasNext();) {
 			JavaField javaField = (JavaField) iter.next();
 			writer.println("\tprotected " + javaField.modifiers + javaField.type + " " + javaField.name + ";");
@@ -163,23 +177,16 @@ public class ClassWriter {
 	}
 
 	protected void writeFileComment(PrintWriter writer) {
-		final String fileComment =
-			"Abora-Gold\n"
-				+ "Part of the Abora hypertext project: http://www.abora.org\n"
-				+ "Copyright 2003, 2005 David G Jones\n"
-				+ " \n"
-				+ "Translated from Udanax-Gold source code: http://www.udanax.com\n"
-				+ "Copyright 1979-1999 Udanax.com. All rights reserved";
 		writeAsComment(writer, fileComment);
 	}
 
-	public String writeClassDefinition() throws Exception {
+	public String writeClassDefinition()  {
 		StringWriter stringWriter = new StringWriter();
 		PrintWriter writer = new PrintWriter(stringWriter);
 		try {
 			writer.println();
-			if (javaClass.comment != null) {
-				writeAsJavadocComment(writer, javaClass.comment);
+			if (javaClass.getComment() != null) {
+				writeAsJavadocComment(writer, javaClass.getComment());
 			}
 			writer.println("public class " + javaClass.className + " extends " + javaClass.superclassName + " {");
 	
@@ -333,7 +340,7 @@ public class ClassWriter {
 		}
 	}
 
-	public void write(PrintWriter writer) throws Exception {
+	public void write(PrintWriter writer) {
 		String classDefinition = writeClassDefinition();
 
 		writeFileComment(writer);

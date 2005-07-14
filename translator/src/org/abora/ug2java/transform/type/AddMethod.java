@@ -70,7 +70,7 @@ public class AddMethod implements ClassTransformer {
 		}
 	}
 	
-	public void addIntegerTableMakeInt(JavaClass javaClass) {
+	public JavaMethod addIntegerTableMakeInt(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("IntegerTable", "make");
 		method.addParameter(new JavaField("int", "i"));
 		List tokens = new ArrayList();
@@ -86,9 +86,10 @@ public class AddMethod implements ClassTransformer {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
+		return method;
 	}
 
-	public void addImmuSetMakeMuSet(JavaClass javaClass) {
+	public JavaMethod addImmuSetMakeMuSet(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("ImmuSet", "make");
 		method.addParameter(new JavaField("MuSet", "i"));
 		List tokens = new ArrayList();
@@ -105,9 +106,10 @@ public class AddMethod implements ClassTransformer {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
+		return method;
 	}
 
-	public void addMuSetMakeIntegerVar(JavaClass javaClass) {
+	public JavaMethod addMuSetMakeIntegerVar(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("MuSet", "make");
 		method.addParameter(new JavaField("int", "i"));
 		List tokens = new ArrayList();
@@ -123,9 +125,10 @@ public class AddMethod implements ClassTransformer {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
+		return method;
 	}
 
-	public void addUnsupportedMethod(JavaClass javaClass, String modifiers, String returnType, String name, String[] args) {
+	public JavaMethod addUnsupportedMethod(JavaClass javaClass, String modifiers, String returnType, String name, String[] args) {
 		JavaMethod method = new JavaMethod(returnType, name);
 		for (int i = 0; i < args.length; i+=2) {
 			method.addParameter(new JavaField(args[i], args[i+1]));
@@ -143,9 +146,10 @@ public class AddMethod implements ClassTransformer {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
+		return method;
 	}
 	
-	public void addFeWorkSet(JavaClass javaClass) {
+	public JavaMethod addFeWorkSet(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("", "FeWorkSet");
 		method.addParameter(new JavaField("FeEdition", "edition"));
 		method.addParameter(new JavaField("FeWrapperSpec", "spec"));
@@ -163,17 +167,18 @@ public class AddMethod implements ClassTransformer {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
+		return method;
 	}
 
-	public void addHashSetTesterIntroduceTestsOn(JavaClass javaClass) {
-		this.addHashSetTesterTestsOn(javaClass, "introduceTestsOn");
+	public JavaMethod addHashSetTesterIntroduceTestsOn(JavaClass javaClass) {
+		return this.addHashSetTesterTestsOn(javaClass, "introduceTestsOn");
 	}
 
-	public void addHashSetTesterStoreTestsOn(JavaClass javaClass) {
-		this.addHashSetTesterTestsOn(javaClass, "storeTestsOn");
+	public JavaMethod addHashSetTesterStoreTestsOn(JavaClass javaClass) {
+		return this.addHashSetTesterTestsOn(javaClass, "storeTestsOn");
 	}
 
-	private void addHashSetTesterTestsOn(JavaClass javaClass, String methodName) {
+	private JavaMethod addHashSetTesterTestsOn(JavaClass javaClass, String methodName) {
 		JavaMethod method = new JavaMethod("void", methodName);
 		method.addParameter(new JavaField("PrintWriter", "oo"));
 		method.addParameter(new JavaField("MuSet", "set"));
@@ -195,9 +200,10 @@ public class AddMethod implements ClassTransformer {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
+		return method;
 	}
 
-	public void addDefineGlobal(JavaClass javaClass) {
+	public JavaMethod addDefineGlobal(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("void", "defineGlobal");
 		method.addParameter(new JavaField("String", "globalName"));
 		method.addParameter(new JavaField("Heaper", "initialValue"));
@@ -216,6 +222,7 @@ public class AddMethod implements ClassTransformer {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
+		return method;
 	}
 
 }
