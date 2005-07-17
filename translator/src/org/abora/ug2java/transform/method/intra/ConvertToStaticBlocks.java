@@ -41,9 +41,9 @@ public class ConvertToStaticBlocks implements MethodTransformation {
 			javaMethod.javaClass.methods.remove(javaMethod);
 			//TODO nicer implementation
 			if (javaMethod.name.equals("linkTimeNonInherited")) {
-				javaMethod.javaClass.staticBlocks.add(0, javaMethod);
+				javaMethod.javaClass.addStaticBlockFirst(javaMethod);
 			} else {
-				javaMethod.javaClass.staticBlocks.add(javaMethod);
+				javaMethod.javaClass.addStaticBlock(javaMethod);
 			}
 		}
 	}

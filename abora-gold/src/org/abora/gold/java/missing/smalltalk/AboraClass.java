@@ -86,4 +86,7 @@ public class AboraClass extends Heaper {
 		throw new UnsupportedOperationException();
 	}
 	
+	public Class getJavaClass() {
+		return c;
+	}
 }

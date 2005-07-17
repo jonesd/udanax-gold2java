@@ -113,6 +113,8 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("Ent.Ent");
 		list.add("CategoryRecipe.staticTimeNonInherited");
 		list.add("FlockInfo.staticTimeNonInherited");
+		list.add("TextyRcvr.linkTimeNonInherited");
+		list.add("FDListener.initTimeNonInherited");
 		
 		//TODO just switched on for extra logging. Wrong?
 		list.add("ActualHashSet.ActualHashSet");

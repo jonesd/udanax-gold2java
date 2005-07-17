@@ -1,12 +1,11 @@
 package org.abora.gold.collection.sets;
 
+import org.abora.gold.AboraGoldTestCase;
 import org.abora.gold.collection.steppers.Stepper;
 import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.spaces.integers.IntegerPos;
 
-import junit.framework.TestCase;
-
-public class EmptyImmuSetTest extends TestCase {
+public class EmptyImmuSetTest extends AboraGoldTestCase {
 
 	public void testMakeEmpty() {
 		EmptyImmuSet set = makeEmptyImmuSet();

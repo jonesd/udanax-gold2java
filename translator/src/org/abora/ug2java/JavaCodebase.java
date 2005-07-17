@@ -1,5 +1,6 @@
 package org.abora.ug2java;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -65,6 +66,10 @@ public class JavaCodebase {
 
 	public JavaCodebase() {
 		super();
+	}
+	
+	public Collection allClasses() {
+		return javaClassLookup.values();
 	}
 	
 	public void addJavaClass(JavaClass javaClass) {

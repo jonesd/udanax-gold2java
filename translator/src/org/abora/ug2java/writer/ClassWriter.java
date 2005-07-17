@@ -87,7 +87,7 @@ public class ClassWriter {
 	}
 
 	private void writeStaticBlocks(PrintWriter writer) {
-		for (Iterator iter = javaClass.staticBlocks.iterator(); iter.hasNext();) {
+		for (Iterator iter = javaClass.getStaticBlocks().iterator(); iter.hasNext();) {
 			JavaMethod javaMethod = (JavaMethod) iter.next();
 			writeStaticBlock(javaMethod, writer);
 		}
@@ -108,6 +108,7 @@ public class ClassWriter {
 			writeAsQuote(writer, javaMethod.smalltalkSource.context, javaMethod.smalltalkSource.text);
 		}
 		writer.println("}");
+		writer.println();
 	}
 
 		public void writeMethod(JavaMethod javaMethod, PrintWriter writer) {
@@ -168,27 +169,33 @@ public class ClassWriter {
 	}
 
 	private void writeImports(PrintWriter writer) {
-		for (Iterator iterator = javaClass.importedPackages.iterator(); iterator.hasNext();) {
+		for (Iterator iterator = javaClass.getImports().iterator(); iterator.hasNext();) {
 			String importPackage = (String) iterator.next();
 			if (!importPackage.equals(javaClass.getPackage())) {
 				writer.println("import " + importPackage + ";");
+			}
+			if (!iterator.hasNext()) {
+				writer.println();
 			}
 		}
 	}
 
 	protected void writeFileComment(PrintWriter writer) {
-		writeAsComment(writer, fileComment);
+		if (fileComment != null) {
+			writeAsComment(writer, fileComment);
+			writer.println();
+		}
 	}
 
 	public String writeClassDefinition()  {
 		StringWriter stringWriter = new StringWriter();
 		PrintWriter writer = new PrintWriter(stringWriter);
 		try {
-			writer.println();
 			if (javaClass.getComment() != null) {
 				writeAsJavadocComment(writer, javaClass.getComment());
 			}
 			writer.println("public class " + javaClass.className + " extends " + javaClass.superclassName + " {");
+			writer.println();
 	
 			writeVariables(writer);
 	
@@ -347,7 +354,6 @@ public class ClassWriter {
 		writer.println("package " + javaClass.getPackage() + ";");
 		writer.println();
 		writeImports(writer);
-		writer.println();
 		writer.print(classDefinition);
 	}
 

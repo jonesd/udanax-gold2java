@@ -49,6 +49,7 @@
 	  		<batchtest todir="${build}/junit_coverage">
 	  			<fileset dir="${src.test}">
 	  				<include name="**/*Test*.java"/>
+	  				<exclude name="**/*TestCase.java"/>
 	  			</fileset>
 	  		</batchtest>
 	  		<classpath>
@@ -126,9 +127,10 @@
 
 	
 	<target name="clover.html" depends="with.clover">
+		<property name="clover.includesource" value="false"/>
 		<clover-report>
 			<current outfile="${docs.dir}/clover" title="Abora Project: Abora-Gold">
-				<format type="html" srcLevel="false"/>
+				<format type="html" srcLevel="${clover.includesource}"/>
 			</current>
 			<historical outfile="${docs.dir}/clover_historical" historyDir="${clover.historical.dir}" title="Abora Project: Abora-Gold">
 				<format type="html"/>

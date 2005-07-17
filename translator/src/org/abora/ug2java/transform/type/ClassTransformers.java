@@ -20,6 +20,7 @@ public class ClassTransformers implements ClassTransformer {
 		list.add(new AddMethod());
 		list.add(new AddDefaultParameter());
 		list.add(new TransformInterMethodCalls());
+		list.add(new RecordHeaperHierarchy());
 		transformers = Collections.unmodifiableList(list);
 	}
 	

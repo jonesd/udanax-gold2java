@@ -17,8 +17,9 @@ public class Logger extends Heaper {
 		super();
 	}
 
-	public static void defineLogger(String blast_log) {
-		throw new UnsupportedOperationException();
+	public static void defineLogger(String loggerName) {
+		//TODO implement
+		System.out.println("IGnore Logger.defineLogger: "+loggerName);
 	}
 
 	public static Logger get(String myLoggerName) {

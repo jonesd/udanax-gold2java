@@ -12,6 +12,7 @@ public class Annotation {
 
 	//TODO convert to bloch enumeration
 	public static final String PROBLEM_SIGNALS = "Signals";
+	public static final String REQUIRES = "Requires";
 
 	public Annotation() {
 		super();

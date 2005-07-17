@@ -41,7 +41,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new ExcludeMethodsByName());
 		transformers.add(new ExcludeMethodsByMethodCategory());
 		transformers.add(new RewriteMethodBody());
-		transformers.add(new ConvertToStaticBlocks());
+//		transformers.add(new ConvertToStaticBlocks());
 		transformers.add(new DeprecatedMethods());
 		transformers.add(new TransformPasseMethodCategory());
 		//TODO this only produces a snapshot of locals

@@ -8,6 +8,7 @@ package org.abora.ug2java;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -32,8 +33,8 @@ public class JavaClass {
 	public final List fields = new ArrayList();
 	public final List methods = new ArrayList();
 	public final JavaCodebase javaCodebase;
-	public SortedSet importedPackages = new TreeSet();
-	public final List staticBlocks = new ArrayList();
+	protected final SortedSet imports = new TreeSet();
+	protected final List staticBlocks = new ArrayList();
 
 	static final String PACKAGE_SEPARATOR = ".";
 
@@ -72,11 +73,11 @@ public class JavaClass {
 		return classCategory.replace('.', File.separatorChar);
 	}
 
-	private void includeImportForType(String type) {
+	public void includeImportForType(String type) {
 		String importPackage = (String) javaCodebase.packageLookup.get(type);
 		//TODO should be able to filter out imports for our package
 		if (importPackage != null) {
-			importedPackages.add(importPackage + "." + type);
+			imports.add(importPackage + "." + type);
 		}
 	}
 
@@ -254,5 +255,38 @@ public class JavaClass {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	public SortedSet getImports() {
+		return Collections.unmodifiableSortedSet(imports);
+	}
 
+	public void addStaticBlock(JavaMethod staticBlock) {
+		staticBlocks.add(staticBlock);
+	}
+
+	public void addStaticBlockFirst(JavaMethod staticBlock) {
+		staticBlocks.add(0, staticBlock);
+	}
+
+	public List getStaticBlocks() {
+		return Collections.unmodifiableList(staticBlocks);
+	}
+	
+	/**
+	 * Return the immediate subclasses
+	 */
+	public List subclasses() {
+		List subclasses = new ArrayList();
+		for (Iterator allClasses = javaCodebase.allClasses().iterator(); allClasses.hasNext();) {
+			JavaClass element = (JavaClass) allClasses.next();
+			if (className.equals(element.superclassName)) {
+				subclasses.add(element);
+			}
+		}
+		return subclasses;
+	}
+	
+	public String getQualifiedName() {
+		return getPackage()+"."+className;
+	}
 }

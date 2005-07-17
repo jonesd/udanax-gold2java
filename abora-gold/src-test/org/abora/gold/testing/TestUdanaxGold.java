@@ -8,8 +8,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringWriter;
 
-import junit.framework.TestCase;
-
+import org.abora.gold.AboraGoldTestCase;
 import org.abora.gold.cobbler.BootMaker;
 import org.abora.gold.cobbler.Connection;
 import org.abora.gold.collection.grand.GrandHashTableTester;
@@ -19,7 +18,6 @@ import org.abora.gold.diskman.DiskTester;
 import org.abora.gold.fbtest.BackendBootMaker;
 import org.abora.gold.fbtest.WorksBootMaker;
 import org.abora.gold.java.AboraHeaper;
-import org.abora.gold.java.AboraSupport;
 import org.abora.gold.negoti8.ProtocolBroker;
 import org.abora.gold.nkernel.VolumeTester;
 import org.abora.gold.nkernel.WorksTester;
@@ -43,7 +41,7 @@ import org.abora.gold.xcvr.XcvrMaker;
 import org.abora.gold.xpp.become.BecomeTester;
 
 
-public class TestUdanaxGold extends TestCase {
+public class TestUdanaxGold extends AboraGoldTestCase {
 
 	public TestUdanaxGold() {
 		super();
@@ -214,9 +212,7 @@ public class TestUdanaxGold extends TestCase {
 		runTester(tester);
 	}
 
-	public void xxtestWorksTester() {
-		
-		AboraSupport.initializeSystem();
+	public void xxtestWorksTester() throws Exception {
 		
 		BootMaker worksBootMaker = new WorksBootMaker();
 		Connection.registerBootPlan(worksBootMaker);
