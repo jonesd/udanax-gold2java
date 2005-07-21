@@ -11,11 +11,16 @@ package org.abora.gold.java.missing;
 
 import org.abora.gold.java.Fn;
 import org.abora.gold.wrapper.FeWrapperSpec;
+import org.abora.gold.xpp.basic.Category;
 
 public class FeWrapperSpecHolder extends Fn {
 
 	public FeWrapperSpecHolder() {
 		super();
+	}
+
+	public FeWrapperSpecHolder(Category category, String selector) {
+		super(category, selector);
 	}
 
 	public void invokeFunction(FeWrapperSpec spec) {

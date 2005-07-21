@@ -386,6 +386,31 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find closing callend while calculating number of args");
 	}
 
+	public List extractCallArgStarts(int callStart) {
+		shouldMatch(callStart, JavaCallStart.class);
+		List args = new ArrayList();
+
+		int argumentStart = callStart+1;
+		int earlyCalls = 0;
+		for (int i = callStart + 1; i < tokens.size(); i++) {
+			JavaToken token = (JavaToken) tokens.get(i);
+			if (token instanceof JavaCallStart) {
+				earlyCalls++;
+			} else if (token instanceof JavaCallEnd) {
+				earlyCalls--;
+				if (earlyCalls < 0) {
+					args.add(new Integer(argumentStart));
+					return args;
+				}
+			} else if (token instanceof JavaCallArgumentSeparator && earlyCalls == 0) {
+				args.add(new Integer(argumentStart));
+				argumentStart = i+1;
+			}
+			
+		}
+		throw new IllegalStateException("Could not find closing callend while calculating number of args");
+	}
+
 	public void copy(int sourceStartInclusive, int sourceEndExclusive, int newStart) {
 		List subList = new ArrayList(tokens.subList(sourceStartInclusive, sourceEndExclusive));
 		tokens.addAll(newStart, subList);

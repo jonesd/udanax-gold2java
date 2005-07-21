@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.abora.gold.java.missing.FeWrapperSpecHolder;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.java.missing.smalltalk.OrderedCollection;
 import org.abora.gold.xpp.basic.Category;
@@ -24,6 +25,16 @@ public class AboraSupport {
 		super();
 	}
 
+	public static Category findCategory(String className) {
+		Class c;
+		try {
+			c = Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			throw new IllegalArgumentException("Couldn't find class: "+className+" "+e);
+		}
+		return findCategory(c);
+	}
+	
 	public static Category findCategory(Class c) {
 		Category category = (Category)categories.get(c);
 		if (category == null) {
@@ -134,6 +145,12 @@ public class AboraSupport {
 	public static void defineGlobal(String s, Heaper h) {
 		//TODO review
 		globals.put(s, h);
+	}
+
+	public static Fn pointerToStaticMember(Category category, String functionName) {
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

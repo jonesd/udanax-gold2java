@@ -5,7 +5,7 @@ import org.abora.gold.java.AboraStartup;
 import junit.framework.TestCase;
 
 
-public class AboraGoldTestCase extends TestCase {
+public abstract class AboraGoldTestCase extends TestCase {
 
 	public AboraGoldTestCase() {
 		super();

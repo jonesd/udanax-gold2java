@@ -155,7 +155,11 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformTextyRcvrString());
 		transformers.add(new TransformFakePackageCategoryShowOn());
 		transformers.add(new TransformSharedPtrArrayMake());
+		transformers.add(new TransformFeWrapperSpecRegisterCall());
+		transformers.add(new TransformFeWrapperSpecPointerToStaticMemberCall());
+		transformers.add(new TransformFeWrapperSpecAboraPointerToStaticMemberCall());
 				
+		transformers.add(new TransformSmalltalkAtClassName());
 		transformers.add(new EnsureUniqueLocalVarNames());
 		transformers.add(new EnsureIfTestInParentheses());
 		transformers.add(new TransformExcessParantheses());

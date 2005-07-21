@@ -40,9 +40,9 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		set.add("Mapping.make(Object,Object)");
 		set.add("StackExaminer.pointersOnStack");
 		set.add("StackExaminer.linkTimeNonInherited");
-		set.add("FeWrapperSpec.ABSTRACTWRAPPER");
-		set.add("FeWrapperSpec.DIRECTWRAPPER");
-		set.add("FeWrapperSpec.INDIRECTWRAPPER");
+//		set.add("FeWrapperSpec.ABSTRACTWRAPPER");
+//		set.add("FeWrapperSpec.DIRECTWRAPPER");
+//		set.add("FeWrapperSpec.INDIRECTWRAPPER");
 		set.add("FakeCategory.makeHooked");
 		set.add("PromiseManager.sendIntegerVar");
 		set.add("PromiseManager.makeFloatArray");

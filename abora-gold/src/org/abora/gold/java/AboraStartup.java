@@ -28,22 +28,6 @@ public class AboraStartup {
 		//TODO shouldn't be any methods recorded here!
 		set.add("org.abora.gold.stacker.StackExaminer.linkTimeNonInherited");
 
-		set.add("org.abora.gold.wrapper.FeWrapper.initTimeNonInherited");
-		set.add("org.abora.gold.nlinks.FeHyperRef.initTimeNonInherited");
-		set.add("org.abora.gold.nlinks.FeSingleRef.initTimeNonInherited");
-		set.add("org.abora.gold.nlinks.FeMultiRef.initTimeNonInherited");
-		set.add("org.abora.gold.nadmin.FeClubDescription.initTimeNonInherited");
-		set.add("org.abora.gold.wrapper.FeSet.initTimeNonInherited");
-		set.add("org.abora.gold.wrapper.FeText.initTimeNonInherited");
-		set.add("org.abora.gold.nadmin.FeLockSmith.initTimeNonInherited");
-		set.add("org.abora.gold.nadmin.FeChallengeLockSmith.initTimeNonInherited");
-		set.add("org.abora.gold.nadmin.FeMatchLockSmith.initTimeNonInherited");
-		set.add("org.abora.gold.nadmin.FeBooLockSmith.initTimeNonInherited");
-		set.add("org.abora.gold.nadmin.FeWallLockSmith.initTimeNonInherited");
-		set.add("org.abora.gold.nadmin.FeMultiLockSmith.initTimeNonInherited");
-		set.add("org.abora.gold.nlinks.FeHyperLink.initTimeNonInherited");
-		set.add("org.abora.gold.wrapper.FeWorkSet.initTimeNonInherited");
-		set.add("org.abora.gold.nlinks.FePath.initTimeNonInherited");
 		set.add("org.abora.gold.proman.PromiseManager.initTimeNonInherited");
 		set.add("org.abora.gold.lock.NoEncrypter.initTimeNonInherited");
 

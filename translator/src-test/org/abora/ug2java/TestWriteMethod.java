@@ -5,8 +5,6 @@
  */
 package org.abora.ug2java;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -19,7 +17,6 @@ import junit.framework.TestSuite;
 import org.abora.ug2java.stscanner.ChunkDetails;
 import org.abora.ug2java.transform.type.ClassTransformer;
 import org.abora.ug2java.transform.type.ClassTransformers;
-import org.abora.ug2java.writer.ClassWriter;
 
 /**
  * JUnit test case for TestWriteMethod
@@ -1051,6 +1048,27 @@ public class TestWriteMethod extends WriteMethodTestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testFeWrapperSpecRegisterAbstractCall() {
+		String smalltalk = "test\nFeWrapperSpec registerAbstract: 'one' with: 'two' with: a!";
+
+		String expectedJava = "public void test() {\nFeWrapperSpec.registerAbstract(\"one\", \"two\", (FeWrapperSpecHolder) a);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testFeWrapperSpecPointerToStaticMemberCall() {
+		String smalltalk = "test\n^((Smalltalk at: className) pointerToStaticMember: #setSpec:)!";
+
+		String expectedJava = "public void test() {\nreturn AboraSupport.pointerToStaticMember(AboraSupport.findCategory(className), SET_SPEC_);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testFeWrapperSpecRegisterAbstractFullCall() {
+		String smalltalk = "test\n^FeWrapperSpec registerAbstract: wrapperName with: superName with: ((Smalltalk at: className) pointerToStaticMember: #setSpec:)!";
+
+		String expectedJava = "public void test() {\nreturn FeWrapperSpec.registerAbstract(wrapperName, superName, new FeWrapperSpecHolder(AboraSupport.findCategory(className), SET_SPEC_));\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testFluidBindDuring() {
 		String smalltalk = "test\nCurrentTrace fluidBind: myEnt newTrace during: [result := BeClub make: desc]!";
 
@@ -2112,6 +2130,13 @@ public void testPointerToStaticMember() {
 		//Should have sorted signal names
 		assertEquals("MUST_BE_OWNER", iter.next());
 		assertEquals("NOT_IN_TABLE", iter.next());
+	}
+
+	public void testSmalltalkAtClassName() {
+		String smalltalk = "test\ncl _ Smalltalk at: className!";
+
+		String expectedJava = "public void test() {\ncl = AboraSupport.findCategory(className);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testSmalltalkAtIfAbsent() {
