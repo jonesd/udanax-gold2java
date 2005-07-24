@@ -96,4 +96,13 @@ public class AddMethodTest extends WriteMethodTestCase {
 		String expected = "public static void defineGlobal(String globalName, Heaper initialValue) {\nAboraSupport.defineGlobal(globalName, initialValue);\n}\n";
 		assertBodyEquals(expected, actual);
 	}
+
+	public void testHeaperEquals() {
+		AddMethod transformation = new AddMethod();
+		JavaMethod method = transformation.addHeaperEquals(javaClass);
+		
+		String actual = writeMethod(method);
+		String expected = "public boolean equals(Object o) {\nif (o instanceof Heaper) {\nreturn equals((Heaper) o);\n}\nelse {\nreturn false;\n}\n}\n";
+		assertBodyEquals(expected, actual);
+	}
 }

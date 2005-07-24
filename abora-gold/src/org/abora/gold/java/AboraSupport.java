@@ -131,7 +131,7 @@ public class AboraSupport {
 	
 	/**
 	 * Smalltalk implementation of quotient - rounds towards negative
-	 * infinity, rather than the Java / operatior which rounds towards 0.
+	 * infinity, rather than the Java / operator which rounds towards 0.
 	 */
 	public static int quotient(int dividend, int divisor) {
 		int q = dividend / divisor;

@@ -113,11 +113,17 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 	}
 
 	public void xtestDiskTester() {
+		
+		startServer();
+		
 		DiskTester tester = new DiskTester();
 		runTester(tester);
 	}
 
 	public void xtestGrandHashTableTester() {
+		
+		startServer();
+		
 		GrandHashTableTester tester = new GrandHashTableTester();
 		runTester(tester);
 	}
@@ -214,6 +220,14 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 
 	public void xxtestWorksTester() throws Exception {
 		
+		startServer();
+
+		
+		WorksTester tester = new WorksTester();
+		runTester(tester);
+	}
+
+	private void startServer() {
 		BootMaker worksBootMaker = new WorksBootMaker();
 		Connection.registerBootPlan(worksBootMaker);
 		BackendBootMaker backendBootMaker = new BackendBootMaker();
@@ -242,9 +256,5 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 			MockTurtle.make(null);
 		}
 		//AboraHeaper.CurrentGrandMap.fluidSet(HonestAbeIniter.fetchGrandMap());
-
-		
-		WorksTester tester = new WorksTester();
-		runTester(tester);
 	}
 }

@@ -41,10 +41,16 @@ public class TransformCreateCall extends AbstractMethodBodyTransformation {
 			JavaToken token = (JavaToken) tokens.get(i - 1);
 			if (token.value.equals("super")) {
 				return i;
+			} else if (token.value.equals(javaMethod.javaClass.className) && javaMethod.isConstructor()) {
+				call.value = "this";
+				tokens.remove(i-1);
+				return i-1;
 			}
 			call.value = token.value;
 			tokens.remove(i - 1);
 			tokens.add(i - 1, new JavaKeyword("new"));
+		} else if (javaMethod.isConstructor()) {
+			call.value = "this";
 		} else {
 			call.value = javaMethod.javaClass.className;
 			tokens.add(i, new JavaKeyword("new"));

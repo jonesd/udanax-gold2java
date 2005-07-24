@@ -120,4 +120,9 @@ public class JavaMethod extends JavaClassElement {
 		return buffer.toString();
 	}
 
+	public boolean isConstructor() {
+		// TODO proper implementation
+		return getName().equals(javaClass.className);
+	}
+
 }

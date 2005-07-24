@@ -11,7 +11,7 @@
 package org.abora.gold.collection.basic;
 
 import org.abora.gold.java.missing.FHash;
-import org.abora.gold.spaces.integers.IntegerPos;
+import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
@@ -100,7 +100,7 @@ public abstract class PrimIntegerArray extends PrimDataArray {
 	// Searching/Finding
 
 	public int indexOf(Heaper value, int start, int n) {
-		IntegerPos integerValue = (IntegerPos)value;
+		PrimIntValue integerValue = (PrimIntValue)value;
 		return indexOfInteger(integerValue.asInt32(), start, n);
 	}
 
@@ -146,7 +146,7 @@ public abstract class PrimIntegerArray extends PrimDataArray {
 	}
 
 	public int indexPast(Heaper value, int start, int n) {
-		IntegerPos integerValue = (IntegerPos)value;
+		PrimIntValue integerValue = (PrimIntValue)value;
 		return indexPastInteger(integerValue.asInt32(), start, n);
 	}
 
@@ -217,7 +217,7 @@ public abstract class PrimIntegerArray extends PrimDataArray {
 		if (value == null) {
 			k = 0;
 		} else {
-			IntegerPos integerValue = (IntegerPos)value;
+			PrimIntValue integerValue = (PrimIntValue)value;
 			k = integerValue.asInt32();
 		}
 		for (int i = 0; i < n; i += 1) {
@@ -274,7 +274,8 @@ public abstract class PrimIntegerArray extends PrimDataArray {
 	// Helper methods
 
 	protected Heaper zeroElement() {
-		return IntegerPos.zero();
+		//TODO cache this?
+		return PrimIntValue.make(0);
 	}
 
 	//////////////////////////////////////////////

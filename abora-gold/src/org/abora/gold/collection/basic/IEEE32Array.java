@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 
 import org.abora.gold.tumbler.IEEE32Pos;
 import org.abora.gold.x.PrimFloatValue;
+import org.abora.gold.x.PrimIEEE32;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 
@@ -157,7 +158,7 @@ public class IEEE32Array extends PrimFloatArray {
 	}
 
 	public Heaper fetchValue(int index) {
-		return IEEE32Pos.make(iEEE32At(index));
+		return PrimIEEE32.make(iEEE32At(index));
 	}
 
 	public int count() {

@@ -705,6 +705,20 @@ public class TestWriteMethod extends WriteMethodTestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testCreateWithinConstructor() {
+		String smalltalk = "create: blah\nTest create: blah!";
+
+		String expectedJava = "public Test(Object blah) {\nthis(blah);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testCreateWithinConstructor2() {
+		String smalltalk = "create: blah\nself create: blah!";
+
+		String expectedJava = "public Test(Object blah) {\nthis(blah);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testCreateSuper() {
 		String smalltalk = "create: blah\nsuper create: blah!";
 

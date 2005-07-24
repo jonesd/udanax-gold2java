@@ -12,7 +12,7 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
-import org.abora.gold.spaces.integers.IntegerPos;
+import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
@@ -108,12 +108,12 @@ public class Int32Array extends PrimIntArray {
 		if (value == null) {
 			throw new NullPointerException();
 		}
-		IntegerPos integerValue = (IntegerPos)value;
+		PrimIntValue integerValue = (PrimIntValue)value;
 		storeInteger(index, integerValue.asInt32());
 	}
 
 	public Heaper fetchValue(int index) {
-		return IntegerPos.make(int32At(index));
+		return PrimIntValue.make(int32At(index));
 	}
 
 	public int count() {
@@ -226,7 +226,19 @@ public class Int32Array extends PrimIntArray {
 		throw new UnsupportedOperationException();
 	}
 
-	public void storeInt(int myAvailableCount, int token) {
-		throw new UnsupportedOperationException();
+	public void storeInt(int index, int value) {
+		storeInt32(index, value);
+	}
+
+	public void store(int index, int value) {
+		storeInt32(index, value);
+	}
+
+	public void storeUInt(int index, int value) {
+		storeInt32(index, value);
+	}
+
+	public int uIntAt(int index) {
+		return int32At(index);
 	}
 }

@@ -9,6 +9,9 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import java.io.PrintWriter;
+
+import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class AboraClass extends Heaper {
@@ -88,5 +91,12 @@ public class AboraClass extends Heaper {
 	
 	public Class getJavaClass() {
 		return c;
+	}
+	
+	public void printOn(PrintWriter oo) {
+		oo.print(getClass().getName());
+		oo.print("(");
+		oo.print(getJavaClass());
+		oo.print(")");
 	}
 }

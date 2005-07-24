@@ -92,16 +92,17 @@ public class AboraStartup {
 		}
 	}
 
-	protected void initialize(AboraClass element, String methodName, Map allDependencies, Set alreadyInitialized) throws IllegalAccessException, InvocationTargetException {
+	protected void initialize(AboraClass element, String methodName, Map allDependencies, Set alreadyInitialized) throws IllegalAccessException, InvocationTargetException {		
 		Class c = element.getJavaClass();
+		if (alreadyInitialized.contains(c)) {
+			return;
+		}
 		
 		Set dependencies = (Set)allDependencies.get(element);
 		if (dependencies != null) {
 			for (Iterator iterator = dependencies.iterator(); iterator.hasNext();) {
 				AboraClass dependent = (AboraClass) iterator.next();
-				if (!alreadyInitialized.contains(dependent)) {
-					initialize(dependent, methodName, allDependencies, alreadyInitialized);
-				}
+				initialize(dependent, methodName, allDependencies, alreadyInitialized);
 			}
 		}
 		initialize(c, methodName);

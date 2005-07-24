@@ -13,6 +13,7 @@ package org.abora.gold.collection.basic;
 import java.io.PrintWriter;
 
 import org.abora.gold.spaces.integers.IntegerPos;
+import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
@@ -126,12 +127,12 @@ public class UInt8Array extends PrimIntArray {
 		if (value == null) {
 			throw new NullPointerException();
 		}
-		IntegerPos integerValue = (IntegerPos)value;
+		PrimIntValue integerValue = (PrimIntValue)value;
 		storeInteger(index, integerValue.asInt32());
 	}
 
 	public Heaper fetchValue(int index) {
-		return IntegerPos.make(uInt8At(index));
+		return PrimIntValue.make(uInt8At(index));
 	}
 
 	public PrimSpec spec() {

@@ -12,8 +12,8 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
-import org.abora.gold.tumbler.IEEE64Pos;
 import org.abora.gold.x.PrimFloatValue;
+import org.abora.gold.x.PrimIEEE64;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 
@@ -147,7 +147,7 @@ public class IEEE64Array extends PrimFloatArray {
 	}
 
 	public Heaper fetchValue(int index) {
-		return IEEE64Pos.make(iEEE64At(index));
+		return PrimIEEE64.make(iEEE64At(index));
 	}
 
 	public int count() {

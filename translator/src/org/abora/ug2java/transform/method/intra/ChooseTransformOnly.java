@@ -107,7 +107,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("Binary2Rcvr.receiveString");
 		list.add("WriteMemStream.contents");
 		list.add("PromiseManager.respondBooleanVar");
-		list.add("PrimIntegerSpec.PrimIntegerSpec");
+		//list.add("PrimIntegerSpec.PrimIntegerSpec");
 		list.add("ExponentialHashMap.initTimeNonInherited");
 		list.add("GlobalEmulsion.fetchNewRawSpace");
 		list.add("Ent.Ent");
@@ -139,6 +139,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 	static {
 		List list = new ArrayList();
 		list.add("ExponentialHashMap.linkTimeNonInherited");
+		list.add("PrimIntegerSpec.PrimIntegerSpec");
 
 		NEITHER_METHODS = Collections.unmodifiableList(list);
 	}

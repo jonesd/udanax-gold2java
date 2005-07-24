@@ -8,6 +8,8 @@ import org.abora.ug2java.JavaField;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.MethodBody;
 import org.abora.ug2java.SmalltalkSource;
+import org.abora.ug2java.javatoken.JavaBlockEnd;
+import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
@@ -15,6 +17,8 @@ import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaCast;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
+import org.abora.ug2java.javatoken.JavaParenthesisEnd;
+import org.abora.ug2java.javatoken.JavaParenthesisStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
 
 
@@ -24,47 +28,65 @@ public class AddMethod implements ClassTransformer {
 	public void transform(JavaClass javaClass) {
 		if (javaClass.className.equals("IntegerTable")) {
 			addIntegerTableMakeInt(javaClass);
+			
 		} else if (javaClass.className.equals("ImmuSet")) {
 			addImmuSetMakeMuSet(javaClass);
+			
 		} else if (javaClass.className.equals("MuSet")) {
 			addMuSetMakeIntegerVar(javaClass);
+			
 		} else if (javaClass.className.equals("FeWorkSet")) {
 			addFeWorkSet(javaClass);
+			
 		} else if (javaClass.className.equals("RequestHandler")) {
 			addUnsupportedMethod(javaClass, "", "Fn", "instVarAt", new String[] {"int", "i"});
+			
 		} else if (javaClass.className.equals("Recipe") || javaClass.className.equals("ServerChunk")) {
 			addDefineGlobal(javaClass);
+			
 		} else if (javaClass.className.equals("DiskManager")) {
 			addUnsupportedMethod(javaClass, "", "void", "destroyAbandoned", new String[] {});
+			
 		} else if (javaClass.className.equals("Abraham")) {
 			addUnsupportedMethod(javaClass, "", "Category", "getCategoryFromStub", new String[] {});
+			
 		} else if (javaClass.className.equals("SnarfRecord")) {
 			addUnsupportedMethod(javaClass, "", "SnarfHandler", "getReadHandler", new String[] {});
 			addUnsupportedMethod(javaClass, "", "void", "releaseReadHandler", new String[] {});
+			
 		} else if (javaClass.className.equals("Heaper")) {
 			addUnsupportedMethod(javaClass, "static ", "boolean", "isConstructed", new String[] {"Heaper", "h"});			
 			addUnsupportedMethod(javaClass, "static ", "boolean", "isDestructed", new String[] {"Heaper", "h"});
+			addHeaperEquals(javaClass);
+			
 		} else if (javaClass.className.equals("Category")) {
 			addUnsupportedMethod(javaClass, "", "Category", "makeHooked", new String[] {});
 			addUnsupportedMethod(javaClass, "", "Category", "fetchSuperCategory", new String[] {});
 			addUnsupportedMethod(javaClass, "", "Category", "registerPackageCategory", new String[] {"Object", "packageCategory"});
 			addUnsupportedMethod(javaClass, "", "AboraClass", "originalClass", new String[] {});
+			
 		} else if (javaClass.className.equals("Tester")) {
 			addUnsupportedMethod(javaClass, "", "void", "perform", new String[] {"String", "test", "PrintWriter", "out"});			
 			addUnsupportedMethod(javaClass, "static ", "String", "spyTest", new String[] {"String", "test"});			
-			addUnsupportedMethod(javaClass, "static ", "String", "runTest", new String[] {"String", "test"});			
+			addUnsupportedMethod(javaClass, "static ", "String", "runTest", new String[] {"String", "test"});
+			
 		} else if (javaClass.className.equals("Package")) {
 			addUnsupportedMethod(javaClass, "static ", "String", "fetchAttribute", new String[] {"String", "attributeName"});
 			addUnsupportedMethod(javaClass, "static ", "boolean", "hasAttribute", new String[] {"String", "attributeName"});
+			
 		} else if (javaClass.className.equals("DeleteExecutor")) {
 			addUnsupportedMethod(javaClass, "static ", "void", "registerHolder", new String[] {"Heaper", "holder", "String", "storage"});
+			
 		} else if (javaClass.className.equals("HashSetTester")) {
 			addHashSetTesterIntroduceTestsOn(javaClass);
 			addHashSetTesterStoreTestsOn(javaClass);
+			
 		} else if (javaClass.className.equals("ByteShuffler")) {
 			addUnsupportedMethod(javaClass, "", "void", "shuffle", new String[] {"int", "precision", "PrimArray", "buffer", "int", "size"});
+			
 		} else if (javaClass.className.equals("Binary2Rcvr")) {
 			addUnsupportedMethod(javaClass, "", "void", "getCharToken", new String[] {"char", "c"});
+			
 		} else if (javaClass.className.equals("XnReadStream")) {
 			addUnsupportedMethod(javaClass, "", "boolean", "end", new String[] {});
 		}
@@ -225,4 +247,37 @@ public class AddMethod implements ClassTransformer {
 		return method;
 	}
 
+	public JavaMethod addHeaperEquals(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("boolean", "equals");
+		method.addParameter(new JavaField("Object", "o"));
+		List tokens = new ArrayList();
+		tokens.add(new JavaKeyword("if"));
+		tokens.add(new JavaParenthesisStart());
+		tokens.add(new JavaIdentifier("o"));
+		tokens.add(new JavaKeyword("instanceof"));
+		tokens.add(new JavaIdentifier("Heaper"));
+		tokens.add(new JavaParenthesisEnd());
+		tokens.add(new JavaBlockStart());
+		tokens.add(new JavaKeyword("return"));
+		tokens.add(new JavaCallKeywordStart("equals"));
+		tokens.add(new JavaCast("Heaper"));
+		tokens.add(new JavaIdentifier("o"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		tokens.add(new JavaBlockEnd());
+		tokens.add(new JavaKeyword("else"));
+		tokens.add(new JavaBlockStart());
+		tokens.add(new JavaKeyword("return"));
+		tokens.add(new JavaIdentifier("false"));
+		tokens.add(new JavaStatementTerminator());
+		tokens.add(new JavaBlockEnd());
+		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+		return method;
+	}
 }

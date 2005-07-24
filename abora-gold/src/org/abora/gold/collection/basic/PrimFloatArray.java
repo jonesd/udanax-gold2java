@@ -11,8 +11,8 @@
 package org.abora.gold.collection.basic;
 
 import org.abora.gold.java.missing.FHash;
-import org.abora.gold.tumbler.IEEE64Pos;
 import org.abora.gold.x.PrimFloatValue;
+import org.abora.gold.x.PrimIEEE64;
 import org.abora.gold.xpp.basic.Heaper;
 
 /**
@@ -198,7 +198,7 @@ public abstract class PrimFloatArray extends PrimDataArray {
 	
 	protected Heaper zeroElement() {
 		//TODO how many of these are we creating?
-		return IEEE64Pos.make(0.0);
+		return PrimIEEE64.make(0.0);
 	}
 
 	//////////////////////////////////////////////

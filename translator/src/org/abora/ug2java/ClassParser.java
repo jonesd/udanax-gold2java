@@ -94,6 +94,7 @@ public class ClassParser {
 		table.put("Symbol", "String");
 		table.put("Selector", "String");
 		table.put("Class", "AboraClass");
+		table.put("UInt32Array", "Int32Array");
 
 		table.put("ostream", "PrintWriter");
 		LOOKUP_TYPES = Collections.unmodifiableMap(table);
