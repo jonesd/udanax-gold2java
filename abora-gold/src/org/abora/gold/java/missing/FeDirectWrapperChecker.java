@@ -24,7 +24,8 @@ public class FeDirectWrapperChecker extends Fn {
 	}
 
 	public boolean invokeFunction(FeEdition edition) {
-		throw new UnsupportedOperationException();
+		Boolean returnValue = (Boolean)invokeStaticWith(edition);
+		return returnValue.booleanValue();
 	}
 
 }

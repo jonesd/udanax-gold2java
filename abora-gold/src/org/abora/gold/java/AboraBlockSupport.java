@@ -6,6 +6,7 @@ import java.util.List;
 import org.abora.gold.backrec.ResultRecorder;
 import org.abora.gold.fossil.RecorderFossil;
 import org.abora.gold.java.exception.AboraAssertionException;
+import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.snarf.DiskManager;
 import org.abora.gold.xpp.fluid.FluidVar;
 
@@ -39,7 +40,9 @@ public class AboraBlockSupport {
 	public static void exitConsistent() {
 		int dirty = ((Integer)consistentDirties.remove(consistentDirties.size()-1)).intValue();
 		DiskManager diskManager = (DiskManager) AboraHeaper.CurrentPacker.fluidGet();
-		AboraHeaper.InsideTransactionFlag.fluidSet(Boolean.FALSE);
+		if (consistentDirties.isEmpty()) {
+			AboraHeaper.InsideTransactionFlag.fluidSet(Boolean.FALSE);
+		}
 		diskManager.endConsistent(dirty);
 	}
 
@@ -60,11 +63,14 @@ public class AboraBlockSupport {
 	}
 	
 	public static void enterInsistent(int dirty) {
-		throw new UnsupportedOperationException();
+		if (!((Boolean)AboraHeaper.InsideTransactionFlag.fluidGet()).booleanValue()) {
+			throw new AboraRuntimeException("Must be inside a transaction");
+		}
+		enterConsistent(dirty);
 	}
 	
 	public static void exitInsistent() {
-		throw new UnsupportedOperationException();
+		exitConsistent();
 	}
 	/**
 	 * @see FluidVar fluidBindDuring

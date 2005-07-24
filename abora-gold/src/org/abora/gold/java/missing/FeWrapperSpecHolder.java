@@ -24,7 +24,7 @@ public class FeWrapperSpecHolder extends Fn {
 	}
 
 	public void invokeFunction(FeWrapperSpec spec) {
-		throw new UnsupportedOperationException();
+		invokeStaticWith(spec);
 	}
 
 }

@@ -9,9 +9,11 @@ import java.io.Reader;
 import java.io.StringWriter;
 
 import org.abora.gold.AboraGoldTestCase;
+import org.abora.gold.be.canopy.CanopyCache;
 import org.abora.gold.cobbler.BootMaker;
 import org.abora.gold.cobbler.Connection;
 import org.abora.gold.collection.grand.GrandHashTableTester;
+import org.abora.gold.collection.sets.MuSet;
 import org.abora.gold.collection.settable.SetTableTester;
 import org.abora.gold.cross.CrossTester;
 import org.abora.gold.diskman.DiskTester;
@@ -113,17 +115,11 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 	}
 
 	public void xtestDiskTester() {
-		
-		startServer();
-		
 		DiskTester tester = new DiskTester();
 		runTester(tester);
 	}
 
 	public void xtestGrandHashTableTester() {
-		
-		startServer();
-		
 		GrandHashTableTester tester = new GrandHashTableTester();
 		runTester(tester);
 	}
@@ -163,9 +159,9 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 		assertTester(tester);
 	}
 
-	public void xtestRegionCrossTester() {
+	public void testRegionCrossTester() throws IOException {
 		CrossTester tester = new CrossTester();
-		runTester(tester);
+		assertTester(tester);
 	}
 
 	public void xtestRegionFilterTester() {
@@ -189,6 +185,7 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 	}
 
 	public void xtestRegionSequenceTester() {
+		//TODO infinite loop?
 		SequenceTester tester = new SequenceTester();
 		runTester(tester);
 	}
@@ -218,43 +215,9 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 		runTester(tester);
 	}
 
-	public void xxtestWorksTester() throws Exception {
-		
-		startServer();
-
-		
+	public void xtestWorksTester() throws Exception {
 		WorksTester tester = new WorksTester();
 		runTester(tester);
 	}
 
-	private void startServer() {
-		BootMaker worksBootMaker = new WorksBootMaker();
-		Connection.registerBootPlan(worksBootMaker);
-		BackendBootMaker backendBootMaker = new BackendBootMaker();
-		Connection.registerBootPlan(backendBootMaker);
-//		AboraHeaper.CurrentPacker.fluidSet(new DiskManager());
-
-		ProtocolBroker.registerXcvrProtocol(Binary2XcvrMaker.make());
-		ProtocolBroker.registerXcvrProtocol(BogusXcvrMaker.make());
-		ProtocolBroker.registerXcvrProtocol(TextyXcvrMaker.make());
-		
-		//TODO have no idea why I must supply my own "binary1"...		
-		XcvrMaker binary1Make = new Binary2XcvrMaker() {
-			public String id() {
-				return "binary1";
-			}
-		};
-		ProtocolBroker.registerXcvrProtocol(binary1Make);
-		AboraHeaper.InsideTransactionFlag.fluidSet(Boolean.FALSE);
-		AboraHeaper.InsideAgenda.fluidSet(Boolean.FALSE);
-		
-//		new Honestly().execute();
-		if (((DiskManager) AboraHeaper.CurrentPacker.fluidFetch()) == null) {
-			//TestPacker.make(/*blastOnError*/true, /*persistInterval*/0);
-			//Turtle.make(null, /*myCategory*/null, ProtocolBroker.diskProtocol());
-			FakePacker.make();
-			MockTurtle.make(null);
-		}
-		//AboraHeaper.CurrentGrandMap.fluidSet(HonestAbeIniter.fetchGrandMap());
-	}
 }

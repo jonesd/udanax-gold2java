@@ -160,6 +160,8 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformFeWrapperSpecAboraPointerToStaticMemberCall());
 		transformers.add(new TransformPrimIntegerSpecConstructorSigned());
 		transformers.add(new TransformPrimIntegerSpecConstructorUnsigned());
+		transformers.add(new TransformGenericCrossRegionIntersects());
+		transformers.add(new TransformEncrypterDefineEncrypter());
 				
 		transformers.add(new TransformSmalltalkAtClassName());
 		transformers.add(new EnsureUniqueLocalVarNames());

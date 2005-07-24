@@ -32,7 +32,9 @@ public abstract class PrimIntArray extends PrimIntegerArray {
 			return UInt8Array.make(count);
 		}
 		if (numBits == 32) {
-			return UInt32Array.make(count);
+			//TODO really requsting for an unsigned array here...
+			//return UInt32Array.make(count);
+			return Int32Array.make(count);
 		}
 		if (numBits == -32) {
 			return Int32Array.make(count);

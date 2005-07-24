@@ -289,15 +289,15 @@ public class UInt8Array extends PrimIntArray {
 	}
 
 	public int uIntAt(int myIndex) {
-		throw new UnsupportedOperationException();
+		return integerAt(myIndex);
 	}
 
-	public void storeUInt(int index, int i) {
-		throw new UnsupportedOperationException();
+	public void storeUInt(int index, int value) {
+		storeInteger(index, value);
 	}
 
-	public void put(int i, int j) {
-		throw new UnsupportedOperationException();
+	public void put(int index, int value) {
+		storeInteger(index, value);
 	}
 
 	public static UInt8Array basicNew() {

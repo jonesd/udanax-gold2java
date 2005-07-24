@@ -1,5 +1,6 @@
 package org.abora.gold.java;
 
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -11,7 +12,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.abora.gold.be.canopy.CanopyCache;
+import org.abora.gold.cobbler.BootMaker;
+import org.abora.gold.cobbler.Connection;
+import org.abora.gold.collection.sets.MuSet;
+import org.abora.gold.fbtest.BackendBootMaker;
+import org.abora.gold.fbtest.WorksBootMaker;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
+import org.abora.gold.negoti8.ProtocolBroker;
+import org.abora.gold.snarf.DiskManager;
+import org.abora.gold.snarf.FakePacker;
+import org.abora.gold.snarf.MockTurtle;
+import org.abora.gold.xcvr.Binary2XcvrMaker;
+import org.abora.gold.xcvr.BogusXcvrMaker;
+import org.abora.gold.xcvr.TextyXcvrMaker;
+import org.abora.gold.xcvr.XcvrMaker;
 import org.abora.gold.xpp.basic.Heaper;
 
 
@@ -29,7 +44,7 @@ public class AboraStartup {
 		set.add("org.abora.gold.stacker.StackExaminer.linkTimeNonInherited");
 
 		set.add("org.abora.gold.proman.PromiseManager.initTimeNonInherited");
-		set.add("org.abora.gold.lock.NoEncrypter.initTimeNonInherited");
+		//set.add("org.abora.gold.lock.NoEncrypter.initTimeNonInherited");
 
 		set.add("org.abora.gold.xcvr.Recipe.staticTimeNonInherited");
 		set.add("org.abora.gold.cxx.classx.comm.CategoryRecipe.staticTimeNonInherited");
@@ -41,9 +56,49 @@ public class AboraStartup {
 		if (INSTANCE == null) {
 			INSTANCE = new AboraStartup(Heaper.classHierarchy(), Heaper.initTimeNonInheritedDependencies());
 			INSTANCE.initialize();
+			//TODO not the right place to do this...
+			INSTANCE.startServerForTests();
 		}
 	}
 	
+	protected void startServerForTests() {
+		AboraSupport.logger = new PrintWriter(System.out);
+		
+		BootMaker worksBootMaker = new WorksBootMaker();
+		Connection.registerBootPlan(worksBootMaker);
+		BackendBootMaker backendBootMaker = new BackendBootMaker();
+		Connection.registerBootPlan(backendBootMaker);
+//			AboraHeaper.CurrentPacker.fluidSet(new DiskManager());
+
+		ProtocolBroker.registerXcvrProtocol(Binary2XcvrMaker.make());
+		ProtocolBroker.registerXcvrProtocol(BogusXcvrMaker.make());
+		ProtocolBroker.registerXcvrProtocol(TextyXcvrMaker.make());
+		
+		//TODO have no idea why I must supply my own "binary1"...		
+		XcvrMaker binary1Make = new Binary2XcvrMaker() {
+			public String id() {
+				return "binary1";
+			}
+		};
+		ProtocolBroker.registerXcvrProtocol(binary1Make);
+		AboraHeaper.InsideTransactionFlag.fluidSet(Boolean.FALSE);
+		AboraHeaper.InsideAgenda.fluidSet(Boolean.FALSE);
+		
+//			new Honestly().execute();
+		if (((DiskManager) AboraHeaper.CurrentPacker.fluidFetch()) == null) {
+			//TestPacker.make(/*blastOnError*/true, /*persistInterval*/0);
+			//Turtle.make(null, /*myCategory*/null, ProtocolBroker.diskProtocol());
+			FakePacker.make();
+			MockTurtle.make(null);
+		}
+		//AboraHeaper.CurrentGrandMap.fluidSet(HonestAbeIniter.fetchGrandMap());
+		
+		//TODO due to defineFluid not fully working...
+		AboraHeaper.CurrentBertCanopyCache.fluidSet(CanopyCache.make());
+		AboraHeaper.CurrentSensorCanopyCache.fluidSet(CanopyCache.make());
+		AboraHeaper.ActiveClubs.fluidSet(MuSet.make());
+	}
+
 	protected AboraStartup(String[] classNames, String[][] initTimeNonInheritedDependenciesNames) throws Exception {
 		super();
 		aboraClasses = new ArrayList();

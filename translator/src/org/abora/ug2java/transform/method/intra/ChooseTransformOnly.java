@@ -115,6 +115,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("FlockInfo.staticTimeNonInherited");
 		list.add("TextyRcvr.linkTimeNonInherited");
 		list.add("FDListener.initTimeNonInherited");
+		list.add("HUpperCrum.propagateBCrum");
 		
 		//TODO just switched on for extra logging. Wrong?
 		list.add("ActualHashSet.ActualHashSet");
@@ -140,6 +141,10 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		List list = new ArrayList();
 		list.add("ExponentialHashMap.linkTimeNonInherited");
 		list.add("PrimIntegerSpec.PrimIntegerSpec");
+		
+		//TODO should choose transform/smalltalk for these - missing out on debug info without them
+		list.add("RegionTester.testUnaryRegionOpsOn");
+		list.add("RegionTester.testBinaryRegionOpsOn");
 
 		NEITHER_METHODS = Collections.unmodifiableList(list);
 	}
