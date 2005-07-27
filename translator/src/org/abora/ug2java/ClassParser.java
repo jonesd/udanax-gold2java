@@ -13,6 +13,9 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.abora.ug2java.javatoken.CharacterLiteral;
+import org.abora.ug2java.javatoken.FloatingPointLiteral;
+import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.javatoken.JavaArrayInitializerEnd;
 import org.abora.ug2java.javatoken.JavaArrayInitializerStart;
 import org.abora.ug2java.javatoken.JavaAssignment;
@@ -22,20 +25,15 @@ import org.abora.ug2java.javatoken.JavaCallArgumentSeparator;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
-import org.abora.ug2java.javatoken.JavaCast;
-import org.abora.ug2java.javatoken.CharacterLiteral;
 import org.abora.ug2java.javatoken.JavaComment;
-import org.abora.ug2java.javatoken.FloatingPointLiteral;
 import org.abora.ug2java.javatoken.JavaIdentifier;
-import org.abora.ug2java.javatoken.IntegerLiteral;
 import org.abora.ug2java.javatoken.JavaKeyword;
-import org.abora.ug2java.javatoken.JavaLoopTerminator;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
-import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.javatoken.JavaType;
+import org.abora.ug2java.javatoken.StringLiteral;
 import org.abora.ug2java.stscanner.ChunkDetails;
 import org.abora.ug2java.stscanner.ChunkParser;
 import org.abora.ug2java.stscanner.ScannerToken;
@@ -605,11 +603,6 @@ public class ClassParser {
 		JavaCallKeywordStart existingKeyword = null;
 		boolean hasIf = false;
 		
-		//TODO move this to a transform
-		boolean hasForEach = false;
-		boolean hasForPositions = false;
-		boolean hasForIndices = false;
-
 		while (!endOfUnit && scanner.token.tokenType != ScannerToken.TOKEN_END) {
 			switch (scanner.token.tokenType) {
 				case ScannerToken.TOKEN_TEMPS :
@@ -695,93 +688,7 @@ public class ClassParser {
 						scannerAdvance(scanner);
 						boolean needsForEnd = false;
 						if (scanner.token.tokenType == ScannerToken.TOKEN_BLOCK_TEMP) {
-							if (hasForEach) {
-								needsForEnd = true;
-								String tempName = getJavaSafeWord(scanner.token.tokenString);
-								scannerAdvance(scanner);
-								String tempType = parseType(scanner, HEAPER_CLASS);
-								expression.add(new JavaType(tempType));
-								expression.add(new JavaIdentifier(tempName));
-								expression.add(new JavaKeyword("="));
-								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaCast(tempType));
-								}
-								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-								expression.add(new JavaCallStart("fetch"));
-								expression.add(new JavaCallEnd());
-								expression.add(new JavaStatementTerminator());
-								stompLevel++;
-								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
-								scannerAdvance(scanner);
-							} else if (hasForPositions) { 
-								needsForEnd = true;
-								String tempName = getJavaSafeWord(scanner.token.tokenString);
-								scannerAdvance(scanner);
-								String tempType = parseType(scanner, HEAPER_CLASS);
-								expression.add(new JavaType(tempType));
-								expression.add(new JavaIdentifier(tempName));
-								expression.add(new JavaKeyword("="));
-								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaCast(tempType));
-								}
-								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-								expression.add(new JavaCallStart("position"));
-								expression.add(new JavaCallEnd());
-								expression.add(new JavaStatementTerminator());
-								
-								tempName = getJavaSafeWord(scanner.token.tokenString);
-								scannerAdvance(scanner);
-								tempType = parseType(scanner, HEAPER_CLASS);
-								expression.add(new JavaType(tempType));
-								expression.add(new JavaIdentifier(tempName));
-								expression.add(new JavaKeyword("="));
-								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaCast(tempType));
-								}
-								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-								expression.add(new JavaCallStart("fetch"));
-								expression.add(new JavaCallEnd());
-								expression.add(new JavaStatementTerminator());
-								stompLevel++;
-								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
-								scannerAdvance(scanner);
-
-							} else if (hasForIndices) { 
-								needsForEnd = true;
-								String tempName = getJavaSafeWord(scanner.token.tokenString);
-								scannerAdvance(scanner);
-								String tempType = parseType(scanner, HEAPER_CLASS);
-								expression.add(new JavaType(tempType));
-								expression.add(new JavaIdentifier(tempName));
-								expression.add(new JavaKeyword("="));
-								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaCast(tempType));
-								}
-								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-								expression.add(new JavaCallStart("index"));
-								expression.add(new JavaCallEnd());
-								expression.add(new JavaStatementTerminator());
-								
-								tempName = getJavaSafeWord(scanner.token.tokenString);
-								scannerAdvance(scanner);
-								tempType = parseType(scanner, HEAPER_CLASS);
-								expression.add(new JavaType(tempType));
-								expression.add(new JavaIdentifier(tempName));
-								expression.add(new JavaKeyword("="));
-								if (!tempType.equals(HEAPER_CLASS)) {
-									expression.add(new JavaCast(tempType));
-								}
-								expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-								expression.add(new JavaCallStart("fetch"));
-								expression.add(new JavaCallEnd());
-								expression.add(new JavaStatementTerminator());
-								stompLevel++;
-								scanner.token.checkType(ScannerToken.TOKEN_TEMPS);
-								scannerAdvance(scanner);
-								
-							} else {
-								expression.addAll(parseTemps(scanner));
-							}
+							expression.addAll(parseTemps(scanner));
 						}
 						expression.addAll(readMethodUnit(scanner).tokens);
 						scanner.token.checkType(ScannerToken.TOKEN_BLOCK_END);
@@ -870,60 +777,6 @@ scannerAdvance(scanner);
 								}
 								hasIf = true;
 							}
-						} else if (wordTrimmed.equals("forEach")) {
-							hasForEach = true;
-							int startIndex = findStartOfExpression(expression);
-							expression.add(startIndex, new JavaKeyword("for"));
-							expression.add(startIndex + 1, new JavaParenthesisStart());
-							expression.add(startIndex + 2, new JavaType(STEPPER_CLASS));
-							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(startIndex + 4, new JavaKeyword("="));
-							expression.add(new JavaLoopTerminator());
-							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(new JavaCallStart("hasValue"));
-							expression.add(new JavaCallEnd());
-							expression.add(new JavaLoopTerminator());
-							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(new JavaCallStart("step"));
-							expression.add(new JavaCallEnd());
-							expression.add(new JavaParenthesisEnd());
-
-						} else if (wordTrimmed.equals("forPositions")) {
-							hasForPositions = true;
-							int startIndex = findStartOfExpression(expression);
-							expression.add(startIndex, new JavaKeyword("for"));
-							expression.add(startIndex + 1, new JavaParenthesisStart());
-							expression.add(startIndex + 2, new JavaType(TABLE_STEPPER_CLASS));
-							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(startIndex + 4, new JavaKeyword("="));
-							expression.add(new JavaLoopTerminator());
-							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(new JavaCallStart("hasValue"));
-							expression.add(new JavaCallEnd());
-							expression.add(new JavaLoopTerminator());
-							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(new JavaCallStart("step"));
-							expression.add(new JavaCallEnd());
-							expression.add(new JavaParenthesisEnd());
-							
-						} else if (wordTrimmed.equals("forIndices")) {
-							hasForIndices = true;
-							int startIndex = findStartOfExpression(expression);
-							expression.add(startIndex, new JavaKeyword("for"));
-							expression.add(startIndex + 1, new JavaParenthesisStart());
-							expression.add(startIndex + 2, new JavaType(TABLE_STEPPER_CLASS));
-							expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(startIndex + 4, new JavaKeyword("="));
-							expression.add(new JavaLoopTerminator());
-							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(new JavaCallStart("hasValue"));
-							expression.add(new JavaCallEnd());
-							expression.add(new JavaLoopTerminator());
-							expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-							expression.add(new JavaCallStart("step"));
-							expression.add(new JavaCallEnd());
-							expression.add(new JavaParenthesisEnd());
-
 						} else {
 							if (existingKeyword != null) {
 								existingKeyword.value = appendKeyword(existingKeyword.value, word);
@@ -1021,9 +874,9 @@ scannerAdvance(scanner);
 				cascadeBreak = false;
 				existingKeyword = null;
 				hasIf = false;
-				hasForEach = false;
-				hasForPositions = false;
-				hasForIndices = false;
+//				hasForEach = false;
+//				hasForPositions = false;
+//				hasForIndices = false;
 			}
 		}
 		return new MethodBody(tokens);

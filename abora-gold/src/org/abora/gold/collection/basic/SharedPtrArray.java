@@ -10,6 +10,7 @@
  */
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 
@@ -82,6 +83,10 @@ public class SharedPtrArray extends PtrArray {
 
 	public void shareLess() {
 		myShareCount -= 1;
+		//TODO should we throw an exception or just ground myShareCount to 0?
+		if (myShareCount < 0) {
+			throw new AboraRuntimeException("Share fallen below 0: "+this);
+		}
 	}
 
 	public void shareMore() {

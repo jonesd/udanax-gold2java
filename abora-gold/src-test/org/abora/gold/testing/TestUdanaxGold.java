@@ -20,6 +20,7 @@ import org.abora.gold.diskman.DiskTester;
 import org.abora.gold.fbtest.BackendBootMaker;
 import org.abora.gold.fbtest.WorksBootMaker;
 import org.abora.gold.java.AboraHeaper;
+import org.abora.gold.java.AboraSupport;
 import org.abora.gold.negoti8.ProtocolBroker;
 import org.abora.gold.nkernel.VolumeTester;
 import org.abora.gold.nkernel.WorksTester;
@@ -56,7 +57,15 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 	protected String runTester(Tester tester) {
 		StringWriter stringWriter = new StringWriter();
 		PrintWriter oo = new PrintWriter(stringWriter);
-		tester.allTestsOn(oo);
+		//TODO this kind of replace the general system logger with our test logger
+		// collector is really duplicating some Tester functionality.
+		PrintWriter previousAboraLogger = AboraSupport.logger;
+		try {
+			previousAboraLogger = oo;
+			tester.allTestsOn(oo);
+		} finally {
+			AboraSupport.logger = previousAboraLogger;
+		}
 		oo.flush();
 		return stringWriter.toString();
 	}
@@ -190,7 +199,7 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 		runTester(tester);
 	}
 
-	public void xtestSetTableTester() {
+	public void ztestSetTableTester() {
 		SetTableTester tester = new SetTableTester();
 		runTester(tester);
 	}

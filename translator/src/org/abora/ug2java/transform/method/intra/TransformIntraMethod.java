@@ -31,6 +31,7 @@ public class TransformIntraMethod implements MethodTransformation {
 	
 	private static List createTransformers() {		
 		List transformers = new ArrayList();
+		transformers.add(new TransformForEach());
 		transformers.add(new OverrideReturnType());
 		transformers.add(new OverrideArgumentType());
 		transformers.add(new OverrideLocalVarType());
