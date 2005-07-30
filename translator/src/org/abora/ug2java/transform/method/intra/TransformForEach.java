@@ -31,6 +31,8 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 public class TransformForEach extends AbstractMethodBodyTransformation {
 
+	private String lastMatchingMethodSignature = "";
+	private int lastMatchingMethodOccurrences = 0;
 
 	public TransformForEach() {
 		super();
@@ -56,12 +58,6 @@ public class TransformForEach extends AbstractMethodBodyTransformation {
 		
 		int expressionStart = javaMethod.methodBody.findStartOfExpression(i-1);
 
-		int blockEnd = javaMethod.methodBody.findEndOfBlock(i+1);
-		if (blockEnd+2 < tokens.size() && tokens.get(blockEnd+2) instanceof JavaStatementTerminator) {
-			javaMethod.methodBody.removeShouldMatch(blockEnd+2, JavaStatementTerminator.class);
-		}
-		javaMethod.methodBody.removeShouldMatch(blockEnd+1, JavaCallEnd.class);
-		
 		JavaType elementTypeToken = (JavaType)tokens.get(i+2);
 		JavaIdentifier elementNameToken = (JavaIdentifier)tokens.get(i+3);
 		
@@ -70,13 +66,37 @@ public class TransformForEach extends AbstractMethodBodyTransformation {
 		String secondMethodName = (forIndices | forPositions) ? "fetch" : null;
 		String stepperClassName = (forIndices | forPositions) ? "TableStepper" : "Stepper";
 		
+		String methodSignature = javaMethod.getQualifiedSignature();
+		if (methodSignature.equals(lastMatchingMethodSignature)) {
+			lastMatchingMethodOccurrences += 1;
+			stepName += lastMatchingMethodOccurrences;
+		} else {
+			lastMatchingMethodSignature = methodSignature;
+			lastMatchingMethodOccurrences = 1;
+		}
+
+		int blockEnd = javaMethod.methodBody.findEndOfBlock(i+1);
+		if (blockEnd+2 < tokens.size() && tokens.get(blockEnd+2) instanceof JavaStatementTerminator) {
+			javaMethod.methodBody.removeShouldMatch(blockEnd+2, JavaStatementTerminator.class);
+		}
+		javaMethod.methodBody.removeShouldMatch(blockEnd+1, JavaCallEnd.class);
+		int j = blockEnd+1;
+		tokens.add(j++, new JavaIdentifier(stepName));
+		tokens.add(j++, new JavaCallStart("destroy"));
+		tokens.add(j++, new JavaCallEnd());
+		tokens.add(j++, new JavaStatementTerminator());
+		
+		
 		if (secondMethodName != null) {
 			assign(tokens, i + 5, stepName, secondMethodName);
 		}
 		assign(tokens, i + 2, stepName, firstMethodName);
 		
 		tokens.remove(i);
-		int j = i;
+		j = i;
+		tokens.add(j++, new JavaStatementTerminator());
+		tokens.add(j++, new JavaKeyword("for"));
+		tokens.add(j++, new JavaParenthesisStart());
 		tokens.add(j++, new JavaLoopTerminator());
 		tokens.add(j++, new JavaIdentifier(stepName));
 		tokens.add(j++, new JavaCallStart("hasValue"));
@@ -88,28 +108,10 @@ public class TransformForEach extends AbstractMethodBodyTransformation {
 		tokens.add(j++, new JavaParenthesisEnd());
 		
 		j = expressionStart;
-		tokens.add(j++, new JavaKeyword("for"));
-		tokens.add(j++, new JavaParenthesisStart());
 		tokens.add(j++, new JavaType(stepperClassName));
 		tokens.add(j++, new JavaIdentifier(stepName));
 		tokens.add(j++, new JavaAssignment());
-		
-//		int startIndex = findStartOfExpression(expression);
-//		expression.add(startIndex, new JavaKeyword("for"));
-//		expression.add(startIndex + 1, new JavaParenthesisStart());
-//		expression.add(startIndex + 2, new JavaType(STEPPER_CLASS));
-//		expression.add(startIndex + 3, new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-//		expression.add(startIndex + 4, new JavaKeyword("="));
-//		expression.add(new JavaLoopTerminator());
-//		expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-//		expression.add(new JavaCallStart("hasValue"));
-//		expression.add(new JavaCallEnd());
-//		expression.add(new JavaLoopTerminator());
-//		expression.add(new JavaIdentifier(FOR_EACH_STEPPER_VARIABLE+stompLevel));
-//		expression.add(new JavaCallStart("step"));
-//		expression.add(new JavaCallEnd());
-//		expression.add(new JavaParenthesisEnd());
-		
+				
 		return i;
 	}
 	

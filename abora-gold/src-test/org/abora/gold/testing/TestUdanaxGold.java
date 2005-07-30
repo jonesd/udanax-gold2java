@@ -199,9 +199,9 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 		runTester(tester);
 	}
 
-	public void ztestSetTableTester() {
+	public void testSetTableTester() throws IOException {
 		SetTableTester tester = new SetTableTester();
-		runTester(tester);
+		assertTester(tester);
 	}
 
 	public void xtestShepherdLockTester() {

@@ -1121,7 +1121,7 @@ public class TestWriteMethod extends WriteMethodTestCase {
 	public void testForEach() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| element]!";
 
-		String expectedJava = "public void test() {\nfor (Stepper stomper = fred; stomper.hasValue(); stomper.step()) {\nIntegerPos element = (IntegerPos) stomper.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nStepper stomper = fred;\nfor (; stomper.hasValue(); stomper.step()) {\nIntegerPos element = (IntegerPos) stomper.fetch();\nelement;\n}\nstomper.destroy();\n}\n";
 		/*
 		 * "public void test() {\nfor (Stepper stepper = fred ;
 		 * stepper.hasValue() ; stepper.step()) {\nIntegerPos element =
@@ -1140,21 +1140,21 @@ public class TestWriteMethod extends WriteMethodTestCase {
 	public void testForEachNested() {
 		String smalltalk = "test\nfred forEach: [:element {IntegerPos}| blah forEach: [:element2 {RealPos} | element + element2]]!";
 
-		String expectedJava = "public void test() {\nfor (Stepper stomper = fred; stomper.hasValue(); stomper.step()) {\nIntegerPos element = (IntegerPos) stomper.fetch();\nfor (Stepper stomper1 = blah; stomper1.hasValue(); stomper1.step()) {\nRealPos element2 = (RealPos) stomper1.fetch();\nelement + element2;\n}\n}\n}\n";
+		String expectedJava = "public void test() {\nStepper stomper = fred;\nfor (; stomper.hasValue(); stomper.step()) {\nIntegerPos element = (IntegerPos) stomper.fetch();\nStepper stomper2 = blah;\nfor (; stomper2.hasValue(); stomper2.step()) {\nRealPos element2 = (RealPos) stomper2.fetch();\nelement + element2;\n}\nstomper2.destroy();\n}\nstomper.destroy();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testForIndices() {
 		String smalltalk = "test\nfred forIndices: [:i {IntegerVar} :value {IntegerRegion}| element]!";
 
-		String expectedJava = "public void test() {\nfor (TableStepper stomper = fred; stomper.hasValue(); stomper.step()) {\nint i = (int) stomper.index();\nIntegerRegion value = (IntegerRegion) stomper.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nTableStepper stomper = fred;\nfor (; stomper.hasValue(); stomper.step()) {\nint i = (int) stomper.index();\nIntegerRegion value = (IntegerRegion) stomper.fetch();\nelement;\n}\nstomper.destroy();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testForPositions() {
 		String smalltalk = "test\nfred forPositions: [:key {IntegerPos} :value {IntegerRegion}| element]!";
 
-		String expectedJava = "public void test() {\nfor (TableStepper stomper = fred; stomper.hasValue(); stomper.step()) {\nIntegerPos key = (IntegerPos) stomper.position();\nIntegerRegion value = (IntegerRegion) stomper.fetch();\nelement;\n}\n}\n";
+		String expectedJava = "public void test() {\nTableStepper stomper = fred;\nfor (; stomper.hasValue(); stomper.step()) {\nIntegerPos key = (IntegerPos) stomper.position();\nIntegerRegion value = (IntegerRegion) stomper.fetch();\nelement;\n}\nstomper.destroy();\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 

@@ -874,9 +874,6 @@ scannerAdvance(scanner);
 				cascadeBreak = false;
 				existingKeyword = null;
 				hasIf = false;
-//				hasForEach = false;
-//				hasForPositions = false;
-//				hasForIndices = false;
 			}
 		}
 		return new MethodBody(tokens);
