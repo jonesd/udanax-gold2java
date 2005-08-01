@@ -12,6 +12,7 @@
 	<property name="src" value="${basedir}/src"/>
 	<property name="src-gen" value="${basedir}/src-gen"/>
 	  <property name="src.test" location="${basedir}/src-test"/>
+	  <property name="src.test.integration" location="${basedir}/src-test-integration"/>
 	  <property name="build" location="${basedir}/build"/>
 	  <property name="dist"  location="${basedir}/dist"/>
 	  <property name="docs.dir" location="${basedir}/docs"/>
@@ -40,14 +41,20 @@
 			<src path="${src}"/>
 	    		<src path="${src-gen}"/>
 	    		<src path="${src.test}"/>
+	    		<src path="${src.test.integration}"/>
 	    	</javac>
 	  </target>
 
 	  <target name="test" depends="compile">
 	  	<mkdir dir="${build}/junit_coverage"/>
-	  	<junit printsummary="true" haltonfailure="true">
+	  	<junit printsummary="true" maxmemory="512m" fork="true">
+	  	<!--junit printsummary="true" haltonfailure="true"-->
 	  		<batchtest todir="${build}/junit_coverage">
 	  			<fileset dir="${src.test}">
+	  				<include name="**/*Test*.java"/>
+	  				<exclude name="**/*TestCase.java"/>
+	  			</fileset>
+	  			<fileset dir="${src.test.integration}">
 	  				<include name="**/*Test*.java"/>
 	  				<exclude name="**/*TestCase.java"/>
 	  			</fileset>

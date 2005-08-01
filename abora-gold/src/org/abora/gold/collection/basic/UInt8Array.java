@@ -267,7 +267,7 @@ public class UInt8Array extends PrimIntArray {
 	}
 
 	public int at(int index) {
-		throw new UnsupportedOperationException();
+		return uInt8At(index);
 	}
 
 	public static void bombReleaseGuts(UInt8Array buffer) {
@@ -282,10 +282,11 @@ public class UInt8Array extends PrimIntArray {
 	 * they will no longer be using the pointer.
 	 */
 	public PrimArray /*TODO should be String?*/ gutsOf() {
-		throw new UnsupportedOperationException();
+		//TODO making this up...
+		return this;
 	}
 	public void noMoreGuts() {
-		throw new UnsupportedOperationException();
+		//TODO making this up...
 	}
 
 	public int uIntAt(int myIndex) {

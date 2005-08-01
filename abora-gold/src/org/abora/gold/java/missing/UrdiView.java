@@ -13,8 +13,15 @@ import org.abora.gold.xpp.basic.Heaper;
 
 public class UrdiView extends Heaper {
 
+	private Urdi urdi;
+	
 	public UrdiView() {
 		super();
+	}
+	
+	public UrdiView(Urdi urdi) {
+		super();
+		this.urdi = urdi;
 	}
 
 	public int getDataSizeOfSnarf(int/*SnarfID*/ mySnarfID) {
@@ -34,7 +41,8 @@ public class UrdiView extends Heaper {
 	}
 
 	public SnarfHandle makeErasingHandle(int/*SnarfID*/ snarfID) {
-		throw new UnsupportedOperationException();
+		//TODO placeholder
+		return new SnarfHandle();
 	}
 
 //	public int getDataSizeOfSnarf(int i) {

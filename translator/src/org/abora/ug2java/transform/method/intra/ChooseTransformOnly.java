@@ -116,6 +116,10 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("TextyRcvr.linkTimeNonInherited");
 		list.add("FDListener.initTimeNonInherited");
 		list.add("HUpperCrum.propagateBCrum");
+		list.add("SimpleShuffler.shuffle16");
+		list.add("SimpleShuffler.shuffle32");
+		list.add("WorksWaitDetector.WorksWaitDetector");
+		list.add("WorksWaitDetector.done");
 		
 		//TODO just switched on for extra logging. Wrong?
 		list.add("ActualHashSet.ActualHashSet");

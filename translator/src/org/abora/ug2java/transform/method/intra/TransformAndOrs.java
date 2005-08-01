@@ -8,6 +8,7 @@ package org.abora.ug2java.transform.method.intra;
 import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
+import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
@@ -15,6 +16,7 @@ import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
+import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
@@ -41,15 +43,17 @@ public class TransformAndOrs extends AbstractMethodBodyTransformation {
 	protected int transform(JavaMethod javaMethod, List tokens, int i) {
 		JavaCallKeywordStart call = (JavaCallKeywordStart)tokens.get(i);
 		int closingIndex = javaMethod.methodBody.findEndOfBlock(i + 1);
-		if (!(tokens.get(closingIndex + 1) instanceof JavaCallEnd)
-			&& (!(tokens.get(closingIndex + 1) instanceof JavaComment) && !(tokens.get(closingIndex + 2) instanceof JavaCallEnd))) {
-			throw new IllegalStateException("short circuit not properly terminated with )");
+		//TODO automatically handle comments, rather than working around them here...
+		int postClosingIndex = closingIndex+1;
+		JavaToken postClosing = (JavaToken)tokens.get(closingIndex+1);
+		if (postClosing instanceof JavaComment) {
+			postClosingIndex += 1;
 		}
-		tokens.remove(closingIndex + 1);
-		tokens.remove(closingIndex);
+		javaMethod.methodBody.removeShouldMatch(postClosingIndex, JavaCallEnd.class);
+		javaMethod.methodBody.removeShouldMatch(closingIndex, JavaBlockEnd.class);
 		tokens.add(closingIndex, new JavaParenthesisEnd());
-		tokens.remove(i + 1);
-		tokens.remove(i);
+		javaMethod.methodBody.removeShouldMatch(i + 1, JavaBlockStart.class);
+		javaMethod.methodBody.removeShouldMatch(i, JavaCallKeywordStart.class);
 		String value;
 		if (call.value.equals("and")) {
 			value = "&&";

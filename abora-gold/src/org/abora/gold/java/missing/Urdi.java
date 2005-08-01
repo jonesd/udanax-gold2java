@@ -12,21 +12,31 @@ package org.abora.gold.java.missing;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class Urdi extends Heaper {
+	private String filename;
+	private int lruCount;
 
 	public Urdi() {
 		super();
 	}
-
-	public UrdiView makeWriteView() {
-		throw new UnsupportedOperationException();
+	
+	public Urdi(String filename, int lruCount) {
+		super();
+		this.filename = filename;
+		this.lruCount = lruCount;
 	}
 
-	public static Urdi urdi(String fname, int count) {
-		throw new UnsupportedOperationException();
+	public UrdiView makeWriteView() {
+		//TODO something more interesting here...
+		return new UrdiView(this);
+	}
+
+	public static Urdi urdi(String fname, int lruCount) {
+		return new Urdi(fname, lruCount);
 	}
 
 	public byte usableSnarfs() {
-		throw new UnsupportedOperationException();
+		//TODO rubbish - See SnarfInfoHandle
+		return 16;
 	}
 
 	public int getDataSizeOfSnarf(int i) {
@@ -38,7 +48,8 @@ public class Urdi extends Heaper {
 	}
 
 	public UrdiView makeReadView() {
-		throw new UnsupportedOperationException();
+		//TODO something more interesting here...
+		return new UrdiView(this);
 	}
 
 }

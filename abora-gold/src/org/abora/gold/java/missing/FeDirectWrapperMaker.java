@@ -25,7 +25,7 @@ public class FeDirectWrapperMaker extends Fn {
 	}
 
 	public FeWrapper invokeFunction(FeEdition edition) {
-		throw new UnsupportedOperationException();
+		return (FeWrapper) invokeStaticWith(edition);
 	}
 
 }

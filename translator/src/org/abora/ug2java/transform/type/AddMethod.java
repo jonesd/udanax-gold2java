@@ -82,7 +82,7 @@ public class AddMethod implements ClassTransformer {
 			addHashSetTesterStoreTestsOn(javaClass);
 			
 		} else if (javaClass.className.equals("ByteShuffler")) {
-			addUnsupportedMethod(javaClass, "", "void", "shuffle", new String[] {"int", "precision", "PrimArray", "buffer", "int", "size"});
+			addByteShufflerShuffle(javaClass);
 			
 		} else if (javaClass.className.equals("Binary2Rcvr")) {
 			addUnsupportedMethod(javaClass, "", "void", "getCharToken", new String[] {"char", "c"});
@@ -92,6 +92,31 @@ public class AddMethod implements ClassTransformer {
 		}
 	}
 	
+	private JavaMethod addByteShufflerShuffle(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("void", "shuffle");
+		method.addParameter(new JavaField("int", "precision"));
+		method.addParameter(new JavaField("PrimArray", "buffer"));
+		method.addParameter(new JavaField("int", "size"));
+		List tokens = new ArrayList();
+		tokens.add(new JavaCallKeywordStart("shuffle"));
+		tokens.add(new JavaIdentifier("precision"));
+		tokens.add(new JavaCallArgumentSeparator());
+		tokens.add(new JavaCast("UInt8Array"));
+		tokens.add(new JavaIdentifier("buffer"));
+		tokens.add(new JavaCallArgumentSeparator());
+		tokens.add(new JavaIdentifier("size"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+		return method;
+	}
+
 	public JavaMethod addIntegerTableMakeInt(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("IntegerTable", "make");
 		method.addParameter(new JavaField("int", "i"));

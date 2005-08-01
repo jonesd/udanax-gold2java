@@ -29,7 +29,7 @@ public class TransformDeveloperAnnotation extends AbstractMethodBodyTransformati
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
 		return factory.seq(
-				factory.token(JavaCallStart.class, "knownBug|thingToDo|hack"),
+				factory.token(JavaCallStart.class, "knownBug|thingToDo|hack|unimplemented"),
 				factory.token(JavaCallEnd.class));
 	}
 

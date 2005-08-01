@@ -1,50 +1,24 @@
 package org.abora.gold.testing;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.StringWriter;
 
-import org.abora.gold.AboraGoldTestCase;
-import org.abora.gold.be.canopy.CanopyCache;
-import org.abora.gold.cobbler.BootMaker;
-import org.abora.gold.cobbler.Connection;
 import org.abora.gold.collection.grand.GrandHashTableTester;
-import org.abora.gold.collection.sets.MuSet;
 import org.abora.gold.collection.settable.SetTableTester;
 import org.abora.gold.cross.CrossTester;
 import org.abora.gold.diskman.DiskTester;
-import org.abora.gold.fbtest.BackendBootMaker;
-import org.abora.gold.fbtest.WorksBootMaker;
-import org.abora.gold.java.AboraHeaper;
-import org.abora.gold.java.AboraSupport;
-import org.abora.gold.negoti8.ProtocolBroker;
 import org.abora.gold.nkernel.VolumeTester;
 import org.abora.gold.nkernel.WorksTester;
 import org.abora.gold.primtab.PrimIndexTableTester;
 import org.abora.gold.primtab.PrimPtrTableTester;
 import org.abora.gold.sheph.ShepherdLockTester;
-import org.abora.gold.snarf.DiskManager;
-import org.abora.gold.snarf.FakePacker;
-import org.abora.gold.snarf.MockTurtle;
-import org.abora.gold.spaces.basic.FilterTester;
 import org.abora.gold.spaces.basic.IDTester;
 import org.abora.gold.spaces.basic.RealTester;
-import org.abora.gold.spaces.basic.SequenceTester;
 import org.abora.gold.spaces.integers.IntegerRegionTester;
 import org.abora.gold.tabent.TableEntryTester;
-import org.abora.gold.xcvr.Binary2XcvrMaker;
-import org.abora.gold.xcvr.BogusXcvrMaker;
 import org.abora.gold.xcvr.ShuffleTester;
-import org.abora.gold.xcvr.TextyXcvrMaker;
-import org.abora.gold.xcvr.XcvrMaker;
 import org.abora.gold.xpp.become.BecomeTester;
 
 
-public class TestUdanaxGold extends AboraGoldTestCase {
+public class TestUdanaxGold extends UdanaxGoldTestCase {
 
 	public TestUdanaxGold() {
 		super();
@@ -54,83 +28,21 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 		super(arg0);
 	}
 	
-	protected String runTester(Tester tester) {
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter oo = new PrintWriter(stringWriter);
-		//TODO this kind of replace the general system logger with our test logger
-		// collector is really duplicating some Tester functionality.
-		PrintWriter previousAboraLogger = AboraSupport.logger;
-		try {
-			previousAboraLogger = oo;
-			tester.allTestsOn(oo);
-		} finally {
-			AboraSupport.logger = previousAboraLogger;
-		}
-		oo.flush();
-		return stringWriter.toString();
-	}
-	
-	protected void assertTester(Tester tester) throws IOException {
-		String actual = runTester(tester);
-		String expected = loadExpected(tester);
-		assertEquals(expected, actual);
-	}
-	
-	protected String loadExpected(Tester tester) throws IOException {
-		String filename = expectedFilename(tester);
-		InputStream inputStream = ClassLoader.getSystemResourceAsStream(filename);
-		if (inputStream == null) {
-			//TODO hack
-			inputStream = new FileInputStream("src-test/"+filename);
-		}
-		assertNotNull("Found trace file named: "+filename, inputStream);
-		
-		try {
-			String expected = readInputStream(inputStream);
-			return expected;
-		} finally {
-			inputStream.close();
-		}
-	}
-
-	private String readInputStream(InputStream inputStream) throws IOException {
-		StringBuffer expectedBuffer = new StringBuffer();
-		Reader reader = new InputStreamReader(inputStream);
-		try {
-			char[] bytes = new char[1024];
-			int read = -1;
-			while ((read = reader.read(bytes)) != -1) {
-				expectedBuffer.append(bytes, 0, read);
-			}
-		} finally {
-			reader.close();
-		}
-		String expected = expectedBuffer.toString();
-		return expected;
-	}
-
-	private String expectedFilename(Tester tester) {
-		String filename = this.getClass().getName();
-		filename = filename.substring(0, filename.lastIndexOf('.')+1);
-		String testerName = tester.getClass().getName();
-		filename += testerName.substring(testerName.lastIndexOf('.')+1);
-		filename = filename.replace('.', File.separatorChar) + ".trace.txt";
-		return filename;
-	}
-	
 	public void testBecomeTester() throws IOException {
 		BecomeTester tester = new BecomeTester();
 		assertTester(tester);
 	}
 
-	public void xtestDiskTester() {
+	public void testDiskTester() {
+		//TODO need a full disk initialazion here (see AboraStartup and DiskIniter),
+		// but at the moment all the Urdi/SnarfHandle related code is simply placeholder
 		DiskTester tester = new DiskTester();
 		runTester(tester);
 	}
 
-	public void xtestGrandHashTableTester() {
+	public void testGrandHashTableTester() throws IOException {
 		GrandHashTableTester tester = new GrandHashTableTester();
-		runTester(tester);
+		assertTester(tester);
 	}
 
 	public void testHashSetTester() throws IOException {
@@ -172,15 +84,10 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 		CrossTester tester = new CrossTester();
 		assertTester(tester);
 	}
-
-	public void xtestRegionFilterTester() {
-		FilterTester tester = new FilterTester();
-		runTester(tester);
-	}
-
-	public void xtestRegionIDTester() {
+	
+	public void testRegionIDTester() throws IOException {
 		IDTester tester = new IDTester();
-		runTester(tester);
+		assertTester(tester);
 	}
 
 	public void testRegionIntegerRegionTester() throws IOException {
@@ -193,25 +100,21 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 		assertTester(tester);
 	}
 
-	public void xtestRegionSequenceTester() {
-		//TODO infinite loop?
-		SequenceTester tester = new SequenceTester();
-		runTester(tester);
-	}
 
 	public void testSetTableTester() throws IOException {
 		SetTableTester tester = new SetTableTester();
 		assertTester(tester);
 	}
 
-	public void xtestShepherdLockTester() {
+	public void testShepherdLockTester() {
+		//TODO needs StackExaminer - but that is mostly stubbed out for now
 		ShepherdLockTester tester = new ShepherdLockTester();
 		runTester(tester);
 	}
 
-	public void xtestShuffleTester() {
+	public void testShuffleTester() throws IOException {
 		ShuffleTester tester = new ShuffleTester();
-		runTester(tester);
+		assertTester(tester);
 	}
 
 	public void testTableEntryTester() throws IOException {
@@ -219,12 +122,14 @@ public class TestUdanaxGold extends AboraGoldTestCase {
 		assertTester(tester);
 	}
 
-	public void xtestVolumeTester() {
+	public void testVolumeTester() {
+		//TODO testcode stubbed out - some disk accessing and type changing?
 		VolumeTester tester = new VolumeTester();
 		runTester(tester);
 	}
 
-	public void xtestWorksTester() throws Exception {
+	public void testWorksTester() throws Exception {
+		//TODO setup Test account to login to?
 		WorksTester tester = new WorksTester();
 		runTester(tester);
 	}

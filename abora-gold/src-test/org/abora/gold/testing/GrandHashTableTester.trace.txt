@@ -1,0 +1,116 @@
+Running all HashTable tests.
+Test 1
+Create tables with create, create: and create:with:
+
+Printing tables:
+
+GrandHashTable(0 entries over 32 nodes)
+
+GrandHashTable(0 entries over 4 nodes)
+
+Test empty table: Empty
+
+Test introduce: GrandHashTable(2 entries over 32 nodes), table count now: 2
+
+Test introduce: GrandHashTable(3 entries over 32 nodes), table count now: 3
+
+Test introduce: GrandHashTable(4 entries over 32 nodes), table count now: 4
+
+already in table blast caught, table now:
+
+GrandHashTable(4 entries over 32 nodes)
+
+and table count: 4
+
+
+Test 2
+Create tables.
+
+Starting table is:
+
+GrandHashTable(4 entries over 32 nodes)
+
+after replace:
+GrandHashTable(4 entries over 32 nodes) and table count: 4
+Test replace() in unknown territory. 
+NotInTable blast caught, table now:
+GrandHashTable(4 entries over 32 nodes)
+and table count: 4
+
+Test 3
+Create tables.
+
+Starting table is:
+
+GrandHashTable(4 entries over 32 nodes)
+
+after store:
+
+GrandHashTable(4 entries over 32 nodes) and table count: 4
+
+Test store() in unknown territory. 
+
+after store:
+
+GrandHashTable(5 entries over 32 nodes) and table count: 5
+
+Test store() with NULL. 
+
+NullInsertion blast caught, table now:
+
+GrandHashTable(5 entries over 32 nodes)
+
+and table count: 5
+
+
+Test 4
+Create tables.
+
+Starting table is:
+
+GrandHashTable(4 entries over 32 nodes)
+
+with count 4
+
+Testing domain
+
+{[-1, 2), [27, 28)}
+
+Test get(1) [102 105 108 108 121]
+
+Test get() in unknown territory. 
+
+NotInTable blast caught, table now:
+
+GrandHashTable(4 entries over 32 nodes)
+
+and table count: 4
+
+
+Test 5
+Create tables.
+
+Starting table is:
+
+GrandHashTable(4 entries over 32 nodes)
+
+with count 4
+
+Now, testing remove(1)
+
+Table now:
+
+GrandHashTable(3 entries over 32 nodes)
+
+with count 3
+
+Test remove(1) in unknown territory. 
+
+NotInTable blast caught, table now:
+
+GrandHashTable(3 entries over 32 nodes)
+
+and table count: 3
+
+Test growth behavior of GrandHashTable
+Growth test successful.

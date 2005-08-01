@@ -1,0 +1,17 @@
+unary regions tests succeeded
+binary regions tests succeeded
+Finished testing ID 0!!666.42.22.7:0!!666.42.5
+
+Finished testing ID 0!!666.42.22.7:0!!666.42.33.1
+
+Finished testing IDSpace org.abora.gold.spaces.unordered.IDSpace(0!!666.42.22.7)
+Finished testing ID 0!!666.42.5:0!!666.42.5
+
+Finished testing ID 0!!666.42.5:0!!666.42.33.1
+
+Finished testing IDSpace org.abora.gold.spaces.unordered.IDSpace(0!!666.42.5)
+Finished testing ID 0!!-1:0!!666.42.20
+
+Finished testing ID 0!!-1:0!!666.42.33.1
+
+Finished testing IDSpace org.abora.gold.spaces.unordered.IDSpace(!!0)

@@ -55,6 +55,13 @@ public class TestWriteMethod extends WriteMethodTestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testAndWithTrailingCommentedOutBracket() {
+		String smalltalk = "test\none and: [two]\"]\"!";
+		String expectedJava = "public void test() {\none && (two);\n/* ] */\n}\n";
+
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testArraySingle() {
 		String smalltalk = "test\narray _ #('Promise cast 1' delayCast:)!";
 		String expectedJava = "public void test() {\narray = \n{\"Promise cast 1\", \"delayCast:\"};\n}\n";

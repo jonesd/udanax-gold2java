@@ -12,19 +12,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.abora.gold.appmods.WorksIniter;
 import org.abora.gold.be.canopy.CanopyCache;
 import org.abora.gold.cobbler.BootMaker;
 import org.abora.gold.cobbler.Connection;
 import org.abora.gold.collection.sets.MuSet;
 import org.abora.gold.fbtest.BackendBootMaker;
+import org.abora.gold.fbtest.ShepherdBootMaker;
 import org.abora.gold.fbtest.WorksBootMaker;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.negoti8.ProtocolBroker;
+import org.abora.gold.nkernel.FeServer;
 import org.abora.gold.snarf.DiskManager;
 import org.abora.gold.snarf.FakePacker;
 import org.abora.gold.snarf.MockTurtle;
 import org.abora.gold.xcvr.Binary2XcvrMaker;
 import org.abora.gold.xcvr.BogusXcvrMaker;
+import org.abora.gold.xcvr.DiskIniter;
+import org.abora.gold.xcvr.FakeDisk;
 import org.abora.gold.xcvr.TextyXcvrMaker;
 import org.abora.gold.xcvr.XcvrMaker;
 import org.abora.gold.xpp.basic.Heaper;
@@ -44,7 +49,6 @@ public class AboraStartup {
 		set.add("org.abora.gold.stacker.StackExaminer.linkTimeNonInherited");
 
 		set.add("org.abora.gold.proman.PromiseManager.initTimeNonInherited");
-		//set.add("org.abora.gold.lock.NoEncrypter.initTimeNonInherited");
 
 		set.add("org.abora.gold.xcvr.Recipe.staticTimeNonInherited");
 		set.add("org.abora.gold.cxx.classx.comm.CategoryRecipe.staticTimeNonInherited");
@@ -64,11 +68,23 @@ public class AboraStartup {
 	protected void startServerForTests() {
 		AboraSupport.logger = new PrintWriter(System.out);
 		
+		//TODO totally running around like mad here just prodding things until something
+		// interesting happens - Need to better investigate org.abora.rcmain package - feels
+		// like we are missing some bootstrap thunk definitions from a configuration
+		// file
+		
+		// Boot makers
+		//TODO not sure if we should really be running all of these?
 		BootMaker worksBootMaker = new WorksBootMaker();
 		Connection.registerBootPlan(worksBootMaker);
 		BackendBootMaker backendBootMaker = new BackendBootMaker();
 		Connection.registerBootPlan(backendBootMaker);
-//			AboraHeaper.CurrentPacker.fluidSet(new DiskManager());
+		ShepherdBootMaker shepherdBootMaker = new ShepherdBootMaker();
+		Connection.registerBootPlan(shepherdBootMaker);
+//		FeWorksBootMaker feWorksBootMaker = new FeWorksBootMaker();
+//		Connection.registerBootPlan(feWorksBootMaker);
+
+		//			AboraHeaper.CurrentPacker.fluidSet(new DiskManager());
 
 		ProtocolBroker.registerXcvrProtocol(Binary2XcvrMaker.make());
 		ProtocolBroker.registerXcvrProtocol(BogusXcvrMaker.make());
@@ -88,15 +104,26 @@ public class AboraStartup {
 		if (((DiskManager) AboraHeaper.CurrentPacker.fluidFetch()) == null) {
 			//TestPacker.make(/*blastOnError*/true, /*persistInterval*/0);
 			//Turtle.make(null, /*myCategory*/null, ProtocolBroker.diskProtocol());
-			FakePacker.make();
-			MockTurtle.make(null);
 		}
 		//AboraHeaper.CurrentGrandMap.fluidSet(HonestAbeIniter.fetchGrandMap());
+		
+		// Choose one of these disk initialization options
+		new FakeDisk().execute();
+
+//		DiskIniter diskInitier = new DiskIniter() {
+//			
+//		};
+//		diskInitier.execute();
 		
 		//TODO due to defineFluid not fully working...
 		AboraHeaper.CurrentBertCanopyCache.fluidSet(CanopyCache.make());
 		AboraHeaper.CurrentSensorCanopyCache.fluidSet(CanopyCache.make());
 		AboraHeaper.ActiveClubs.fluidSet(MuSet.make());
+		
+		//TODO not sure if I should be triggering this here?
+		Connection myConnection = Connection.make(AboraSupport.findCategory(FeServer.class));
+
+		new WorksIniter().execute();
 	}
 
 	protected AboraStartup(String[] classNames, String[][] initTimeNonInheritedDependenciesNames) throws Exception {

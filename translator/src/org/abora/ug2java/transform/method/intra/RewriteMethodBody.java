@@ -25,12 +25,28 @@ public class RewriteMethodBody implements MethodTransformation {
 				&& (javaMethod.javaClass.className.equals("PrimIEEE32") || javaMethod.javaClass.className.equals("PrimIEEE64"))) {
 			rewritePrimIEEE64isANumber(javaMethod);
 		} else if (javaMethod.name.equals("endPacket") && javaMethod.javaClass.className.equals("Binary2Rcvr")) {
-			rewriteAsUntranslated(javaMethod);
+			rewriteBinary2RcvrEndPacket(javaMethod);
 		} else if (javaMethod.getQualifiedSignature().equals("Abraham.restartAbraham(Rcvr)")) {
 			rewriteAbrahamRestartAbraham(javaMethod);
 		}
 	}
-	
+
+	/**
+	 * Clear down contents - assume it is some old code that use to return whether to
+	 * one had reached the end of a packet, rather than code to run when the end of
+	 * a packet had been already detected.
+	 */
+	private void rewriteBinary2RcvrEndPacket(JavaMethod javaMethod) {
+		List tokens = new ArrayList();
+		tokens.add(new JavaComment("Transform: Rewrote body"));
+		tokens.add(new JavaIdentifier("myStream"));
+		tokens.add(new JavaCallStart("getByte"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		
+		javaMethod.methodBody = new MethodBody(tokens);
+	}
+
 	public void rewritePrimIEEE64isANumber(JavaMethod method) {
 		
 		List tokens = new ArrayList();

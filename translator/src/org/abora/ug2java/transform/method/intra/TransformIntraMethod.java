@@ -54,6 +54,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformRequires());
 //		transformers.add(new TransformSmalltalkOnly());
 		transformers.add(new TransformTranslateOnlyString());
+		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformDeveloperAnnotation());
 		transformers.add(new TransformUInt8Vector());
 		transformers.add(new TransformNewCreateCallOnClass());
@@ -124,7 +125,6 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformNotNULLElse());
 		//TODO duplicate conditional operator
 		transformers.add(new TransformConditionalOperator());
-		transformers.add(new TransformUnimplemented());
 		transformers.add(new TransformPasse());
 		transformers.add(new TransformTimeMillisecondsToRun());
 		transformers.add(new ChooseTransformOnly());
@@ -164,6 +164,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformGenericCrossRegionIntersects());
 		transformers.add(new TransformEncrypterDefineEncrypter());
 		transformers.add(new TransformBucketArrayStepperVerifyEntry());
+		transformers.add(new TransformGrandHashTableConstructor());
 				
 		transformers.add(new TransformSmalltalkAtClassName());
 		transformers.add(new EnsureUniqueLocalVarNames());

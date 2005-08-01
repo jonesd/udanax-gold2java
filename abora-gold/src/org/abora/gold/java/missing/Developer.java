@@ -24,8 +24,12 @@ public class Developer extends AboraHeaper {
 
 	public void thingToDo() {
 		//TODO review
+		show("Thing to do");
+	}
+
+	private void show(String message) {
 		if (SHOW) {
-			System.out.println("Thing to do: "+name);
+			System.out.println(message+": "+name);
 		}
 	}
 	public void shouldImplement() {
@@ -33,15 +37,16 @@ public class Developer extends AboraHeaper {
 	}
 	public void knownBug() {
 		//TODO review
-		if (SHOW) {
-			System.out.println("Known bug: "+name);
-		}
+		show("Known bug");
 	}
 	public void hack() {
 		//TODO review
-		if (SHOW) {
-			System.out.println("Hack: "+name);
-		}
+		show("Hack");
+	}
+
+	public void unimplemented() {
+		//TODO review
+		show("Unimplemented");
 	}
 
 }

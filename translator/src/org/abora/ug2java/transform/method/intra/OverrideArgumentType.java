@@ -29,9 +29,18 @@ public class OverrideArgumentType implements MethodTransformation {
 		//TODO we should be able to calculate the following based on their declared type: array {Array of: IntegerVar}
 		map.put("SnarfHandler.sortTest", "IntArray");
 		map.put("SnarfHandler.sortTestDown", "IntArray");
+		
+		map.put("NoShuffler.shuffle16", "UInt8Array");
+		map.put("NoShuffler.shuffle32", "UInt8Array");
+		map.put("NoShuffler.shuffle64", "UInt8Array");
 		map.put("SimpleShuffler.shuffle16", "UInt8Array");
 		map.put("SimpleShuffler.shuffle32", "UInt8Array");
 		map.put("SimpleShuffler.shuffle64", "UInt8Array");
+		map.put("ByteShuffler.shuffle16", "UInt8Array");
+		map.put("ByteShuffler.shuffle32", "UInt8Array");
+		map.put("ByteShuffler.shuffle64", "UInt8Array");
+		map.put("ByteShuffler.shuffle(int,PtrArray,int)", "int,UInt8Array,int");
+		
 		map.put("Category.Category", "AboraClass");
 		map.put("TupleStepper.make(Object,Object)", "CrossSpace,PtrArray");
 		map.put("Category.sendSelfTo(Object)", "Xmtr");
