@@ -108,12 +108,8 @@ public class AboraStartup {
 		//AboraHeaper.CurrentGrandMap.fluidSet(HonestAbeIniter.fetchGrandMap());
 		
 		// Choose one of these disk initialization options
-		new FakeDisk().execute();
-
-//		DiskIniter diskInitier = new DiskIniter() {
-//			
-//		};
-//		diskInitier.execute();
+		useFakeDisk();
+//		useRealDisk();
 		
 		//TODO due to defineFluid not fully working...
 		AboraHeaper.CurrentBertCanopyCache.fluidSet(CanopyCache.make());
@@ -124,6 +120,17 @@ public class AboraStartup {
 		Connection myConnection = Connection.make(AboraSupport.findCategory(FeServer.class));
 
 		new WorksIniter().execute();
+	}
+
+	public void useRealDisk() {
+		DiskIniter diskInitier = new DiskIniter() {
+			//TODO do something about the filename here...
+		};
+		diskInitier.execute();
+	}
+
+	public void useFakeDisk() {
+		new FakeDisk().execute();
 	}
 
 	protected AboraStartup(String[] classNames, String[][] initTimeNonInheritedDependenciesNames) throws Exception {
@@ -216,6 +223,11 @@ public class AboraStartup {
 			}
 		}
 		return null;
+	}
+
+	public static AboraStartup getInstance() throws Exception {
+		startUp();
+		return INSTANCE;
 	}
 	
 //	public static void initializeSystem() {

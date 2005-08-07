@@ -295,6 +295,34 @@ public class MethodBody {
 		throw new IllegalStateException("Could not find end of expression");
 	}
 
+	public int findEndOfImmediateExpression(int startIndex) {
+		int laterParentheses = 0;
+		int laterBlocks = 0;
+		for (int i = startIndex; i < tokens.size(); i++) {
+			JavaToken token = (JavaToken) tokens.get(i);
+			if (token instanceof JavaParenthesisStart) {
+				laterParentheses++;
+			} else if (token instanceof JavaParenthesisEnd) {
+				laterParentheses--;
+			} else if (token instanceof JavaBlockStart) {
+				laterBlocks++;
+			} else if (token instanceof JavaBlockEnd) {
+				laterBlocks--;
+			} else if (token instanceof JavaStatementTerminator || token instanceof JavaKeyword) {
+				if (laterParentheses == 0 && laterBlocks == 0) {
+					return i - 1;
+				}
+			}
+			if ((laterParentheses < 0 && laterBlocks == 0) || (laterParentheses == 0 && laterBlocks < 0)) {
+				return i - 1;
+			}
+			if (laterParentheses == 0 && laterBlocks == 0 && i == tokens.size() - 1) {
+				return tokens.size() - 1;
+			}
+		}
+		throw new IllegalStateException("Could not find end of expression");
+	}
+
 	public int findClosingTokenOfType(int startIndex, Class closingType) {
 		Class openingType = tokens.get(startIndex).getClass();
 		int depth = 0;

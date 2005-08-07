@@ -25,7 +25,7 @@ public class TransformUnimplemented extends AbstractMethodBodyTransformation {
 	private static final Set IGNORE;
 	static {
 		Set set = new HashSet();
-		//set.add("DiskTester.destroyTest");
+		set.add("DiskTester.destroyTest");
 		IGNORE = Collections.unmodifiableSet(set);
 	}
 	

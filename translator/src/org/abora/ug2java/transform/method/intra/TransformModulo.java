@@ -18,7 +18,12 @@ import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
-
+/**
+ * Due to difference in the Java implematation of modulo and Smalltalk, and assuming
+ * UdanaxGold hasn't modified the default Smalltalk implementation, we rewrite the
+ * use of the Java modulo operator to use the AboraGold support library implementation
+ * that is implemented after the Smalltalk implementation.
+ */
 public class TransformModulo extends AbstractMethodBodyTransformation {
 
 	protected TokenMatcher matchers(TokenMatcherFactory factory) {
@@ -29,7 +34,7 @@ public class TransformModulo extends AbstractMethodBodyTransformation {
 		int start = javaMethod.methodBody.findStartOfExpression(i-1);
 		tokens.remove(i);
 		tokens.add(i, new JavaCallArgumentSeparator());
-		int end = javaMethod.methodBody.findEndOfExpression(i+1);
+		int end = javaMethod.methodBody.findEndOfImmediateExpression(i+1);
 		tokens.add(end+1, new JavaCallEnd());
 		tokens.add(start, new JavaIdentifier("AboraSupport"));
 		tokens.add(start+1, new JavaCallKeywordStart("modulo"));

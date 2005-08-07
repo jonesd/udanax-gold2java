@@ -1567,6 +1567,13 @@ public class TestWriteMethod extends WriteMethodTestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testModulo() {
+		String smalltalk = "test\ni \\\\ 20 == Int32Zero ifTrue: [^self]!";
+
+		String expectedJava = "public void test() {\nif (AboraSupport.modulo(i, 20) == 0) {\nreturn this;\n}\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
 	public void testMultipleStatements() {
 		String smalltalk = "test\none two.\nborris := three + 3!";
 

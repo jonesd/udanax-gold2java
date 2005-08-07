@@ -5,6 +5,7 @@ import org.abora.gold.collection.grand.GrandHashTableTester;
 import org.abora.gold.collection.settable.SetTableTester;
 import org.abora.gold.cross.CrossTester;
 import org.abora.gold.diskman.DiskTester;
+import org.abora.gold.java.AboraStartup;
 import org.abora.gold.nkernel.VolumeTester;
 import org.abora.gold.nkernel.WorksTester;
 import org.abora.gold.primtab.PrimIndexTableTester;
@@ -33,11 +34,16 @@ public class TestUdanaxGold extends UdanaxGoldTestCase {
 		assertTester(tester);
 	}
 
-	public void testDiskTester() {
+	public void testDiskTester() throws Exception {
 		//TODO need a full disk initialazion here (see AboraStartup and DiskIniter),
 		// but at the moment all the Urdi/SnarfHandle related code is simply placeholder
-		DiskTester tester = new DiskTester();
-		runTester(tester);
+		AboraStartup.getInstance().useRealDisk();
+		try {		
+			DiskTester tester = new DiskTester();
+			runTester(tester);
+		} finally {
+			AboraStartup.getInstance().useFakeDisk();
+		}
 	}
 
 	public void testGrandHashTableTester() throws IOException {
