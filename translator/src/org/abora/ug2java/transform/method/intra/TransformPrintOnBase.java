@@ -45,8 +45,8 @@ public TransformPrintOnBase() {
 		tokens.remove(i);
 		tokens.add(expressionStart, new JavaIdentifier(stream.value));
 		tokens.add(expressionStart+1, new JavaCallKeywordStart("print"));
-		tokens.add(expressionStart+2, new JavaIdentifier("Integer"));
-		tokens.add(expressionStart+3, new JavaCallKeywordStart("toString"));
+		tokens.add(expressionStart+2, new JavaIdentifier("AboraSupport"));
+		tokens.add(expressionStart+3, new JavaCallKeywordStart("toBaseString"));
 		return i;
 	}
 }

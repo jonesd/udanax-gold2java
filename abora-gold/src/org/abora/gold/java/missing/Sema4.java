@@ -11,16 +11,40 @@ package org.abora.gold.java.missing;
 
 import org.abora.gold.xpp.basic.Heaper;
 
+/**
+ * Mickey mouse implementation to keep code references happy, styled after XPP sema4x.cxx.
+ * 
+ * The current translated Java code is actually using the Sema4 instances as monitor
+ * locks.
+ * 
+ * TODO review the use of these instances!
+ */
 public class Sema4 extends Heaper {
 
-	protected int a;
+	protected int count;
 	
-	public Sema4(int a) {
+	public Sema4(int initialCount) {
 		super();
-		this.a = a;
+		this.count = initialCount;
 	}
-	public static Sema4 make(int a) {
-		return new Sema4(a);
+	public static Sema4 make(int initialCount) {
+		return new Sema4(initialCount);
+	}
+	
+	public void v() {
+		count += 1;
+	}
+	
+	public void p() {
+		count -= 1;
+	}
+	
+	public int t() {
+		int result = count;
+		if (count > 0) {
+			count -= 1;
+		}
+		return result;
 	}
 
 }

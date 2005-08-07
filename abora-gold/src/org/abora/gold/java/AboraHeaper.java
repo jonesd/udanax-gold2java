@@ -21,6 +21,7 @@ import org.abora.gold.collection.sets.MuSet;
 import org.abora.gold.java.exception.SubclassResponsibilityException;
 import org.abora.gold.java.missing.Developer;
 import org.abora.gold.java.missing.OrderEnum;
+import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.nadmin.FeSession;
 import org.abora.gold.nkernel.FeKeyMaster;
 import org.abora.gold.nkernel.FeServer;
@@ -246,6 +247,9 @@ public class AboraHeaper {
 	
 	public void printOn(PrintWriter oo) {
 		throw new SubclassResponsibilityException();
+	}
+	public AboraClass getAboraClass() {
+		return AboraSupport.findAboraClass(getClass());
 	}
 
 }

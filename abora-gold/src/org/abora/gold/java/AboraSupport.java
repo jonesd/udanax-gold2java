@@ -152,5 +152,11 @@ public class AboraSupport {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+	public static String toBaseString(int value, int base) {
+		/* compatibility with ug implementation - lower case alphas */
+		return Integer.toString(value, base).toUpperCase();
+	}
 	
 }

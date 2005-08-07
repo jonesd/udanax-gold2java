@@ -45,7 +45,8 @@ public class AboraClass extends Heaper {
 	}
 
 	public String name() {
-		return c.getName();
+		String fullClassName = c.getName();
+		return fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
 	}
 
 	public int preorderNumber() {

@@ -236,6 +236,7 @@ public class SmalltalkScanner {
 
 		String value = contents.substring(start, index - 1);
 		value = value.replaceAll("''", "'");
+		value = value.replaceAll("!!", "!");
 		return new ScannerToken(ScannerToken.TOKEN_STRING, value);
 	}
 

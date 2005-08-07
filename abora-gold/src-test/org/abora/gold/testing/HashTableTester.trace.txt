@@ -4,21 +4,21 @@ Create tables with create, create: and create:with:
 
 Printing tables:
 
-org.abora.gold.collection.tables.ActualHashTable[]
+ActualHashTable[]
 
-org.abora.gold.collection.tables.ActualHashTable[]
+ActualHashTable[]
 
 Test empty table: Empty
 
-Test introduce: org.abora.gold.collection.tables.ActualHashTable[0->0!!<[109 97 114 101]>, 1->0!!<[102 105 108 108 121]>], table count now: 2
+Test introduce: ActualHashTable[0->0!<mare>, 1->0!<filly>], table count now: 2
 
-Test introduce: org.abora.gold.collection.tables.ActualHashTable[0->0!!<[109 97 114 101]>, 1->0!!<[102 105 108 108 121]>, 0!!<[109 97 114 101]>->0!!<[99 111 108 116]>], table count now: 3
+Test introduce: ActualHashTable[0->0!<mare>, 0!<mare>->0!<colt>, 1->0!<filly>], table count now: 3
 
-Test introduce: org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, 1->0!!<[102 105 108 108 121]>, 0!!<[109 97 114 101]>->0!!<[99 111 108 116]>], table count now: 4
+Test introduce: ActualHashTable[27->0!<stallion>, 0->0!<mare>, 0!<mare>->0!<colt>, 1->0!<filly>], table count now: 4
 
 already in table blast caught, table now:
 
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, 1->0!!<[102 105 108 108 121]>, 0!!<[109 97 114 101]>->0!!<[99 111 108 116]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, 0!<mare>->0!<colt>, 1->0!<filly>]
 
 and table count: 4
 
@@ -28,13 +28,13 @@ Create tables.
 
 Starting table is:
 
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[102 105 108 108 121]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<filly>]
 
 after replace:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[109 97 114 101]>] and table count: 4
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<mare>] and table count: 4
 Test replace() in unknown territory. 
 NotInTable blast caught, table now:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[109 97 114 101]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<mare>]
 and table count: 4
 
 Test 3
@@ -42,51 +42,51 @@ Create tables.
 
 Starting table is:
 
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[102 105 108 108 121]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<filly>]
 after store:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[109 97 114 101]>] and table count: 4
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<mare>] and table count: 4
 Test store() in unknown territory. 
 after store:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 2->0!!<[112 97 108 111 111 107 97]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[109 97 114 101]>] and table count: 5
+ActualHashTable[27->0!<stallion>, 2->0!<palooka>, 0->0!<mare>, -1->0!<colt>, 1->0!<mare>] and table count: 5
 Test store() with NULL. 
 NullInsertion blast caught, table now:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 2->0!!<[112 97 108 111 111 107 97]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[109 97 114 101]>]
+ActualHashTable[27->0!<stallion>, 2->0!<palooka>, 0->0!<mare>, -1->0!<colt>, 1->0!<mare>]
 and table count: 5
 
 Test 4
 Create tables.
 
 Starting table is:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[102 105 108 108 121]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<filly>]
 with count 4
 Testing domain
 {[-1, 2), [27, 28)}
-Test get(1) 0!!<[102 105 108 108 121]>
+Test get(1) 0!<filly>
 Test get() in unknown territory. 
 NotInTable blast caught, table now:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[102 105 108 108 121]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<filly>]
 and table count: 4
 
 Test 5
 Create tables.
 
 Starting table is:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[102 105 108 108 121]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<filly>]
 with count 4
 Now, testing remove(1)
 Table now:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>]
 with count 3
 Test remove(1) in unknown territory. 
 NotInTable blast caught, table now:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>]
 and table count: 3
 
 Test 6
 Create tables.
 
 Starting table is:
-org.abora.gold.collection.tables.ActualHashTable[27->0!!<[115 116 97 108 108 105 111 110]>, 0->0!!<[109 97 114 101]>, -1->0!!<[99 111 108 116]>, 1->0!!<[102 105 108 108 121]>]
+ActualHashTable[27->0!<stallion>, 0->0!<mare>, -1->0!<colt>, 1->0!<filly>]
 with count 4
 Now, testing subTable(0,40)
 
@@ -94,28 +94,28 @@ Test 7
 Create tables.
 
 Starting table is:
-org.abora.gold.collection.tables.ActualHashTable[27->[115 116 97 108 108 105 111 110], 0->[109 97 114 101], -1->[99 111 108 116], 1->[102 105 108 108 121]]
+ActualHashTable[27->stallion, 0->mare, -1->colt, 1->filly]
 with count 4
 Now, testing domain
-And the results (ta ta TUM!!) 
+And the results (ta ta TUM!) 
 	{[-1, 2), [27, 28)}
 Test copy by stepper.
 Starting table is:
-org.abora.gold.collection.tables.ActualHashTable[27->[115 116 97 108 108 105 111 110], 0->[109 97 114 101], -1->[99 111 108 116], 1->[102 105 108 108 121]]
+ActualHashTable[27->stallion, 0->mare, -1->colt, 1->filly]
 with count 4.
 Now testing store during forEach loop
-at index I(27) storing I(27) on top of [115 116 97 108 108 105 111 110]
-at index I(0) storing I(0) on top of [109 97 114 101]
-at index I(-1) storing I(-1) on top of [99 111 108 116]
-at index I(1) storing I(1) on top of [102 105 108 108 121]
+at index I(27) storing I(27) on top of stallion
+at index I(0) storing I(0) on top of mare
+at index I(-1) storing I(-1) on top of colt
+at index I(1) storing I(1) on top of filly
 Ending table is:
-org.abora.gold.collection.tables.ActualHashTable[27->I(27), 0->I(0), -1->I(-1), 1->I(1)]
+ActualHashTable[27->I(27), 0->I(0), -1->I(-1), 1->I(1)]
 with count 4.
 at index I(27) storing 'foo' on top of I(27)
 at index I(0) storing 'foo' on top of I(0)
 at index I(-1) storing 'foo' on top of I(-1)
 at index I(1) storing 'foo' on top of I(1)
 Ending table is:
-org.abora.gold.collection.tables.ActualHashTable[27->[102 111 111], 0->[102 111 111], -1->[102 111 111], 1->[102 111 111]]
+ActualHashTable[27->foo, 0->foo, -1->foo, 1->foo]
 with count 4.
 Done with stepperCopy test.

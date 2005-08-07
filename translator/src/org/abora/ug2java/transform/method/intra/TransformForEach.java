@@ -9,26 +9,62 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.JavaAssignment;
+import org.abora.ug2java.javatoken.JavaBlockEnd;
 import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaCast;
-import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaLoopTerminator;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
-import org.abora.ug2java.javatoken.JavaToken;
 import org.abora.ug2java.javatoken.JavaType;
 import org.abora.ug2java.transform.method.AbstractMethodBodyTransformation;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcher;
 import org.abora.ug2java.transform.tokenmatcher.TokenMatcherFactory;
 
 
-
+/**
+ * udanax-top.st:52876:Stepper methodsFor: 'smalltalk: operations'!
+ * {void} forEach: fn {BlockClosure} 
+ * 	[| elem {Heaper} |
+ * 	[(elem _ self fetch) ~~ NULL]
+ * 		whileTrue:
+ * 			[fn value: elem.
+ * 			self step]]
+ * 		valueNowOrOnUnwindDo: [self destroy]!
+ * 
+ * udanax-top.st:55277:TableStepper methodsFor: 'smalltalk: operations'!
+ * {void} forIndices: fn {BlockClosure of: IntegerVar with: Heaper} 
+ * 	[| result {Heaper} |
+ * 	[(result _ self fetch) ~~ NULL]
+ * 		whileTrue:
+ * 			[fn of: self index and: result.
+ * 			self step]]
+ * 		valueNowOrOnUnwindDo: [self destroy]!
+ * 
+ * udanax-top.st:55285:TableStepper methodsFor: 'smalltalk: operations'!
+ * {void} forKeyValues: fn {BlockClosure of: Position with: Heaper} 
+ * 	[| result {Heaper} |
+ * 	[(result _ self fetch) ~~ NULL]
+ * 		whileTrue:
+ * 			[fn of: self position and: result.
+ * 			self step]]
+ * 		valueNowOrOnUnwindDo: [self destroy]!
+ * 
+ * udanax-top.st:55293:TableStepper methodsFor: 'smalltalk: operations'!
+ * {void} forPositions: fn {BlockClosure of: Position with: Heaper} 
+ * 	[| result {Heaper} |
+ * 	[(result _ self fetch) ~~ NULL]
+ * 		whileTrue:
+ * 			[fn of: self position and: result.
+ * 			self step]]
+ * 		valueNowOrOnUnwindDo: [self destroy]!
+ * 
+ */
 public class TransformForEach extends AbstractMethodBodyTransformation {
 
 	private String lastMatchingMethodSignature = "";
@@ -58,8 +94,11 @@ public class TransformForEach extends AbstractMethodBodyTransformation {
 		
 		int expressionStart = javaMethod.methodBody.findStartOfExpression(i-1);
 
-		JavaType elementTypeToken = (JavaType)tokens.get(i+2);
-		JavaIdentifier elementNameToken = (JavaIdentifier)tokens.get(i+3);
+		String firstElementTypeName = ((JavaType)tokens.get(i+2)).value;
+		String firstElementName = ((JavaIdentifier)tokens.get(i+3)).value;
+		
+		String secondElementTypeName = forIndices || forPositions ? ((JavaType)tokens.get(i+5)).value : null;
+		String secondElementName = forIndices || forPositions ? ((JavaIdentifier)tokens.get(i+6)).value : null;
 		
 		String stepName = "stomper";
 		String firstMethodName = forIndices ? "index" : (forPositions ? "position": "fetch");
@@ -88,9 +127,18 @@ public class TransformForEach extends AbstractMethodBodyTransformation {
 		
 		
 		if (secondMethodName != null) {
-			assign(tokens, i + 5, stepName, secondMethodName);
+			j = assign(tokens, i + 5, stepName, secondMethodName);
+			continueIfNull(tokens, j, secondElementName);
 		}
-		assign(tokens, i + 2, stepName, firstMethodName);
+		j = assign(tokens, i + 2, stepName, firstMethodName);
+		if (secondMethodName == null) {
+			continueIfNull(tokens, j, firstElementName);
+		}
+		
+//		if (!elementTypeToken.value.equals("int")) {
+//			//TODO perhaps we should check for 0 here, rather than skipping the block for int case?
+//			continueIfNull(tokens, j, elementNameToken);
+//		}
 		
 		tokens.remove(i);
 		j = i;
@@ -114,8 +162,21 @@ public class TransformForEach extends AbstractMethodBodyTransformation {
 				
 		return i;
 	}
+	private void continueIfNull(List tokens, int j, String elementName) {
+		tokens.add(j++, new JavaStatementTerminator());
+		tokens.add(j++, new JavaKeyword("if"));
+		tokens.add(j++, new JavaParenthesisStart());
+		tokens.add(j++, new JavaIdentifier(elementName));
+		tokens.add(j++, new JavaKeyword("=="));
+		tokens.add(j++, new JavaIdentifier("null"));
+		tokens.add(j++, new JavaParenthesisEnd());
+		tokens.add(j++, new JavaBlockStart());
+		tokens.add(j++, new JavaKeyword("continue"));
+		tokens.add(j++, new JavaStatementTerminator());
+		tokens.add(j++, new JavaBlockEnd());
+	}
 	
-	protected void assign(List tokens, int i, String stepName, String methodName) {
+	protected int assign(List tokens, int i, String stepName, String methodName) {
 		JavaType elementTypeToken = (JavaType)tokens.get(i);
 		
 		int j = i + 2;
@@ -124,6 +185,7 @@ public class TransformForEach extends AbstractMethodBodyTransformation {
 		tokens.add(j++, new JavaIdentifier(stepName));
 		tokens.add(j++, new JavaCallStart(methodName));
 		tokens.add(j++, new JavaCallEnd());
+		return j;
 
 	}
 }

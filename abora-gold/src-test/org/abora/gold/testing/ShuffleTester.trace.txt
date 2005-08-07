@@ -1,10 +1,10 @@
 testing shuffler
 
-Shuffling 16: [97 98 99 100 101 102 103 104 105 106 107 108] to: [98 97 100 99 102 101 104 103 106 105 108 107]
-Shuffling 32: [97 98 99 100 101 102 103 104 105 106 107 108] to: [100 99 98 97 104 103 102 101 108 107 106 105]
+Shuffling 16: abcdefghijkl to: badcfehgjilk
+Shuffling 32: abcdefghijkl to: dcbahgfelkji
 Shuffling an empty string 16: [empty]
 Shuffling an empty string 32: [empty]
-Shuffling a tiny string 16: [98 97]
-Shuffling a tiny string 32: [100 99 98 97]
-Shuffling a small string 16: [98 97 100 99]
-Shuffling a small string 16: [98 97 100 99 102 101]
+Shuffling a tiny string 16: ba
+Shuffling a tiny string 32: dcba
+Shuffling a small string 16: badc
+Shuffling a small string 16: badcfe

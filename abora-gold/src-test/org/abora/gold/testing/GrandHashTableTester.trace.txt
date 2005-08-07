@@ -76,7 +76,7 @@ Testing domain
 
 {[-1, 2), [27, 28)}
 
-Test get(1) [102 105 108 108 121]
+Test get(1) filly
 
 Test get() in unknown territory. 
 

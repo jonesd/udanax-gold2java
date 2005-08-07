@@ -244,8 +244,18 @@ public class UInt8Array extends PrimIntArray {
 //		throw new UnsupportedOperationException();
 //	}
 
+	public void printOn(PrintWriter oo) {
+		if (count() == 0) {
+			oo.print("[empty]");
+		} else {
+			for (int i = 0; i < count(); i += 1) {
+				printElementOn(i, oo);
+			}
+		}
+	}
+	
 	protected void printElementOn(int index, PrintWriter oo) {
-		oo.print(uInt8At(index));
+		oo.print((char)uInt8At(index));
 	}
 
 	//////////////////////////////////////////////

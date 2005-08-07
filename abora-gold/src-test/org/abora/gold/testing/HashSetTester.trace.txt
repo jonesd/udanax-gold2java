@@ -17,7 +17,7 @@ end binary tests
 End of MuSet testing
 
 basic tests -- start with creation.
-basic hash set is: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+basic hash set is: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -28,10 +28,10 @@ tally == 0
 6:	(0, 6) 0,	null
 
 
-basic set on heaper is: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(123456, 0!!<[104 101 97 112 101 114]>)} internals:
+basic set on heaper is: ActualHashSet{SHTO(123456, 0!<heaper>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, -1193038) 123456,	org.abora.gold.set.SHTO(123456, 0!!<[104 101 97 112 101 114]>)
+1:	(1, -1193038) 123456,	SHTO(123456, 0!<heaper>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
@@ -39,7 +39,7 @@ tally == 1
 6:	(0, 6) 0,	null
 
 
-basic set make(4) is: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+basic set make(4) is: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -50,7 +50,7 @@ tally == 0
 6:	(0, 6) 0,	null
 
 
-basic set make(19) is: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+basic set make(19) is: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -73,7 +73,7 @@ tally == 0
 18:	(0, 18) 0,	null
 
 
-basic set make(0) is: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+basic set make(0) is: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -83,11 +83,11 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-copy of org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(123456, 0!!<[104 101 97 112 101 114]>)} is org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(123456, 0!!<[104 101 97 112 101 114]>)}
+copy of ActualHashSet{SHTO(123456, 0!<heaper>)} is ActualHashSet{SHTO(123456, 0!<heaper>)}
 internals of source:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, -1193038) 123456,	org.abora.gold.set.SHTO(123456, 0!!<[104 101 97 112 101 114]>)
+1:	(1, -1193038) 123456,	SHTO(123456, 0!<heaper>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
@@ -98,7 +98,7 @@ tally == 1
 internals of copy:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, -1193038) 123456,	org.abora.gold.set.SHTO(123456, 0!!<[104 101 97 112 101 114]>)
+1:	(1, -1193038) 123456,	SHTO(123456, 0!<heaper>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
@@ -110,7 +110,7 @@ tally == 1
 End of basic tests
 
 introduce tests
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -120,10 +120,10 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(0, 0!!<[102 105 114 115 116]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(0, 0!!<[102 105 114 115 116]>)} internals:
+set1 introduce: SHTO(0, 0!<first>)
+set1 now: ActualHashSet{SHTO(0, 0!<first>)} internals:
 tally == 1
-0:	(0, 0) 0,	org.abora.gold.set.SHTO(0, 0!!<[102 105 114 115 116]>)
+0:	(0, 0) 0,	SHTO(0, 0!<first>)
 1:	(0, 1) 0,	null
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
@@ -131,7 +131,7 @@ tally == 1
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -141,18 +141,18 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(1, 0!!<[115 101 99 111 110 100]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[115 101 99 111 110 100]>)} internals:
+set1 introduce: SHTO(1, 0!<second>)
+set1 now: ActualHashSet{SHTO(1, 0!<second>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[115 101 99 111 110 100]>)
+1:	(1, 0) 1,	SHTO(1, 0!<second>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -162,8 +162,8 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(6, 0!!<[116 104 105 114 100]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(6, 0!!<[116 104 105 114 100]>)} internals:
+set1 introduce: SHTO(6, 0!<third>)
+set1 now: ActualHashSet{SHTO(6, 0!<third>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -171,9 +171,9 @@ tally == 1
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
-6:	(6, 0) 6,	org.abora.gold.set.SHTO(6, 0!!<[116 104 105 114 100]>)
+6:	(6, 0) 6,	SHTO(6, 0!<third>)
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -183,10 +183,10 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114 116 104]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114 116 104]>)} internals:
+set1 introduce: SHTO(7, 0!<fourth>)
+set1 now: ActualHashSet{SHTO(7, 0!<fourth>)} internals:
 tally == 1
-0:	(0, 0) 7,	org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114 116 104]>)
+0:	(0, 0) 7,	SHTO(7, 0!<fourth>)
 1:	(0, 1) 0,	null
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
@@ -194,7 +194,7 @@ tally == 1
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -204,73 +204,73 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 introduce: SHTO(1, 0!<one>)
+set1 now: ActualHashSet{SHTO(1, 0!<one>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<one>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 introduce: SHTO(1, 0!<two>)
+set1 now: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 introduce: SHTO(1, 0!<three>)
+set1 now: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+set1 introduce: SHTO(1, 0!<one>)
 
-PROBLEM: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>) is already in set!!
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+PROBLEM: SHTO(1, 0!<one>) is already in set!
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -280,77 +280,77 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 introduce: SHTO(1, 0!<one>)
+set1 now: ActualHashSet{SHTO(1, 0!<one>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<one>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 introduce: SHTO(1, 0!<two>)
+set1 now: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 introduce: SHTO(1, 0!<three>)
+set1 now: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 introduce: org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 introduce: SHTO(2, 0!<fower>)
+set1 now: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>), SHTO(2, 0!<fower>)} internals:
 tally == 4
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-4:	(2, 2) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
+4:	(2, 2) 2,	SHTO(2, 0!<fower>)
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
@@ -359,7 +359,7 @@ tally == 4
 End of introduce tests
 
 store tests
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -369,10 +369,10 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(0, 0!!<[102 105 114 115 116]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(0, 0!!<[102 105 114 115 116]>)} internals:
+set1 store: SHTO(0, 0!<first>)
+set1 now: ActualHashSet{SHTO(0, 0!<first>)} internals:
 tally == 1
-0:	(0, 0) 0,	org.abora.gold.set.SHTO(0, 0!!<[102 105 114 115 116]>)
+0:	(0, 0) 0,	SHTO(0, 0!<first>)
 1:	(0, 1) 0,	null
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
@@ -380,7 +380,7 @@ tally == 1
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -390,18 +390,18 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(1, 0!!<[115 101 99 111 110 100]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[115 101 99 111 110 100]>)} internals:
+set1 store: SHTO(1, 0!<second>)
+set1 now: ActualHashSet{SHTO(1, 0!<second>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[115 101 99 111 110 100]>)
+1:	(1, 0) 1,	SHTO(1, 0!<second>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -411,8 +411,8 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(6, 0!!<[116 104 105 114 100]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(6, 0!!<[116 104 105 114 100]>)} internals:
+set1 store: SHTO(6, 0!<third>)
+set1 now: ActualHashSet{SHTO(6, 0!<third>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -420,9 +420,9 @@ tally == 1
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
-6:	(6, 0) 6,	org.abora.gold.set.SHTO(6, 0!!<[116 104 105 114 100]>)
+6:	(6, 0) 6,	SHTO(6, 0!<third>)
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -432,10 +432,10 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114 116 104]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114 116 104]>)} internals:
+set1 store: SHTO(7, 0!<fourth>)
+set1 now: ActualHashSet{SHTO(7, 0!<fourth>)} internals:
 tally == 1
-0:	(0, 0) 7,	org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114 116 104]>)
+0:	(0, 0) 7,	SHTO(7, 0!<fourth>)
 1:	(0, 1) 0,	null
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
@@ -443,7 +443,7 @@ tally == 1
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 starts as: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -453,134 +453,134 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 store: SHTO(1, 0!<one>)
+set1 now: ActualHashSet{SHTO(1, 0!<one>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<one>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 store: SHTO(1, 0!<two>)
+set1 now: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 store: SHTO(1, 0!<three>)
+set1 now: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 store: SHTO(1, 0!<one>)
+set1 now: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
 testing storeAll
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(2, 0!!<[100 117 98 108 101]>), org.abora.gold.set.SHTO(3, 0!!<[116 114 105 112 108 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(2, 0!<duble>), SHTO(3, 0!<triple>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[100 117 98 108 101]>)
-3:	(3, 0) 3,	org.abora.gold.set.SHTO(3, 0!!<[116 114 105 112 108 101]>)
+2:	(2, 0) 2,	SHTO(2, 0!<duble>)
+3:	(3, 0) 3,	SHTO(3, 0!<triple>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(4, 0!!<[113 117 97 100 108 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(2, 0!!<[100 117 98 108 101]>), org.abora.gold.set.SHTO(3, 0!!<[116 114 105 112 108 101]>), org.abora.gold.set.SHTO(4, 0!!<[113 117 97 100 108 101]>)} internals:
+set1 store: SHTO(4, 0!<quadle>)
+set1 now: ActualHashSet{SHTO(2, 0!<duble>), SHTO(3, 0!<triple>), SHTO(4, 0!<quadle>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[100 117 98 108 101]>)
-3:	(3, 0) 3,	org.abora.gold.set.SHTO(3, 0!!<[116 114 105 112 108 101]>)
-4:	(4, 0) 4,	org.abora.gold.set.SHTO(4, 0!!<[113 117 97 100 108 101]>)
+2:	(2, 0) 2,	SHTO(2, 0!<duble>)
+3:	(3, 0) 3,	SHTO(3, 0!<triple>)
+4:	(4, 0) 4,	SHTO(4, 0!<quadle>)
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 store: org.abora.gold.set.SHTO(1, 0!!<[111 110 101 108 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101 108 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 store: SHTO(1, 0!<onele>)
+set1 now: ActualHashSet{SHTO(1, 0!<onele>), SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 4
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101 108 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-4:	(1, 3) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<onele>)
+2:	(1, 1) 1,	SHTO(1, 0!<three>)
+3:	(1, 2) 1,	SHTO(1, 0!<two>)
+4:	(1, 3) 1,	SHTO(1, 0!<one>)
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
 after storeAll, set1 now:
 tally == 7
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-4:	(1, 3) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101 108 101]>)
-5:	(2, 3) 2,	org.abora.gold.set.SHTO(2, 0!!<[100 117 98 108 101]>)
-6:	(3, 3) 3,	org.abora.gold.set.SHTO(3, 0!!<[116 114 105 112 108 101]>)
-7:	(4, 3) 4,	org.abora.gold.set.SHTO(4, 0!!<[113 117 97 100 108 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<three>)
+4:	(1, 3) 1,	SHTO(1, 0!<onele>)
+5:	(2, 3) 2,	SHTO(2, 0!<duble>)
+6:	(3, 3) 3,	SHTO(3, 0!<triple>)
+7:	(4, 3) 4,	SHTO(4, 0!<quadle>)
 8:	(0, 8) 0,	null
 9:	(0, 9) 0,	null
 10:	(0, 10) 0,	null
@@ -597,9 +597,9 @@ after storeAll, set2 now:
 tally == 3
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[100 117 98 108 101]>)
-3:	(3, 0) 3,	org.abora.gold.set.SHTO(3, 0!!<[116 114 105 112 108 101]>)
-4:	(4, 0) 4,	org.abora.gold.set.SHTO(4, 0!!<[113 117 97 100 108 101]>)
+2:	(2, 0) 2,	SHTO(2, 0!<duble>)
+3:	(3, 0) 3,	SHTO(3, 0!<triple>)
+4:	(4, 0) 4,	SHTO(4, 0!<quadle>)
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
@@ -608,9 +608,9 @@ tally == 3
 End of store tests
 
 wipe tests
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(0, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(0, 0!<one>)} internals:
 tally == 1
-0:	(0, 0) 0,	org.abora.gold.set.SHTO(0, 0!!<[111 110 101]>)
+0:	(0, 0) 0,	SHTO(0, 0!<one>)
 1:	(0, 1) 0,	null
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
@@ -618,8 +618,8 @@ tally == 1
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(0, 0!!<[111 110 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 wipe: SHTO(0, 0!<one>)
+set1 now: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -629,18 +629,18 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<two>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 wipe: SHTO(1, 0!<two>)
+set1 now: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -650,7 +650,7 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(6, 0!!<[116 104 114 101 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(6, 0!<three>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -658,10 +658,10 @@ tally == 1
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
-6:	(6, 0) 6,	org.abora.gold.set.SHTO(6, 0!!<[116 104 114 101 101]>)
+6:	(6, 0) 6,	SHTO(6, 0!<three>)
 
-set1 wipe: org.abora.gold.set.SHTO(6, 0!!<[116 104 114 101 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 wipe: SHTO(6, 0!<three>)
+set1 now: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -671,9 +671,9 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(7, 0!<four>)} internals:
 tally == 1
-0:	(0, 0) 7,	org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114]>)
+0:	(0, 0) 7,	SHTO(7, 0!<four>)
 1:	(0, 1) 0,	null
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
@@ -681,8 +681,8 @@ tally == 1
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(7, 0!!<[102 111 117 114]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 wipe: SHTO(7, 0!<four>)
+set1 now: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -692,81 +692,81 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>), SHTO(2, 0!<fower>)} internals:
 tally == 4
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-4:	(2, 2) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
+4:	(2, 2) 2,	SHTO(2, 0!<fower>)
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 wipe: SHTO(1, 0!<one>)
+set1 now: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(2, 0!<fower>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(2, 1) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(2, 1) 2,	SHTO(2, 0!<fower>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(2, 0!<fower>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(2, 1) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(2, 1) 2,	SHTO(2, 0!<fower>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 wipe: SHTO(1, 0!<two>)
+set1 now: ActualHashSet{SHTO(1, 0!<three>), SHTO(2, 0!<fower>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(2, 0) 2,	SHTO(2, 0!<fower>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(2, 0!<fower>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(2, 0) 2,	SHTO(2, 0!<fower>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 wipe: SHTO(1, 0!<three>)
+set1 now: ActualHashSet{SHTO(2, 0!<fower>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+2:	(2, 0) 2,	SHTO(2, 0!<fower>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(2, 0!<fower>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+2:	(2, 0) 2,	SHTO(2, 0!<fower>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 wipe: SHTO(2, 0!<fower>)
+set1 now: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -776,81 +776,81 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>), SHTO(2, 0!<fower>)} internals:
 tally == 4
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-4:	(2, 2) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
+4:	(2, 2) 2,	SHTO(2, 0!<fower>)
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 wipe: SHTO(1, 0!<three>)
+set1 now: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>), SHTO(2, 0!<fower>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-3:	(2, 1) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
+3:	(2, 1) 2,	SHTO(2, 0!<fower>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>), SHTO(2, 0!<fower>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-3:	(2, 1) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
+3:	(2, 1) 2,	SHTO(2, 0!<fower>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 wipe: SHTO(1, 0!<two>)
+set1 now: ActualHashSet{SHTO(1, 0!<one>), SHTO(2, 0!<fower>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
+2:	(2, 0) 2,	SHTO(2, 0!<fower>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<one>), SHTO(2, 0!<fower>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
+2:	(2, 0) 2,	SHTO(2, 0!<fower>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 wipe: SHTO(1, 0!<one>)
+set1 now: ActualHashSet{SHTO(2, 0!<fower>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+2:	(2, 0) 2,	SHTO(2, 0!<fower>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(2, 0!<fower>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
-2:	(2, 0) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+2:	(2, 0) 2,	SHTO(2, 0!<fower>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 wipe: SHTO(2, 0!<fower>)
+set1 now: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -860,81 +860,81 @@ tally == 0
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>), org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>), SHTO(2, 0!<fower>)} internals:
 tally == 4
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-4:	(2, 2) 2,	org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
+4:	(2, 2) 2,	SHTO(2, 0!<fower>)
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(2, 0!!<[102 111 119 101 114]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 wipe: SHTO(2, 0!<fower>)
+set1 now: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>), org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<three>), SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 3
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-3:	(1, 2) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<three>)
+2:	(1, 1) 1,	SHTO(1, 0!<two>)
+3:	(1, 2) 1,	SHTO(1, 0!<one>)
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[116 104 114 101 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 wipe: SHTO(1, 0!<three>)
+set1 now: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>), org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<two>), SHTO(1, 0!<one>)} internals:
 tally == 2
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-2:	(1, 1) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<two>)
+2:	(1, 1) 1,	SHTO(1, 0!<one>)
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[116 119 111]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 wipe: SHTO(1, 0!<two>)
+set1 now: ActualHashSet{SHTO(1, 0!<one>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 starts as: org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)} internals:
+set1 starts as: ActualHashSet{SHTO(1, 0!<one>)} internals:
 tally == 1
 0:	(0, 0) 0,	null
-1:	(1, 0) 1,	org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
+1:	(1, 0) 1,	SHTO(1, 0!<one>)
 2:	(0, 2) 0,	null
 3:	(0, 3) 0,	null
 4:	(0, 4) 0,	null
 5:	(0, 5) 0,	null
 6:	(0, 6) 0,	null
 
-set1 wipe: org.abora.gold.set.SHTO(1, 0!!<[111 110 101]>)
-set1 now: org.abora.gold.collection.sets.ActualHashSet{nullSet} internals:
+set1 wipe: SHTO(1, 0!<one>)
+set1 now: ActualHashSet{nullSet} internals:
 tally == 0
 0:	(0, 0) 0,	null
 1:	(0, 1) 0,	null
@@ -952,7 +952,7 @@ End of wipe tests
 start of big testing.
  
 new big set (count 10000) is:
-org.abora.gold.collection.sets.ActualHashSet{org.abora.gold.set.SHTO(1, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(2, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(3, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(4, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(5, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(6, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(7, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(8, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(9, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(10, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(11, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(12, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(13, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(14, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(15, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(16, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(17, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(18, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(19, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(1a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(1b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(1c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(1d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(1e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(1f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(20, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(21, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(22, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(23, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(24, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(25, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(26, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(27, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(28, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(29, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(2a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(2b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(2c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(2d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(2e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(2f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(30, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(31, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(32, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(33, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(34, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(35, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(36, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(37, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(38, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(39, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(3a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(3b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(3c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(3d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(3e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(3f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(40, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(41, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(42, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(43, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(44, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(45, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(46, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(47, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(48, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(49, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(4a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(4b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(4c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(4d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(4e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(4f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(50, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(51, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(52, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(53, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(54, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(55, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(56, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(57, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(58, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(59, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(5a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(5b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(5c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(5d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(5e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(5f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(60, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(61, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(62, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(63, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(64, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(65, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(66, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(67, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(68, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(69, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(6a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(6b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(6c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(6d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(6e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(6f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(70, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(71, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(72, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(73, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(74, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(75, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(76, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(77, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(78, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(79, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(7a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(7b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(7c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(7d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(7e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(7f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(80, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(81, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(82, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(83, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(84, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(85, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(86, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(87, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(88, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(89, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(8a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(8b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(8c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(8d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(8e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(8f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(90, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(91, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(92, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(93, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(94, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(95, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(96, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(97, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(98, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(99, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(9a, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(9b, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(9c, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(9d, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(9e, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(9f, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a0, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a1, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a2, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a3, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a4, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a5, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a6, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a7, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a8, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(a9, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(aa, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(ab, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(ac, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(ad, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(ae, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(af, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b0, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b1, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b2, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b3, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b4, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b5, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b6, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b7, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b8, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(b9, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(ba, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(bb, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(bc, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(bd, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(be, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(bf, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c0, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c1, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c2, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c3, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c4, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c5, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c6, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c7, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c8, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), org.abora.gold.set.SHTO(c9, 0!!<[115 111 109 101 32 111 98 106 101 99 116]>), etc...}
+ActualHashSet{SHTO(1, 0!<some object>), SHTO(2, 0!<some object>), SHTO(3, 0!<some object>), SHTO(4, 0!<some object>), SHTO(5, 0!<some object>), SHTO(6, 0!<some object>), SHTO(7, 0!<some object>), SHTO(8, 0!<some object>), SHTO(9, 0!<some object>), SHTO(A, 0!<some object>), SHTO(B, 0!<some object>), SHTO(C, 0!<some object>), SHTO(D, 0!<some object>), SHTO(E, 0!<some object>), SHTO(F, 0!<some object>), SHTO(10, 0!<some object>), SHTO(11, 0!<some object>), SHTO(12, 0!<some object>), SHTO(13, 0!<some object>), SHTO(14, 0!<some object>), SHTO(15, 0!<some object>), SHTO(16, 0!<some object>), SHTO(17, 0!<some object>), SHTO(18, 0!<some object>), SHTO(19, 0!<some object>), SHTO(1A, 0!<some object>), SHTO(1B, 0!<some object>), SHTO(1C, 0!<some object>), SHTO(1D, 0!<some object>), SHTO(1E, 0!<some object>), SHTO(1F, 0!<some object>), SHTO(20, 0!<some object>), SHTO(21, 0!<some object>), SHTO(22, 0!<some object>), SHTO(23, 0!<some object>), SHTO(24, 0!<some object>), SHTO(25, 0!<some object>), SHTO(26, 0!<some object>), SHTO(27, 0!<some object>), SHTO(28, 0!<some object>), SHTO(29, 0!<some object>), SHTO(2A, 0!<some object>), SHTO(2B, 0!<some object>), SHTO(2C, 0!<some object>), SHTO(2D, 0!<some object>), SHTO(2E, 0!<some object>), SHTO(2F, 0!<some object>), SHTO(30, 0!<some object>), SHTO(31, 0!<some object>), SHTO(32, 0!<some object>), SHTO(33, 0!<some object>), SHTO(34, 0!<some object>), SHTO(35, 0!<some object>), SHTO(36, 0!<some object>), SHTO(37, 0!<some object>), SHTO(38, 0!<some object>), SHTO(39, 0!<some object>), SHTO(3A, 0!<some object>), SHTO(3B, 0!<some object>), SHTO(3C, 0!<some object>), SHTO(3D, 0!<some object>), SHTO(3E, 0!<some object>), SHTO(3F, 0!<some object>), SHTO(40, 0!<some object>), SHTO(41, 0!<some object>), SHTO(42, 0!<some object>), SHTO(43, 0!<some object>), SHTO(44, 0!<some object>), SHTO(45, 0!<some object>), SHTO(46, 0!<some object>), SHTO(47, 0!<some object>), SHTO(48, 0!<some object>), SHTO(49, 0!<some object>), SHTO(4A, 0!<some object>), SHTO(4B, 0!<some object>), SHTO(4C, 0!<some object>), SHTO(4D, 0!<some object>), SHTO(4E, 0!<some object>), SHTO(4F, 0!<some object>), SHTO(50, 0!<some object>), SHTO(51, 0!<some object>), SHTO(52, 0!<some object>), SHTO(53, 0!<some object>), SHTO(54, 0!<some object>), SHTO(55, 0!<some object>), SHTO(56, 0!<some object>), SHTO(57, 0!<some object>), SHTO(58, 0!<some object>), SHTO(59, 0!<some object>), SHTO(5A, 0!<some object>), SHTO(5B, 0!<some object>), SHTO(5C, 0!<some object>), SHTO(5D, 0!<some object>), SHTO(5E, 0!<some object>), SHTO(5F, 0!<some object>), SHTO(60, 0!<some object>), SHTO(61, 0!<some object>), SHTO(62, 0!<some object>), SHTO(63, 0!<some object>), SHTO(64, 0!<some object>), SHTO(65, 0!<some object>), SHTO(66, 0!<some object>), SHTO(67, 0!<some object>), SHTO(68, 0!<some object>), SHTO(69, 0!<some object>), SHTO(6A, 0!<some object>), SHTO(6B, 0!<some object>), SHTO(6C, 0!<some object>), SHTO(6D, 0!<some object>), SHTO(6E, 0!<some object>), SHTO(6F, 0!<some object>), SHTO(70, 0!<some object>), SHTO(71, 0!<some object>), SHTO(72, 0!<some object>), SHTO(73, 0!<some object>), SHTO(74, 0!<some object>), SHTO(75, 0!<some object>), SHTO(76, 0!<some object>), SHTO(77, 0!<some object>), SHTO(78, 0!<some object>), SHTO(79, 0!<some object>), SHTO(7A, 0!<some object>), SHTO(7B, 0!<some object>), SHTO(7C, 0!<some object>), SHTO(7D, 0!<some object>), SHTO(7E, 0!<some object>), SHTO(7F, 0!<some object>), SHTO(80, 0!<some object>), SHTO(81, 0!<some object>), SHTO(82, 0!<some object>), SHTO(83, 0!<some object>), SHTO(84, 0!<some object>), SHTO(85, 0!<some object>), SHTO(86, 0!<some object>), SHTO(87, 0!<some object>), SHTO(88, 0!<some object>), SHTO(89, 0!<some object>), SHTO(8A, 0!<some object>), SHTO(8B, 0!<some object>), SHTO(8C, 0!<some object>), SHTO(8D, 0!<some object>), SHTO(8E, 0!<some object>), SHTO(8F, 0!<some object>), SHTO(90, 0!<some object>), SHTO(91, 0!<some object>), SHTO(92, 0!<some object>), SHTO(93, 0!<some object>), SHTO(94, 0!<some object>), SHTO(95, 0!<some object>), SHTO(96, 0!<some object>), SHTO(97, 0!<some object>), SHTO(98, 0!<some object>), SHTO(99, 0!<some object>), SHTO(9A, 0!<some object>), SHTO(9B, 0!<some object>), SHTO(9C, 0!<some object>), SHTO(9D, 0!<some object>), SHTO(9E, 0!<some object>), SHTO(9F, 0!<some object>), SHTO(A0, 0!<some object>), SHTO(A1, 0!<some object>), SHTO(A2, 0!<some object>), SHTO(A3, 0!<some object>), SHTO(A4, 0!<some object>), SHTO(A5, 0!<some object>), SHTO(A6, 0!<some object>), SHTO(A7, 0!<some object>), SHTO(A8, 0!<some object>), SHTO(A9, 0!<some object>), SHTO(AA, 0!<some object>), SHTO(AB, 0!<some object>), SHTO(AC, 0!<some object>), SHTO(AD, 0!<some object>), SHTO(AE, 0!<some object>), SHTO(AF, 0!<some object>), SHTO(B0, 0!<some object>), SHTO(B1, 0!<some object>), SHTO(B2, 0!<some object>), SHTO(B3, 0!<some object>), SHTO(B4, 0!<some object>), SHTO(B5, 0!<some object>), SHTO(B6, 0!<some object>), SHTO(B7, 0!<some object>), SHTO(B8, 0!<some object>), SHTO(B9, 0!<some object>), SHTO(BA, 0!<some object>), SHTO(BB, 0!<some object>), SHTO(BC, 0!<some object>), SHTO(BD, 0!<some object>), SHTO(BE, 0!<some object>), SHTO(BF, 0!<some object>), SHTO(C0, 0!<some object>), SHTO(C1, 0!<some object>), SHTO(C2, 0!<some object>), SHTO(C3, 0!<some object>), SHTO(C4, 0!<some object>), SHTO(C5, 0!<some object>), SHTO(C6, 0!<some object>), SHTO(C7, 0!<some object>), SHTO(C8, 0!<some object>), SHTO(C9, 0!<some object>), etc...}
 
 	
 
@@ -975,7 +975,7 @@ big2 is NOT a subset of big3
 
 end of bigset testing
 
-End of black box testing - now for the White!!
+End of black box testing - now for the White!
 
 
 End of HashSet testing

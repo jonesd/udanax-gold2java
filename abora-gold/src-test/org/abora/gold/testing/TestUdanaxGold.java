@@ -6,6 +6,7 @@ import org.abora.gold.collection.settable.SetTableTester;
 import org.abora.gold.cross.CrossTester;
 import org.abora.gold.diskman.DiskTester;
 import org.abora.gold.java.AboraStartup;
+import org.abora.gold.java.missing.FHashTester;
 import org.abora.gold.nkernel.VolumeTester;
 import org.abora.gold.nkernel.WorksTester;
 import org.abora.gold.primtab.PrimIndexTableTester;
@@ -44,6 +45,12 @@ public class TestUdanaxGold extends UdanaxGoldTestCase {
 		} finally {
 			AboraStartup.getInstance().useFakeDisk();
 		}
+	}
+
+	public void testFHashTester() throws IOException {
+		//Started trace.txt from: c.zip/udanax/gold/tools/xpp/sun/fhash.out
+		FHashTester tester = new FHashTester();
+		assertTester(tester);
 	}
 
 	public void testGrandHashTableTester() throws IOException {

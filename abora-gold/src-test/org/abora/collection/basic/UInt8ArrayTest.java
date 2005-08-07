@@ -1037,7 +1037,7 @@ public class UInt8ArrayTest extends AboraGoldTestCase {
 
 	public void testToString() {
 		assertEquals("[empty]", AssertArrays.makeUInt8ArrayEmpty().toString());
-		assertEquals("[1 2 3 4 5]", AssertArrays.makeUInt8Array12345().toString());
+		assertEquals("ABC", UInt8Array.make(new short[] { 65,66, 67 }).toString());
 	}
 	
 //	public void testString() {
