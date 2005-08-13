@@ -32,6 +32,7 @@ import org.abora.gold.traces.TracePosition;
 import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
+import org.abora.gold.xpp.basic.Heaper;
 import org.abora.gold.xpp.fluid.FluidVar;
 import org.abora.gold.xpp.fluid.GlobalEmulsion;
 
@@ -229,7 +230,8 @@ public class AboraHeaper {
 	}
 	public static int preorderMax() {
 		//TODO made up number!
-		return 999;
+		//return Heaper.classHierarchy().length;
+		return 1000;
 	}
 	public void fixup() {
 		throw new UnsupportedOperationException();

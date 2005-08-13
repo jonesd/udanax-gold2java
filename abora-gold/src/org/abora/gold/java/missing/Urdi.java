@@ -9,47 +9,72 @@
 
 package org.abora.gold.java.missing;
 
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.abora.gold.collection.basic.Int32Array;
+import org.abora.gold.collection.basic.UInt8Array;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class Urdi extends Heaper {
 	private String filename;
 	private int lruCount;
 
-	public Urdi() {
-		super();
-	}
+	private Map space = new HashMap();
+	private int totalSnarfs = 16;
+	
+	//TODO guess at size. Seems like it needs to be a multiple of 4 in size
+	private static final int SNARF_SIZE = 16000;
 	
 	public Urdi(String filename, int lruCount) {
 		super();
 		this.filename = filename;
 		this.lruCount = lruCount;
+		
+		for (int i = 0; i < totalSnarfs; i++) {
+			UInt8Array snarfSpace = UInt8Array.make(SNARF_SIZE);
+			space.put(new Integer(i), snarfSpace);
+		}
 	}
 
 	public UrdiView makeWriteView() {
 		//TODO something more interesting here...
-		return new UrdiView(this);
+		return new UrdiView(this, true);
 	}
 
 	public static Urdi urdi(String fname, int lruCount) {
 		return new Urdi(fname, lruCount);
 	}
 
-	public byte usableSnarfs() {
+	public int usableSnarfs() {
 		//TODO rubbish - See SnarfInfoHandle
-		return 16;
+		return totalSnarfs;
 	}
 
 	public int getDataSizeOfSnarf(int i) {
-		throw new UnsupportedOperationException();
+		return SNARF_SIZE;
 	}
 
 	public int usableStages() {
-		throw new UnsupportedOperationException();
+		//TODO have no idea what this means...
+		return 0;
 	}
 
 	public UrdiView makeReadView() {
 		//TODO something more interesting here...
-		return new UrdiView(this);
+		return new UrdiView(this, false);
+	}
+	
+	public void printOn(PrintWriter oo) {
+		oo.print(getAboraClass().name());
+		oo.print("(");
+		oo.print(filename);
+		oo.print(")");
+	}
+
+	protected UInt8Array getSpace(int snarfID) {
+		return (UInt8Array)space.get(new Integer(snarfID));
 	}
 
 }

@@ -1113,4 +1113,21 @@ public class UInt8ArrayTest extends AboraGoldTestCase {
 		assertEquals(((PrimIntegerSpec)array.spec()).bitCount(), Math.abs(array.bitCount()));
 		assertTrue(array.bitCount() >= 0);
 	}
+	
+	public void testInt32At() {
+		UInt8Array array = UInt8Array.make(8);
+		
+		array.storeInt32(0, 1);
+		assertEquals(1, array.int32At(0));
+		
+		array.storeInt32(0, Integer.MIN_VALUE);
+		assertEquals(Integer.MIN_VALUE, array.int32At(0));
+		
+		array.storeInt32(0, Integer.MAX_VALUE);
+		assertEquals(Integer.MAX_VALUE, array.int32At(0));
+		
+		array.storeInt32(1, 99);
+		assertEquals(99, array.int32At(1));
+		
+	}
 }

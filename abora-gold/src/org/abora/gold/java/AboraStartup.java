@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.abora.gold.appmods.WorksIniter;
+import org.abora.gold.be.basic.BeGrandMap;
 import org.abora.gold.be.canopy.CanopyCache;
 import org.abora.gold.cobbler.BootMaker;
 import org.abora.gold.cobbler.Connection;
@@ -24,8 +25,6 @@ import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.negoti8.ProtocolBroker;
 import org.abora.gold.nkernel.FeServer;
 import org.abora.gold.snarf.DiskManager;
-import org.abora.gold.snarf.FakePacker;
-import org.abora.gold.snarf.MockTurtle;
 import org.abora.gold.xcvr.Binary2XcvrMaker;
 import org.abora.gold.xcvr.BogusXcvrMaker;
 import org.abora.gold.xcvr.DiskIniter;
@@ -125,6 +124,9 @@ public class AboraStartup {
 	public void useRealDisk() {
 		DiskIniter diskInitier = new DiskIniter() {
 			//TODO do something about the filename here...
+			{
+				this.myCategory = AboraSupport.findCategory(BeGrandMap.class);
+			}
 		};
 		diskInitier.execute();
 	}

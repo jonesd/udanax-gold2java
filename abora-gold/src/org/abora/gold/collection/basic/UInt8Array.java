@@ -12,7 +12,6 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
-import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
@@ -314,5 +313,21 @@ public class UInt8Array extends PrimIntArray {
 	public static UInt8Array basicNew() {
 		throw new UnsupportedOperationException();
 	}
+	
+	public int int32At(int index) {
+        int value = 0;
+        for (int i = 0; i < 4; i++) {
+            int shift = (4 - 1 - i) * 8;
+            value += (storage[i + index] & 0x000000FF) << shift;
+        }
+        return value;	
+       }
+
+	public void storeInt32(int index, int value) {
+		 for (int i = 0; i < 4; i++) {
+	            int offset = (3 - i) * 8;
+	            storage[i + index] = (byte) ((value >>> offset) & 0xFF);
+	        }
+		}
 
 }

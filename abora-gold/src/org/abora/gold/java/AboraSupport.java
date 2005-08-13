@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.abora.gold.java.missing.FeWrapperSpecHolder;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.java.missing.smalltalk.OrderedCollection;
 import org.abora.gold.xpp.basic.Category;

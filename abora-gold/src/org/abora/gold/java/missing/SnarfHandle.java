@@ -9,37 +9,60 @@
 
 package org.abora.gold.java.missing;
 
+import java.io.PrintWriter;
+
+import org.abora.gold.collection.basic.Int32Array;
 import org.abora.gold.collection.basic.UInt8Array;
+import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class SnarfHandle extends Heaper {
 
-	public SnarfHandle() {
+	private final int snarfId;
+	private boolean writable = false;
+	private UInt8Array array = null;
+	
+	public SnarfHandle(int snarfId, UInt8Array array) {
 		super();
+		
+		this.snarfId = snarfId;
+		this.array = array;
 	}
-	public int get32(int unknown) {
-		throw new UnsupportedOperationException();
+	
+	public int get32(int bytePosition) {
+		return array.int32At(bytePosition);
 	}
+	
 	public UInt8Array getDataP() {
-		throw new UnsupportedOperationException();
+		if (!isWritable()) {
+			throw new AboraRuntimeException("Must be writeable");
+		}
+		return array;
 	}
+	
 	public int getSnarfID() {
-		throw new UnsupportedOperationException();
+		return snarfId;
 	}
 	public int getDataSize() {
-		throw new UnsupportedOperationException();
+		return array.count();
 	}
 	public void makeWritable() {
-		throw new UnsupportedOperationException();
+		writable = true;
 	}
 	public void moveBytes(int offsetToMove, int sweeper, int count) {
 		throw new UnsupportedOperationException();
 	}
-	public void put32(int a, int b) {
-		throw new UnsupportedOperationException();
+	public void put32(int bytePosition, int value) {
+		array.storeInt32(bytePosition, value);
 	}
 	public boolean isWritable() {
-		throw new UnsupportedOperationException();
+		return writable;
 	}
 
+	public void printOn(PrintWriter oo) {
+		oo.print(getAboraClass().name());
+		oo.print("(");
+		oo.print(snarfId);
+		oo.print(")");
+	}
 }

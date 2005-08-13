@@ -9,19 +9,19 @@ public class AboraCharacterSupport {
 	}
 
 	public static char cr() {
-		throw new UnsupportedOperationException();
+		return '\r';
 	}
 
 	public static char tab() {
-		throw new UnsupportedOperationException();
+		return '\t';
 	}
 
 	public static char backspace() {
-		throw new UnsupportedOperationException();
+		return '\b';
 	}
 	
 	public static char nullx() {
-		throw new UnsupportedOperationException();
+		return '\u0000';
 	}
 
 	public static String println() {
@@ -29,7 +29,8 @@ public class AboraCharacterSupport {
 	}
 
 	public static boolean isSeparator(char c) {
-		throw new UnsupportedOperationException();
+		//TODO this is a little different from the Squeaks Character.isSeparator - significant?
+		return Character.isWhitespace(c);
 	}
 
 }

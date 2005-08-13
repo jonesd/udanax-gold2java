@@ -9,44 +9,43 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.snarf.SnarfHandler;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class UrdiView extends Heaper {
 
 	private Urdi urdi;
+	private boolean isWritable = false;
 	
-	public UrdiView() {
-		super();
-	}
-	
-	public UrdiView(Urdi urdi) {
+	public UrdiView(Urdi urdi, boolean isWritable) {
 		super();
 		this.urdi = urdi;
+		this.isWritable = isWritable;
 	}
 
 	public int getDataSizeOfSnarf(int/*SnarfID*/ mySnarfID) {
-		throw new UnsupportedOperationException();
+		//TODO implement properly
+		return urdi.getDataSizeOfSnarf(mySnarfID);
 	}
 
 	public void commitWrite() {
-		throw new UnsupportedOperationException();
+		//TODO implement
+		System.out.println("Ignoring UrdiView commitWrite: "+urdi);
 	}
 
 	public void becomeRead() {
-		throw new UnsupportedOperationException();
+		isWritable = false;
 	}
 
 	public SnarfHandle makeReadHandle(int/*SnarfID*/ snarfID) {
-		throw new UnsupportedOperationException();
+		//TODO placeholder
+		return new SnarfHandle(snarfID, urdi.getSpace(snarfID));
 	}
 
 	public SnarfHandle makeErasingHandle(int/*SnarfID*/ snarfID) {
 		//TODO placeholder
-		return new SnarfHandle();
+		SnarfHandle handle =  new SnarfHandle(snarfID, urdi.getSpace(snarfID));
+		handle.makeWritable();
+		return handle;
 	}
-
-//	public int getDataSizeOfSnarf(int i) {
-//		throw new UnsupportedOperationException();
-//	}
-
 }

@@ -17,6 +17,7 @@ import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaCast;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
+import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
@@ -64,6 +65,7 @@ public class AddMethod implements ClassTransformer {
 			addUnsupportedMethod(javaClass, "", "Category", "fetchSuperCategory", new String[] {});
 			addUnsupportedMethod(javaClass, "", "Category", "registerPackageCategory", new String[] {"Object", "packageCategory"});
 			addUnsupportedMethod(javaClass, "", "AboraClass", "originalClass", new String[] {});
+			addCategoryIsEqual(javaClass);
 			
 		} else if (javaClass.className.equals("Tester")) {
 			addUnsupportedMethod(javaClass, "", "void", "perform", new String[] {"String", "test", "PrintWriter", "out"});			
@@ -92,6 +94,25 @@ public class AddMethod implements ClassTransformer {
 		}
 	}
 	
+	private JavaMethod addCategoryIsEqual(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("boolean", "isEqual");
+		method.addParameter(new JavaField("Heaper", "other"));
+		List tokens = new ArrayList();
+		tokens.add(new JavaKeyword("return"));
+		tokens.add(new JavaIdentifier("this"));
+		tokens.add(new JavaKeyword("=="));
+		tokens.add(new JavaIdentifier("other"));
+		tokens.add(new JavaStatementTerminator());
+		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+		return method;
+	}
+
 	private JavaMethod addByteShufflerShuffle(JavaClass javaClass) {
 		JavaMethod method = new JavaMethod("void", "shuffle");
 		method.addParameter(new JavaField("int", "precision"));

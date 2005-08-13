@@ -11,7 +11,6 @@ package org.abora.gold.java.missing.smalltalk;
 
 import java.io.PrintWriter;
 
-import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class AboraClass extends Heaper {
@@ -28,6 +27,13 @@ public class AboraClass extends Heaper {
 		this.preorderNumber = nextPreorderNumber++;
 	}
 
+	public static int getPreorderMax() {
+		if (nextPreorderNumber == 0) {
+			throw new IllegalStateException("Preorder not initialized yet!");
+		}
+		return nextPreorderNumber;
+	}
+	
 	public String fetchAttribute(Object attr) {
 		throw new UnsupportedOperationException();
 	}
@@ -46,6 +52,10 @@ public class AboraClass extends Heaper {
 
 	public String name() {
 		String fullClassName = c.getName();
+		return shortName(fullClassName);
+	}
+
+	private String shortName(String fullClassName) {
 		return fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
 	}
 
@@ -95,9 +105,9 @@ public class AboraClass extends Heaper {
 	}
 	
 	public void printOn(PrintWriter oo) {
-		oo.print(getClass().getName());
+		oo.print(shortName(getClass().getName()));
 		oo.print("(");
-		oo.print(getJavaClass());
+		oo.print(name());
 		oo.print(")");
 	}
 }
