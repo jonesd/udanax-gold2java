@@ -150,6 +150,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformModulo());
 		transformers.add(new TransformOperatorPrecedence());
 		transformers.add(new TransformExceptionReturn());
+		transformers.add(new TransformInitializeClassAttributes());
 		
 		transformers.add(new TransformHashSetTestFalse());
 		transformers.add(new TransformGrandHashSetRemove());

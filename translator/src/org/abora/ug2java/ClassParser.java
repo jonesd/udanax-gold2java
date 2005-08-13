@@ -47,11 +47,6 @@ public class ClassParser {
 	
 	private JavaClass javaClass;
 	private MethodTransformation methodTransformer = new TransformIntraMethod();
-	private int stompLevel = 1;
-	
-	public static final String HEAPER_CLASS = "Heaper";
-	public static final String STEPPER_CLASS = "Stepper";
-	public static final String TABLE_STEPPER_CLASS = "TableStepper";
 	
 	static final Map LOOKUP_TYPES;
 	static {
@@ -161,7 +156,7 @@ public class ClassParser {
 	public static final Map OVERRIDE_VOID_RETURN_TYPE;
 	static {
 		Map table  = new Hashtable();
-		table.put("stepper()", STEPPER_CLASS);
+		table.put("stepper()", "Stepper");
 		table.put("isGenerated", "boolean");
 		table.put("SnarfPacker.conistentCount", "int");
 		table.put("ScruTable.stepper", "TableStepper");
@@ -255,7 +250,6 @@ public class ClassParser {
 
 	static final String CATEGORY_SEPARATOR = "-";
 
-	private static final String FOR_EACH_STEPPER_VARIABLE = "stomp";
 	public static final String ABORA_RUNTIME_EXCEPTION_CLASS = "AboraRuntimeException";
 
 	public void setJavaClass(JavaClass javaClass) {
@@ -531,7 +525,6 @@ public class ClassParser {
 			javaMethod.comment = scanner.token.tokenString;
 			scannerAdvance(scanner);
 		}
-		stompLevel = 1;/*hack*/
 		javaMethod.methodBody = readMethodUnit(scanner);
 		methodTransformer.transform(javaMethod);
 //		javaClass.includeAnyReferencedTypes(javaMethod.methodBody);
@@ -563,29 +556,52 @@ public class ClassParser {
 	}
 
 	public void parseClassDefinition() throws Exception {
+		//TODO seemed to have duplicate definitons of this; class & metaclass - just do this once
+		boolean hasParsedFirstCxxClassDescription = false;
 		for (Iterator iter = javaClass.classQuotes.iterator(); iter.hasNext();) {
 			ChunkDetails chunk = (ChunkDetails) iter.next();
 			if (chunk.contents.indexOf("instanceVariableNames:") != -1) {
-				ChunkParser parser = new ChunkParser(chunk.contents);
-				String word = parser.nextWord();
-				word = parser.nextWord();
-				if (word.equals("class")) {
-					word = parser.nextWord();
-					//TODO just reading in class insts as static - not technically the same thing...
-					parseVariables(parser, "static ");
-				} else if (word.equals("subclass:")) {
-					word = parser.nextWord();
-					word = parser.nextWord();
-					word = parser.nextWord();
-
-					parseVariables(parser, "");
-					word = parser.nextWord();
-					parseVariables(parser, "static ");
+				parseInstanceVariableNamesChunk(chunk);
+			} else if (!hasParsedFirstCxxClassDescription && chunk.contents.indexOf("getOrMakeCxxClassDescription") != -1) {
+				parseGetOrMakeCxxClassDescriptionChunk(chunk);
+				
+				hasParsedFirstCxxClassDescription = true;
 			}
-		}
 		}	
 		parseMethods(javaClass.instanceMethodChunks, "");
 		parseMethods(javaClass.classMethodChunks, "static ");
+	}
+
+	protected void parseGetOrMakeCxxClassDescriptionChunk(ChunkDetails chunk) {
+		SmalltalkScanner scanner = new SmalltalkScanner(chunk.contents);
+		MethodBody methodBody = readMethodUnit(scanner);
+		JavaMethod method = new JavaMethod("void", "initializeClassAttributes");
+		method.methodBody = methodBody;
+		method.modifiers = "static ";
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+		methodTransformer.transform(method);
+	}
+
+	protected void parseInstanceVariableNamesChunk(ChunkDetails chunk) throws Exception {
+		ChunkParser parser = new ChunkParser(chunk.contents);
+		String word = parser.nextWord();
+		word = parser.nextWord();
+		if (word.equals("class")) {
+			word = parser.nextWord();
+			//TODO just reading in class insts as static - not technically the same thing...
+			parseVariables(parser, "static ");
+		} else if (word.equals("subclass:")) {
+			word = parser.nextWord();
+			word = parser.nextWord();
+			word = parser.nextWord();
+
+			parseVariables(parser, "");
+			word = parser.nextWord();
+			parseVariables(parser, "static ");
+		}
 	}
 	
 	public void parse() throws Exception {

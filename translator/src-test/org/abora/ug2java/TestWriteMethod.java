@@ -1285,6 +1285,20 @@ public class TestWriteMethod extends WriteMethodTestCase {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testInitializeClassAttributes() {
+		String smalltalk = "initializeClassAttributes\n(Test getOrMakeCxxClassDescription)\n attributes: ((Set new) add: #CONCRETE; add: #(COPY boot ); yourself)!";
+
+		String expectedJava = "public static void initializeClassAttributes() {\nAboraSupport.findAboraClass(Test.class).setAttributes( new Set().add(\"CONCRETE\").add( new String[]\n{\"COPY\", \"boot\"}));\n}\n";
+		assertStaticMethod(expectedJava, smalltalk);
+	}
+
+	public void testInitializeClassAttributesWithFrieds() {
+		String smalltalk = "initializeClassAttributes\n(Test getOrMakeCxxClassDescription)\n friends: '/- friends for class Test -/\nfriend class Blah;\n'.attributes: ((Set new) add: #CONCRETE; add: #(COPY boot ); yourself)!";
+
+		String expectedJava = "public static void initializeClassAttributes() {\nAboraSupport.findAboraClass(Test.class).setAttributes( new Set().add(\"CONCRETE\").add( new String[]\n{\"COPY\", \"boot\"}));\n}\n";
+		assertStaticMethod(expectedJava, smalltalk);
+	}
+
 	public void testInitializeLocalVariable() {
 		String smalltalk = "test\n| shouldInitialize { Heaper }| ^shouldInitialize!";
 

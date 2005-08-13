@@ -110,4 +110,9 @@ public class AboraClass extends Heaper {
 		oo.print(name());
 		oo.print(")");
 	}
+
+	public void setAttributes(Set set) {
+		throw new UnsupportedOperationException();
+		
+	}
 }

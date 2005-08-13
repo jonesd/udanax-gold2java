@@ -9,10 +9,24 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import java.util.HashSet;
+
 public class Set {
 
+	private HashSet set = new HashSet();
+	
 	public Set() {
 		super();
+	}
+
+	public Set add(String string) {
+		set.add(string);
+		return this;
+	}
+
+	public Set add(String[] string) {
+		set.add(string);
+		return this;
 	}
 
 }
