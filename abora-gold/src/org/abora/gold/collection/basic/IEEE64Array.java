@@ -12,6 +12,8 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimFloatValue;
 import org.abora.gold.x.PrimIEEE64;
 import org.abora.gold.x.PrimSpec;
@@ -24,6 +26,11 @@ import org.abora.gold.xpp.basic.Heaper;
  */
 public class IEEE64Array extends PrimFloatArray {
 	private final double[] storage;
+
+	public static void initializeClassAttributes() {
+		//TODO just made up out of thin air - totally wrong!!!
+		AboraSupport.findAboraClass(IEEE64Array.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
+	}
 
 	//////////////////////////////////////////////
 	// Constructors

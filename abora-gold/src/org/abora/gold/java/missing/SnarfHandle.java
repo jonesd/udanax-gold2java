@@ -48,8 +48,18 @@ public class SnarfHandle extends Heaper {
 	public void makeWritable() {
 		writable = true;
 	}
-	public void moveBytes(int offsetToMove, int sweeper, int count) {
-		throw new UnsupportedOperationException();
+	public void moveBytes(int source, int destination, int count) {
+		//TODO implementation/arguments/efficiency?
+		if (source == destination) {
+			//TODO does this indicate a problem in the caller?
+			return;
+		}
+		for (int i = 0; i < count; i++) {
+			int value = array.at(source+i);
+			//TODO clear old?
+			array.put(source+i, 0);
+			array.put(destination+i, value);
+		}
 	}
 	public void put32(int bytePosition, int value) {
 		array.storeInt32(bytePosition, value);

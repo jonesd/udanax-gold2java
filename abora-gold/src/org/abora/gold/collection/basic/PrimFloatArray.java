@@ -10,7 +10,9 @@
  */
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.missing.FHash;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimFloatValue;
 import org.abora.gold.x.PrimIEEE64;
 import org.abora.gold.xpp.basic.Heaper;
@@ -31,6 +33,7 @@ import org.abora.gold.xpp.basic.Heaper;
  * unexpected results.
  */
 public abstract class PrimFloatArray extends PrimDataArray {
+
 
 	//////////////////////////////////////////////
 	// Constructors

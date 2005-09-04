@@ -9,11 +9,18 @@
 
 package org.abora.gold.java.missing;
 
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.snarf.FlockInfo;
 import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class ShepherdStub extends Heaper {
+
+	public static void initializeClassAttributes() {
+		//TODO just made up out of thin air - totally wrong!!!
+		AboraSupport.findAboraClass(ShepherdStub.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
+	}
 
 	public ShepherdStub() {
 		super();

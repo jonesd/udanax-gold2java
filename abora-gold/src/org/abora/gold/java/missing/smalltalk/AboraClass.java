@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.missing.CxxClassDescription;
+import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class AboraClass extends Heaper {
@@ -172,5 +173,9 @@ public class AboraClass extends Heaper {
 
 	public CxxClassDescription getOrMakeCxxClassDescription() {
 		return classDescription;
+	}
+	
+	public Category getCategory() {
+		return AboraSupport.findCategory(c);
 	}
 }

@@ -17,10 +17,27 @@ import org.abora.gold.be.basic.BeGrandMap;
 import org.abora.gold.be.canopy.CanopyCache;
 import org.abora.gold.cobbler.BootMaker;
 import org.abora.gold.cobbler.Connection;
+import org.abora.gold.collection.basic.IEEE32Array;
+import org.abora.gold.collection.basic.IEEE64Array;
+import org.abora.gold.collection.basic.Int32Array;
+import org.abora.gold.collection.basic.Int8Array;
+import org.abora.gold.collection.basic.IntegerVarArray;
+import org.abora.gold.collection.basic.PrimArray;
+import org.abora.gold.collection.basic.PrimDataArray;
+import org.abora.gold.collection.basic.PrimFloatArray;
+import org.abora.gold.collection.basic.PrimIntArray;
+import org.abora.gold.collection.basic.PrimIntegerArray;
+import org.abora.gold.collection.basic.PtrArray;
+import org.abora.gold.collection.basic.SharedPtrArray;
+import org.abora.gold.collection.basic.UInt32Array;
+import org.abora.gold.collection.basic.UInt8Array;
+import org.abora.gold.collection.basic.WeakPtrArray;
 import org.abora.gold.collection.sets.MuSet;
 import org.abora.gold.fbtest.BackendBootMaker;
 import org.abora.gold.fbtest.ShepherdBootMaker;
 import org.abora.gold.fbtest.WorksBootMaker;
+import org.abora.gold.java.missing.CxxSystemOrganization;
+import org.abora.gold.java.missing.ShepherdStub;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.negoti8.ProtocolBroker;
 import org.abora.gold.nkernel.FeServer;
@@ -139,26 +156,15 @@ public class AboraStartup {
 	protected AboraStartup(String[] classNames, String[][] initTimeNonInheritedDependenciesNames) throws Exception {
 		super();
 		aboraClasses = new ArrayList();
-		Map aboraClassesLookup = new HashMap();
-		for (int i = 0; i < classNames.length; i++) {
-			String className = classNames[i];
-			Class c = Class.forName(className);
-			AboraClass aboraClass = AboraClass.findAboraClass(c);
-			aboraClasses.add(aboraClass);
-			aboraClassesLookup.put(className, aboraClass);
-		}
-		for (Iterator iter = aboraClasses.iterator(); iter.hasNext();) {
-			AboraClass aboraClass = (AboraClass) iter.next();
-			Class aClass = aboraClass.getJavaClass();
-			try {
-				Method method = aClass.getDeclaredMethod("initializeClassAttributes", null);
-				method.invoke(null, null);
-			} catch (NoSuchMethodException e) {
-				System.out.println("No initializeClassAttributes for class: "+aClass);
-			}
-		}
-		XnBufferedWriteStream.initializeSystemOrganization();
+		Map aboraClassesLookup = populateAboraClasses(classNames);
+		callAllInitializeClassAttributes();
+		initializeSystemOrganization();
+		
 		initTimeNonInheritedDependencies = new HashMap();
+		populateInitTimeNonInheritedDependencies(initTimeNonInheritedDependenciesNames, aboraClassesLookup);
+	}
+
+	private void populateInitTimeNonInheritedDependencies(String[][] initTimeNonInheritedDependenciesNames, Map aboraClassesLookup) {
 		for (int i = 0; i < initTimeNonInheritedDependenciesNames.length; i++) {
 			String[] strings = initTimeNonInheritedDependenciesNames[i];
 			String targetClassName = strings[0];
@@ -176,6 +182,57 @@ public class AboraStartup {
 				initTimeNonInheritedDependencies.put(aboraClassesLookup.get(targetClassName), dependencies);
 			}
 		}
+	}
+
+	private void callAllInitializeClassAttributes() throws IllegalAccessException, InvocationTargetException {
+		for (Iterator iter = aboraClasses.iterator(); iter.hasNext();) {
+			AboraClass aboraClass = (AboraClass) iter.next();
+			Class aClass = aboraClass.getJavaClass();
+			try {
+				Method method = aClass.getDeclaredMethod("initializeClassAttributes", null);
+				method.invoke(null, null);
+			} catch (NoSuchMethodException e) {
+				System.out.println("No initializeClassAttributes for class: "+aClass);
+			}
+		}
+	}
+
+	private Map populateAboraClasses(String[] classNames) throws ClassNotFoundException {
+		Map aboraClassesLookup = new HashMap();
+		for (int i = 0; i < classNames.length; i++) {
+			String className = classNames[i];
+			Class c = Class.forName(className);
+			AboraClass aboraClass = AboraClass.findAboraClass(c);
+			aboraClasses.add(aboraClass);
+			aboraClassesLookup.put(className, aboraClass);
+		}
+		return aboraClassesLookup;
+	}
+
+	private void initializeSystemOrganization() {
+		XnBufferedWriteStream.initializeSystemOrganization();
+		
+		// Manual initialization required for "missing" classes 
+		CxxSystemOrganization.getOrMakeFileNamed("sheph").addClassIn(AboraSupport.findAboraClass(ShepherdStub.class).getClassDescription(), Heaper.PUBLIC);
+		//TODO array assumed...
+		CxxSystemOrganization.getOrMakeFileNamed("array")
+			.addClassIn(AboraSupport.findAboraClass(IEEE32Array.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(IEEE64Array.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(Int32Array.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(Int8Array.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(IntegerVarArray.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(PrimArray.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(PrimDataArray.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(PrimFloatArray.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(PrimIntArray.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(PrimIntegerArray.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(PtrArray.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(SharedPtrArray.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(UInt32Array.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(UInt8Array.class).getClassDescription(), Heaper.PUBLIC)
+			.addClassIn(AboraSupport.findAboraClass(WeakPtrArray.class).getClassDescription(), Heaper.PUBLIC)
+			;
+		
 	}
 	
 	protected void initialize() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, SecurityException, NoSuchMethodException {
@@ -243,31 +300,5 @@ public class AboraStartup {
 		startUp();
 		return INSTANCE;
 	}
-	
-//	public static void initializeSystem() {
-//		if (initialized) {
-//			return;
-//		}
-//		
-//		BeClub.staticTimeNonInherited();
-//		BeGrandMap.staticTimeNonInherited();
-//		BertCrum.staticTimeNonInherited();
-//		SensorCrum.staticTimeNonInherited();
-//		Ent.staticTimeNonInherited();
-//		//TODOCategoryRecipe.staticTimeNonInherited();
-//		WorksBootMaker.staticTimeNonInherited();
-//		FePromiseSession.staticTimeNonInherited();
-//		FeSession.staticTimeNonInherited();
-//		FeServer.staticTimeNonInherited();
-//		WorksTester.staticTimeNonInherited();
-//		MainDummy.staticTimeNonInherited();
-//		ServerLoop.staticTimeNonInherited();
-//		Abraham.staticTimeNonInherited();
-//		DiskManager.staticTimeNonInherited();
-//		FlockInfo.staticTimeNonInherited();
-//		//TODORecipe.staticTimeNonInherited();
-//		
-//		initialized = true;
-//	}
 
 }

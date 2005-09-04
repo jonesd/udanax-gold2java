@@ -12,7 +12,9 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
+import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.exception.AboraRuntimeException;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 

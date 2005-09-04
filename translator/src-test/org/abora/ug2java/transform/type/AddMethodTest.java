@@ -105,4 +105,13 @@ public class AddMethodTest extends WriteMethodTestCase {
 		String expected = "public boolean equals(Object o) {\nif (o instanceof Heaper) {\nreturn equals((Heaper) o);\n}\nelse {\nreturn false;\n}\n}\n";
 		assertBodyEquals(expected, actual);
 	}
+
+	public void testCategoryPrintOn() {
+		AddMethod transformation = new AddMethod();
+		JavaMethod method = transformation.addCategoryPrintOn(javaClass);
+		
+		String actual = writeMethod(method);
+		String expected = "public void printOn(PrintWriter oo) {\noo.print(getAboraClass().name());\noo.print(\"(\");\noo.print(name());\noo.print(\")\");\n}\n";
+		assertBodyEquals(expected, actual);
+	}
 }

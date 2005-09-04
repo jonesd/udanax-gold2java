@@ -12,6 +12,8 @@ package org.abora.gold.java.missing.smalltalk;
 import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.xcvr.Recipe;
 
+import com.sun.tools.doclets.standard.ClassSubWriter;
+
 
 public class Association {
 
@@ -49,6 +51,10 @@ public class Association {
 			throw new AboraRuntimeException("Association key already set");
 		}
 		key = string;
+	}
+	
+	public String toString() {
+		return getClass().getName()+"("+key()+","+value()+")";
 	}
 
 }

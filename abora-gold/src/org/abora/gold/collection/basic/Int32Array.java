@@ -12,6 +12,8 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
@@ -19,6 +21,11 @@ import org.abora.gold.xpp.basic.Heaper;
 
 public class Int32Array extends PrimIntArray {
 	private final int[] storage;
+
+	public static void initializeClassAttributes() {
+		//TODO just made up out of thin air - totally wrong!!!
+		AboraSupport.findAboraClass(Int32Array.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
+	}
 
 	//////////////////////////////////////////////
 	// Constructors

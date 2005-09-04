@@ -12,11 +12,18 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class PtrArray extends PrimArray {
 	protected final Heaper[] storage;
+
+	public static void initializeClassAttributes() {
+		//TODO just made up out of thin air - totally wrong!!!
+		AboraSupport.findAboraClass(PtrArray.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
+	}
 
 	//////////////////////////////////////////////
 	// Constructors

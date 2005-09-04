@@ -10,12 +10,19 @@
  */
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.exception.AboraRuntimeException;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class SharedPtrArray extends PtrArray {
 	private int myShareCount = 0;
+
+	public static void initializeClassAttributes() {
+		//TODO just made up out of thin air - totally wrong!!!
+		AboraSupport.findAboraClass(SharedPtrArray.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
+	}
 
 	//////////////////////////////////////////////
 	// Constructors

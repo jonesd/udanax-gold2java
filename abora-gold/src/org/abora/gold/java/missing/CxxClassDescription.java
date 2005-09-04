@@ -9,6 +9,7 @@
 
 package org.abora.gold.java.missing;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class CxxClassDescription extends Heaper {
 
 	private final Map map = new HashMap();
 	private final AboraClass aboraClass;
+	private CxxSystemOrganization systemOrganization = null;
 	
 	public CxxClassDescription(AboraClass aboraClass) {
 		super();
@@ -31,8 +33,7 @@ public class CxxClassDescription extends Heaper {
 	}
 
 	public Association fetchDirectory() {
-		//TODO not sure what this means?
-		return null;
+		return CxxSystemOrganization.fetchDirectory(systemOrganization);
 	}
 
 	public String fetchAttribute(String name) {
@@ -52,7 +53,7 @@ public class CxxClassDescription extends Heaper {
 		for (Iterator iter = set.iterator(); iter.hasNext();) {
 			Object element = iter.next();
 			if (element instanceof String) {
-				map.put(element, element);
+				map.put(element, null);
 			} else if (element instanceof String[]) {
 				String[] pair = (String[])element;
 				if (pair.length != 2) {
@@ -66,4 +67,16 @@ public class CxxClassDescription extends Heaper {
 		
 	}
 
+	public void setSystemOrga1nization(CxxSystemOrganization organization) {
+		systemOrganization = organization;
+	}
+
+	public void printOn(PrintWriter oo) {
+		oo.print(getAboraClass().name());
+		oo.print("(");
+		oo.print(aboraClass.name());
+		oo.print(",");
+		oo.print(map);
+		oo.print(")");
+	}
 }

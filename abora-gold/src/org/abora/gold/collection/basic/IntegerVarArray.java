@@ -12,13 +12,19 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
-import org.abora.gold.spaces.integers.IntegerPos;
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimSpec;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class IntegerVarArray extends PrimIntegerArray {
 	private final int[] storage;
+
+	public static void initializeClassAttributes() {
+		//TODO just made up out of thin air - totally wrong!!!
+		AboraSupport.findAboraClass(IntegerVarArray.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
+	}
 
 
 	//////////////////////////////////////////////

@@ -19,7 +19,7 @@ public class Logger extends Heaper {
 
 	public static void defineLogger(String loggerName) {
 		//TODO implement
-		System.out.println("IGnore Logger.defineLogger: "+loggerName);
+		System.out.println("Ignore Logger.defineLogger: "+loggerName);
 	}
 
 	public static Logger get(String myLoggerName) {

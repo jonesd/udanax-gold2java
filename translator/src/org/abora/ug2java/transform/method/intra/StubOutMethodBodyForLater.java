@@ -54,7 +54,7 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		set.add("Category.inheritsFrom");
 		set.add("Category.find");
 		set.add("Category.create");
-		set.add("Category.getCategory");
+//		set.add("Category.getCategory");
 		set.add("Package.registerPackageCategory");
 		set.add("Package.originalClass");
 		set.add("Package.MAKEUHOOKED");

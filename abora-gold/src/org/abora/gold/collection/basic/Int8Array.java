@@ -13,6 +13,8 @@ package org.abora.gold.collection.basic;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
@@ -24,6 +26,11 @@ import org.abora.gold.xpp.basic.Heaper;
  */
 public class Int8Array extends PrimIntArray {
 	private final byte[] storage;
+
+	public static void initializeClassAttributes() {
+		//TODO just made up out of thin air - totally wrong!!!
+		AboraSupport.findAboraClass(Int8Array.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
+	}
 
 	//////////////////////////////////////////////
 	// Constructors

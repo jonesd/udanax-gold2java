@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.abora.ug2java.Annotation;
 import org.abora.ug2java.JavaClass;
+import org.abora.ug2java.JavaCodebase;
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.MethodBody;
 import org.abora.ug2java.SmalltalkSource;
@@ -28,9 +29,35 @@ public class RecordHeaperHierarchy implements ClassTransformer {
 		}
 		List allClasses = new ArrayList();
 		addClass(javaClass, allClasses);
+		//TODO manually add "missing" classes
+		addMissingClass("org.abora.gold.java.missing", "ShepherdStub", allClasses);
+
+		addMissingClass("org.abora.gold.collection.basic", "IEEE32Array", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "IEEE64Array", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "Int32Array", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "Int8Array", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "IntegerVarArray", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "PrimArray", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "PrimDataArray", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "PrimFloatArray", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "PrimIntArray", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "PrimIntegerArray", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "PtrArray", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "SharedPtrArray", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "UInt32Array", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "UInt8Array", allClasses);
+		addMissingClass("org.abora.gold.collection.basic", "WeakPtrArray", allClasses);
 		
 		createClassHierarchyMethod(javaClass, allClasses);
 		createInitTimeNonInheritedDependencies(javaClass, allClasses);
+	}
+	
+	protected void addMissingClass(String classPackage, String className, List allClasses) {
+		JavaCodebase codebase = ((JavaClass)(allClasses.get(0))).getJavaCodebase();
+		JavaClass c = new JavaClass(className, codebase);
+		c.classCategory = classPackage;
+		allClasses.add(c);
+		
 	}
 
 	protected JavaMethod createClassHierarchyMethod(JavaClass javaClass, List allClasses) {

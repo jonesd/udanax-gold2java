@@ -87,6 +87,7 @@ public class Smalltalk {
 		}
 		//TODO should we really write this...
 		association.setKey(string);
+		associations.add(association);
 		return association;
 	}
 

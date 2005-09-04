@@ -47,6 +47,8 @@ public class ExcludeMethodsByName implements MethodTransformation {
 		list.add("FluidPromiseVar.Emulsion");
 		list.add("FluidVar.fluidBindDuring");
 		list.add("FeServer.newClubDescription");
+		
+		list.add("Category.getCategory");
 
 		INSTANCE_METHODS = Collections.unmodifiableList(list);
 	}

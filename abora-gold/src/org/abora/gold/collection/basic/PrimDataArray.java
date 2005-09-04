@@ -10,6 +10,9 @@
  */
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.smalltalk.Set;
+
 
 /**
  * A common superclass for primitive arrays of arithmetic values

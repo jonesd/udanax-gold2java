@@ -9,7 +9,6 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.snarf.SnarfHandler;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class UrdiView extends Heaper {

@@ -10,6 +10,8 @@
  */
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.wparray.XnExecutor;
 import org.abora.gold.xpp.basic.Heaper;
 
@@ -21,6 +23,11 @@ public class WeakPtrArray extends PtrArray {
 	//TODO how is this executor used?
 	protected final XnExecutor executor;
 	
+	public static void initializeClassAttributes() {
+		//TODO just made up out of thin air - totally wrong!!!
+		AboraSupport.findAboraClass(WeakPtrArray.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
+	}
+
 	//////////////////////////////////////////////
 	// Constructors
 	

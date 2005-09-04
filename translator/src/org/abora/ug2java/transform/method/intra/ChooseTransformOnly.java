@@ -124,6 +124,13 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("SnarfHandler.SnarfHandler");
 		list.add("TextyXmtr.sendString");
 		list.add("Recipe.staticTimeNonInherited");
+		list.add("WriteMemStream.putStr");
+		list.add("DiskCountSpecialist.sendHeaperTo");
+		list.add("DiskSpecialist.sendHeaperTo");
+		list.add("SnarfPacker.purgeClean");
+		
+		//TODO debug/halt messages
+		list.add("SnarfRecord.dismantleFlock");
 		
 		//TODO just switched on for extra logging. Wrong?
 		list.add("ActualHashSet.ActualHashSet");

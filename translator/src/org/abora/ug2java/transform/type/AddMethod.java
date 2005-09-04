@@ -1,5 +1,6 @@
 package org.abora.ug2java.transform.type;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +16,14 @@ import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaCast;
+import org.abora.ug2java.javatoken.JavaComment;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaKeyword;
 import org.abora.ug2java.javatoken.JavaLiteral;
 import org.abora.ug2java.javatoken.JavaParenthesisEnd;
 import org.abora.ug2java.javatoken.JavaParenthesisStart;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;
+import org.abora.ug2java.javatoken.StringLiteral;
 
 
 
@@ -57,7 +60,7 @@ public class AddMethod implements ClassTransformer {
 			
 		} else if (javaClass.className.equals("Heaper")) {
 			addUnsupportedMethod(javaClass, "static ", "boolean", "isConstructed", new String[] {"Heaper", "h"});			
-			addUnsupportedMethod(javaClass, "static ", "boolean", "isDestructed", new String[] {"Heaper", "h"});
+			addHeaperIsDestructed(javaClass);
 			addHeaperEquals(javaClass);
 			
 		} else if (javaClass.className.equals("Category")) {
@@ -66,6 +69,7 @@ public class AddMethod implements ClassTransformer {
 			addUnsupportedMethod(javaClass, "", "Category", "registerPackageCategory", new String[] {"Object", "packageCategory"});
 			addUnsupportedMethod(javaClass, "", "AboraClass", "originalClass", new String[] {});
 			addCategoryIsEqual(javaClass);
+			addCategoryPrintOn(javaClass);
 			
 		} else if (javaClass.className.equals("Tester")) {
 			addUnsupportedMethod(javaClass, "", "void", "perform", new String[] {"String", "test", "PrintWriter", "out"});			
@@ -340,6 +344,68 @@ public class AddMethod implements ClassTransformer {
 		tokens.add(new JavaStatementTerminator());
 		tokens.add(new JavaBlockEnd());
 		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+		return method;
+	}
+	
+	protected JavaMethod addCategoryPrintOn(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("void", "printOn");
+		method.addParameter(new JavaField("PrintWriter", "oo"));
+		List tokens = new ArrayList();
+		tokens.add(new JavaIdentifier("oo"));
+		tokens.add(new JavaCallKeywordStart("print"));
+		tokens.add(new JavaCallStart("getAboraClass"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaCallStart("name"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		
+		tokens.add(new JavaIdentifier("oo"));
+		tokens.add(new JavaCallKeywordStart("print"));
+		tokens.add(new StringLiteral("("));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		
+		tokens.add(new JavaIdentifier("oo"));
+		tokens.add(new JavaCallKeywordStart("print"));
+		tokens.add(new JavaCallStart("name"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		
+		tokens.add(new JavaIdentifier("oo"));
+		tokens.add(new JavaCallKeywordStart("print"));
+		tokens.add(new StringLiteral(")"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		
+		method.modifiers = "";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+		return method;
+	}
+
+	protected JavaMethod addHeaperIsDestructed(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("boolean", "isDestructed");
+		method.addParameter(new JavaField("Heaper", "h"));
+
+		List tokens = new ArrayList();
+		tokens.add(new JavaComment("TODO what should the real behaviour be here?"));
+		tokens.add(new JavaKeyword("return"));
+		tokens.add(new JavaIdentifier("false"));
+		tokens.add(new JavaStatementTerminator());
+		
+		method.modifiers = "static ";
 		method.methodBody = new MethodBody(tokens);
 		//TODO add a generated source
 		method.smalltalkSource = new SmalltalkSource();

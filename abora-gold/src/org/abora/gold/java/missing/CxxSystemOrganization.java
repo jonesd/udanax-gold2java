@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.abora.gold.java.AboraHeaper;
 import org.abora.gold.java.exception.AboraRuntimeException;
+import org.abora.gold.java.missing.smalltalk.Association;
 
 
 public class CxxSystemOrganization {
@@ -13,6 +15,8 @@ public class CxxSystemOrganization {
 	private final String fileName;
 	private String comment = "";
 	private final Map classDescriptionsByAccess = new HashMap();
+	
+	private static CxxTreeAssociation root = new CxxTreeAssociation("ROOT", "ROOT");
 	
 	private static final Map ORGANIZATIONS = new HashMap();
 	
@@ -29,6 +33,7 @@ public class CxxSystemOrganization {
 	public CxxSystemOrganization addClassIn(CxxClassDescription classDescription, String access) {
 		Set set = getClassDescriptionsWithAccess(access);
 		set.add(classDescription);
+		classDescription.setSystemOrga1nization(this);
 		//TODO just to make it fit in with XnBufferedWriteStream>>initializeSystemOrganization method...
 		return this;
 	}
@@ -70,14 +75,30 @@ public class CxxSystemOrganization {
 		return this;
 	}
 
-	public static CxxSystemNode tree() {
-		// TODO Auto-generated method stub
-		return new CxxSystemNode();
+	public static CxxTreeAssociation tree() {
+		return root;
 	}
 
 	public static CxxTreeAssociation tree(CxxTreeAssociation association) {
 		// TODO Auto-generated method stub
+		root = association;
 		return association;
+	}
+
+	public static Association fetchDirectory(CxxSystemOrganization systemOrganization) {
+		String fileName = systemOrganization.getFileName();
+		CxxTreeAssociation association = tree().findMatchingAssocation(fileName);
+		while (association != null) {
+			if (AboraHeaper.DIR.equals(association.value())) {
+				return association;
+			}
+			association = association.getParent();
+		}
+		return null;
+	}
+	
+	public String getFileName() {
+		return fileName;
 	}
 
 }

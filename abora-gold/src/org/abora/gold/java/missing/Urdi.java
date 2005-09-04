@@ -58,7 +58,7 @@ public class Urdi extends Heaper {
 
 	public int usableStages() {
 		//TODO have no idea what this means...
-		return 0;
+		return 100;
 	}
 
 	public UrdiView makeReadView() {

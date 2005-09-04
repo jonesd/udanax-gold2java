@@ -21,6 +21,7 @@ public class OverrideArgumentType implements MethodTransformation {
 		Map map = new HashMap();
 		map.put("printOn", "PrintWriter");
 		map.put("showOn", "PrintWriter");
+		map.put("isEqual", "Heaper");
 		map.put("DiskManager.fluidSpace", "Array");
 		map.put("Heaper2UInt32Cache.make", "int");
 		//TODO should we really have to override this?
