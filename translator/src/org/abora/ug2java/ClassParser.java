@@ -526,7 +526,7 @@ public class ClassParser {
 			scannerAdvance(scanner);
 		}
 		javaMethod.methodBody = readMethodUnit(scanner);
-		methodTransformer.transform(javaMethod);
+//		transformMethod(javaMethod);
 //		javaClass.includeAnyReferencedTypes(javaMethod.methodBody);
 		lookupType(javaMethod.returnType);
 
@@ -562,6 +562,8 @@ public class ClassParser {
 			ChunkDetails chunk = (ChunkDetails) iter.next();
 			if (chunk.contents.indexOf("instanceVariableNames:") != -1) {
 				parseInstanceVariableNamesChunk(chunk);
+			} else if (chunk.contents.indexOf("CxxSystemOrganization") != -1) {
+				parseCxxSystemOrganization(chunk);
 			} else if (!hasParsedFirstCxxClassDescription && chunk.contents.indexOf("getOrMakeCxxClassDescription") != -1) {
 				parseGetOrMakeCxxClassDescriptionChunk(chunk);
 				
@@ -570,6 +572,23 @@ public class ClassParser {
 		}	
 		parseMethods(javaClass.instanceMethodChunks, "");
 		parseMethods(javaClass.classMethodChunks, "static ");
+	}
+
+	protected void parseCxxSystemOrganization(ChunkDetails chunk) {
+		JavaMethod method = javaClass.getMethod("initializeSystemOrganization");
+		if (method == null) {
+			method = new JavaMethod("void", "initializeSystemOrganization");
+			method.methodBody = new MethodBody(new ArrayList());
+			method.modifiers = "static ";
+			method.smalltalkSource = new SmalltalkSource();
+			method.smalltalkSource.context = "";
+			method.smalltalkSource.text = "Generated during transformation: AddMethod";
+			javaClass.addMethod(method);
+		}
+		List tokens = method.methodBody.tokens;
+		SmalltalkScanner scanner = new SmalltalkScanner(chunk.contents);
+		tokens.addAll(readMethodUnit(scanner).tokens);
+		tokens.add(new JavaStatementTerminator());
 	}
 
 	protected void parseGetOrMakeCxxClassDescriptionChunk(ChunkDetails chunk) {
@@ -582,7 +601,6 @@ public class ClassParser {
 		method.smalltalkSource.context = "";
 		method.smalltalkSource.text = "Generated during transformation: AddMethod";
 		javaClass.addMethod(method);
-		methodTransformer.transform(method);
 	}
 
 	protected void parseInstanceVariableNamesChunk(ChunkDetails chunk) throws Exception {
@@ -606,6 +624,15 @@ public class ClassParser {
 	
 	public void parse() throws Exception {
 		parseClassDefinition();
+		
+		for (Iterator iter = javaClass.methods.iterator(); iter.hasNext();) {
+			JavaMethod method = (JavaMethod) iter.next();
+			transformMethod(method);
+		}
+	}
+
+	protected void transformMethod(JavaMethod method) {
+		methodTransformer.transform(method);
 	}
 
 	protected MethodBody readMethodUnit(SmalltalkScanner scanner) {

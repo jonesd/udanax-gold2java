@@ -62,11 +62,11 @@ public class AboraHeaper {
 	public static FluidVar InsideAgenda = new FluidVar(null, GlobalEmulsion.make(), "INSIDE_AGENDA", AboraSupport.findAboraClass(Boolean.class));
 	public static FluidVar MainActiveThunk;
 	
-	public static Recipe BootCuisine;
-	public static Recipe CalcCuisine;
-	public static Recipe DiskCuisine;
-	public static Recipe FebeCuisine;
-	public static Recipe XppCuisine;
+//	public static Recipe BootCuisine;
+//	public static Recipe CalcCuisine;
+//	public static Recipe DiskCuisine;
+//	public static Recipe FebeCuisine;
+//	public static Recipe XppCuisine;
 	
 	public static ServerChunk CurrentChunk;
 	
@@ -81,25 +81,36 @@ public class AboraHeaper {
 	//TODO what to really do with these, often Smalltalk Symbols?
 	public static final String ALL_TESTS_ON_ = "AllTestsOn";
 	public static final String BLAST_LOG = "BLAST_LOG";
-	public static final String BOOT_CUISINE = "BootCuisine";
-	public static final String CALC_CUISINE = "CalcCuisine";
 	public static final String CHECK_ = "check";
-	public static final String CONCRETE = "Concrete";
+	public static final String CONCRETE = "CONCRETE";
 	public static final String COPY = "COPY";
 	public static final String CURRENT_CHUNK = "CurrentChunk";
-	public static final String DISK_CUISINE = "DiskCuisine";
 	public static final String DONT_CHANGE_TURTLES_BOOT_HEAPER = "DontChangeTurtlesBootHeaper";
 	public static final String EDITION_UWITH_ALL_UN3_WITH_WITH_ = "EDITION_UWITH_ALL_UN3_WITH_WITH_";
-	public static final String FEBE_CUISINE = "FEBE_CUISINE";
 	public static final String FOO_LOG = "FOO_LOG";
 	public static final String MAKE_WRAPPER_ = "makeWrapper";
+	public static final String MANUALRECIPE = "MANUALRECIPE";
 	public static final String NO_ENCRYPTER = "org.abora.gold.lock.NoEncrypter";
 	public static final String NO_REQUEST_ = "NO_REQUEST_";
 	public static final String PACKAGE = "PACKAGE";
 	public static final String PACKAGEHOOK = "PACKAGEHOOK";
+	public static final String PSEUDOCOPY = "PSEUDOCOPY";
 	public static final String SET_SPEC_ = "setSpec";
-	public static final String XPP_CUISINE = "XPP_CUISINE";
 	public static final String INIT_IMAGE_EMULSION = "initImageEmulsion";
+	
+	public static final String PUBLIC = "public";
+	public static final String PRIVATE = "private";
+	public static final String PROTECTED = "protected";
+	public static final String TEST = "test";
+	
+	public static final String DIR = "DIR";
+	public static final String FILE = "FILE";
+	
+	public static final String BOOT_CUISINE = "BootCuisine";
+	public static final String CALC_CUISINE = "CalcCuisine";
+	public static final String DISK_CUISINE = "DiskCuisine";
+	public static final String FEBE_CUISINE = "FebeCuisine";
+	public static final String XPP_CUISINE = "XppCuisine";
 	
 	public static final String FE_BOO_LOCK_SMITH = "org.abora.gold.nadmin.FeBooLockSmith";
 	public static final String FE_CHALLENGE_LOCK_SMITH = "org.abora.gold.nadmin.FeChallengeLockSmith";

@@ -151,6 +151,9 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformOperatorPrecedence());
 		transformers.add(new TransformExceptionReturn());
 		transformers.add(new TransformInitializeClassAttributes());
+		transformers.add(new TransformInitializeSystemOrganization());
+		transformers.add(new TransformInitializeSystemOrganizationConstants());
+		transformers.add(new TransformRecipeReference());
 		
 		transformers.add(new TransformHashSetTestFalse());
 		transformers.add(new TransformGrandHashSetRemove());
@@ -166,6 +169,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformEncrypterDefineEncrypter());
 		transformers.add(new TransformBucketArrayStepperVerifyEntry());
 		transformers.add(new TransformGrandHashTableConstructor());
+		transformers.add(new TransformSmalltalkAssociationAtIfAbsentInline());
 				
 		transformers.add(new TransformSmalltalkAtClassName());
 		transformers.add(new EnsureUniqueLocalVarNames());

@@ -55,6 +55,11 @@ public class OverrideArgumentType implements MethodTransformation {
 		map.put("TextyRcvr.getIdentifier", "UInt8Array,int");
 		map.put("Category.create", "Rcvr");
 		map.put("MuSet.isEqual", "Heaper");
+		
+		map.put("Recipe.Recipe(Category,Recipe)", "Category,Association");
+		map.put("StubRecipe.StubRecipe(Category,Recipe)", "Category,Association");
+		map.put("CopyRecipe.CopyRecipe(Category,Recipe)", "Category,Association");
+		map.put("CategoryRecipe.CategoryRecipe(Category,Recipe)", "Category,Association");
 
 		METHODS = Collections.unmodifiableMap(map);
 	}

@@ -9,14 +9,46 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import org.abora.gold.java.exception.AboraRuntimeException;
+import org.abora.gold.xcvr.Recipe;
+
+
 public class Association {
 
+	private String key = null;
+	private Object value = null;
+	
 	public Association() {
 		super();
 	}
+	
+	public Association(String key, Object value) {
+		super();
+		this.key = key;
+		this.value = value;
+	}
 
 	public String key() {
-		throw new UnsupportedOperationException();
+		return key;
+	}
+
+	public Object value() {
+		return value;
+	}
+
+	public Recipe refValue() {
+		return (Recipe)value;
+	}
+
+	public void refAssign(Recipe recipe) {
+		value = recipe;
+	}
+
+	public void setKey(String string) {
+		if (key != null) {
+			throw new AboraRuntimeException("Association key already set");
+		}
+		key = string;
 	}
 
 }

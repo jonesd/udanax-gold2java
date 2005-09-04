@@ -23,8 +23,16 @@ public class ClassParserTest extends WriteMethodTestCase {
 		
 		JavaMethod method = javaClass.getMethod("initializeClassAttributes");
 		assertNotNull("generated initializeClassAttributes", method);
+		parser.transformMethod(method);
 
 		String methodText = writeMethod(method);
 		assertBodyEquals("public static void initializeClassAttributes() {\nAboraSupport.findAboraClass(Test.class).setAttributes( new Set().add(\"CONCRETE\").add(\"NOTATYPE\"));\n}\n", methodText);
+	}
+	
+	public void testTransformSmalltalkSymbolToJava() {
+		assertEquals("SIMPLE", ClassParser.transformSmalltalkSymbolToJava("simple"));
+		assertEquals("MORE_COMPLICATED", ClassParser.transformSmalltalkSymbolToJava("moreComplicated"));
+		//TODO test :
+		
 	}
 }

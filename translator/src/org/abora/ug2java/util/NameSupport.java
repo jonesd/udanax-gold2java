@@ -23,4 +23,13 @@ public class NameSupport {
 		char first = Character.toUpperCase(s.charAt(0));
 		return Character.toString(first)+s.substring(1);
 	}
+
+	public static String idToLowerString(String id) {
+		String s = "";
+		StringTokenizer stringTokenizer = new StringTokenizer(id, "_", false);
+		while (stringTokenizer.hasMoreTokens()) {
+			s += stringTokenizer.nextToken().toLowerCase();
+		}
+		return s;
+	}
 }

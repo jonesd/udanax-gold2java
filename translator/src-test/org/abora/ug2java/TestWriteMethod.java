@@ -753,6 +753,20 @@ public class TestWriteMethod extends WriteMethodTestCase {
 		String expectedJava = "public void test() {\nsynchronized (mutex) {\nblah;\n}\n}\n";
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
+	
+	public void testInitializeSystemOrganization() {
+		String smalltalk = "initializeSystemOrganization\n(CxxSystemOrganization getOrMakeFileNamed: 'inttab') addClass: ITAscendingStepper getOrMakeCxxClassDescription in: #private; addClass: OberIntegerTable getOrMakeCxxClassDescription in: #private!";
+
+		String expectedJava = "public void initializeSystemOrganization() {\n(CxxSystemOrganization.getOrMakeFileNamed(\"inttab\")).addClassIn(AboraSupport.findAboraClass(ITAscendingStepper.class).getOrMakeCxxClassDescription(), PRIVATE).addClassIn(AboraSupport.findAboraClass(OberIntegerTable.class).getOrMakeCxxClassDescription(), PRIVATE);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+	
+	public void testInitializeSystemOrganizationConstans() {
+		String smalltalk = "initializeSystemOrganization\nCxxTreeAssociation key: #bootpln value: #file!";
+
+		String expectedJava = "public void initializeSystemOrganization() {\nCxxTreeAssociation.keyValue(\"bootpln\", FILE);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
 
 	public void testDefineFluidWithBooleanLiteral() {
 		String smalltalk = "test\nMuSet defineFluid: #InsideTransactionFlag with: DiskManager emulsion with: [false]!";
@@ -2008,6 +2022,27 @@ public void testPointerToStaticMember() {
 		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
+	public void testRecipeReference() {
+		String smalltalk = "test\n^BootCuisine!";
+
+		String expectedJava = "public void test() {\nreturn Smalltalk.associationAt(BOOT_CUISINE);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testRecipeReferenceAssignment() {
+		String smalltalk = "test\nBootCuisine := null!";
+
+		String expectedJava = "public void test() {\nSmalltalk.atPut(BOOT_CUISINE, null);\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
+	public void testRecipeReferenceDereference() {
+		String smalltalk = "recipeDereference\n^BootCuisine!";
+
+		String expectedJava = "public void recipeDereference() {\nreturn Smalltalk.associationAt(BOOT_CUISINE).refValue();\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
+	}
+
 	public void testRemoveCall() {
 		String smalltalk = "test\n^blah asSymbol!";
 
@@ -2165,6 +2200,13 @@ public void testPointerToStaticMember() {
 		//Should have sorted signal names
 		assertEquals("MUST_BE_OWNER", iter.next());
 		assertEquals("NOT_IN_TABLE", iter.next());
+	}
+
+	public void testSmalltalkAssociationAtIfAbsentInline() {
+		String smalltalk = "testSmalltalkAssociationAtIfAbsentInline\nSmalltalk associationAt: x ifAbsent: [Association new]!";
+
+		String expectedJava = "public void testSmalltalkAssociationAtIfAbsentInline() {\nSmalltalk.associationAtIfAbsent(x, new Association());\n}\n";
+		assertInstanceMethod(expectedJava, smalltalk);
 	}
 
 	public void testSmalltalkAtClassName() {
@@ -2603,6 +2645,7 @@ public void testPointerToStaticMember() {
 		classParser.setJavaClass(javaClass);
 		JavaMethod javaMethod = classParser.parseMethod(details, modifiers);
 		javaClass.addMethod(javaMethod);
+		classParser.transformMethod(javaMethod);
 		
 		ClassTransformer classTransformer = new ClassTransformers();
 		classTransformer.transform(javaClass);

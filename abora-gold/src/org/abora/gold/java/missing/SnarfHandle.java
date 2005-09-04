@@ -11,7 +11,6 @@ package org.abora.gold.java.missing;
 
 import java.io.PrintWriter;
 
-import org.abora.gold.collection.basic.Int32Array;
 import org.abora.gold.collection.basic.UInt8Array;
 import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.xpp.basic.Heaper;

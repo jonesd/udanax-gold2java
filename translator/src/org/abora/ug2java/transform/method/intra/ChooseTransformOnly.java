@@ -123,6 +123,7 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("SnarfPacker.makePersistent");
 		list.add("SnarfHandler.SnarfHandler");
 		list.add("TextyXmtr.sendString");
+		list.add("Recipe.staticTimeNonInherited");
 		
 		//TODO just switched on for extra logging. Wrong?
 		list.add("ActualHashSet.ActualHashSet");

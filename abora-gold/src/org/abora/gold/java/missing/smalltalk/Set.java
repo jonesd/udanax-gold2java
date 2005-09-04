@@ -10,6 +10,7 @@
 package org.abora.gold.java.missing.smalltalk;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Set {
 
@@ -27,6 +28,10 @@ public class Set {
 	public Set add(String[] string) {
 		set.add(string);
 		return this;
+	}
+
+	public Iterator iterator() {
+		return set.iterator();
 	}
 
 }

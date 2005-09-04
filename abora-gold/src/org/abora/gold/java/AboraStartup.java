@@ -31,6 +31,7 @@ import org.abora.gold.xcvr.DiskIniter;
 import org.abora.gold.xcvr.FakeDisk;
 import org.abora.gold.xcvr.TextyXcvrMaker;
 import org.abora.gold.xcvr.XcvrMaker;
+import org.abora.gold.xcvr.XnBufferedWriteStream;
 import org.abora.gold.xpp.basic.Heaper;
 
 
@@ -49,8 +50,8 @@ public class AboraStartup {
 
 		set.add("org.abora.gold.proman.PromiseManager.initTimeNonInherited");
 
-		set.add("org.abora.gold.xcvr.Recipe.staticTimeNonInherited");
-		set.add("org.abora.gold.cxx.classx.comm.CategoryRecipe.staticTimeNonInherited");
+//		set.add("org.abora.gold.xcvr.Recipe.staticTimeNonInherited");
+//		set.add("org.abora.gold.cxx.classx.comm.CategoryRecipe.staticTimeNonInherited");
 		IGNORE_METHODS = Collections.unmodifiableSet(set);
 	}
 	
@@ -142,10 +143,21 @@ public class AboraStartup {
 		for (int i = 0; i < classNames.length; i++) {
 			String className = classNames[i];
 			Class c = Class.forName(className);
-			AboraClass aboraClass = new AboraClass(c);
+			AboraClass aboraClass = AboraClass.findAboraClass(c);
 			aboraClasses.add(aboraClass);
 			aboraClassesLookup.put(className, aboraClass);
 		}
+		for (Iterator iter = aboraClasses.iterator(); iter.hasNext();) {
+			AboraClass aboraClass = (AboraClass) iter.next();
+			Class aClass = aboraClass.getJavaClass();
+			try {
+				Method method = aClass.getDeclaredMethod("initializeClassAttributes", null);
+				method.invoke(null, null);
+			} catch (NoSuchMethodException e) {
+				System.out.println("No initializeClassAttributes for class: "+aClass);
+			}
+		}
+		XnBufferedWriteStream.initializeSystemOrganization();
 		initTimeNonInheritedDependencies = new HashMap();
 		for (int i = 0; i < initTimeNonInheritedDependenciesNames.length; i++) {
 			String[] strings = initTimeNonInheritedDependenciesNames[i];
@@ -168,8 +180,8 @@ public class AboraStartup {
 	
 	protected void initialize() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, SecurityException, NoSuchMethodException {
 		initialize("linkTimeNonInherited");
-		initialize("initTimeNonInherited", initTimeNonInheritedDependencies);
 		initialize("staticTimeNonInherited");
+		initialize("initTimeNonInherited", initTimeNonInheritedDependencies);
 	}
 
 	protected void initialize(String methodName) throws SecurityException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {

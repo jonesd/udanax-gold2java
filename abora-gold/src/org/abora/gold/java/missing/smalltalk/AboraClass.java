@@ -10,21 +10,58 @@
 package org.abora.gold.java.missing.smalltalk;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
+import org.abora.gold.java.AboraSupport;
+import org.abora.gold.java.missing.CxxClassDescription;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class AboraClass extends Heaper {
 
 	private final Class c;
+	private final CxxClassDescription classDescription;
 	//TODO just making up the preorder stuff!
 	private final int preorderNumber;
+	private AboraClass parentClass;
+	private final HashSet subclasses = new HashSet();
 	
 	private static int nextPreorderNumber = 0;
 	
-	public AboraClass(Class c) {
+	private static final Map aboraClasses = new HashMap();
+
+	
+	public static AboraClass findAboraClass(Class c) {
+		AboraClass aboraClass = (AboraClass)aboraClasses.get(c);
+		if (aboraClass == null) {
+			aboraClass = new AboraClass(c);
+			aboraClasses.put(c, aboraClass);
+			aboraClass.initializeRelationships();
+		}
+		return aboraClass;
+
+	}
+	
+	private AboraClass(Class c) {
 		super();
 		this.c = c;
 		this.preorderNumber = nextPreorderNumber++;
+		this.classDescription = new CxxClassDescription(this);
+	}
+	
+	private void initializeRelationships() {
+		if (c.getSuperclass() != null) {
+			this.parentClass = AboraSupport.findAboraClass(c.getSuperclass());
+			parentClass.addSubclass(this);
+		} else {
+			parentClass = null;
+		}
+	}
+
+	private void addSubclass(AboraClass class1) {
+		subclasses.add(class1);
 	}
 
 	public static int getPreorderMax() {
@@ -111,8 +148,29 @@ public class AboraClass extends Heaper {
 		oo.print(")");
 	}
 
+	public CxxClassDescription getClassDescription() {
+		return classDescription;
+	}
+	
+	public CxxClassDescription fetchCxxClassDescription() {
+		return classDescription;
+	}
+	
 	public void setAttributes(Set set) {
-		throw new UnsupportedOperationException();
-		
+		getClassDescription().setAttributes(set);
+	}
+
+	public OrderedCollection allSubclasses() {
+		OrderedCollection all = new OrderedCollection();
+		for (Iterator iter = subclasses.iterator(); iter.hasNext();) {
+			AboraClass subclass = (AboraClass) iter.next();
+			all.add(subclass);
+			all.addAll(subclass.allSubclasses());
+		}
+		return all;
+	}
+
+	public CxxClassDescription getOrMakeCxxClassDescription() {
+		return classDescription;
 	}
 }

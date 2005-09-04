@@ -46,4 +46,11 @@ public class OrderedCollection {
 		return contents.get(index);
 	}
 
+	public void addAll(OrderedCollection collection) {
+		for (int i = 0; i < collection.size(); i++) {
+			Object element = collection.get(i);
+			add(element);
+		}
+	}
+
 }

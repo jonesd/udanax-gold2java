@@ -9,8 +9,9 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.abora.gold.xcvr.Recipe;
 import org.abora.gold.xpp.basic.Category;
@@ -18,19 +19,36 @@ import org.abora.gold.xpp.fluid.FluidVar;
 
 
 public class Smalltalk {
+	private static final List associations = new ArrayList();
 
-	private static final Map map = new HashMap();
 	
 	public Smalltalk() {
 		super();
 	}
 
+	public static void atPut(String recipeName, Recipe value) {
+		for (Iterator iter = associations.iterator(); iter.hasNext();) {
+			Association element = (Association) iter.next();
+			if (element.key().equals(recipeName)) {
+				element.refAssign(value);
+				return;
+			}
+		}
+		associations.add(new Association(recipeName, null));
+	}
+	
 	public static Category at(Symbol className) {
 		throw new UnsupportedOperationException();
 	}
 
 	public static Category at(String className) {
-		return (Category)map.get(className);
+		for (Iterator iter = associations.iterator(); iter.hasNext();) {
+			Association element = (Association) iter.next();
+			if (element.key().equals(className)) {
+				return (Category)element.value();
+			}
+		}
+		throw new IllegalArgumentException("Could not find: "+className);
 	}
 
 	public static void garbageCollect() {
@@ -49,9 +67,27 @@ public class Smalltalk {
 		throw new UnsupportedOperationException();
 	}
 
-	public static Recipe associationAt(String xpp_cuisine) {
+	public static Association associationAt(String xpp_cuisine) {
 		//TODO this must be wrong!
-		return (Recipe)map.get(xpp_cuisine);
+		for (Iterator iter = associations.iterator(); iter.hasNext();) {
+			Association element = (Association) iter.next();
+			if (element.key().equals(xpp_cuisine)) {
+				return element;
+			}
+		}
+		throw new IllegalArgumentException("Could not find: "+xpp_cuisine);
+	}
+
+	public static Association associationAtIfAbsent(String string, Association association) {
+		for (Iterator iter = associations.iterator(); iter.hasNext();) {
+			Association element = (Association) iter.next();
+			if (element.key().equals(string)) {
+				return element;
+			}
+		}
+		//TODO should we really write this...
+		association.setKey(string);
+		return association;
 	}
 
 }

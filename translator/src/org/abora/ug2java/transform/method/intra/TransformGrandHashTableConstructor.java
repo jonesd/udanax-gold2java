@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.abora.ug2java.JavaMethod;
 import org.abora.ug2java.javatoken.IntegerLiteral;
-import org.abora.ug2java.javatoken.JavaBlockEnd;
-import org.abora.ug2java.javatoken.JavaBlockStart;
 import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;

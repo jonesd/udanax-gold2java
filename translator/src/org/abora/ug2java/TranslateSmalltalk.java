@@ -67,11 +67,14 @@ public class TranslateSmalltalk {
 		packageLookup.put("WeakPtrArray", "org.abora.gold.collection.basic");
 
 		packageLookup.put("ActualCalc", "org.abora.gold.java.missing");
+		packageLookup.put("ActualCopyRecipe", "org.abora.gold.java.missing");
 		packageLookup.put("BooleanVar", "org.abora.gold.java.missing");
 		packageLookup.put("BertPropJoint", "org.abora.gold.java.missing");
 		packageLookup.put("Calc", "org.abora.gold.java.missing");
 		//	packageLookup.put("Category", "org.abora.gold.java.missing");
 		packageLookup.put("CxxClassDescription", "org.abora.gold.java.missing");
+		packageLookup.put("CxxSystemOrganization", "org.abora.gold.java.missing");
+		packageLookup.put("CxxTreeAssociation", "org.abora.gold.java.missing");
 		packageLookup.put("Developer", "org.abora.gold.java.missing");
 		//	packageLookup.put("Emulsion", "org.abora.gold.java.missing");	
 		packageLookup.put("EncrypterConstructor", "org.abora.gold.java.missing");
@@ -101,6 +104,7 @@ public class TranslateSmalltalk {
 		packageLookup.put("PackageCategory", "org.abora.gold.java.missing");
 		packageLookup.put("Problem", "org.abora.gold.java.missing");
 		packageLookup.put("PropJoint", "org.abora.gold.java.missing");
+		packageLookup.put("PseudoCopyRecipe", "org.abora.gold.java.missing");
 		packageLookup.put("RandomStepper", "org.abora.gold.java.missing");
 		packageLookup.put("Sema4", "org.abora.gold.java.missing");
 		packageLookup.put("SensorPropJoint", "org.abora.gold.java.missing");

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.java.missing.smalltalk.OrderedCollection;
+import org.abora.gold.java.missing.smalltalk.Smalltalk;
 import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.basic.Heaper;
 
@@ -16,7 +17,6 @@ public class AboraSupport {
 	public static PrintWriter logger = null; 
 	
 	private static final Map categories = new HashMap();
-	private static final Map aboraClasses = new HashMap();
 	
 	private static final Map globals = new HashMap();
 	
@@ -45,12 +45,7 @@ public class AboraSupport {
 	}
 	
 	public static AboraClass findAboraClass(Class c) {
-		AboraClass aboraClass = (AboraClass)aboraClasses.get(c);
-		if (aboraClass == null) {
-			aboraClass = new AboraClass(c);
-			aboraClasses.put(c, aboraClass);
-		}
-		return aboraClass;
+		return AboraClass.findAboraClass(c);
 	}
 	
 	public static void smalltalkOnly() {
@@ -88,7 +83,7 @@ public class AboraSupport {
 		throw new UnsupportedOperationException();
 	}
 	public static OrderedCollection allSubclasses(Class c) {
-		throw new UnsupportedOperationException();
+		return findAboraClass(c).allSubclasses();
 	}
 
 	public static OrderedCollection subclasses(Class class1) {
@@ -117,7 +112,12 @@ public class AboraSupport {
 	}
 
 	public static String asCapitalized(String cuisine) {
-		throw new UnsupportedOperationException();
+		String result = cuisine.toLowerCase();
+		if (result.length() > 0) {
+			char capatal = Character.toUpperCase(result.charAt(0));
+			result = String.valueOf(capatal)+result.substring(1);
+		}
+		return result;
 	}
 	
 	/**
@@ -156,6 +156,11 @@ public class AboraSupport {
 	public static String toBaseString(int value, int base) {
 		/* compatibility with ug implementation - lower case alphas */
 		return Integer.toString(value, base).toUpperCase();
+	}
+
+	public static void defineGlobalRecipe(String recipeName, Heaper initialValue) {
+		Smalltalk.atPut(recipeName, null);
+		
 	}
 	
 }

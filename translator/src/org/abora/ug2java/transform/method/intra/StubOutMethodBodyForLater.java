@@ -23,15 +23,13 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		Set set = new HashSet();
 		set.add("CoordinateSpace.verify");
 		set.add("GenericCrossSpace.makeRcvr");
-		set.add("Recipe.staticTimeNonInherited");
+//		set.add("Recipe.staticTimeNonInherited");
 		set.add("GrandHashTableTester.stomp");
 		set.add("ActualCookbook.receiveClassList");
 		set.add("ActualCookbook.sendClassList");
 		set.add("GrandHashTableTester.runTest");
 		set.add("FilterSpace.makeRcvr");
 		set.add("Encrypter.invokeFunction");
-//		set.add("FeBooLockSmith.check");
-//		set.add("FeWallLockSmith.check");
 		set.add("ExampleHIHHandler.handleRequest");
 		set.add("Abraham.restartAbraham(Rcvr)");
 		set.add("CBlockTrackingPacker.consistentCount");
@@ -49,7 +47,7 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		set.add("FeWorkSet.works");
 		set.add("FeWorkSet.make(PtrArray)");
 		set.add("Binary2Rcvr.getIdentifier");
-		set.add("Recipe.Recipe");
+		//set.add("Recipe.Recipe");
 		set.add("SpecialistRcvr.basicReceiveInto");
 		set.add("TextyRcvr.receiveCategory");
 		set.add("TextyXmtr.sendCategory");

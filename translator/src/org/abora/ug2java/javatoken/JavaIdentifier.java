@@ -21,5 +21,15 @@ public class JavaIdentifier extends JavaToken {
 		}
 		super.write(buffer);
 	}
+	
+	public boolean isConstant() {
+		for (int i = 0; i < value.length(); i++) {
+			char c = value.charAt(i);
+			if (!(Character.isUpperCase(c) || Character.isDigit(c) || c == '_')) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 }

@@ -11,7 +11,6 @@ import java.util.Set;
 
 import org.abora.ug2java.Annotation;
 import org.abora.ug2java.JavaMethod;
-import org.abora.ug2java.javatoken.JavaCallEnd;
 import org.abora.ug2java.javatoken.JavaCallKeywordStart;
 import org.abora.ug2java.javatoken.JavaIdentifier;
 import org.abora.ug2java.javatoken.JavaStatementTerminator;

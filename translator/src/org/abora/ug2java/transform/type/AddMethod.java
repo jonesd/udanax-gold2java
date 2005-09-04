@@ -43,7 +43,7 @@ public class AddMethod implements ClassTransformer {
 			addUnsupportedMethod(javaClass, "", "Fn", "instVarAt", new String[] {"int", "i"});
 			
 		} else if (javaClass.className.equals("Recipe") || javaClass.className.equals("ServerChunk")) {
-			addDefineGlobal(javaClass);
+			addDefineGlobalRecipe(javaClass);
 			
 		} else if (javaClass.className.equals("DiskManager")) {
 			addUnsupportedMethod(javaClass, "", "void", "destroyAbandoned", new String[] {});
@@ -278,6 +278,28 @@ public class AddMethod implements ClassTransformer {
 		List tokens = new ArrayList();
 		tokens.add(new JavaIdentifier("AboraSupport"));
 		tokens.add(new JavaCallKeywordStart("defineGlobal"));
+		tokens.add(new JavaIdentifier("globalName"));
+		tokens.add(new JavaCallArgumentSeparator());
+		tokens.add(new JavaIdentifier("initialValue"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		method.modifiers = "static ";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+		return method;
+	}
+
+	public JavaMethod addDefineGlobalRecipe(JavaClass javaClass) {
+		JavaMethod method = new JavaMethod("void", "defineGlobal");
+		method.addParameter(new JavaField("String", "globalName"));
+		method.addParameter(new JavaField("Heaper", "initialValue"));
+		List tokens = new ArrayList();
+		tokens.add(new JavaIdentifier("AboraSupport"));
+		tokens.add(new JavaCallKeywordStart("defineGlobalRecipe"));
 		tokens.add(new JavaIdentifier("globalName"));
 		tokens.add(new JavaCallArgumentSeparator());
 		tokens.add(new JavaIdentifier("initialValue"));
