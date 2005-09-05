@@ -227,7 +227,8 @@ public class AboraHeaper {
 		throw new UnsupportedOperationException();
 	}
 	public static void mayBecome(Category cat) {
-		throw new UnsupportedOperationException();
+		//TODO need to know sourceClass, and store this
+		System.out.println("Ignore mayBecome("+cat+")");
 	}
 	
 	public boolean isEqualOrSubclassOf(Category cat) {

@@ -59,8 +59,8 @@ public class AddMethod implements ClassTransformer {
 			addUnsupportedMethod(javaClass, "", "void", "releaseReadHandler", new String[] {});
 			
 		} else if (javaClass.className.equals("Heaper")) {
-			addUnsupportedMethod(javaClass, "static ", "boolean", "isConstructed", new String[] {"Heaper", "h"});			
 			addHeaperIsDestructed(javaClass);
+			addHeaperIsConstructed(javaClass);
 			addHeaperEquals(javaClass);
 			
 		} else if (javaClass.className.equals("Category")) {
@@ -396,15 +396,51 @@ public class AddMethod implements ClassTransformer {
 	}
 
 	protected JavaMethod addHeaperIsDestructed(JavaClass javaClass) {
+//		{BooleanVar} isDestructed: obj {void star}
+//		^obj == NULL or: [obj class == DeletedHeaper]!
 		JavaMethod method = new JavaMethod("boolean", "isDestructed");
-		method.addParameter(new JavaField("Heaper", "h"));
+		method.addParameter(new JavaField("Object", "obj"));
 
 		List tokens = new ArrayList();
-		tokens.add(new JavaComment("TODO what should the real behaviour be here?"));
 		tokens.add(new JavaKeyword("return"));
-		tokens.add(new JavaIdentifier("false"));
+		tokens.add(new JavaIdentifier("obj"));
+		tokens.add(new JavaKeyword("=="));
+		tokens.add(new JavaIdentifier("null"));
+		tokens.add(new JavaKeyword("||"));
+		tokens.add(new JavaIdentifier("obj"));
+		tokens.add(new JavaKeyword("instanceof"));
+		tokens.add(new JavaIdentifier("DeletedHeaper"));
 		tokens.add(new JavaStatementTerminator());
-		
+		method.modifiers = "static ";
+		method.methodBody = new MethodBody(tokens);
+		//TODO add a generated source
+		method.smalltalkSource = new SmalltalkSource();
+		method.smalltalkSource.context = "";
+		method.smalltalkSource.text = "Generated during transformation: AddMethod";
+		javaClass.addMethod(method);
+		return method;
+	}
+
+	protected JavaMethod addHeaperIsConstructed(JavaClass javaClass) {
+//		{BooleanVar} isConstructed: obj {void star}
+//		^obj ~~ NULL and: [obj class ~~ DeletedHeaper]!
+		JavaMethod method = new JavaMethod("boolean", "isConstructed");
+		method.addParameter(new JavaField("Object", "obj"));
+
+		List tokens = new ArrayList();
+		tokens.add(new JavaKeyword("return"));
+		tokens.add(new JavaIdentifier("obj"));
+		tokens.add(new JavaKeyword("!="));
+		tokens.add(new JavaIdentifier("null"));
+		tokens.add(new JavaKeyword("&&"));
+		tokens.add(new JavaKeyword("!"));
+		tokens.add(new JavaParenthesisStart());
+		tokens.add(new JavaIdentifier("obj"));
+		tokens.add(new JavaKeyword("instanceof"));
+		tokens.add(new JavaIdentifier("DeletedHeaper"));
+		tokens.add(new JavaParenthesisEnd());
+		tokens.add(new JavaStatementTerminator());
+
 		method.modifiers = "static ";
 		method.methodBody = new MethodBody(tokens);
 		//TODO add a generated source

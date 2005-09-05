@@ -51,9 +51,10 @@ import org.abora.gold.xcvr.XcvrMaker;
 import org.abora.gold.xcvr.XnBufferedWriteStream;
 import org.abora.gold.xpp.basic.Heaper;
 
-
+//TODO also need to support calling exitTimeNonInherited
 public class AboraStartup {
 
+	
 	private final List aboraClasses;
 	private final Map initTimeNonInheritedDependencies;
 	

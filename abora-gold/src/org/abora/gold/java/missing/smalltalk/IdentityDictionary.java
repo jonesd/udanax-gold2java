@@ -9,9 +9,14 @@
 
 package org.abora.gold.java.missing.smalltalk;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class IdentityDictionary {
 
+	private Map map = new HashMap();
+	
 	public IdentityDictionary() {
 		super();
 	}
@@ -22,11 +27,15 @@ public class IdentityDictionary {
 	}
 	
 	public int ifAbsent(Object key, int putIfAbsent) {
-		throw new UnsupportedOperationException();
+		if (map.containsKey(key)) {
+			return ((Integer)map.get(key)).intValue();
+		} else {
+			return putIfAbsent;
+		}
 	}
 	
 	public void put(Object key, int value) {
-		throw new UnsupportedOperationException();
+		map.put(key, new Integer(value));
 	}
 
 }

@@ -17,6 +17,10 @@ import org.abora.gold.xpp.basic.Heaper;
 
 public class ShepherdStub extends Heaper {
 
+	private int hashCode;
+	private FlockInfo info;
+	private Category cat;
+	
 	public static void initializeClassAttributes() {
 		//TODO just made up out of thin air - totally wrong!!!
 		AboraSupport.findAboraClass(ShepherdStub.class).setAttributes( new Set().add("CONCRETE").add("PSEUDOCOPY"));
@@ -27,10 +31,24 @@ public class ShepherdStub extends Heaper {
 	}
 
 	public ShepherdStub(int theHash, FlockInfo info, Category theCategory) {
-		throw new UnsupportedOperationException();
+		//System.out.println("Unconnected ShepherdStub created");
+		hashCode = theHash;
+		this.info = info;
+		cat = theCategory;
 	}
 
 	public ShepherdStub(int hash, Category newCat) {
-		throw new UnsupportedOperationException();
+		this(hash, null, newCat);
+	}
+	
+	public Category getCategory() {
+		//TODO is this right?
+		return cat;
+	}
+	
+	public int hash() {
+		//TODO is this right
+		//TODO should this be hashForEqual method?
+		return hashCode;
 	}
 }

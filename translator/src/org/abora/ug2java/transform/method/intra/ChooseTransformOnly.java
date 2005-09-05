@@ -53,15 +53,15 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("ReadArrayStream.next");
 		list.add("ReadMemStream.next");
 		
-		list.add("Abraham.becomeStub");
-		list.add("Abraham.dismantle");
-		list.add("Abraham.destroy");
-		list.add("Abraham.flockInfo");
-		list.add("Abraham.getInfo");
-		list.add("Abraham.token");
-		list.add("Abraham.Abraham");
-		list.add("Abraham.restartAbraham");
-		list.add("Abraham.initTimeNonInherited");
+		//list.add("Abraham.becomeStub");
+//		list.add("Abraham.dismantle");
+//		list.add("Abraham.destroy");
+//		list.add("Abraham.flockInfo");
+//		list.add("Abraham.getInfo");
+//		list.add("Abraham.token");
+//		list.add("Abraham.Abraham");
+//		list.add("Abraham.restartAbraham");
+//		list.add("Abraham.initTimeNonInherited");
 		
 		//TODO might need for debugging...
 		list.add("TokenSource.takeToken");
@@ -145,6 +145,16 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("ActualHashSet.wipe");
 		list.add("ActualHashSet.remove");
 
+		list.add("Abraham.becomeStub");
+		list.add("Abraham.dismantle");
+		list.add("Abraham.destroy");
+		list.add("Abraham.flockInfo");
+		list.add("Abraham.getInfo");
+		list.add("Abraham.token");
+		list.add("Abraham.Abraham");
+		list.add("Abraham.restartAbraham");
+		list.add("Abraham.initTimeNonInherited");
+		
 		//TODO only for tests...
 		list.add("smalltalkOnly");
 
