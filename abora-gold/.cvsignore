@@ -3,3 +3,4 @@ src-gen
 tool
 dist
 .clover_coverage
+disktester.abora

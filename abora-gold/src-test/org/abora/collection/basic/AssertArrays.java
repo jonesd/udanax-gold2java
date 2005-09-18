@@ -69,168 +69,168 @@ public class AssertArrays {
 	//////////////////////////////////////////////
 	// Int8
 	
-	protected static Int8Array makeInt8ArrayEmpty() {
+	public static Int8Array makeInt8ArrayEmpty() {
 		return Int8Array.make(new byte[] {
 		});
 	}
-	protected static Int8Array makeInt8Array1() {
+	public static Int8Array makeInt8Array1() {
 		return Int8Array.make(new byte[] { 1 });
 	}
-	protected static Int8Array makeInt8Array12345() {
+	public static Int8Array makeInt8Array12345() {
 		return Int8Array.make(new byte[] { 1, 2, 3, 4, 5 });
 	}
-	protected static Int8Array makeInt8Array12321() {
+	public static Int8Array makeInt8Array12321() {
 		return Int8Array.make(new byte[] { 1, 2, 3, 2, 1 });
 	}
 
 	//////////////////////////////////////////////
 	// Int16
 	
-//	protected static Int16Array makeInt16ArrayEmpty() {
+//	public static Int16Array makeInt16ArrayEmpty() {
 //		return Int16Array.make(new short[] {
 //		});
 //	}
-//	protected static Int16Array makeInt16Array1() {
+//	public static Int16Array makeInt16Array1() {
 //		return Int16Array.make(new short[] { 1 });
 //	}
-//	protected static Int16Array makeInt16Array12345() {
+//	public static Int16Array makeInt16Array12345() {
 //		return Int16Array.make(new short[] { 1, 2, 3, 4, 5 });
 //	}
-//	protected static Int16Array makeInt16Array12321() {
+//	public static Int16Array makeInt16Array12321() {
 //		return Int16Array.make(new short[] { 1, 2, 3, 2, 1 });
 //	}
 
 	//////////////////////////////////////////////
 	// Int32
 	
-	protected static Int32Array makeInt32ArrayEmpty() {
+	public static Int32Array makeInt32ArrayEmpty() {
 		return Int32Array.make(new int[] {
 		});
 	}
-	protected static Int32Array makeInt32Array1() {
+	public static Int32Array makeInt32Array1() {
 		return Int32Array.make(new int[] { 1 });
 	}
-	protected static Int32Array makeInt32Array12345() {
+	public static Int32Array makeInt32Array12345() {
 		return Int32Array.make(new int[] { 1, 2, 3, 4, 5 });
 	}
-	protected static Int32Array makeInt32Array12321() {
+	public static Int32Array makeInt32Array12321() {
 		return Int32Array.make(new int[] { 1, 2, 3, 2, 1 });
 	}
 
 	//////////////////////////////////////////////
 	// Int64
 	
-//	protected static Int64Array makeInt64ArrayEmpty() {
+//	public static Int64Array makeInt64ArrayEmpty() {
 //		return Int64Array.make(new long[] {
 //		});
 //	}
-//	protected static Int64Array makeInt64Array1() {
+//	public static Int64Array makeInt64Array1() {
 //		return Int64Array.make(new long[] { 1 });
 //	}
-//	protected static Int64Array makeInt64Array12345() {
+//	public static Int64Array makeInt64Array12345() {
 //		return Int64Array.make(new long[] { 1, 2, 3, 4, 5 });
 //	}
-//	protected static Int64Array makeInt64Array12321() {
+//	public static Int64Array makeInt64Array12321() {
 //		return Int64Array.make(new long[] { 1, 2, 3, 2, 1 });
 //	}
 
 	//////////////////////////////////////////////
 	// UInt8
 	
-	protected static UInt8Array makeUInt8ArrayEmpty() {
+	public static UInt8Array makeUInt8ArrayEmpty() {
 		return UInt8Array.make(new short[] {
 		});
 	}
-	protected static UInt8Array makeUInt8Array1() {
+	public static UInt8Array makeUInt8Array1() {
 		return UInt8Array.make(new short[] { 1 });
 	}
-	protected static UInt8Array makeUInt8Array12345() {
+	public static UInt8Array makeUInt8Array12345() {
 		return UInt8Array.make(new short[] { 1, 2, 3, 4, 5 });
 	}
-	protected static UInt8Array makeUInt8Array12321() {
+	public static UInt8Array makeUInt8Array12321() {
 		return UInt8Array.make(new short[] { 1, 2, 3, 2, 1 });
 	}
 
 	//////////////////////////////////////////////
 	// UInt16
 	
-//	protected static UInt16Array makeUInt16ArrayEmpty() {
+//	public static UInt16Array makeUInt16ArrayEmpty() {
 //		return UInt16Array.make(new char[] {
 //		});
 //	}
-//	protected static UInt16Array makeUInt16Array1() {
+//	public static UInt16Array makeUInt16Array1() {
 //		return UInt16Array.make(new char[] { 1 });
 //	}
-//	protected static UInt16Array makeUInt16Array12345() {
+//	public static UInt16Array makeUInt16Array12345() {
 //		return UInt16Array.make(new char[] { 1, 2, 3, 4, 5 });
 //	}
-//	protected static UInt16Array makeUInt16Array12321() {
+//	public static UInt16Array makeUInt16Array12321() {
 //		return UInt16Array.make(new char[] { 1, 2, 3, 2, 1 });
 //	}
 
 	//////////////////////////////////////////////
 	// UInt32
 	
-	protected static UInt32Array makeUInt32ArrayEmpty() {
+	public static UInt32Array makeUInt32ArrayEmpty() {
 		return UInt32Array.make(new long[] {
 		});
 	}
-	protected static UInt32Array makeUInt32Array1() {
+	public static UInt32Array makeUInt32Array1() {
 		return UInt32Array.make(new long[] { 1 });
 	}
-	protected static UInt32Array makeUInt32Array12345() {
+	public static UInt32Array makeUInt32Array12345() {
 		return UInt32Array.make(new long[] { 1, 2, 3, 4, 5 });
 	}
-	protected static UInt32Array makeUInt32Array12321() {
+	public static UInt32Array makeUInt32Array12321() {
 		return UInt32Array.make(new long[] { 1, 2, 3, 2, 1 });
 	}
 
 	//////////////////////////////////////////////
 	// IntegerValue
 	
-	protected static IntegerVarArray makeIntegerVarArrayEmpty() {
+	public static IntegerVarArray makeIntegerVarArrayEmpty() {
 		return IntegerVarArray.make(new int[] {
 		});
 	}
-	protected static IntegerVarArray makeIntegerVarArray1() {
+	public static IntegerVarArray makeIntegerVarArray1() {
 		return IntegerVarArray.make(new int[] { 1 });
 	}
-	protected static IntegerVarArray makeIntegerVarArray12345() {
+	public static IntegerVarArray makeIntegerVarArray12345() {
 		return IntegerVarArray.make(new int[] { 1, 2, 3, 4, 5 });
 	}
-	protected static IntegerVarArray makeIntegerVarArray12321() {
+	public static IntegerVarArray makeIntegerVarArray12321() {
 		return IntegerVarArray.make(new int[] { 1, 2, 3, 2, 1 });
 	}
 
 	//////////////////////////////////////////////
 	// IEEE32
 	
-	protected static IEEE32Array makeIEEE32ArrayEmpty() {
+	public static IEEE32Array makeIEEE32ArrayEmpty() {
 		return IEEE32Array.make(new float[] {});
 	}
-	protected static IEEE32Array makeIEEE32Array1() {
+	public static IEEE32Array makeIEEE32Array1() {
 		return IEEE32Array.make(new float[] {1.1f});
 	}
-	protected static IEEE32Array makeIEEE32Array12345() {
+	public static IEEE32Array makeIEEE32Array12345() {
 		return IEEE32Array.make(new float[] {1.1f, 2.2f, 3.3f, 4.4f, 5.5f});
 	}
-	protected static IEEE32Array makeIEEE32Array12321() {
+	public static IEEE32Array makeIEEE32Array12321() {
 		return IEEE32Array.make(new float[] {1.1f, 2.2f, 3.3f, 2.2f, 1.1f});
 	}
 
 	//////////////////////////////////////////////
 	// IEEE64
 	
-	protected static IEEE64Array makeIEEE64ArrayEmpty() {
+	public static IEEE64Array makeIEEE64ArrayEmpty() {
 		return IEEE64Array.make(new double[] {});
 	}
-	protected static IEEE64Array makeIEEE64Array1() {
+	public static IEEE64Array makeIEEE64Array1() {
 		return IEEE64Array.make(new double[] {1.1});
 	}
-	protected static IEEE64Array makeIEEE64Array12345() {
+	public static IEEE64Array makeIEEE64Array12345() {
 		return IEEE64Array.make(new double[] {1.1, 2.2, 3.3, 4.4, 5.5});
 	}
-	protected static IEEE64Array makeIEEE64Array12321() {
+	public static IEEE64Array makeIEEE64Array12321() {
 		return IEEE64Array.make(new double[] {1.1, 2.2, 3.3, 2.2, 1.1});
 	}
 
