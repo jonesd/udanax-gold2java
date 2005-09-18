@@ -183,7 +183,7 @@ public class Urdi extends Heaper {
 			try {
 				for (Iterator iter = toCommit.iterator(); iter.hasNext();) {
 					SnarfHandle handle = (SnarfHandle) iter.next();					
-					UInt8Array array = handle.contents();
+					UInt8Array array = handle.getData();
 					file.seek(handle.getSnarfID() * (long)SNARF_SIZE);
 					//TODO not safe if later failure
 					try {

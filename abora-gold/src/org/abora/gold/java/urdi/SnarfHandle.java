@@ -40,7 +40,7 @@ public class SnarfHandle extends Heaper {
 
 	private void mustBeWritable() {
 		if (!isWritable()) {
-			throw new AboraRuntimeException("Must be writeable");
+			throw new AboraRuntimeException("Must be writable");
 		}
 	}
 	
@@ -53,7 +53,7 @@ public class SnarfHandle extends Heaper {
 	}
 	
 	public void makeWritable() {
-		if (writable) {
+		if (isWritable()) {
 			return;
 		}
 		array = (UInt8Array)array.copy();
@@ -67,20 +67,30 @@ public class SnarfHandle extends Heaper {
 			//TODO does this indicate a problem in the caller?
 			return;
 		}
+		//TODO use optimized system.arraycopy?
+//		array.copyBytes(source, destination, count);
 		if (source > destination) {
-			throw new IllegalArgumentException("destination="+destination+" after source="+source);
-		}
-		for (int i = 0; i < count; i++) {
-			int value = array.at(source+i);
-			//TODO clear old?
-			array.put(source+i, 0);
-			array.put(destination+i, value);
+			for (int i = 0; i < count ; i++) {
+				int value = array.at(source+i);
+				//TODO clear old?
+				array.put(source+i, 0);
+				array.put(destination+i, value);
+			}
+		} else {
+			for (int i = count - 1; i >= 0; i--) {
+				int value = array.at(source+i);
+				//TODO clear old?
+				array.put(source+i, 0);
+				array.put(destination+i, value);
+			}
 		}
 	}
+	
 	public void put32(int bytePosition, int value) {
 		mustBeWritable();
 		array.storeInt32(bytePosition, value);
 	}
+	
 	public boolean isWritable() {
 		return writable;
 	}
@@ -92,13 +102,6 @@ public class SnarfHandle extends Heaper {
 		oo.print(",");
 		oo.print(isWritable() ? "Write" : "Read");
 		oo.print(")");
-	}
-
-	//TODO review the access/requirement of this method
-	protected UInt8Array contents() {
-		mustBeWritable();
-
-		return array;
 	}
 
 	public UInt8Array getData() {

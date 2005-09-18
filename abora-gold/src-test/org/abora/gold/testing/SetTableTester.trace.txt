@@ -7,13 +7,13 @@ Blasted while introducing.
 
 Store I(3) at 1.
 Retrieve all from I(1): 
-	I(3)
 	I(2)
+	I(3)
 
 Store I(4) at 1.
 Retrieve all from 1: 
-	I(3)
 	I(4)
+	I(3)
 	I(2)
 
 Table is now: SetTable[I(1)->I(4), I(1)->I(3), I(1)->I(2)]

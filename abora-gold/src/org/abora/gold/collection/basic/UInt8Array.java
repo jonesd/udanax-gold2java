@@ -11,6 +11,7 @@
 package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.missing.smalltalk.Set;
@@ -368,6 +369,10 @@ public class UInt8Array extends PrimIntArray {
 			int value = storage[i];
 			xmtr.sendUInt8(value);
 		}
+	}
+	
+	public void copyBytes(int source, int destination, int count) {
+		System.arraycopy(storage, source, storage, destination, count);
 	}
 
 }

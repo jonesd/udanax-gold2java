@@ -195,6 +195,7 @@ public class SnarfHandleTest extends AboraGoldTestCase {
 		handle.moveBytes(4, 4, 8);
 		assertContents(handle, 987, -6789, 0);
 		
+		// Overlapping moves
 		handle.moveBytes(0, 4, 8);
 		assertContents(handle, 0, 987, -6789);
 		
