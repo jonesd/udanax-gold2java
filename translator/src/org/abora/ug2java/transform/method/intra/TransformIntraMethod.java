@@ -170,6 +170,7 @@ public class TransformIntraMethod implements MethodTransformation {
 		transformers.add(new TransformBucketArrayStepperVerifyEntry());
 		transformers.add(new TransformGrandHashTableConstructor());
 		transformers.add(new TransformSmalltalkAssociationAtIfAbsentInline());
+		transformers.add(new TransformSnarfHandlerWriteStream());
 				
 		transformers.add(new TransformSmalltalkAtClassName());
 		transformers.add(new EnsureUniqueLocalVarNames());

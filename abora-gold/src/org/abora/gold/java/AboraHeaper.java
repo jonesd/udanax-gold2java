@@ -233,7 +233,8 @@ public class AboraHeaper {
 	
 	public boolean isEqualOrSubclassOf(Category cat) {
 		//TODO should be added to Category?
-		throw new UnsupportedOperationException();
+		AboraClass thisClass = this instanceof Category ? ((Category)this).brotherClass() : getAboraClass();
+		return thisClass.isEqualOrSubclassOf(cat.brotherClass());
 	}
 	public boolean isKindOf(Category cat) {
 		Category category = getCategory();

@@ -10,6 +10,8 @@
  */
 package org.abora.gold.collection.basic;
 
+import org.abora.gold.xcvr.Rcvr;
+
 
 public abstract class PrimIntArray extends PrimIntegerArray {
 
@@ -19,6 +21,11 @@ public abstract class PrimIntArray extends PrimIntegerArray {
 	protected PrimIntArray() {
 		super();
 	}
+	
+	public PrimIntArray(Rcvr rcvr) {
+		super(rcvr);
+	}
+
 
 	//////////////////////////////////////////////
 	// Static Factory Methods

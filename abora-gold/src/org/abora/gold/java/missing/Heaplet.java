@@ -9,9 +9,8 @@
 
 package org.abora.gold.java.missing;
 
-import org.abora.gold.xpp.basic.Heaper;
 
-public class Heaplet extends Heaper {
+public class Heaplet {
 
 	public Heaplet() {
 		super();

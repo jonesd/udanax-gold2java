@@ -17,6 +17,8 @@ import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimFloatValue;
 import org.abora.gold.x.PrimIEEE64;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 /**
@@ -48,6 +50,16 @@ public class IEEE64Array extends PrimFloatArray {
 		super();
 		storage = new double[count];
 	}
+	
+	public IEEE64Array(Rcvr rcvr) {
+		super(rcvr);
+		int count = rcvr.receiveUInt32();
+		storage = new double[count];
+		for (int i = 0; i < storage.length; i++) {
+			storeFloat(i, rcvr.receiveIEEEDoubleVar());
+		}
+	}
+
 
 	/** 
 	 * Construct a new array of the specified size with
@@ -275,4 +287,14 @@ public class IEEE64Array extends PrimFloatArray {
 	protected void printElementOn(int index, PrintWriter oo) {
 		oo.print(iEEE64At(index));
 	}
+	
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+		xmtr.sendUInt32(count());
+		for (int i = 0; i < storage.length; i++) {
+			double f = storage[i];
+			xmtr.sendIEEEDoubleVar(f);
+		}
+	}
+
 }

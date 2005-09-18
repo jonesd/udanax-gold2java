@@ -16,6 +16,8 @@ import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class IntegerVarArray extends PrimIntegerArray {
@@ -29,12 +31,22 @@ public class IntegerVarArray extends PrimIntegerArray {
 
 	//////////////////////////////////////////////
 	// Constructors
-
+	
 	protected IntegerVarArray(int count) {
 		super();
 		storage = new int[count];
 		zeroElements();
 	}
+	
+	public IntegerVarArray(Rcvr rcvr) {
+		super(rcvr);
+		int count = rcvr.receiveUInt32();
+		storage = new int[count];
+		for (int i = 0; i < storage.length; i++) {
+			storeInteger(i, rcvr.receiveIntegerVar());
+		}
+	}
+
 
 	protected IntegerVarArray(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		this(size);
@@ -225,4 +237,14 @@ public class IntegerVarArray extends PrimIntegerArray {
 	public static IntegerVarArray zeros(int n) {
 		return IntegerVarArray.make(n);
 	}
+	
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+		xmtr.sendUInt32(count());
+		for (int i = 0; i < storage.length; i++) {
+			int value = storage[i];
+			xmtr.sendIntegerVar(value);
+		}
+	}
+
 }

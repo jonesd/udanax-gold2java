@@ -18,6 +18,8 @@ import org.abora.gold.tumbler.IEEE32Pos;
 import org.abora.gold.x.PrimFloatValue;
 import org.abora.gold.x.PrimIEEE32;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 /**
@@ -49,6 +51,16 @@ public class IEEE32Array extends PrimFloatArray {
 		super();
 		storage = new float[count];
 	}
+	
+	public IEEE32Array(Rcvr rcvr) {
+		super(rcvr);
+		int count = rcvr.receiveUInt32();
+		storage = new float[count];
+		for (int i = 0; i < storage.length; i++) {
+			storeFloat(i, rcvr.receiveIEEEDoubleVar());
+		}
+	}
+
 
 	/** 
 	 * Construct a new array of the specified size with
@@ -288,4 +300,14 @@ public class IEEE32Array extends PrimFloatArray {
 	protected void printElementOn(int index, PrintWriter oo) {
 		oo.print(iEEE32At(index));
 	}
+	
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+		xmtr.sendUInt32(count());
+		for (int i = 0; i < storage.length; i++) {
+			float f = storage[i];
+			xmtr.sendIEEEDoubleVar(f);
+		}
+	}
+
 }

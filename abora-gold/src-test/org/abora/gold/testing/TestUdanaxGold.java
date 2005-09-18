@@ -38,8 +38,10 @@ public class TestUdanaxGold extends UdanaxGoldTestCase {
 	public void testDiskTester() throws Exception {
 		//TODO need a full disk initialazion here (see AboraStartup and DiskIniter),
 		// but at the moment all the Urdi/SnarfHandle related code is simply placeholder
-		AboraStartup.getInstance().useRealDisk();
+		String filename = "disktester.abora";
+		AboraStartup.getInstance().initializeRealDisk(filename);
 		try {		
+			AboraStartup.getInstance().useRealDisk(filename);
 			DiskTester tester = new DiskTester();
 			runTester(tester);
 		} finally {

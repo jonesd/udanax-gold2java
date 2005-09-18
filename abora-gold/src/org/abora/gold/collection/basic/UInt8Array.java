@@ -17,6 +17,8 @@ import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class UInt8Array extends PrimIntArray {
@@ -35,6 +37,16 @@ public class UInt8Array extends PrimIntArray {
 		super();
 		storage = new byte[count];
 	}
+	
+	public UInt8Array(Rcvr rcvr) {
+		super(rcvr);
+		int count = rcvr.receiveUInt32();
+		storage = new byte[count];
+		for (int i = 0; i < storage.length; i++) {
+			storeInteger(i, rcvr.receiveUInt8());
+		}
+	}
+
 
 	protected UInt8Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		this(size);
@@ -51,6 +63,11 @@ public class UInt8Array extends PrimIntArray {
 			short s = buffer[i];
 			storage[i] = toSignedByte(s);
 		}
+	}
+	
+	protected UInt8Array(byte[] capturedBuffer) {
+		super();
+		storage = capturedBuffer;
 	}
 	
 
@@ -335,5 +352,22 @@ public class UInt8Array extends PrimIntArray {
 	            storage[i + index] = (byte) ((value >>> offset) & 0xFF);
 	        }
 		}
+
+	public static UInt8Array makeShared(byte[] capturedBuffer) {
+		return new UInt8Array(capturedBuffer);
+	}
+
+	public byte[] gutsOfByteArray() {
+		return storage;
+	}
+
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+		xmtr.sendUInt32(count());
+		for (int i = 0; i < storage.length; i++) {
+			int value = storage[i];
+			xmtr.sendUInt8(value);
+		}
+	}
 
 }

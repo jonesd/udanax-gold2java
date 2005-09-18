@@ -18,6 +18,8 @@ import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 /**
@@ -39,6 +41,16 @@ public class Int8Array extends PrimIntArray {
 		super();
 		storage = new byte[count];
 	}
+	
+	public Int8Array(Rcvr rcvr) {
+		super(rcvr);
+		int count = rcvr.receiveUInt32();
+		storage = new byte[count];
+		for (int i = 0; i < storage.length; i++) {
+			storeInteger(i, rcvr.receiveInt8());
+		}
+	}
+
 
 	protected Int8Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		this(size);
@@ -262,4 +274,14 @@ public class Int8Array extends PrimIntArray {
 	protected void printElementOn(int index, PrintWriter oo) {
 		oo.print(int8At(index));
 	}
+	
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+		xmtr.sendUInt32(count());
+		for (int i = 0; i < storage.length; i++) {
+			int value = storage[i];
+			xmtr.sendInt8(value);
+		}
+	}
+
 }

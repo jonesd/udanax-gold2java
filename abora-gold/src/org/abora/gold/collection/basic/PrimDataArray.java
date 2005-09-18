@@ -12,6 +12,7 @@ package org.abora.gold.collection.basic;
 
 import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.missing.smalltalk.Set;
+import org.abora.gold.xcvr.Rcvr;
 
 
 /**
@@ -30,6 +31,11 @@ public abstract class PrimDataArray extends PrimArray {
 	protected PrimDataArray() {
 		super();
 	}
+	
+	public PrimDataArray(Rcvr rcvr) {
+		super(rcvr);
+	}
+
 
 
 	//////////////////////////////////////////////

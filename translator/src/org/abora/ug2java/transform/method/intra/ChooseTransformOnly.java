@@ -125,9 +125,14 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("TextyXmtr.sendString");
 		list.add("Recipe.staticTimeNonInherited");
 		list.add("WriteMemStream.putStr");
+		list.add("WriteArrayStream.putStr");
 		list.add("DiskCountSpecialist.sendHeaperTo");
 		list.add("DiskSpecialist.sendHeaperTo");
 		list.add("SnarfPacker.purgeClean");
+		list.add("TestPacker.purgeClean");
+		list.add("ReadMemStream.getByte");
+		list.add("SensorCrum.printOn");
+		list.add("SplitLoaf.printOn");
 		
 		//TODO debug/halt messages
 		list.add("SnarfRecord.dismantleFlock");

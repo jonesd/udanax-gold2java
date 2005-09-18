@@ -12,6 +12,8 @@ package org.abora.gold.java.missing;
 import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.snarf.FlockInfo;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Category;
 import org.abora.gold.xpp.basic.Heaper;
 
@@ -28,6 +30,27 @@ public class ShepherdStub extends Heaper {
 
 	public ShepherdStub() {
 		super();
+	}
+	
+	public ShepherdStub(Rcvr rcvr) {
+		super(rcvr);
+		//TODO what is going on with all these stubs?
+		
+		hashCode = rcvr.receiveUInt32();
+		cat = (Category)rcvr.receiveHeaper();
+		int snarfId = rcvr.receiveUInt32();
+		int index = rcvr.receiveUInt32();
+		System.out.println("Unknown SheherdStub(Rcvr) next action...");
+		//info = (FlockInfo)rcvr.receiveHeaper();
+	}
+	
+	public void sendSelfTo(Xmtr trans) {
+		super.sendSelfTo(trans);
+		//TODO just copied from DiskSpecialist.sendHeaperTo - what should be happening?
+		trans.sendUInt32(hashCode);
+		trans.sendHeaper(cat);
+		trans.sendUInt32(info.snarfID());
+		trans.sendUInt32(info.index());
 	}
 
 	public ShepherdStub(int theHash, FlockInfo info, Category theCategory) {

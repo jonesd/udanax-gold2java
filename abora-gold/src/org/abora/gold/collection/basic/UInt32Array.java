@@ -17,6 +17,8 @@ import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.spaces.integers.IntegerPos;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class UInt32Array extends PrimIntArray {
@@ -34,6 +36,16 @@ public class UInt32Array extends PrimIntArray {
 		super();
 		this.storage = new int[count];
 	}
+	
+	public UInt32Array(Rcvr rcvr) {
+		super(rcvr);
+		int count = rcvr.receiveUInt32();
+		storage = new int[count];
+		for (int i = 0; i < storage.length; i++) {
+			storeInteger(i, rcvr.receiveUInt32());
+		}
+	}
+
 	
 	protected UInt32Array(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		this(size);
@@ -253,4 +265,14 @@ public class UInt32Array extends PrimIntArray {
 		//TODO do we need this method?
 		storeUInt32(index, value);
 	}
+	
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+		xmtr.sendUInt32(count());
+		for (int i = 0; i < storage.length; i++) {
+			int value = storage[i];
+			xmtr.sendUInt32(value);
+		}
+	}
+
 }

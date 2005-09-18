@@ -15,6 +15,8 @@ import org.abora.gold.java.missing.FHash;
 import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimFloatValue;
 import org.abora.gold.x.PrimIEEE64;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 /**
@@ -47,6 +49,11 @@ public abstract class PrimFloatArray extends PrimDataArray {
 	protected PrimFloatArray() {
 		super();
 	}
+	
+	public PrimFloatArray(Rcvr rcvr) {
+		super(rcvr);
+	}
+
 
 //	/** Make an array initialized to zero values */
 //	public static PrimFloatArray zeros(int bitCount, int count) {

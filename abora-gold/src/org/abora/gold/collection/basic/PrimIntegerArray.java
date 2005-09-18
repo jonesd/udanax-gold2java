@@ -14,6 +14,7 @@ import org.abora.gold.java.missing.FHash;
 import org.abora.gold.x.PrimIntValue;
 import org.abora.gold.x.PrimIntegerSpec;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xpp.basic.Heaper;
 
 /**
@@ -28,6 +29,11 @@ public abstract class PrimIntegerArray extends PrimDataArray {
 	protected PrimIntegerArray() {
 		super();
 	}
+	
+	public PrimIntegerArray(Rcvr rcvr) {
+		super(rcvr);
+	}
+
 
 	//////////////////////////////////////////////
 	// accessing

@@ -112,16 +112,12 @@ public class TranslateSmalltalk {
 		packageLookup.put("ShepFlag", "org.abora.gold.java.missing");
 		packageLookup.put("ShepherdStub", "org.abora.gold.java.missing");
 		packageLookup.put("Signal", "org.abora.gold.java.missing");
-		packageLookup.put("SnarfID", "org.abora.gold.java.missing");
-		packageLookup.put("SnarfHandle", "org.abora.gold.java.missing");
 		packageLookup.put("SocketPortal", "org.abora.gold.java.missing");
 		packageLookup.put("SplayEntLoaf", "org.abora.gold.java.missing");
 		packageLookup.put("Stamp", "org.abora.gold.java.missing");
 		packageLookup.put("TransclusionRecorder", "org.abora.gold.java.missing");
 		packageLookup.put("TwoStepper", "org.abora.gold.java.missing");
 		packageLookup.put("UnixSocketAccessor", "org.abora.gold.java.missing");
-		packageLookup.put("Urdi", "org.abora.gold.java.missing");
-		packageLookup.put("UrdiView", "org.abora.gold.java.missing");
 		packageLookup.put("VoidStar", "org.abora.gold.java.missing");
 		//	packageLookup.put("XnExecutor", "org.abora.gold.java.missing");
 		//	packageLookup.put("XuRegion", "org.abora.gold.java.missing");
@@ -164,7 +160,13 @@ public class TranslateSmalltalk {
 		packageLookup.put("Symbol", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("TypeDescription", "org.abora.gold.java.missing.smalltalk");
 		packageLookup.put("WriteStream", "org.abora.gold.java.missing.smalltalk");
-		
+
+		// Missing classes; just group together
+		packageLookup.put("SnarfID", "org.abora.gold.java.urdi");
+		packageLookup.put("SnarfHandle", "org.abora.gold.java.urdi");
+		packageLookup.put("Urdi", "org.abora.gold.java.urdi");
+		packageLookup.put("UrdiView", "org.abora.gold.java.urdi");
+
 		packageLookup.put("AboraBlockSupport", "org.abora.gold.java");
 		packageLookup.put("AboraCharacterSupport", "org.abora.gold.java");
 		packageLookup.put("AboraHeaper", "org.abora.gold.java");

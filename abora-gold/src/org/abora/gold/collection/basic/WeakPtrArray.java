@@ -13,6 +13,8 @@ package org.abora.gold.collection.basic;
 import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.wparray.XnExecutor;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 //TODO need to know more about the implementation
@@ -35,6 +37,12 @@ public class WeakPtrArray extends PtrArray {
 		super(count);
 		this.executor = executor;
 	}
+	
+	public WeakPtrArray(Rcvr rcvr) {
+		super(rcvr);
+		executor = (XnExecutor)rcvr.receiveHeaper();
+	}
+
 
 	public WeakPtrArray(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		super(size, from, sourceOffset, count, destOffset);
@@ -115,5 +123,9 @@ public class WeakPtrArray extends PtrArray {
 		//		}
 	}
 
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+		xmtr.sendHeaper(executor);
+	}
 
 }

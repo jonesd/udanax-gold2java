@@ -1,5 +1,6 @@
 package org.abora.gold.java;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -36,12 +37,14 @@ import org.abora.gold.collection.sets.MuSet;
 import org.abora.gold.fbtest.BackendBootMaker;
 import org.abora.gold.fbtest.ShepherdBootMaker;
 import org.abora.gold.fbtest.WorksBootMaker;
+import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.java.missing.CxxSystemOrganization;
 import org.abora.gold.java.missing.ShepherdStub;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.negoti8.ProtocolBroker;
 import org.abora.gold.nkernel.FeServer;
 import org.abora.gold.snarf.DiskManager;
+import org.abora.gold.snfinfo.SnarfStatistics;
 import org.abora.gold.xcvr.Binary2XcvrMaker;
 import org.abora.gold.xcvr.BogusXcvrMaker;
 import org.abora.gold.xcvr.DiskIniter;
@@ -140,14 +143,50 @@ public class AboraStartup {
 		new WorksIniter().execute();
 	}
 
-	public void useRealDisk() {
+	
+	public void initializeRealDisk(final String filename) {
+		File file = new File(filename);
+		if (file.exists() && !file.delete()) {
+			throw new AboraRuntimeException("Failed to delete existing urdi: "+filename);
+		}
+
 		DiskIniter diskInitier = new DiskIniter() {
 			//TODO do something about the filename here...
 			{
+				this.myFilename = filename;
 				this.myCategory = AboraSupport.findCategory(BeGrandMap.class);
 			}
 		};
 		diskInitier.execute();
+	}
+	
+	public void useRealDisk(final String filename) {
+		dumpSnarfStatistics(filename);
+		DiskManager.make(filename).getInitialFlock();
+		
+//		HonestAbeIniter honestAbeIniter = new HonestAbeIniter() {
+//			//TODO do something properly here...
+//			{
+//				this.myCategory = AboraSupport.findCategory(BeGrandMap.class);
+//			}
+//		};
+//		honestAbeIniter.execute();
+		
+	}
+
+	private void dumpSnarfStatistics(final String filename) {
+		PrintWriter logger = AboraSupport.logger;
+		AboraSupport.logger = new PrintWriter(System.out);
+		try {
+			new SnarfStatistics() {
+				{
+					this.myFilename = filename;
+				}
+			}.execute();
+		} finally {
+			AboraSupport.logger.flush();
+			AboraSupport.logger = logger;
+		}
 	}
 
 	public void useFakeDisk() {

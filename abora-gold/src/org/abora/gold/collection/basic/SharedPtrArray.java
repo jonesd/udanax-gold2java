@@ -14,6 +14,7 @@ import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.exception.AboraRuntimeException;
 import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class SharedPtrArray extends PtrArray {
@@ -30,6 +31,11 @@ public class SharedPtrArray extends PtrArray {
 	protected SharedPtrArray(int count) {
 		super(count);
 	}
+	
+	public SharedPtrArray(Rcvr rcvr) {
+		super(rcvr);
+	}
+
 
 	protected SharedPtrArray(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		super(size, from, sourceOffset, count, destOffset);

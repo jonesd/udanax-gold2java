@@ -135,7 +135,13 @@ public class AboraClass extends Heaper {
 	}
 
 	public boolean isEqualOrSubclassOf(AboraClass class1) {
-		throw new UnsupportedOperationException();
+		if (this == class1) {
+			return true;
+		} else if (parentClass != null) {
+			return parentClass.isEqualOrSubclassOf(class1);
+		} else {
+			return false;
+		}
 	}
 	
 	public Class getJavaClass() {

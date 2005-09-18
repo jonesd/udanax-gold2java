@@ -7,7 +7,7 @@
  * Copyright 1979-1999 Udanax.com. All rights reserved
  */
 
-package org.abora.gold.java.missing;
+package org.abora.gold.java.urdi;
 
 import java.io.PrintWriter;
 
@@ -33,26 +33,42 @@ public class SnarfHandle extends Heaper {
 	}
 	
 	public UInt8Array getDataP() {
+		//TODO should this be aliased on our internal data, or a clone?
+//		mustBeWritable();
+		return array;
+	}
+
+	private void mustBeWritable() {
 		if (!isWritable()) {
 			throw new AboraRuntimeException("Must be writeable");
 		}
-		return array;
 	}
 	
 	public int getSnarfID() {
 		return snarfId;
 	}
+	
 	public int getDataSize() {
 		return array.count();
 	}
+	
 	public void makeWritable() {
+		if (writable) {
+			return;
+		}
+		array = (UInt8Array)array.copy();
 		writable = true;
 	}
+	
 	public void moveBytes(int source, int destination, int count) {
 		//TODO implementation/arguments/efficiency?
+		mustBeWritable();
 		if (source == destination) {
 			//TODO does this indicate a problem in the caller?
 			return;
+		}
+		if (source > destination) {
+			throw new IllegalArgumentException("destination="+destination+" after source="+source);
 		}
 		for (int i = 0; i < count; i++) {
 			int value = array.at(source+i);
@@ -62,6 +78,7 @@ public class SnarfHandle extends Heaper {
 		}
 	}
 	public void put32(int bytePosition, int value) {
+		mustBeWritable();
 		array.storeInt32(bytePosition, value);
 	}
 	public boolean isWritable() {
@@ -72,6 +89,21 @@ public class SnarfHandle extends Heaper {
 		oo.print(getAboraClass().name());
 		oo.print("(");
 		oo.print(snarfId);
+		oo.print(",");
+		oo.print(isWritable() ? "Write" : "Read");
 		oo.print(")");
 	}
+
+	//TODO review the access/requirement of this method
+	protected UInt8Array contents() {
+		mustBeWritable();
+
+		return array;
+	}
+
+	public UInt8Array getData() {
+			//TODO should this be aliased on our internal data, or a clone?
+			mustBeWritable();
+			return getDataP();
+		}
 }

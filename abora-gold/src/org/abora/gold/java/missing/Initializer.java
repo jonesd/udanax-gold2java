@@ -10,9 +10,8 @@
 package org.abora.gold.java.missing;
 
 import org.abora.gold.java.missing.smalltalk.Array;
-import org.abora.gold.xpp.basic.Heaper;
 
-public class Initializer extends Heaper {
+public class Initializer {
 
 	public Initializer() {
 		super();

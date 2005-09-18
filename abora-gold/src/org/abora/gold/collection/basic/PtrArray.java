@@ -15,6 +15,8 @@ import java.io.PrintWriter;
 import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 public class PtrArray extends PrimArray {
@@ -32,6 +34,16 @@ public class PtrArray extends PrimArray {
 		super();
 		storage = new Heaper[count];
 	}
+	
+	public PtrArray(Rcvr rcvr) {
+		super(rcvr);
+		int count = rcvr.receiveUInt32();
+		storage = new Heaper[count];
+		for (int i = 0; i < storage.length; i++) {
+			store(i, rcvr.receiveHeaper());
+		}
+	}
+
 
 	protected PtrArray(int size, PrimArray from, int sourceOffset, int count, int destOffset) {
 		this(size);
@@ -981,4 +993,14 @@ public class PtrArray extends PrimArray {
 	//private void nullEntry() {
 	//	throw new UnsupportedOperationException();
 	//}
+	
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+		xmtr.sendUInt32(count());
+		for (int i = 0; i < storage.length; i++) {
+			Heaper value = storage[i];
+			xmtr.sendHeaper(value);
+		}
+	}
+
 }

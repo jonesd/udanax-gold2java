@@ -12,10 +12,10 @@ package org.abora.gold.collection.basic;
 
 import java.io.PrintWriter;
 
-import org.abora.gold.java.AboraSupport;
 import org.abora.gold.java.exception.AboraRuntimeException;
-import org.abora.gold.java.missing.smalltalk.Set;
 import org.abora.gold.x.PrimSpec;
+import org.abora.gold.xcvr.Rcvr;
+import org.abora.gold.xcvr.Xmtr;
 import org.abora.gold.xpp.basic.Heaper;
 
 /**
@@ -35,6 +35,10 @@ public abstract class PrimArray extends Heaper {
 	 */
 	protected PrimArray() {
 		super();
+	}
+	
+	public PrimArray(Rcvr rcvr) {
+		super(rcvr);
 	}
 
 	/**
@@ -608,4 +612,11 @@ public abstract class PrimArray extends Heaper {
 	 * @return zero element for this type of array
 	 */	
 	protected abstract Heaper zeroElement();
+	
+	public void sendSelfTo(Xmtr xmtr) {
+		super.sendSelfTo(xmtr);
+//		System.out.println("Ignor sendSelfTo() for: "+this);
+//		throw new UnsupportedOperationException();
+	}
+
 }
