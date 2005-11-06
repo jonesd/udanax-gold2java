@@ -374,5 +374,26 @@ public class UInt8Array extends PrimIntArray {
 	public void copyBytes(int source, int destination, int count) {
 		System.arraycopy(storage, source, storage, destination, count);
 	}
+	
+	public String toString() {
+		//TODO we mess around with contents of bytearray to generate unsigned...
+		int arrayEnd = storage.length;
+		for (int i = 0; i < storage.length; i++) {
+			int value = storage[i];
+			if (value == 0) {
+				arrayEnd = i;
+				break;
+			}
+		}
+		if (arrayEnd > 0) {
+			return new String(storage, 0, arrayEnd);
+		} else {
+			return "[empty]";
+		}
+	}
+
+	public int compareTo(String string) {
+		return toString().compareTo(string);
+	}
 
 }

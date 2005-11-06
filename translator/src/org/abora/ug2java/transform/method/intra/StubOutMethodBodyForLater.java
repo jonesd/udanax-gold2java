@@ -49,10 +49,10 @@ public class StubOutMethodBodyForLater implements MethodTransformation {
 		set.add("Binary2Rcvr.getIdentifier");
 		//set.add("Recipe.Recipe");
 		set.add("SpecialistRcvr.basicReceiveInto");
-		set.add("TextyRcvr.receiveCategory");
-		set.add("TextyXmtr.sendCategory");
+//		set.add("TextyRcvr.receiveCategory");
+//		set.add("TextyXmtr.sendCategory");
 		set.add("Category.inheritsFrom");
-		set.add("Category.find");
+//		set.add("Category.find");
 		set.add("Category.create");
 //		set.add("Category.getCategory");
 		set.add("Package.registerPackageCategory");

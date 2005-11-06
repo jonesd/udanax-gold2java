@@ -78,7 +78,13 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		
 		list.add("ServerChunk.emulsion");
 		
+		list.add("TextyXmtr.sendCategory");
+		list.add("TextyRcvr.receiveCategory");
+		list.add("TextyRcvr.getIdentifier");
 		
+		list.add("ReadMemStream.getByte");
+		list.add("ReadMemStream.putBack");
+
 		//TODO only for tests...
 		list.add("translateOnly");
 
@@ -130,9 +136,16 @@ public class ChooseTransformOnly extends AbstractMethodBodyTransformation {
 		list.add("DiskSpecialist.sendHeaperTo");
 		list.add("SnarfPacker.purgeClean");
 		list.add("TestPacker.purgeClean");
-		list.add("ReadMemStream.getByte");
 		list.add("SensorCrum.printOn");
 		list.add("SplitLoaf.printOn");
+		
+		list.add("TextyXmtr.sendIEEEDoubleVar");
+		list.add("TextyXmtr.sendInt32");
+		list.add("TextyXmtr.sendInt8");
+		list.add("TextyXmtr.sendIntegerVar");
+		list.add("TextyXmtr.sendUInt32");
+		list.add("TextyXmtr.sendUInt8");
+
 		
 		//TODO debug/halt messages
 		list.add("SnarfRecord.dismantleFlock");

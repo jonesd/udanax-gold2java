@@ -43,6 +43,7 @@ import org.abora.gold.java.missing.ShepherdStub;
 import org.abora.gold.java.missing.smalltalk.AboraClass;
 import org.abora.gold.negoti8.ProtocolBroker;
 import org.abora.gold.nkernel.FeServer;
+import org.abora.gold.rcmain.SetDiskProtocol;
 import org.abora.gold.snarf.DiskManager;
 import org.abora.gold.snfinfo.SnarfStatistics;
 import org.abora.gold.xcvr.Binary2XcvrMaker;
@@ -149,6 +150,14 @@ public class AboraStartup {
 		if (file.exists() && !file.delete()) {
 			throw new AboraRuntimeException("Failed to delete existing urdi: "+filename);
 		}
+		
+		// Force text format for debugging
+//		SetDiskProtocol diskProtocol = new SetDiskProtocol() {
+//			{
+//				myName = "texty";
+//			}
+//		};
+//		diskProtocol.execute();
 
 		DiskIniter diskInitier = new DiskIniter() {
 			//TODO do something about the filename here...

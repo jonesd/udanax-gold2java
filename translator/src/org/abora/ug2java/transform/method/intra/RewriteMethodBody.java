@@ -28,6 +28,8 @@ public class RewriteMethodBody implements MethodTransformation {
 			rewriteBinary2RcvrEndPacket(javaMethod);
 		} else if (javaMethod.getQualifiedSignature().equals("Abraham.restartAbraham(Rcvr)")) {
 			rewriteAbrahamRestartAbraham(javaMethod);
+		} else if (javaMethod.getQualifiedName().equals("Category.find")) {
+			rewriteCategoryFind(javaMethod);
 		}
 	}
 
@@ -91,5 +93,28 @@ public class RewriteMethodBody implements MethodTransformation {
 		tokens.add(new JavaStatementTerminator());
 		
 		method.methodBody = new MethodBody(tokens);
+	}
+
+	/**
+	 * The original version of this is very Smalltalk specific, making extensive use 
+	 * of the Smalltalk SystemDictionary for access to globals. Rewrite to use
+	 * AboraSupport mechanisms. 
+	 */
+	public void rewriteCategoryFind(JavaMethod method) {
+		
+		List tokens = new ArrayList();
+		tokens.add(new JavaComment("Transform: Rewrote body"));
+		
+		tokens.add(new JavaKeyword("return"));
+		tokens.add(new JavaIdentifier("AboraSupport"));
+		tokens.add(new JavaCallKeywordStart("findCategory"));
+		tokens.add(new JavaIdentifier("catName"));
+		tokens.add(new JavaCallStart("toString"));
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaCallEnd());
+		tokens.add(new JavaStatementTerminator());
+		
+		method.methodBody = new MethodBody(tokens);
+		method.returnType = "Category";
 	}
 }

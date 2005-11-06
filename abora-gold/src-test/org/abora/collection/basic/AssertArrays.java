@@ -253,15 +253,8 @@ public class AssertArrays {
 		return PtrArray.make(new Heaper[] {IntegerPos.make(1), IntegerPos.make(2), IntegerPos.make(3), IntegerPos.make(2), IntegerPos.make(1)});
 	}
 
-	public static void assertStringContents(String string, UInt8Array array) {
-		String actual = new String(array.gutsOfByteArray());
-		int arrayEnd = actual.indexOf('\0');
-		if (arrayEnd != -1) {
-			actual = actual.substring(0, arrayEnd);
-		}
-		array.noMoreGuts();
-		
-		Assert.assertEquals(string, actual);
+	public static void assertStringContents(String expected, UInt8Array actualArray) {
+		Assert.assertEquals(expected, actualArray.toString());
 		
 	}
 

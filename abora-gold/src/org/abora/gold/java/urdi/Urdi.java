@@ -34,10 +34,10 @@ public class Urdi extends Heaper {
 	
 	private UrdiView lastView = null;
 	
-	private static final int DEFAULT_TOTAL_SNARFS = 32;
+	private static final int DEFAULT_TOTAL_SNARFS = 64;
 	
 	//TODO guess at size. Seems like it needs to be a multiple of 4 in size
-	protected static final int SNARF_SIZE = 4000;
+	protected static final int SNARF_SIZE = 32000;
 	
 	public Urdi(String filename, int lruCount) {
 		super();

@@ -45,6 +45,7 @@ public class ActualCopyRecipe extends CopyRecipe {
 		Class receiverClass = categoryOfDish().brotherClass().getJavaClass();
 		Constructor constructor = receiverClass.getConstructor(new Class[] {Rcvr.class});
 //		rcvr.registerIbid(heaper); // TODO pushed into Heaper(Rcvr) - probably totally wrong!
+		System.out.println("Parse: "+constructor);
 		Heaper heaper = (Heaper) constructor.newInstance(new Object[] {rcvr});
 		//TODO receive heaper.receive(rcvr);
 		return heaper;
