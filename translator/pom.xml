@@ -26,16 +26,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>udanax-gold2java-translator</artifactId>
+	<artifactId>translator</artifactId>
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>info.dgjones.abora</groupId>
-		<artifactId>udanax-gold2java</artifactId>
+		<groupId>info.dgjones.abora.ug2java</groupId>
+		<artifactId>parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<name>udanax-gold2java-translator</name>
+	<name>translator</name>
 
 	<properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

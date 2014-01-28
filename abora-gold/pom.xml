@@ -26,16 +26,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>udanax-gold2java-abora</artifactId>
+	<artifactId>abora-gold</artifactId>
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>info.dgjones.abora</groupId>
-		<artifactId>udanax-gold2java</artifactId>
+		<groupId>info.dgjones.abora.ug2java</groupId>
+		<artifactId>parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<name>udanax-gold2java-abora</name>
+	<name>abora-gold</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -85,7 +85,7 @@
 			            <phase>process-sources</phase>
 			            <configuration>
 			            <includes>
-			            	<include>target/generated-sources/translator</include>
+			            	<include>target/generated-sources/translator/**</include>
 			            </includes>
 			            </configuration>
 			          </execution>
@@ -141,8 +141,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>info.dgjones.abora</groupId>
-			<artifactId>udanax-gold2java-translator</artifactId>
+			<groupId>info.dgjones.abora.ug2java</groupId>
+			<artifactId>translator</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
