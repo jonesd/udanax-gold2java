@@ -3,9 +3,7 @@
 The UdanaxGold2Java project contains a number of sub-components
 related to converting the released Udanax-Gold Smalltalk and C++
 source code by XOC into Java. The aim is to provide a first pass
-automatic translation of as much of the code as possible. The end
-result is *NOT* compilable but may prove useful for non-Smalltalk users
-who are interested in reading the Udanax-Gold source code.
+automatic translation of as much of the code as possible.
 
 The `udanax-gold` sub-directory holds a few versions of the Udanax-Gold
 source code as supplied by XOC. This code was released under a MIT
