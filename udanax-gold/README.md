@@ -1,5 +1,4 @@
-UdanaxGold2Java - Udanax-Gold
------------------------------
+# UdanaxGold2Java - Udanax-Gold
 
 This directory holds the source code to Udanax-Gold as released by
 XOC. It is used by the translator application to generate approximate
@@ -36,6 +35,10 @@ subclasses. Found in the CVS section of Jeff Rush's website.
 http://www.sunless-sea.net
 
 
-Copyright 2003 David G Jones
-mailto:david_jones@night.dircon.co.uk
-http://www.abora.org
+## Copyright and licence
+
+Abora Gold is Copyright 2003, 2014 David G Jones
+
+Licensed under MIT X-11.
+
+Substantial portions of the code are from the Udanax-Gold project and are Copyright 1979-1999 Udanax.com and licensed under MIT-X11. 

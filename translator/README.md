@@ -1,12 +1,7 @@
-UdanaxGold2Java - Translator
-----------------------------
+# UdanaxGold2Java - Translator
 
 The Translator is a small Java app to automatically translate from the
-Udanax-Gold Smalltalk(ish) source code into (approximate) Java. The
-end result will *NOT* be compilable (currently ~500 compilation
-problems), but may prove useful for non-Smalltalk users who are
-interested in reading the Udanax-Gold code and also forms the basis of my
-AboraWhite project.
+Udanax-Gold Smalltalk(ish) source code into Java. 
 
 Translating from Smalltalk source code to Java code is normally a very
 difficult proposition as Smalltalk source does not include declared
@@ -14,39 +9,30 @@ types. Thankfully as a requirement for XOCs own translator to C++, or
 their variant, the typing information is present in the source code.
 
 
-Using the Translator
---------------------
+## Using the Translator
 
-The easiest route to using the Translator is the Ant build.xml file
-present in this directory.
+The translator is exercised by running the parent maven install.
 
-Once you have Java JDK 1.4+, Ant 1.5.1+, JUnit 3.8.1 set up, just run
-the following from the command line:
-
-> ant
+> cd ..
+> mvn clean install
 
 You should see some logging info summarising the walk through of a
 number of source Smalltalk files, and a larger number of generated
 Java files. The process should take less than a minute on a reasonable
 machine. You should find approximately 500 classes generated.
 
-The generated Java files are placed in ../abora-gold/src-gen directory
-under the org.abora.gold java package. 
-
-If you 
-
-> ant translate
+The generated Java files are placed in `../abora-gold/target/generated-sources/translator` directory
+under the info.dgjones.abora.gold java package. 
 
 
-Extending the Translator
-------------------------
+## Extending the Translator
 
 Good Luck! This code was meant to be a throw away weekend project but
 I had to end up extending it quite significantly. Still there isn't
 too much code here, and there is some test coverage of the in-method
 transformations.
 
-The JUnit tests are present in the org.abora.ug2java.tests.TestWriteMethod
+The JUnit tests are present in the `info.dgjones.abora.ug2java.tests.TestWriteMethod`
 class, and can be run courtesy of ant:
 
 > ant test
@@ -95,8 +81,7 @@ the method together with the file and line number from where it came
 to help with further manual corrections as may be needed later.
 
 
-Future Translator Improvements
-------------------------------
+## Future Translator Improvements
 
 I'm not sure how much further effort I am going to expend on the
 translator, but considering the level of Java compilation problems
@@ -124,13 +109,10 @@ on what should be happening - for example class attributes such as ON.CLIENT
 - Tidying up the code!
 
 
-Licence
--------
+## Copyright and licence
 
-The translator is written by David G Jones and the code is released
-under the MIT open-source licence.
+Abora Gold is Copyright 2003, 2014 David G Jones
 
+Licensed under MIT X-11.
 
-Copyright 2003-2005 David G Jones
-mailto:david_jones@night.dircon.co.uk
-http://www.abora.org
+Substantial portions of the code are from the Udanax-Gold project and are Copyright 1979-1999 Udanax.com and licensed under MIT-X11. 
