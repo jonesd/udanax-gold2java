@@ -1,0 +1,153 @@
+<!--
+
+    The MIT License
+    Copyright (c) 2003 David G Jones
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>udanax-gold2java-abora</artifactId>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>info.dgjones.abora</groupId>
+		<artifactId>udanax-gold2java</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+
+	<name>udanax-gold2java-abora</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+ 		<udanaxgold.dir>${basedir}/../udanax-gold</udanaxgold.dir>
+<!-- 		<udanaxgold.dir>/Users/jonesd/code/info.dgjones/abora/udanax-gold2java/udanax-gold2java-udanax</udanaxgold.dir> -->
+		<translated.dir>${basedir}/target/generated-sources/translator</translated.dir>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<header>com/mycila/maven/plugin/license/templates/MIT.txt</header>
+					<properties>
+						<owner>David G Jones</owner>
+						<year>${project.inceptionYear}</year>
+						<email>david@dgjones.info</email>
+					</properties>
+					<excludes>
+						<exclude>**/README</exclude>
+						<exclude>src/test/resources/**</exclude>
+						<exclude>src/main/resources/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+			         <execution>
+			            <id>translator</id>
+			            <goals>
+			              <goal>format</goal>
+			            </goals>
+			            <phase>process-sources</phase>
+			            <configuration>
+			            <includes>
+			            	<include>target/generated-sources/translator</include>
+			            </includes>
+			            </configuration>
+			          </execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>info.dgjones.abora.ug2java.TranslateSmalltalk</mainClass>
+					<arguments>
+						<argument>${translated.dir}</argument>
+						<argument>${udanaxgold.dir}/udanax-top.st</argument>
+						<argument>${udanaxgold.dir}/Xanadu-wparray.st</argument>
+						<argument>${udanaxgold.dir}/Xanadu-Xpp-Basic.st</argument>
+						<argument>${udanaxgold.dir}/Xanadu-Xpp-Become.st</argument>
+						<argument>${udanaxgold.dir}/Xanadu-Xpp-Converters.st</argument>
+						<argument>${udanaxgold.dir}/Xanadu-Xpp-fluid.st</argument>
+						<argument>${udanaxgold.dir}/Xanadu-Xpp-Packages.st</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-sources/translator</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>info.dgjones.abora</groupId>
+			<artifactId>udanax-gold2java-translator</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+</project>
