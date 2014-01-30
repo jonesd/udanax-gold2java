@@ -1,22 +1,25 @@
 # UdanaxGold2Java - Abora-Gold
 
-Abora-Gold is just my name for the combination of auto and manual
-translation of the Udanax-Gold open-source released by XOC. It is
-*NOT* compilable but my prove useful for non-Smalltalk users who are
-interested in reading the Udanax-Gold source code.
+Abora-Gold is a Java implementation composed of both automatic and manual
+translation of the Udanax-Gold open-source released by XOC. The result is
+incomplete but sufficient to run many of the automated tests that were 
+included with the released Udanax-Gold code base.
 
-See ../translator/README.md for generating Java source.
+The source code is broken down into the following directories:
 
-There are two source directories present.
-
-- src is the location for the code which I manually translated from
-C++ for PrimArray and subclasses - this is broken. Additionally there
+- src/main/java is the location for the code which was manually translated from
+C++ for PrimArray and subclasses . Additionally there
 are a number of place-holder classes for classes which haven't seen to
 have been released yet by XOC
 
-- src-gen is the location of the classes auto-translated from
-Smalltalk by my translator. It will only be present if you have run
-the translator.
+- src/generated-source/translator is the location of the classes auto-translated from
+Smalltalk by the translator.
+
+- src/test/java is the location of manually created unit tests that were written
+for Abora-Gold's manually created implementation classes. In addition the Udanax-Gold
+supplied `xTester` classes are included as part of `src/generated-source/translator` while
+the trace result files that they match against are present in `src/test/resources/traces`
+directory.
 
 
 ## Technical
@@ -87,7 +90,7 @@ TableEntry's are created through one of a pair of create factory methods.
 - TableEntry.make(Position key, Heaper value)
 
 
-## Copyright and licence
+## Copyright and Licence
 
 Abora Gold is Copyright 2003, 2014 David G Jones
 

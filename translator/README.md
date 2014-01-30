@@ -14,14 +14,14 @@ their variant, the typing information is present in the source code.
 The translator is exercised by running the parent maven install.
 
 > cd ..
-> mvn clean install
+> mvn clean install -Dtranslate
 
 You should see some logging info summarising the walk through of a
 number of source Smalltalk files, and a larger number of generated
 Java files. The process should take less than a minute on a reasonable
 machine. You should find approximately 500 classes generated.
 
-The generated Java files are placed in `../abora-gold/target/generated-sources/translator` directory
+The generated Java files are placed in `../abora-gold/src/generated-sources/translator` directory
 under the info.dgjones.abora.gold java package. 
 
 
@@ -33,9 +33,9 @@ too much code here, and there is some test coverage of the in-method
 transformations.
 
 The JUnit tests are present in the `info.dgjones.abora.ug2java.tests.TestWriteMethod`
-class, and can be run courtesy of ant:
+class, and can be run courtesy of maven:
 
-> ant test
+> mvn test
 
 
 TranslateSmalltalk.main(...) is the entry point taking an output
@@ -109,7 +109,7 @@ on what should be happening - for example class attributes such as ON.CLIENT
 - Tidying up the code!
 
 
-## Copyright and licence
+## Copyright and Licence
 
 Abora Gold is Copyright 2003, 2014 David G Jones
 

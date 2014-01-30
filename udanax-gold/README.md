@@ -35,7 +35,7 @@ subclasses. Found in the CVS section of Jeff Rush's website.
 http://www.sunless-sea.net
 
 
-## Copyright and licence
+## Copyright and Licence
 
 Abora Gold is Copyright 2003, 2014 David G Jones
 

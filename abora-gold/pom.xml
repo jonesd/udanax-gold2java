@@ -118,50 +118,8 @@
 							<goal>format</goal>
 						</goals>
 					</execution>
-					<!-- 
-			         <execution>
-			            <id>translator</id>
-			            <goals>
-			              <goal>format</goal>
-			            </goals>
-			            <phase>process-sources</phase>
-			            <configuration>
-			            <includes>
-			            	<include>src/generated-sources/translator/**</include>
-			            </includes>
-			            </configuration>
-			          </execution>
-			           -->
 				</executions>
 			</plugin>
-			<!-- 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>info.dgjones.abora.ug2java.TranslateSmalltalk</mainClass>
-					<arguments>
-						<argument>${translated.dir}</argument>
-						<argument>${udanaxgold.dir}/udanax-top.st</argument>
-						<argument>${udanaxgold.dir}/Xanadu-wparray.st</argument>
-						<argument>${udanaxgold.dir}/Xanadu-Xpp-Basic.st</argument>
-						<argument>${udanaxgold.dir}/Xanadu-Xpp-Become.st</argument>
-						<argument>${udanaxgold.dir}/Xanadu-Xpp-Converters.st</argument>
-						<argument>${udanaxgold.dir}/Xanadu-Xpp-fluid.st</argument>
-						<argument>${udanaxgold.dir}/Xanadu-Xpp-Packages.st</argument>
-					</arguments>
-				</configuration>
-			</plugin>
-			 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>

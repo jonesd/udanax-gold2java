@@ -26,12 +26,18 @@ translated source.
 To build abora-gold you will need to have Java + Maven installed.
 
     mvn clean install
-    
-As part of the install process the translator will generate 500 Java
-classes from the Udanax-Gold source, and will put them in the
-abora-gold/target/generated-sources/translator directory. You may
-add that directory to your IDE src path.
 
+The result of translating the Udanax-Gold Smalltalk source to Java
+can be found in the `abora-gold/src/generated-sources/translator`.
+
+To regenerate the translated Smalltalk again, following a change
+to the translator code or any of the source Smalltalk files:
+
+    mvn clean install -Dtranslate
+
+You may wish to add the `abora-gold/src/generated-sources/translator`
+directory to your IDE's src path.
+    
 
 ## Contact
 
@@ -40,7 +46,7 @@ david@dgjones.info
 https://github.com/jonesd/udanax-gold2java
 
 
-## Copyright and licence
+## Copyright and Licence
 
 Abora Gold is Copyright 2003, 2014 David G Jones
 
