@@ -5,6 +5,8 @@ related to converting the released Udanax-Gold Smalltalk and C++
 source code by XOC into Java. The aim is to provide a first pass
 automatic translation of as much of the code as possible.
 
+[![Build Status](https://travis-ci.org/jonesd/udanax-gold2java.png?branch=master)](https://travis-ci.org/jonesd/udanax-gold2java)
+
 The `udanax-gold` sub-directory holds a few versions of the Udanax-Gold
 source code as supplied by XOC. This code was released under a MIT
 open-source licence.
