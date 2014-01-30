@@ -315,12 +315,16 @@ public class ClassWriter {
 	private String extract(String text, int start, int endExclusive) {
 		int starti = Math.min(start, text.length()-1);
 		int endi = Math.min(endExclusive, text.length());
-		String highlight = text.substring(starti, endi);
-
-		highlight = highlight.replace('\n', '.');
-		highlight = highlight.replace('\r', '.');
-		highlight = highlight.replace('\t', '.');
-		return highlight;
+		if (starti >= 0 && endi >= 0) {
+			String highlight = text.substring(starti, endi);
+	
+			highlight = highlight.replace('\n', '.');
+			highlight = highlight.replace('\r', '.');
+			highlight = highlight.replace('\t', '.');
+			return highlight;
+		} else {
+			return "";
+		}
 	}
 
 	private void writeContents(String contents, File javaFile) throws IOException {
