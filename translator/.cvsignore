@@ -1,8 +1,0 @@
-bin
-dist
-build
-.settings
-.xdoclet
-xdoclet-build.xml
-tool
-.clover_coverage
