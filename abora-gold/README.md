@@ -5,6 +5,8 @@ translation of the Udanax-Gold open-source released by XOC. The result is
 incomplete but sufficient to run many of the automated tests that were 
 included with the released Udanax-Gold code base.
 
+For more information on Abora see: http://abora.dgjones.info/
+
 The source code is broken down into the following directories:
 
 - src/main/java is the location for the code which was manually translated from

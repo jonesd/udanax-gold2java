@@ -3,6 +3,8 @@
 The Translator is a small Java app to automatically translate from the
 Udanax-Gold Smalltalk(ish) source code into Java. 
 
+For more information on Abora see: http://abora.dgjones.info/
+
 Translating from Smalltalk source code to Java code is normally a very
 difficult proposition as Smalltalk source does not include declared
 types. Thankfully as a requirement for XOCs own translator to C++, or

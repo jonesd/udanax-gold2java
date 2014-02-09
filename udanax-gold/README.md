@@ -4,6 +4,8 @@ This directory holds the source code to Udanax-Gold as released by
 XOC. It is used by the translator application to generate approximate
 Java translation which I have called abora-gold.
 
+For more information on Abora see: http://abora.dgjones.info/
+
 A number of files are present here as it has been a struggle to find a
 complete set of Udanax-Gold source files. All the following files are
 originally from XOC but gained from a number of locations. I believe
