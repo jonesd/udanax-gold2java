@@ -43,6 +43,23 @@ You may wish to add the `abora-gold/src/generated-sources/translator`
 directory to your IDE's src path.
     
 
+## Where this work continued
+
+This repository holds the first-pass automatic translation of the
+released Udanax-Gold Smalltalk into Java. The line of work has since
+continued:
+
+- Readable documentation of the Gold model - 35+ concept tables mapping
+  the model term by term (tumblers, enfilades, crums), plus a build
+  order through the code:
+  https://dgjones.info/xudanu/gold-heritage.html
+- Xudanu, an independent Rust implementation of the same document model
+  (Apache 2.0; not affiliated with Project Xanadu or the Udanax team):
+  https://github.com/jonesd/xudanu - live sandbox at
+  https://demo.transclusion.org
+- A verified census of xanalogical systems, every entry sourced and
+  dated: https://dgjones.info/xudanu/xanalogical-census.html
+
 ## Contact
 
 david@dgjones.info
